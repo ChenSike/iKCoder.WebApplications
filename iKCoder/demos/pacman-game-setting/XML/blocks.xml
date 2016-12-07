@@ -1,10 +1,10 @@
 ﻿<xml id="toolbox" style="display: none">
-  <category name="Settings" colour="210">
-    <block type="pacman_map_wall_detail"></block>
-    <!--<block type="pacman_map_wall_end"></block>-->
-    <block type="pacman_map_goods_detail"></block>
-    <block type="pacman_npc_detail"></block>
-    <block type="pacman_coord_number"></block>
-    <block type="pacman_coord_random"></block>
-  </category>
+  <!--<category name="Settings" colour="210">-->
+  <block type="pacman_map_wall_detail"></block>
+  <!--<block type="pacman_map_wall_end"></block>-->
+  <block type="pacman_map_goods_detail"></block>
+  <block type="pacman_npc_detail"></block>
+  <block type="pacman_coord_number"></block>
+  <block type="pacman_coord_random"></block>
+  <!--</category>-->
 </xml>

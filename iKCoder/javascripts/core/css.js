@@ -155,7 +155,7 @@ Blockly.Css.CONTENT = [
     '-webkit-user-select: none;',
     '-ms-user-select: none;',
   '}',
-
+  //ikcoder: Tooltip
   '.blocklyTooltipDiv {',
     'background-color: #ffffc7;',
     'border: 1px solid #ddc;',
@@ -190,7 +190,7 @@ Blockly.Css.CONTENT = [
     'stroke: #fc3;',
     'stroke-width: 4px;',
   '}',
-
+  //ikcoder: block Path Light
   '.blocklyPathLight {',
     'fill: none;',
     'stroke-linecap: round;',
@@ -225,12 +225,14 @@ Blockly.Css.CONTENT = [
   '.blocklyDisabled>.blocklyPathDark {',
     'display: none;',
   '}',
-
+  //ikcoder: block text
   '.blocklyText {',
     'cursor: default;',
     'fill: #fff;',
-    'font-family: sans-serif;',
-    'font-size: 11pt;',
+    //'font-family: sans-serif;',
+    //'font-size: 11pt;',
+    'font-family: verdana;',
+    'font-size: 10px;',
   '}',
 
   '.blocklyNonEditableText>text {',
@@ -342,7 +344,7 @@ Blockly.Css.CONTENT = [
     'stroke: #ddd;',
     'stroke-width: 1;',
   '}',
-
+  //ikcoder: toolbox collapser
   '.blocklyFlyoutBackground {',
     'fill: #ddd;',
     'fill-opacity: .8;',
@@ -424,7 +426,7 @@ Blockly.Css.CONTENT = [
   '.blocklyWidgetDiv .goog-option-selected .goog-menuitem-icon {',
     'background: url(<<<PATH>>>/sprites.png) no-repeat -48px -16px !important;',
   '}',
-
+  //ikcoder: toolbox
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
     'background-color: #ddd;',

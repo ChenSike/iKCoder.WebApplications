@@ -30,7 +30,7 @@ Blockly.Blocks['pacman_map_wall_detail'] = {
             .appendField(new Blockly.FieldNumber(1, 2, 28, 1), "pacman_map_wall_detail_y_e");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setTooltip('');
+        this.setTooltip('aaaaaaaaaaaaaaaaaa');
         this.setHelpUrl('http://www.example.com/');
     }
 };
