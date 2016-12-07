@@ -429,13 +429,18 @@ td {
     display: inline-block;
 }
 
-.game-container {
+.game-container-wap {
     /*height: 587px;
     width: 508px;
     padding: 7px 1px 12px 7px;*/
     margin: 12px 6px 16px 12px;
     height: 578px;
     width: 498px;
+}
+
+.game-container {
+    width: 498px;
+    height: 578px;
 }
 
 .msg-center-container {
@@ -526,6 +531,10 @@ td {
     height: 25px;
     line-height: 25px;
 }
+
+    .footer-item::after {
+        content: "aaaaaaaaaaaaaa";
+    }
 
 .code-viewer-area {
     height: 302px;

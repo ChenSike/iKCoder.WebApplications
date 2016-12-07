@@ -81,11 +81,14 @@ PacMan.init = function () {
             media: '/ikcoder/media/',
             rtl: false,
             toolbox: blocksXMLDoc,
-            grid: {
-                spacing: 25,
-                length: 3,
-                colour: '#ccc',
-                snap: true
+            //grid: {
+            //    spacing: 25,
+            //    length: 3,
+            //    colour: '#ccc',
+            //    snap: true
+            //},
+            customCfg: {
+                background_color: '#ff0000'
             },
             zoom: {
                 controls: true,
@@ -122,6 +125,8 @@ PacMan.init = function () {
     }
 
     PacMan.renderContent();
+    ChangeStyleSheet(".blocklyToolboxDiv", { 'background-color': 'blue' });
+    ChangeStyleSheet(".blocklyTreeRow:not(.blocklyTreeSelected):hover", { 'background-color': '#604df0' });
     PacMan.workspace.setVisible(true);
     Blockly.svgResize(PacMan.workspace);
 

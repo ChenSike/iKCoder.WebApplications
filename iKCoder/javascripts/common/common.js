@@ -44,4 +44,35 @@ function CloneObject(source) {
     }
 
     return newObj;
-} 
+}
+
+function ChangeStyleSheet(selector, newStyle) {
+    var flag = false;
+    var sheets = document.styleSheets;
+    try {
+        for (var j = 0; j < sheets.length; j++) {
+            for (var i = 0; i < sheets[j].rules.length; i++) {
+                if (sheets[j].rules[i].selectorText == selector) {
+                    var style = sheets[j].rules[i].style;
+                    for (var key in newStyle) {
+                        style[key] = newStyle[key];
+                    }
+
+                    flag = true;
+                }
+            }
+        }
+
+        if (!flag) {
+            var sheet = sheets[sheets.length - 1];
+            var newRuleStr = "";
+            for (var key in newStyle) {
+                newRuleStr += key + ":" + newStyle[key] + ";";
+            }
+            sheet.addRule(selector, newRuleStr, sheet.rules.length);
+        }
+    }
+    catch (ex) {
+        var message = ex;
+    }
+}
