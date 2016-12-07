@@ -1,0 +1,6 @@
+﻿<xml id="toolbox" style="display: none">
+  <block type="pacman_man"></block>
+  <block type="pacman_turnto"></block>
+  <block type="pacman_movestep"></block>
+  <!--<block type="pacman_stop"></block>-->
+</xml>

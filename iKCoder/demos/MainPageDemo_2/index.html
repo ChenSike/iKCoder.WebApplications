@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="/ikcoder/javascripts/common/storage.js"></script>
+    <script src="/ikcoder/javascripts/common/xmloperator.js"></script>
+    <script src="/ikcoder/javascripts/common/common.js"></script>
+    <script src="/ikcoder/javascripts/blockly_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/blocks_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/javascript_uncompressed.js"></script>
+    <script src="/ikcoder/msg/messages.js"></script>
+    <script src="scripts/Blocks/blocks.js"></script>
+    <script src="scripts/Engine/game_engine.js"></script>
+    <script src="scripts/Scene/scene.js"></script>
+    <script src="scripts/pacman.js"></script>
+    <script type="text/javascript">
+        function testTextWidth(sourceTagId) {
+            var sourceTag = document.getElementById(sourceTagId);
+            if (!sourceTag) {
+                return -1;
+            }
+
+            var testDiv = document.getElementById("div_test_text_widht");
+            if (!testDiv) {
+                testDiv = document.createElement("div");
+                testDiv.id = "div_test_text_widht";
+                testDiv.style.position = "absolute";
+                testDiv.style.left = "-10000px";
+                testDiv.style.top = "-10000px";
+                testDiv.style.width = "auto";
+                document.body.appendChild(testDiv);
+            }
+
+            testDiv.style.fontFamily = sourceTag.style.fontFamily;
+            testDiv.style.fontSize = sourceTag.style.fontSize;
+            testDiv.style.fontWeight = sourceTag.style.fontWeight;
+            testDiv.innerHTML = sourceTag.innerHTML;
+
+            return testDiv.clientWidth;
+        }
+
+        function setTextHorizontalScroll(sourceTagId, maxWidth) {
+            var sourceTag = document.getElementById(sourceTagId);
+            if (!sourceTag) {
+                return;
+            }
+            if (testTextWidth(sourceTagId) < maxWidth) {
+                sourceTag.className = sourceTag.className.replace("text-horizontal-scrolling", "");
+            } else {
+                sourceTag.className += " text-horizontal-scrolling";
+            }
+        }
+    </script>
+</head>
+<body>
+    <table class="table main">
+        <tr>
+            <td colspan="2">
+                <div class="title-container">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="button share"></div>
+                                <div class="text label title">主题 : 吃豆子</div>
+                                <div class="button devliver"></div>
+                                <div class="information-container">
+                                    <table class="table informations">
+                                        <tr>
+                                            <td colspan="3"><div class="text">Welcome Back: </div></td>
+                                            <td colspan="3"><div class="text username" id="info_username">Tom</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="text">难度: </div></td>
+                                            <td><div class="text difficulte" id="info_difficulte">入门</div></td>
+                                            <td><div class="text">热度: </div></td>
+                                            <td><div class="text heat" id="info_heat"></div></td>
+                                            <td><div class="text">完成度: </div></td>
+                                            <td><div class="text completeness" id="info_completeness">50%</div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="button home"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="function-container">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="text button normal loading">加载</div>
+                                <div class="text button normal save">保存</div>
+                                <div class="text button normal restart">重新开始</div>
+                                <div class="text label current">进    度 : </div>
+                                <div id="current_step" class="icon step list">
+                                    <table border="0">
+                                        <tr>
+                                            <td><div class="step-round passed"><div id="step-1" class="step-round-center passed"></div></div></td>
+                                            <td><div class="step-round current"><div id="step-2" class="step-round-center current">2</div></div></td>
+                                            <td><div class="step-round"><div id="step-3" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-4" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-5" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-6" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-7" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-8" class="step-round-center"></div></div></td>
+                                            <td><div class="step-round"><div id="step-9" class="step-round-center"></div></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="text button normal login"><img class="icon login" src="images/Icons/login.fw.png"><span>登 录</span></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="mission-note container">
+                    <div id="mission_note_text" class="text mission-note-text">
+                        邪恶的怪物会吃掉吃豆人，请设计一个路线，让吃豆人逃脱怪物的追杀。
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2">
+                <div id="game_container" class="game-container">                                  
+                </div>
+            </td>
+            <td>
+                <div class="msg-center-container">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="label message"></div>
+                                <div class="text button normal message">进入消息中心</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="text message-content">
+                                    Alex 对 Tom 说 : 我已经完成了赛车, 发布到PLAYSTOTE上了, 你呢?<br />
+                                    Tom 对 Alex 说 : 我已经快完成50%了?
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="text message-input"><input id="message_input_txt" name="message" type="text" value="@Alex 我一会儿去找你"></div>
+                                <div class="text button normal send-msg">发送</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="8">
+                <table class="workspace">
+                    <tr>
+                        <td style="height:40px;">
+                            <div class="label module"></div>
+                        </td>
+                        <td>
+                            <div class="label workspace"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="content_area">
+                                <div id="content_blocks" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="split-line-space"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="button-container">
+                    <div class="text button normal fullscreen">全屏</div>
+                    <div id="runButton" class="text button normal startrun">运行</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><div class="split-line-space"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="button-container">
+                    <div class="button direction up"></div>
+                    <div class="button direction down"></div>
+                    <div class="button direction left"></div>
+                    <div class="button direction right"></div>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td><div class="split-line-space"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="text notify">
+                    Need Help? 学习提示
+                    <br>
+                    Step 1 :
+                    <br>
+                    Step 2 :
+                    <br>
+                    Step 3 :
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><div class="split-line-space"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="text new-arrive title">
+                    <div id="newarrie_title_english" class="text new-arrive title english">
+                        What's new ? Follow me.
+                    </div>
+                    <div id="newarrie_title_chinese" class="text new-arrive title chinese">
+                        看看还有什么新东西
+                    </div>
+                </div>
+            </td>
+            <td rowspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="label code-area"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="code-viewer-area">
+                                <textarea id ="content_javascript" class="code-viewer-text"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="newarrie_content" class="text new-arrive content">
+                    看看还有什么新东西
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="split-line-space footer">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="text footer">
+                    <table>
+                        <tr>
+                            <td><div class="text footer header">iKCoder Edu Tech. | 专注儿童逻辑教育</div></td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <div class="text footer content">
+                                    <table>
+                                        <tr>
+                                            <td><div class="footer-item">关于iKCoder</div></td>
+                                            <td><div class="footer-item">联系我们</div></td>
+                                            <td><div class="footer-item">T&A TECH框架</div></td>
+                                            <td><div class="footer-item">T&A TECH框架</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="footer-item">诚聘英才</div></td>
+                                            <td><div class="footer-item">加盟实体体验中心</div></td>
+                                            <td><div class="footer-item">T&A 云计算</div></td>
+                                            <td><div class="footer-item"></div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="footer-item">投资关系</div></td>
+                                            <td><div class="footer-item">下载中心</div></td>
+                                            <td>
+                                                <div class="footer-item"> </div>
+                                            </td>
+                                            <td>
+                                                <div class="footer-item"> </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="footer-item"></div></td>
+                                            <td><div class="footer-item">法律声明</div></td>
+                                            <td><div class="footer-item"></div></td>
+                                            <td><div class="footer-item"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="text footer end">深圳市IKCODER技术有限公司 IKCODER.Co.(SHENZHRN)</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

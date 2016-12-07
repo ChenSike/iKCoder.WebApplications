@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="google" value="notranslate" />
+    <title>Pac-Man</title>
+    <style>
+        .icon21 {
+            height: 21px;
+            width: 21px;
+            background-image: url(images/icons.png);
+        }
+
+        .trash {
+            background-position: 0px 0px;
+        }
+
+        .run {
+            background-position: -42px 0px;
+        }
+
+        .reset {
+            background-position: 0px 0px;
+            height: 21px;
+            width: 21px;
+            background-image: url(images/referesh.png);
+        }
+
+        .content {
+            margin: 0;
+            padding: 1ex;
+            direction: ltr;
+            height: 100%;
+        }
+
+        pre.content {
+            border: 1px solid #ccc;
+            overflow: scroll;
+        }
+
+        #canvas_content {
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script src="/ikcoder/javascripts/common/storage.js"></script>
+    <script src="/ikcoder/javascripts/common/xmloperator.js"></script>
+    <script src="/ikcoder/javascripts/blockly_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/blocks_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/javascript_uncompressed.js"></script>
+    <script src="/ikcoder/msg/messages.js"></script>
+    <script src="javascripts/Blocks/blocks.js"></script>
+    <script src="javascripts/Engine/game_engine.js"></script>
+    <script src="javascripts/Scene/scene.js"></script>
+    <script src="javascripts/pacman.js"></script>
+</head>
+<body>
+    <table width="100%" height="100%">
+        <tr>
+            <td colspan="2">
+                <h1>
+                    <span id="mytitle" style="font-family:Verdana; font-size: 24px; font-weight:bold; color:dodgerblue;">My Demo - Pac-Man Advance</span>
+                </h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="trashButton" title="Trash">
+                    <img src='../../media/1x1.gif' class="trash icon21">
+                </button>
+                <button id="runButton" title="Run">
+                    <img src='../../media/1x1.gif' class="run icon21">
+                </button>
+                <button id="resetButton" title="Reset" value="Reset">
+                    <img src='../../media/1x1.gif' class="reset">
+                </button>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table width="100%">
+                    <tr>
+                        <td height="20" width="50%">
+                            <span style="font-family:Verdana;font-size:16px;font-weight:bold; color:brown">Blockly Build</span>
+                        </td>
+                        <td height="20">
+                            <span style="font-family:Verdana;font-size:16px;font-weight:bold; color:brown">Scene</span>
+                        </td>
+                    </tr>
+                    <tr height="450">
+                        <td>
+                            <div style="height:450px;" id="content_area">
+                                <div id="content_blocks" />
+                            </div>
+                        </td>
+                        <td rowspan="3">
+                            <div id="canvas_content">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="font-family:Verdana;font-size:16px;font-weight:bold; color:brown">Code Preview</span>
+                        </td>
+                    </tr>
+                    <tr height="280">
+                        <td>
+                            <pre id="content_javascript" class="content"></pre>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

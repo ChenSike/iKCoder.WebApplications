@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Pac-Man</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="/ikcoder/javascripts/common/storage.js"></script>
+    <script src="/ikcoder/javascripts/common/xmloperator.js"></script>
+    <script src="/ikcoder/javascripts/common/common.js"></script>
+    <script src="/ikcoder/javascripts/blockly_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/blocks_uncompressed.js"></script>
+    <script src="/ikcoder/javascripts/javascript_uncompressed.js"></script>
+    <script src="/ikcoder/msg/messages.js"></script>
+    <script src="javascripts/Blocks/blocks.js"></script>
+    <script src="javascripts/Engine/game_engine.js"></script>
+    <script src="javascripts/Scene/scene.js"></script>
+    <script src="javascripts/pacman.js"></script>
+</head>
+<body style="margin: auto;width: 1200px;">
+    <table width="100%" height="100%">
+        <tr>
+            <td colspan="3" width="100%" height="50">
+                <table class="top-title" width="100%" height="50">
+                    <tr>
+                        <td width="130"><img class="logo" src="/ikcoder/media/logo/logowhite.png" /></td>
+                        <td width="10"><div class="split-line-title"></div></td>
+                        <td class="text">线上体验课</td>
+                        <td />
+                        <td class="text" style="width:200px;">PAC-MAN : 吃豆子大战</td>
+                        <td>
+                            <div class="stage-state">
+                                <table>
+                                    <tr>
+                                        <td><div class="stage-round passed"><div id="stage-1" class="stage-round-center passed"></div></div></td>
+                                        <td><div class="stage-round current"><div id="stage-2" class="stage-round-center current">2</div></div></td>
+                                        <td><div class="stage-round"><div id="stage-3" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-4" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-5" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-6" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-7" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-8" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-9" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-10" class="stage-round-center"></div></div></td>
+                                        <td><div class="stage-round"><div id="stage-11" class="stage-round-center"></div></div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td />
+                        <td align="right">
+                            <table>
+                                <tr>
+                                    <td style="width:75px;"><div class="round text">保存</div></td>
+                                    <td style="width:75px;"><div class="round text">载入</div></td>
+                                    <td style="width:75px;"><div class="round text">分享</div></td>
+                                    <td style="width:75px;"><div class="round text">登出</div></td">
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15">
+                <div style="width:100%; height:3px; background-color:rgb(91,152,207);"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td colspan="3">
+                                        <div id="game_container" class="game_container"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="35" align="left" width="85">
+                                        <div class="round text run"><div class="run-button">运行</div></div>
+                                    </td>
+                                    <td align="left" width="85">
+                                        <div class="round text run"><div class="run-button">暂停</div></div>
+                                    </td>
+                                    <td align="left">
+                                        <div class="round text run"><div class="run-button">重来</div></div>
+                                    </td>
+                                    <!--<td align="right">
+                                        <div class="round orientation left"></div>
+                                        <div class="round orientation right"></div>
+                                        <div class="round orientation up"></div>
+                                        <div class="round orientation down"></div>
+                                    </td>-->
+                                </tr>
+                                <tr>
+                                    <td height="20" colspan="3">
+                                        <div class="split-line "></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" colspan="3">
+                                        <div class="round orientation left"></div>
+                                        <div class="round orientation right"></div>
+                                        <div class="round orientation up"></div>
+                                        <div class="round orientation down"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="20" colspan="3">
+                                        <div class="split-line "></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <div id="stepTitle" class="text help title">
+                                            STEPS:
+                                        </div>
+                                        <div id="stepContent" class="text help content">
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。<br>
+                                            STEP 1 :  看看下面的提示吧。
+                                        </div>
+                                    </td>
+                                    <!--<td><div class="text help title">需要帮助吗？</div></td>
+                                    <td><div class="text help content">看看下面的提示吧。</div></td>-->
+                                </tr>
+                                <tr>
+                                    <!--<td colspan="2"><img src="images/vadio.png" width="400" height="210" /></td>-->
+                                </tr>
+                                <tr>
+                                    <!--<td colspan="2"><a href="#" class="text help">PAC-MAN : 建立路线并躲避障碍的技巧</a></td>-->
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td><div style="width:10px; height:200px;"><div></td>
+            <td>
+                <div id="workspace" class="round">
+                    <table width="100%" height="100%">
+                        <tr>
+                            <td height="50">
+                                <div><img src="images/pacman.png" width="55" height="65"></div>
+                            </td>
+                            <td>
+                                <div id="stage-note" class="text">本关出现了邪恶的小怪物！请设计路线帮助你的吃豆人躲开小怪物的进攻。</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table width="100%" height="100%">
+                                    <tr>
+                                        <td height="30" width="100%">
+                                            <div class="text workspace-title model">
+                                                <span>模块</span>
+                                                <div class="text workspace-title workarea">
+                                                    <span class="text workspace-button first">
+                                                        从头开始
+                                                    </span>
+                                                    <span class="text workspace-button second">
+                                                        查看代码
+                                                    </span>
+                                                    <span>
+                                                        工作区
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div id="content_area">
+                                                <div id="content_blocks" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" height="15">
+                <div style="width:100%; height:3px; background-color:rgb(91,152,207);"></div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

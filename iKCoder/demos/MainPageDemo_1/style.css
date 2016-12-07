@@ -1,0 +1,289 @@
+﻿
+
+.top-title {
+    background-color: rgb(91,152,207);
+}
+
+.logo {
+    width: 120px;
+    height: 50px;
+}
+
+.text {
+    font-family: 微软雅黑;
+    font-size: 16px;
+    color: #edebeb;
+}
+
+.split-line-title {
+    width: 2px;
+    height: 30px;
+    background-color: white;
+}
+
+.round {
+    padding: 10px;
+    width: 50px;
+    height: 12px;
+    background-color: rgb(255,164,0);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+    .round.text {
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+        .round.text:hover {
+            background-color: #ff9800;
+        }
+
+.stage-state {
+    background-color: rgb(231,232,234);
+    padding: 5px;
+    width: 200px;
+    height: 25px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding-left: 0px;
+}
+
+.stage-round {
+    margin-left: 4px;
+    background-color: rgb(185,207,190);
+    width: 10px;
+    height: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.stage-round-center {
+    margin-left: 2px;
+    margin-top: 2px;
+    background-color: rgb(255,255,255);
+    width: 6px;
+    height: 6px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.stage-round.passed {
+    background-color: rgb(185,207,190);
+    width: 14px;
+    height: 14px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    display: inline-block;
+    margin-top: 2px;
+    margin-left: 4px;
+}
+
+.stage-round-center.passed {
+    margin-left: 2px;
+    margin-top: 2px;
+    background-color: rgb(14,190,14);
+    width: 10px;
+    height: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.stage-round.current {
+    margin-top: -2px;
+    width: 24px;
+    height: 24px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+.stage-round-center.current {
+    margin-left: 2px;
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-family: 微软雅黑;
+    font-size: 10px;
+    color: white;
+    background-color: rgb(14,190,14);
+}
+
+.game_container {
+    width: 410px;
+    height: 480px;
+}
+
+.run-button {
+    display: inline-block;
+    /*background: url(images/run.png);*/
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 25px;
+    /*padding-left: 20px;*/
+}
+
+.round.text.run {
+    /*padding: 6px 5px 5px 15px;*/
+    padding: 0px;
+    width: 75px;
+    height: 25px;
+    line-height: 20px;
+}
+
+.round.orientation {
+    padding: 0px;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255,164,0);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .round.orientation.left {
+        background: url(images/left.png);
+        background-repeat: no-repeat;
+        background-color: rgb(255,164,0);
+    }
+
+    .round.orientation.right {
+        background: url(images/right.png);
+        background-repeat: no-repeat;
+        background-color: rgb(255,164,0);
+    }
+
+    .round.orientation.up {
+        background: url(images/up.png);
+        background-repeat: no-repeat;
+        background-color: rgb(255,164,0);
+    }
+
+    .round.orientation.down {
+        background: url(images/down.png);
+        background-repeat: no-repeat;
+        background-color: rgb(255,164,0);
+    }
+
+.help {
+    color: black;
+}
+
+    .help.content {
+        height: 200px;
+        font-size: 12px;
+        padding-top: 5px;
+        overflow-y: scroll;
+    }
+
+a.help {
+    font-size: 14px;
+    color: blue;
+}
+
+#workspace.round {
+    background-color: rgb(221,221,221);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 760px;
+    height: 100%;
+}
+
+.workspace-icon {
+    background: url(images/pacman.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 85px;
+    height: 95px;
+}
+
+#stage-note {
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 60px;
+    width: 98%;
+}
+
+
+    #stage-note.text {
+        color: rgb(91,152,207);
+    }
+
+td {
+    padding: 0px;
+}
+
+.split-line {
+    width: 100%;
+    height: 3px;
+    background-color: rgb(91,152,207);
+}
+
+#content_area {
+    width: 760px;
+    height: 100%;
+}
+
+.workspace-title {
+    background-color: rgb(134,183,227);
+    padding-left: 20px;
+    padding-top: 10px;
+    height: 30px;
+    line-height: 20px;
+}
+
+    .workspace-title.model {
+        border-top-left-radius: 10px;
+        -moz-border-top-left-radius: 10px;
+        -webkit-border-top-left-radius: 10px;
+    }
+
+    .workspace-title.workarea {
+        background-color: rgb(91,152,207);
+        margin-left: 100px;
+        display: inline-block;
+        padding-top: 5px;
+        width: 563px;
+        text-align: right;
+        padding-right: 20px;
+        height: 25px;
+        border-top-right-radius: 10px;
+        -moz-border-top-right-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+    }
+
+.text.workspace-button {
+    font-size: 12px;
+    background-color: rgb(166,155,193);
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 1px 10px 1px 10px;
+}
+
+    .text.workspace-button.first {
+        margin-right: 10px;
+    }
+
+    .text.workspace-button.second {
+        margin-right: 340px;
+    }
