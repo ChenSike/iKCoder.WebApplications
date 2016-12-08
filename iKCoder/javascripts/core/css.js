@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * Visual Blocks Editor
  *
@@ -231,8 +231,8 @@ Blockly.Css.CONTENT = [
     'fill: #fff;',
     //'font-family: sans-serif;',
     //'font-size: 11pt;',
-    'font-family: verdana;',
-    'font-size: 10px;',
+    'font-family: microsoft yahei;',
+    'font-size: 11px;',
   '}',
 
   '.blocklyNonEditableText>text {',
@@ -346,8 +346,8 @@ Blockly.Css.CONTENT = [
   '}',
   //ikcoder: toolbox collapser
   '.blocklyFlyoutBackground {',
-    'fill: #ddd;',
-    'fill-opacity: .8;',
+    'fill: #00ff00;',
+    'fill-opacity: .6;',
   '}',
 
   '.blocklyScrollbarBackground {',

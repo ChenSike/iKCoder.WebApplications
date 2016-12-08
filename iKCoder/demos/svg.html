@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">    
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <table border="1" style="border:solid 1px red; border-collapse:collapse; border-spacing:unset;width:100%;">
+        <tr>
+            <td height="100">
+                <div>
+                    <table>
+                        <tr>
+                            <td rowspan="2">
+                                <textarea id="pathTxt" style="width:600px; height:100px;"></textarea>
+                            </td>
+                            <td>
+                                <select id="selectColor">
+                                    <option>#ff0000</option>
+                                    <option>#00ff00</option>
+                                    <option>#0000ff</option>
+                                    <option>#000000</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button onclick="draw();">draw</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="container" style="width:660px; height:800px; border:solid 1px blue;">
+                    <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="width: 660px; height: 800px; display: block;">
+
+                    </svg>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        function draw() {
+            var txtEl = document.getElementById("pathTxt");
+            var selectEl = document.getElementById("selectColor");
+            var pathString = txtEl.value;
+            var color = selectEl.value;
+
+            var svgEl = document.getElementById('svg');
+            var subSvgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            //subSvgEl.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+            //subSvgEl.setAttribute('xmlns:html', "http://www.w3.org/1999/xhtml");
+            //subSvgEl.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
+            //subSvgEl.setAttribute('version', "1.1");
+            subSvgEl.style.width = "200px";
+            subSvgEl.style.height = "140px";
+            subSvgEl.setAttribute('x',"150px");
+            subSvgEl.setAttribute('y', "50px");
+
+            //subSvgEl.style.display = "block";
+            subSvgEl.setAttribute('viewBox', "0 0 250 250");
+            //var groupEl = document.getElementById('group');
+            //svgEl.appendChild(groupEl);
+            var groupEl = document.createElementNS('http://www.w3.org/2000/svg','g');
+
+            var pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            //pathEl.id = "svgpath" + Math.random(1000, 9999);
+            //var pathEl = document.getElementById('svgpath');
+            //if (!pathEl) {
+            //    pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            //}
+
+            if (pathString.trim().lastIndexOf('z') == pathString.trim().length - 1) {
+                pathEl.setAttribute('fill', color);
+                pathEl.setAttribute('stroke', "");
+            } else {
+                pathEl.setAttribute('stroke', color);
+                pathEl.setAttribute('fill', "");
+            }
+
+            pathEl.innerHTML = "";
+            pathEl.setAttribute('d', "");
+            pathEl.setAttribute('d', pathString);
+
+            groupEl.appendChild(pathEl);
+            subSvgEl.appendChild(groupEl);
+            svgEl.appendChild(subSvgEl);
+        }
+        //stroke="#8ca6c0"
+    </script>
+</body>
+</html>
