@@ -1264,6 +1264,11 @@ Blockly.WorkspaceSvg.prototype.updateGridPattern_ = function () {
     }
     // MSIE freaks if it sees a 0x0 pattern, so set empty patterns to 100x100.
     var safeSpacing = (this.options.gridOptions['spacing'] * this.scale) || 100;
+    var useCustomBg = false;
+    if (this.options.customCfg && this.options.customCfg.background_path) {
+        safeSpacing = this.options.customCfg.background_path.spacing;
+        useCustomBg = true;
+    }
     this.options.gridPattern.setAttribute('width', safeSpacing);
     this.options.gridPattern.setAttribute('height', safeSpacing);
     var half = Math.floor(this.options.gridOptions['spacing'] / 2) + 0.5;
@@ -1274,33 +1279,35 @@ Blockly.WorkspaceSvg.prototype.updateGridPattern_ = function () {
     half *= this.scale;
     start *= this.scale;
     end *= this.scale;
-    if (line1) {
-        if (line1.tagName.toLowerCase() == "rect") {
-            line1.setAttribute('x', 0);
-            line1.setAttribute('y', 0);
-            line1.setAttribute('width', safeSpacing * 2);
-            line1.setAttribute('height', safeSpacing * 2);
-        } else {
-            line1.setAttribute('stroke-width', tmpWidth);
-            line1.setAttribute('x1', start);
-            line1.setAttribute('y1', half);
-            line1.setAttribute('x2', end);
-            line1.setAttribute('y2', half);
+    if (!useCustomBg) {
+        if (line1) {
+            if (line1.tagName.toLowerCase() == "rect") {
+                line1.setAttribute('x', 0);
+                line1.setAttribute('y', 0);
+                line1.setAttribute('width', safeSpacing * 2);
+                line1.setAttribute('height', safeSpacing * 2);
+            } else {
+                line1.setAttribute('stroke-width', tmpWidth);
+                line1.setAttribute('x1', start);
+                line1.setAttribute('y1', half);
+                line1.setAttribute('x2', end);
+                line1.setAttribute('y2', half);
+            }
+            //var tmpWidth = this.scale;
+            //if (this.options.customCfg && this.options.customCfg.background_color) {
+            //    start = 0;
+            //    half = 0;
+            //    end = safeSpacing * 2;
+            //    tmpWidth = safeSpacing * 2;
+            //}
         }
-        //var tmpWidth = this.scale;
-        //if (this.options.customCfg && this.options.customCfg.background_color) {
-        //    start = 0;
-        //    half = 0;
-        //    end = safeSpacing * 2;
-        //    tmpWidth = safeSpacing * 2;
-        //}
-    }
-    if (line2) {
-        line2.setAttribute('stroke-width', this.scale);
-        line2.setAttribute('x1', half);
-        line2.setAttribute('y1', start);
-        line2.setAttribute('x2', half);
-        line2.setAttribute('y2', end);
+        if (line2) {
+            line2.setAttribute('stroke-width', this.scale);
+            line2.setAttribute('x1', half);
+            line2.setAttribute('y1', start);
+            line2.setAttribute('x2', half);
+            line2.setAttribute('y2', end);
+        }
     }
 };
 

@@ -166,26 +166,31 @@ Blockly.createDom_ = function (container, options) {
         <rect stroke="#888" />
       </pattern>
     */
-    var gridPattern = Blockly.createSvgElement('pattern',
-        {
+    var tmpPara = { 'id': 'blocklyGridPattern' + rnd, 'patternUnits': 'userSpaceOnUse' };
+    if (options.customCfg && options.customCfg.background_path) {
+        tmpPara = {
             'id': 'blocklyGridPattern' + rnd,
-            'patternUnits': 'userSpaceOnUse'
-        }, defs);
+            'patternUnits': 'userSpaceOnUse',
+            'width': options.customCfg.background_path.spacing,
+            'height': options.customCfg.background_path.spacing
+        };
+    }
+
+    var gridPattern = Blockly.createSvgElement('pattern', tmpPara, defs);
     if (options.customCfg) {
         if (options.customCfg.background_color) {
-            Blockly.createSvgElement('rect',
-                { 'fill': options.customCfg.background_color },
-                gridPattern);
+            Blockly.createSvgElement('rect', {'fill': options.customCfg.background_color }, gridPattern);
+        } else if (options.customCfg.background_path) {
+            var tmpRef = options.customCfg.background_path;
+            var spacing = tmpRef.spacing;
+            Blockly.createSvgElement('rect', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color }, gridPattern);
+            Blockly.createSvgElement('path', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color, 'stroke-width': 1, 'stroke': tmpRef.path.color, 'd': tmpRef.path.path }, gridPattern);
         }
     } else {
         if (options.gridOptions['length'] > 0 && options.gridOptions['spacing'] > 0) {
-            Blockly.createSvgElement('line',
-                { 'stroke': options.gridOptions['colour'] },
-                gridPattern);
+            Blockly.createSvgElement('line', { 'stroke': options.gridOptions['colour'] }, gridPattern);
             if (options.gridOptions['length'] > 1) {
-                Blockly.createSvgElement('line',
-                    { 'stroke': options.gridOptions['colour'] },
-                    gridPattern);
+                Blockly.createSvgElement('line', { 'stroke': options.gridOptions['colour'] }, gridPattern);
             }
             // x1, y1, x1, x2 properties will be set later in updateGridPattern_.
         }

@@ -346,7 +346,7 @@ Blockly.Css.CONTENT = [
   '}',
   //ikcoder: toolbox collapser
   '.blocklyFlyoutBackground {',
-    'fill: #00ff00;',
+    'fill: #ddd;',
     'fill-opacity: .6;',
   '}',
 

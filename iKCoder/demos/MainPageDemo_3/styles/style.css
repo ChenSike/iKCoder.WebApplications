@@ -1,0 +1,204 @@
+﻿body {
+    margin: auto;
+    background-color: rgb(85,85,85);
+    min-width: 1200px;
+    min-height: 930px;
+}
+
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    padding: 0px;
+}
+
+div {
+    width: 100%;
+}
+
+.text {
+    font-family: 微软雅黑;
+    font-size: 14px;
+    color: rgb(255,255,255);
+    text-align: center;
+}
+
+.page-header {
+    position: relative;
+    height: 80px;
+}
+
+.page-content {
+    position: relative;
+    min-height: 850px;
+}
+
+.page-header-title {
+    background-color: rgb(0,163,217);
+    height: 50px;
+}
+
+.page-header-function {
+    background-color: rgb(102,102,102);
+    height: 29px;
+    border-bottom:solid 1px rgb(0,163,217);
+}
+
+.button {
+    width: 80px;
+    height: 40px;
+    background: url(../images/Buttons/Button_Shares.fw.png);
+    position: relative;
+    left: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .button.share {
+        top: 2px;
+    }
+
+.text.title {
+    font-size: 18px;
+    text-align: left;
+}
+
+.text.title-english {
+    font-size: 12px;
+    text-align: left;
+}
+
+.text.current-scene {
+    font-size: 20px;
+    height: 38px;
+    width: 223px;
+    line-height: 38px;
+    border: solid 1px rgb(255,255,255);
+}
+
+.text.welcome {
+    font-size: 12px;
+    text-align: left;
+    min-width: 50px;
+    line-height: 20px;
+}
+
+    .text.welcome.username {
+        width: 200px;
+        line-height: 28px;
+    }
+
+.text.current-username {
+    font-size: 12px;
+    text-align: left;
+}
+
+.text.current-scene-info {
+    font-size: 12px;
+    text-align: center;
+}
+
+.button.home {
+    background: none;
+    height: 24px;
+    width: 15px;
+    border-left: solid 1px rgb(85,85,85);
+    padding: 12px 15px;
+}
+
+.button.login {
+    background: none;
+    background-color: rgb(0,163,217);
+    height: 29px;
+    width: 75px;
+    position: static;
+    margin-top: 1px;
+    line-height: 29px;
+    padding-left: 5px;
+}
+
+img.login {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: -10px;
+}
+
+div#currentHotIcon {
+    background: url(../images/Icons/sence_fire.fw.png);
+    display: inline-block;
+    width: 50px;
+    height: 14px;
+    position: relative;
+    top: 3px;
+}
+
+.login-text {
+    top: -5px;
+    display: inline-block;
+    width: 35px;
+    position: relative;
+}
+
+.text.button.scene {
+    margin-top: -5px;
+    width: 80px;
+    height: 22px;
+    background: url(../images/Buttons/Button_NormalSences.fw.png);
+    line-height: 22px;
+}
+
+    .text.button.scene:hover {
+        background: url(../images/Buttons/Button_NormalSencesHover.fw.png);
+    }
+
+    .text.button.scene.load {
+        top: 6px;
+    }
+
+img.load {
+    width: 14px;
+    height: 12px;
+    margin-top: 5px;
+    margin-left: -5px;
+}
+
+.scene-list {
+    width: 530px;
+    height: 22px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+    .scene-list.main {
+        position: relative;
+        /* margin-right: 10px; */
+        /* text-align: left; */
+        /* margin-left: 30px; */
+        left: 50px;
+        top: -1px;
+    }
+
+    .scene-list.item {
+        background-color: rgb(153,153,153);
+        position: relative;
+        display: inline-block;
+        line-height: 20px;
+        width: 100px;
+        text-align: center;
+        border: solid 1px rgb(255,255,255);
+    }
+
+        .scene-list.item.current {
+            background-color: rgb(0,178,45);
+        }
+
+.runing-content{
+    width:500px;    
+}
