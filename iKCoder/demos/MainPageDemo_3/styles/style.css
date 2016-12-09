@@ -46,7 +46,7 @@ div {
 .page-header-function {
     background-color: rgb(102,102,102);
     height: 29px;
-    border-bottom:solid 1px rgb(0,163,217);
+    border-bottom: solid 1px rgb(0,163,217);
 }
 
 .button {
@@ -199,6 +199,92 @@ img.load {
             background-color: rgb(0,178,45);
         }
 
-.runing-content{
-    width:500px;    
+.runing-content {
+    width: 500px;
+    border-right: solid 1px rgb(0,163,217);
+}
+
+.game-control {
+    height: 30px;
+    width: 500px;
+    background-color: rgb(221,221,221);
+}
+
+.button.fullscreen {
+    height: 24px;
+    width: 30px;
+    left: 0px;
+    margin-left: 10px;
+    background: url(../images/Buttons/Button_FullScrean.fw.png);
+    background-repeat: no-repeat;
+}
+
+.button.pause {
+    height: 30px;
+    width: 100px;
+    left: 0px;
+    background: url(../images/Buttons/Button_Pause.fw.png);
+}
+
+    .button.pause:hover {
+        background: url(../images/Buttons/Button_PauseHover.fw.png);
+    }
+
+
+.button.startrun {
+    height: 30px;
+    width: 100px;
+    left: 0px;
+    background: url(../images/Buttons/Button_Run.fw.png);
+}
+
+    .button.startrun:hover {
+        background: url(../images/Buttons/Button_RunHover.fw.png);
+    }
+
+.game-content {
+    height: 580px;
+    background-color: rgb(0,0,0);
+}
+
+.code-control {
+    height: 35px;
+}
+
+.text.label.code {
+    width: 100px;
+    background-color: rgb(221,221,221);
+    font-size: 12px;
+    color: rgb(0,44,178);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.text.button.scene.restore {
+    /*margin-right: 10px;*/
+}
+
+.code-content {
+    min-height: 205px;
+    border-top: solid 1px rgb(0,163,217);
+}
+
+textarea#codeContentTxt {
+    padding-left: 5px;
+    width: 490px;
+    min-height: 205px;
+    resize: none;
+    border: none;
+    background-color: rgb(85,85,85);
+}
+
+.blockly-content {
+    min-width: 698px;
+    min-height: 852px;
+    background-color: rgb(221,221,221);
+    /*margin-left:1px;*/
+    /*border: solid 1px rgb(0,163,217);
+    border-right:none;*/
 }

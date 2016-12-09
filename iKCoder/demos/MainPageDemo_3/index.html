@@ -171,12 +171,27 @@
     <div class="page-content">
         <table>
             <tr>
-                <td>
+                <td style="width:500px;">
                     <div class="runing-content">
                         <table>
                             <tr>
                                 <td>
-                                    <div class="game-control"></div>
+                                    <div class="game-control">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td style="width:30px;">
+                                                    <div class="button fullscreen"></div>
+                                                </td>
+                                                <td></td>
+                                                <td style="width:100px;">
+                                                    <div class="button pause"></div>
+                                                </td>
+                                                <td style="width:100px;">
+                                                    <div class="button startrun"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -185,7 +200,24 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><div class="code-control"></div></td>
+                                <td>
+                                    <div class="code-control">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td style="width:120px;">
+                                                    <div class="text label code">代码 | Code</div>
+                                                </td>
+                                                <td></td>
+                                                <td style="width:90px;">
+                                                    <div id="editCodeBtn" class="text button scene">编辑</div>
+                                                </td>
+                                                <td style="width:100px;">
+                                                    <div id="restoreCodeBtn" class="text button scene restore">恢复</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -197,7 +229,7 @@
                         </table>
                     </div>
                 </td>
-                <td>
+                <td style="min-width: 698px;">
                     <div class="blockly-content">
 
                     </div>
