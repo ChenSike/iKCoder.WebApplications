@@ -1238,8 +1238,7 @@ Blockly.BlockSvg.prototype.updateColour = function() {
     this.svgPathLight_.style.display = '';
     var hexLight = goog.color.rgbArrayToHex(goog.color.lighten(rgb, 0.3));
     var hexDark = goog.color.rgbArrayToHex(goog.color.darken(rgb, 0.2));
-      //this.svgPathLight_.setAttribute('stroke', hexLight);
-    this.svgPathLight_.setAttribute('stroke', "#000000");
+    this.svgPathLight_.setAttribute('stroke', hexLight);
     this.svgPathDark_.setAttribute('fill', hexDark);
   }
   this.svgPath_.setAttribute('fill', hexColour);

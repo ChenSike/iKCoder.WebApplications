@@ -231,8 +231,8 @@ Blockly.Css.CONTENT = [
     'fill: #fff;',
     //'font-family: sans-serif;',
     //'font-size: 11pt;',
-    'font-family: microsoft yahei;',
-    'font-size: 11px;',
+    'font-family: 微软雅黑;',
+    'font-size: 14px;',
   '}',
 
   '.blocklyNonEditableText>text {',
