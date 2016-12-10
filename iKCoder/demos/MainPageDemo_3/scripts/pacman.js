@@ -77,7 +77,8 @@ PacMan.init = function () {
     var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("xml/blocks.xml")));
     PacMan.workspace = Blockly.inject('content_blocks',
         {
-            collapse: true,
+            scrollbars: true,
+            collapse: false,
             media: '/ikcoder/media/',
             rtl: false,
             toolbox: blocksXMLDoc,
@@ -91,7 +92,19 @@ PacMan.init = function () {
                 background_path: {
                     spacing: 10,
                     color: '#666666',
-                    path: { color: '#757575', path: 'M 5,0 L 10,5 5,10 0,5 5,0' }
+                    path: {
+                        color: '#757575',
+                        path: 'M 5,0 L 10,5 5,10 0,5 5,0'
+                    }
+                },
+                toolbox_collapse: {
+                    border: {
+                        stroke: 'rgb(0,163,217)',
+                        width: 1
+                    },
+                    fill: 'rgb(221, 221, 221)',
+                    opacity: 1,
+                    radius: 0
                 }
             },
             zoom: {
@@ -139,7 +152,7 @@ PacMan.init = function () {
     //    }
     //);
 
-    PacMan.bindClick('runButton', PacMan.runJS);
+    PacMan.bindClick('startRunBtn', PacMan.runJS);
     //PacMan.bindClick('resetButton', PacMan.resetScene);
     onresize();
     Blockly.svgResize(PacMan.workspace);
@@ -182,7 +195,7 @@ PacMan.discard = function () {
 };
 
 PacMan.renderContent = function () {
-    var content = document.getElementById('content_javascript');
+    var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(PacMan.workspace);
     content.textContent = code;
     if (typeof prettyPrintOne == 'function') {
@@ -194,9 +207,13 @@ PacMan.renderContent = function () {
 
 PacMan.outputCode = function () {
     Scene.pause();
-    var content = document.getElementById('content_javascript');
+    var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(PacMan.workspace);
-    content.textContent = code;
+    content.value = code;
+}
+
+PacMan.pauseScene = function () {
+    Scene.pause();
 }
 
 PacMan.resetScene = function () {
@@ -214,4 +231,3 @@ PacMan.resetScene = function () {
     //Scene.Init('canvas_content', configs);
 }
 
-window.addEventListener('load', PacMan.init);
