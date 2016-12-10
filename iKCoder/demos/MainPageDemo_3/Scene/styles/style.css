@@ -1,0 +1,428 @@
+﻿body {
+    margin: auto;
+    background-color: rgb(85,85,85);
+    min-width: 1200px;
+    min-height: 930px;
+}
+
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    padding: 0px;
+}
+
+div {
+    width: 100%;
+}
+
+.text {
+    font-family: 微软雅黑;
+    font-size: 14px;
+    color: rgb(255,255,255);
+    text-align: center;
+}
+
+.page-header {
+    position: relative;
+    height: 80px;
+}
+
+.page-content {
+    position: relative;
+    min-height: 850px;
+}
+
+.page-header-title {
+    background-color: rgb(0,163,217);
+    height: 50px;
+}
+
+.page-header-function {
+    background-color: rgb(102,102,102);
+    height: 29px;
+    border-bottom: solid 1px rgb(0,163,217);
+}
+
+.button {
+    width: 80px;
+    height: 40px;
+    background: url(../images/Buttons/Button_Shares.fw.png);
+    position: relative;
+    left: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .button.share {
+        top: 2px;
+    }
+
+.text.title {
+    font-size: 18px;
+    text-align: left;
+}
+
+.text.title-english {
+    font-size: 12px;
+    text-align: left;
+}
+
+.text.current-scene {
+    font-size: 20px;
+    height: 38px;
+    width: 223px;
+    line-height: 38px;
+    border: solid 1px rgb(255,255,255);
+}
+
+.text.welcome {
+    font-size: 12px;
+    text-align: left;
+    min-width: 50px;
+    line-height: 20px;
+}
+
+    .text.welcome.username {
+        width: 200px;
+        line-height: 28px;
+    }
+
+.text.current-username {
+    font-size: 12px;
+    text-align: left;
+}
+
+.text.current-scene-info {
+    font-size: 12px;
+    text-align: center;
+}
+
+.button.home {
+    background: none;
+    height: 24px;
+    width: 15px;
+    border-left: solid 1px rgb(85,85,85);
+    padding: 12px 15px;
+}
+
+.button.login {
+    background: none;
+    background-color: rgb(0,163,217);
+    height: 29px;
+    width: 75px;
+    position: static;
+    margin-top: 1px;
+    line-height: 29px;
+    padding-left: 5px;
+}
+
+img.login {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: -10px;
+}
+
+div#currentHotIcon {
+    background: url(../images/Icons/sence_fire.fw.png);
+    display: inline-block;
+    width: 50px;
+    height: 14px;
+    position: relative;
+    top: 3px;
+}
+
+.login-text {
+    top: -5px;
+    display: inline-block;
+    width: 35px;
+    position: relative;
+}
+
+.text.button.scene {
+    margin-top: -5px;
+    width: 80px;
+    height: 22px;
+    background: url(../images/Buttons/Button_NormalSences.fw.png);
+    line-height: 22px;
+}
+
+    .text.button.scene:hover {
+        background: url(../images/Buttons/Button_NormalSencesHover.fw.png);
+    }
+
+    .text.button.scene.load {
+        top: 6px;
+    }
+
+img.load {
+    width: 14px;
+    height: 12px;
+    margin-top: 5px;
+    margin-left: -5px;
+}
+
+.scene-list {
+    width: 530px;
+    height: 22px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+    .scene-list.main {
+        position: relative;
+        /* margin-right: 10px; */
+        /* text-align: left; */
+        /* margin-left: 30px; */
+        left: 50px;
+        top: -1px;
+    }
+
+    .scene-list.item {
+        background-color: rgb(153,153,153);
+        position: relative;
+        display: inline-block;
+        line-height: 20px;
+        width: 100px;
+        text-align: center;
+        border: solid 1px rgb(255,255,255);
+    }
+
+        .scene-list.item.current {
+            background-color: rgb(0,178,45);
+        }
+
+.runing-content {
+    width: 500px;
+    border-right: solid 1px rgb(0,163,217);
+}
+
+.game-control {
+    height: 30px;
+    width: 500px;
+    background-color: rgb(221,221,221);
+}
+
+.button.fullscreen {
+    height: 24px;
+    width: 30px;
+    left: 0px;
+    margin-left: 10px;
+    background: url(../images/Buttons/Button_FullScrean.fw.png);
+    background-repeat: no-repeat;
+}
+
+.button.pause {
+    height: 30px;
+    width: 100px;
+    left: 0px;
+    background: url(../images/Buttons/Button_Pause.fw.png);
+}
+
+    .button.pause:hover {
+        background: url(../images/Buttons/Button_PauseHover.fw.png);
+    }
+
+
+.button.startrun {
+    height: 30px;
+    width: 100px;
+    left: 0px;
+    background: url(../images/Buttons/Button_Run.fw.png);
+}
+
+    .button.startrun:hover {
+        background: url(../images/Buttons/Button_RunHover.fw.png);
+    }
+
+.game-content {
+    height: 580px;
+    background-color: rgb(0,0,0);
+}
+
+.code-control {
+    height: 35px;
+}
+
+.text.label.code {
+    margin-left: 10px;
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    background-color: rgb(221,221,221);
+    color: rgb(0,45,178);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.text.button.scene.codebtn {
+    margin-top: 0px;
+}
+
+.code-content {
+    min-height: 205px;
+    border-top: solid 1px rgb(0,163,217);
+}
+
+textarea#codeContentTxt {
+    padding-left: 5px;
+    width: 490px;
+    min-height: 200px;
+    resize: none;
+    border: none;
+    background-color: rgb(85,85,85);
+}
+
+.blockly-content {
+    width: auto;
+    min-width: 698px;
+    min-height: 849px;
+    background-color: rgb(221,221,221);
+    margin: 1px;
+    border: solid 1px rgb(0,163,217);
+    border-right: none;
+}
+
+.text.tutorial {
+    color: rgb(102,102,102);
+    position: relative;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .text.tutorial.container {
+        border-bottom: solid 1px rgb(0,163,217);
+        height: 69px;
+    }
+
+    .text.tutorial.title {
+        font-size: 14px;
+        height: 24px;
+        width: 135px;
+        line-height: 24px;
+        padding-top: 15px;
+    }
+
+    .text.tutorial.steps {
+        font-size: 12px;
+        font-weight: normal;
+        height: 30px;
+        line-height: 12px;
+        width: 135px;
+    }
+
+    .text.tutorial.content {
+        text-align: left;
+        padding-left: 10px;
+        padding-top: 0px;
+        color: rgb(68,68,68);
+    }
+
+        .text.tutorial.content.title {
+            line-height: 25px;
+            height: 25px;
+            width: 450px;
+        }
+
+        .text.tutorial.content.detail {
+            font-size: 12px;
+            font-weight: normal;
+            height: 44px;
+            line-height: 20px;
+            overflow: hidden;
+        }
+
+.text-content {
+    top: 0px;
+    position: relative;
+}
+
+.button.tutorial-up {
+    top: 10px;
+    left: 0px;
+    height: 15px;
+    width: 20px;
+    background: url(../images/Buttons/tutorial_up.png);
+}
+
+.button.tutorial-down {
+    top: 30px;
+    left: 0px;
+    height: 15px;
+    width: 20px;
+    background: url(../images/Buttons/tutorial_down.png);
+}
+
+.text.blockly-title {
+    border-bottom: solid 1px rgb(0,163,217);
+    height: 24px;
+    color: rgb(0,45,178);
+}
+
+.label.blockly-content-title {
+    border: none;
+    padding-left: 20px;
+    width: 35px;
+    text-align: left;
+    line-height: 24px;
+}
+
+.icon.blockly-content-title {
+    position: relative;
+    border: none;
+    background: url(../images/Labels/blockly_title_label.png);
+    top: -22px;
+    left: 55px;
+    width: 20px;
+    height: 20px;
+}
+
+div#content_area {
+    min-height: 754px;
+    min-width: 775px;
+}
+
+div#content_blocks {
+    min-height: 754px;
+    min-width: 775px;
+}
+
+.saved-records {
+    width: 181px;
+    position: absolute;
+    background-color: rgba(221,221,221,0.8);
+    display: none;
+    z-index: 10000;
+    border: solid 1px rgb(0,163,217);
+}
+
+.records-list {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.records-list-item {
+    text-align: left;
+    font-size: 12px;
+    color: rgb(85,85,85);
+    height: 20px;
+    width: 170px;
+    line-height: 20px;
+    padding: 1px;
+    padding-left: 10px;
+}
+
+    .records-list-item:hover {
+        background-color: rgb(85,85,85);
+        color: rgb(221,221,221);
+    }
