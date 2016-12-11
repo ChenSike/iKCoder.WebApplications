@@ -1,0 +1,183 @@
+﻿body {
+    margin: auto;
+    background-color: rgb(85,85,85);
+    min-width: 1200px;
+    min-height: 930px;
+    border: solid 1px rgb(0,163,217);
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+}
+
+table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    padding: 0px;
+}
+
+div {
+    width: 100%;
+}
+
+.text {
+    font-family: 微软雅黑;
+    font-size: 14px;
+    color: rgb(255,255,255);
+    text-align: center;
+}
+
+.linkto {
+    cursor: pointer;
+}
+
+.page-header {
+    position: relative;
+    height: 126px;
+    border-bottom: solid 4px rgb(204,204,204);
+}
+
+.page-content {
+    position: relative;
+    min-height: 850px;
+}
+
+.page-footer {
+    position: relative;
+    height: 216px;
+    border-top: solid 4px rgb(204,204,204);
+}
+
+.foot-title {
+    font-size: 18px;
+    text-align: right;
+    position: relative;
+    right: 10px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.foot-company {
+    position: relative;
+    left: 10px;
+    text-align: left;
+    width: 375px;
+    padding-top: 3px;
+}
+
+.foot-bottom-space {
+    /*height: 20px;*/
+}
+
+.foot-images {
+    border-right: solid 1px rgb(255,255,255);
+}
+
+    .foot-images.space {
+        border: none;
+        height: 35px;
+    }
+
+td.foot-images.item {
+    border: none;
+    height: 40px;
+    width: 145px;
+}
+
+.foot-images.image {
+    border: none;
+    text-align: left;
+}
+
+.foot-images.kid-safe:after {
+    content: url(../images/Labels/KidSafe.fw.png);
+    cursor: pointer;
+}
+
+.foot-images.playstore:after {
+    content: url(../images/Labels/playstore.png);
+    cursor: pointer;
+}
+
+.foot-images.themestore:after {
+    content: url(../images/Buttons/Button_Playstore.fw.png);
+    cursor: pointer;
+}
+
+.foot-links.item {
+    width: 120px;
+}
+
+.foot-link-item {
+    height:30px;
+    line-height:30px;
+    text-align: left;
+}
+
+.text.r01c01:after {
+    content: "关于iKCoder";
+}
+
+.text.r01c02:after {
+    content: "联系我们";
+}
+
+.text.r01c03:after {
+    content: "T&A Tech框架";
+}
+
+.text.r01c04:after {
+    content: "TA儿童教育评估模型";
+}
+
+.text.r02c01:after {
+    content: "诚聘英才";
+}
+
+.text.r02c02:after {
+    content: "加盟实体体验中心";
+}
+
+.text.r02c03:after {
+    content: "T&A 云计算";
+}
+
+.text.r02c04:after {
+    content: "";
+}
+
+.text.r03c01:after {
+    content: "投资关系";
+}
+
+.text.r03c02:after {
+    content: "下载中心";
+}
+
+.text.r03c03:after {
+    content: "";
+}
+
+.text.r03c04:after {
+    content: "";
+}
+
+.text.r04c01:after {
+    content: "合作伙伴";
+}
+
+.text.r04c02:after {
+    content: "法律声明";
+}
+
+.text.r04c03:after {
+    content: "";
+}
+
+.text.r04c04:after {
+    content: "";
+}
