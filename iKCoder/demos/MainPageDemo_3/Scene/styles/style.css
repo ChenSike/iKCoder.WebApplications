@@ -388,12 +388,12 @@ textarea#codeContentTxt {
 
 div#content_area {
     min-height: 754px;
-    min-width: 775px;
+    min-width: 754px;
 }
 
 div#content_blocks {
     min-height: 754px;
-    min-width: 775px;
+    min-width: 754px;
 }
 
 .saved-records {

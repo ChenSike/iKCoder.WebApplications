@@ -70,7 +70,7 @@ PacMan.init = function () {
         el.style.height = bBox.height + 'px';
         el.style.height = (2 * bBox.height - el.offsetHeight) + 'px';
         el.style.width = bBox.width + 'px';
-        el.style.width = (2 * bBox.width - el.offsetWidth) + 'px';
+        el.style.width = (2 * bBox.width - el.offsetWidth-1) + 'px';
     };
 
     window.addEventListener('resize', onresize, false);
