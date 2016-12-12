@@ -198,7 +198,7 @@ div#currentLevelBlock {
         display: inline-block;
         border: none;
         height: 195px;
-        width: 1174px;
+        width: 1175px;
     }
 
     .page-header.adverts.content {
@@ -206,7 +206,7 @@ div#currentLevelBlock {
         left: 10px;
         top: 7px;
         height: 198px;
-        width: 1176px;
+        width: 1177px;
         border: solid 1px rgb(255,255,255);
     }
 
@@ -215,7 +215,7 @@ div#currentLevelBlock {
             left: 0px;
             top: 0px;
             height: 195px;
-            width: 1174px;
+            width: 1175px;
             border: solid 1px rgb(204,204,204);
             border-bottom-width: 2px;
             overflow: hidden;
@@ -233,25 +233,10 @@ div#currentLevelBlock {
         -o-animation: advertsroll 15s linear 3s infinite normal running;
     }
 
-div#header_adverts_0 {
-    background: url(../images/TmpAdv/Adv1.fw.png);
-}
-
-div#header_adverts_1 {
-    background: url(../images/TmpAdv/Adv2.fw.png);
-}
-
-div#header_adverts_2 {
-    background: url(../images/TmpAdv/Adv1.fw.png);
-}
-
-div#header_adverts_3 {
-    background: url(../images/TmpAdv/Adv2.fw.png);
-}
-
-div#header_adverts_4 {
-    background: url(../images/TmpAdv/Adv1.fw.png);
-}
+    .page-header.adverts.image.item {
+        height: 195px;
+        width: 1175px;
+    }
 
 @keyframes advertsroll {
     0% {
@@ -491,8 +476,4 @@ div#header_adverts_images_index_container {
 
         .page-header.adverts.image.index:hover::after {
             content: attr(index);
-        }
-
-        .page-header.adverts.image.index:hover:nth-child(1) {
-            animation-play-state: paused;
         }

@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/footer.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="javascripts/header.js"></script>
     <script src="javascripts/footer.js"></script>
+    <script src="javascripts/mainform.js"></script>
 </head>
 <body>
     <div class="page-header">
@@ -15,18 +17,8 @@
             <div class="page-header adverts content">
                 <div class="page-header adverts content container">
                     <div id="header_adverts_images_container" class="page-header adverts images container">
-                        <div id="header_adverts_0" class="page-header adverts image"></div>
-                        <div id="header_adverts_1" class="page-header adverts image"></div>
-                        <div id="header_adverts_2" class="page-header adverts image"></div>
-                        <div id="header_adverts_3" class="page-header adverts image"></div>
-                        <div id="header_adverts_4" class="page-header adverts image"></div>
                     </div>
                     <div id="header_adverts_images_index_container">
-                        <div id="header_adverts_index_0" class="text page-header adverts image index" index="1"></div>
-                        <div id="header_adverts_index_1" class="text page-header adverts image index" index="2"></div>
-                        <div id="header_adverts_index_2" class="text page-header adverts image index" index="3"></div>
-                        <div id="header_adverts_index_3" class="text page-header adverts image index" index="4"></div>
-                        <div id="header_adverts_index_4" class="text page-header adverts image index" index="5"></div>
                     </div>
                 </div>
             </div>
@@ -41,6 +33,7 @@
         function onLoad() {
             buildHeader(true);
             buildFooter();
+            loadAdverts([]);
         }
     </script>
 </body>
