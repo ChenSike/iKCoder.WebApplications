@@ -1,7 +1,7 @@
 ﻿body {
     margin: auto;
     background-color: rgb(85,85,85);
-    min-width: 1200px;
+    width: 1200px;
     min-height: 930px;
     border: solid 1px rgb(0,163,217);
     border-bottom-width: 2px;
@@ -31,14 +31,19 @@ div {
     text-align: center;
 }
 
+.button {
+    position: relative;
+    cursor: pointer;
+}
+
 .linkto {
     cursor: pointer;
 }
 
 .page-header {
     position: relative;
-    height: 126px;
     border-bottom: solid 4px rgb(204,204,204);
+    border-top: solid 1px rgb(85,85,85);
 }
 
 .page-content {
@@ -52,132 +57,442 @@ div {
     border-top: solid 4px rgb(204,204,204);
 }
 
-.foot-title {
-    font-size: 18px;
-    text-align: right;
-    position: relative;
-    right: 10px;
-    height: 60px;
-    line-height: 60px;
+
+.page-header.options {
+    height: 125px;
 }
 
-.foot-company {
-    position: relative;
-    left: 10px;
-    text-align: left;
-    width: 375px;
-    padding-top: 3px;
+
+.page-header.userinfos {
+    height: 270px;
+    border: none;
 }
 
-.foot-bottom-space {
-    /*height: 20px;*/
+.page-header.options.middle {
+    height: 35px;
+    width: 955px;
 }
 
-.foot-images {
-    border-right: solid 1px rgb(255,255,255);
+.page-header.options.left {
+    width: 245px;
 }
 
-    .foot-images.space {
+.page-header.options.left-space {
+    background-color: rgb(102,102,102);
+    border: none;
+    height: auto;
+}
+
+.page-header.options.logo {
+    height: 100%;
+    background-color: rgb(204,204,204);
+}
+
+    .page-header.options.logo.image {
         border: none;
-        height: 35px;
+        background: url(../images/Labels/logo.fw.png);
+        position: relative;
+        height: 80px;
+        width: 200px;
+        top: 14px;
+        left: 18px;
     }
 
-td.foot-images.item {
-    border: none;
+.button.playstore {
+    background: url(../images/Buttons/playstore.png);
     height: 40px;
-    width: 145px;
-}
-
-.foot-images.image {
-    border: none;
-    text-align: left;
-}
-
-.foot-images.kid-safe:after {
-    content: url(../images/Labels/KidSafe.fw.png);
-    cursor: pointer;
-}
-
-.foot-images.playstore:after {
-    content: url(../images/Labels/playstore.png);
-    cursor: pointer;
-}
-
-.foot-images.themestore:after {
-    content: url(../images/Buttons/Button_Playstore.fw.png);
-    cursor: pointer;
-}
-
-.foot-links.item {
     width: 120px;
 }
 
-.foot-link-item {
-    height:30px;
-    line-height:30px;
-    text-align: left;
+.button.home {
+    height: 50px;
+    width: 52px;
+    border-left: solid 2px rgb(85,85,85);
+    border-right: solid 1px rgb(85,85,85);
 }
 
-.text.r01c01:after {
-    content: "关于iKCoder";
+    .button.home.image {
+        background: url(../images/Icons/sences_home.fw.png);
+        border: none;
+        height: 24px;
+        width: 23px;
+        top: 13px;
+        left: 13px;
+    }
+
+.text.header-info {
+    font-size: 12px;
+    text-align: right;
 }
 
-.text.r01c02:after {
-    content: "联系我们";
+.user-empirical {
+    display: inline;
 }
 
-.text.r01c03:after {
-    content: "T&A Tech框架";
+div#userlevelTxt {
+    width: 20px;
 }
 
-.text.r01c04:after {
-    content: "TA儿童教育评估模型";
+.button.middle {
+    width: 80px;
+    height: 32px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgb(102,102,102);
+    border-right: solid 2px rgb(85,85,85);
 }
 
-.text.r02c01:after {
-    content: "诚聘英才";
+    .button.middle:hover {
+        background-color: rgb(204,204,204);
+    }
+
+    .button.middle.bottom {
+        border: none;
+        border-left: solid 2px rgb(85,85,85);
+    }
+
+img.login {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: -10px;
 }
 
-.text.r02c02:after {
-    content: "加盟实体体验中心";
+.login-text {
+    top: -5px;
+    left: 4px;
+    display: inline-block;
+    width: 35px;
+    position: relative;
 }
 
-.text.r02c03:after {
-    content: "T&A 云计算";
+.level-progressbar {
+    border: solid 2px rgb(204,204,204);
+    height: 14px;
+    width: 740px;
+    -moz-border-radius: 9px;
+    -webkit-border-radius: 9px;
+    border-radius: 9px;
 }
 
-.text.r02c04:after {
-    content: "";
+div#currentLevelBlock {
+    position: relative;
+    border: none;
+    background-color: rgb(255,201,38);
+    height: 14px;
+    width: 145px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 12px;
 }
 
-.text.r03c01:after {
-    content: "投资关系";
+.page-header.adverts {
+    border-top: none;
+    height: 216px;
 }
 
-.text.r03c02:after {
-    content: "下载中心";
+    .page-header.adverts.image {
+        position: relative;
+        display: inline-block;
+        border: none;
+        height: 195px;
+        width: 1174px;
+    }
+
+    .page-header.adverts.content {
+        position: relative;
+        left: 10px;
+        top: 7px;
+        height: 198px;
+        width: 1176px;
+        border: solid 1px rgb(255,255,255);
+    }
+
+        .page-header.adverts.content.container {
+            position: relative;
+            left: 0px;
+            top: 0px;
+            height: 195px;
+            width: 1174px;
+            border: solid 1px rgb(204,204,204);
+            border-bottom-width: 2px;
+            overflow: hidden;
+        }
+
+    .page-header.adverts.images.container {
+        position: absolute;
+        border: none;
+        height: 195px;
+        width: 5890px;
+        background-color: rgb(236,245,244);
+        animation: advertsroll 15s linear 3s infinite normal running;
+        -moz-animation: advertsroll 15s linear 3s infinite normal running;
+        -webkit-animation: advertsroll 15s linear 3s infinite normal running;
+        -o-animation: advertsroll 15s linear 3s infinite normal running;
+    }
+
+div#header_adverts_0 {
+    background: url(../images/TmpAdv/Adv1.fw.png);
 }
 
-.text.r03c03:after {
-    content: "";
+div#header_adverts_1 {
+    background: url(../images/TmpAdv/Adv2.fw.png);
 }
 
-.text.r03c04:after {
-    content: "";
+div#header_adverts_2 {
+    background: url(../images/TmpAdv/Adv1.fw.png);
 }
 
-.text.r04c01:after {
-    content: "合作伙伴";
+div#header_adverts_3 {
+    background: url(../images/TmpAdv/Adv2.fw.png);
 }
 
-.text.r04c02:after {
-    content: "法律声明";
+div#header_adverts_4 {
+    background: url(../images/TmpAdv/Adv1.fw.png);
 }
 
-.text.r04c03:after {
-    content: "";
+@keyframes advertsroll {
+    0% {
+        left: 0px;
+    }
+
+    18% {
+        left: 0px;
+    }
+
+    20% {
+        left: -1178px;
+    }
+
+    38% {
+        left: -1178px;
+    }
+
+    40% {
+        left: -2356px;
+    }
+
+    58% {
+        left: -2356px;
+    }
+
+    60% {
+        left: -3536px;
+    }
+
+    78% {
+        left: -3536px;
+    }
+
+    80% {
+        left: -4714px;
+    }
+
+    95% {
+        left: -4714px;
+    }
+
+    99% {
+        left: -4714px;
+    }
+
+    100% {
+        left: 0px;
+    }
 }
 
-.text.r04c04:after {
-    content: "";
+@-moz-keyframes advertsroll /* Firefox */
+{
+    0% {
+        left: 0px;
+    }
+
+    18% {
+        left: 0px;
+    }
+
+    20% {
+        left: -1178px;
+    }
+
+    38% {
+        left: -1178px;
+    }
+
+    40% {
+        left: -2356px;
+    }
+
+    58% {
+        left: -2356px;
+    }
+
+    60% {
+        left: -3536px;
+    }
+
+    78% {
+        left: -3536px;
+    }
+
+    80% {
+        left: -4714px;
+    }
+
+    95% {
+        left: -4714px;
+    }
+
+    99% {
+        left: -4714px;
+    }
+
+    100% {
+        left: 0px;
+    }
 }
+
+@-webkit-keyframes advertsroll /* Safari and Chrome */
+{
+    0% {
+        left: 0px;
+    }
+
+    10% {
+        left: 0px;
+    }
+
+    20% {
+        left: -1178px;
+    }
+
+    30% {
+        left: -1178px;
+    }
+
+    40% {
+        left: -2356px;
+    }
+
+    50% {
+        left: -2356px;
+    }
+
+    60% {
+        left: -3536px;
+    }
+
+    70% {
+        left: -3536px;
+    }
+
+    80% {
+        left: -4714px;
+    }
+
+    90% {
+        left: -4714px;
+    }
+
+    99% {
+        left: -4714px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@-o-keyframes advertsroll /* Opera */
+{
+    0% {
+        left: 0px;
+    }
+
+    10% {
+        left: 0px;
+    }
+
+    20% {
+        left: -1178px;
+    }
+
+    30% {
+        left: -1178px;
+    }
+
+    40% {
+        left: -2356px;
+    }
+
+    50% {
+        left: -2356px;
+    }
+
+    60% {
+        left: -3536px;
+    }
+
+    70% {
+        left: -3536px;
+    }
+
+    80% {
+        left: -4714px;
+    }
+
+    90% {
+        left: -4714px;
+    }
+
+    99% {
+        left: -4714px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+div#header_adverts_images_index_container {
+    position: absolute;
+    top: 150px;
+    left: 700px;
+}
+
+.page-header.adverts.image.index {
+    position: relative;
+    background: none;
+    background-color: rgb(153,153,153);
+    height: 10px;
+    width: 10px;
+    border: solid 1px rgb(102,102,102);
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    color: rgb(255,147,38);
+    font-size: 12px;
+    line-height: 14px;
+    top: 3px;
+}
+
+    .page-header.adverts.image.index:hover {
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        -moz-border-radius: 13px;
+        -webkit-border-radius: 13px;
+        border-radius: 13px;
+        background-color: rgb(255,255,255);
+        border-width: 3px;
+    }
+
+        .page-header.adverts.image.index:hover::after {
+            content: attr(index);
+        }
+
+        .page-header.adverts.image.index:hover:nth-child(1) {
+            animation-play-state: paused;
+        }
