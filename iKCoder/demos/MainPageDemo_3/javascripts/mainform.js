@@ -28,7 +28,13 @@
                 currLeft -= 1175;
                 animationArray.push(currPer + "% {left: " + currLeft + "px;}");
             } else {
-                animationArray.push("100% {left: 0px;}");
+                if (currPer < 99) {
+                    animationArray.push("99% {left: " + currLeft + "px;}");
+                } else {
+                    animationArray.push("99% {left: " + currLeft + "px;}");
+                }
+                currLeft -= 1175;
+                animationArray.push("100% {left: " + currLeft + "px;}");
             }
         }
 
@@ -46,7 +52,13 @@
                 }
             }
         }
-
-        currentSheet.addRule("@keyframes advertsroll", animationStr);
+        try {
+            currentSheet.addRule("@keyframes advertsroll", animationStr);
+            currentSheet.addRule("@-webkit-keyframes advertsroll", animationStr);
+            currentSheet.addRule("@-moz-keyframes advertsroll", animationStr);
+            currentSheet.addRule("@-o-keyframes advertsroll", animationStr);
+        }
+        catch (ex) {
+        }
     }
 };
