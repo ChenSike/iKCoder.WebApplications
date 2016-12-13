@@ -57,46 +57,39 @@ div {
     border-top: solid 4px rgb(204,204,204);
 }
 
-
 .page-header.options {
     height: 125px;
 }
 
-
-.page-header.userinfos {
-    height: 270px;
-    border: none;
-}
-
-.page-header.options.middle {
-    height: 35px;
-    width: 955px;
-}
-
-.page-header.options.left {
-    width: 245px;
-}
-
-.page-header.options.left-space {
-    background-color: rgb(102,102,102);
-    border: none;
-    height: auto;
-}
-
-.page-header.options.logo {
-    height: 100%;
-    background-color: rgb(204,204,204);
-}
-
-    .page-header.options.logo.image {
-        border: none;
-        background: url(../images/Labels/logo.fw.png);
-        position: relative;
-        height: 80px;
-        width: 200px;
-        top: 14px;
-        left: 18px;
+    .page-header.options.middle {
+        height: 35px;
+        width: 955px;
     }
+
+    .page-header.options.left {
+        width: 245px;
+    }
+
+    .page-header.options.left-space {
+        background-color: rgb(102,102,102);
+        border: none;
+        height: auto;
+    }
+
+    .page-header.options.logo {
+        height: 100%;
+        background-color: rgb(204,204,204);
+    }
+
+        .page-header.options.logo.image {
+            border: none;
+            background: url(../images/Labels/logo.fw.png);
+            position: relative;
+            height: 80px;
+            width: 200px;
+            top: 14px;
+            left: 18px;
+        }
 
 .button.playstore {
     background: url(../images/Buttons/playstore.png);
@@ -188,91 +181,52 @@ div#currentLevelBlock {
     line-height: 12px;
 }
 
-.page-header.adverts {
-    border-top: none;
-    height: 216px;
+.page-header.userinfos {
+    height: 270px;
+    border: none;
 }
 
-    .page-header.adverts.image {
-        position: relative;
-        display: inline-block;
-        border: none;
-        height: 195px;
-        width: 1175px;
-    }
-
-    .page-header.adverts.content {
-        position: relative;
-        left: 10px;
-        top: 7px;
-        height: 198px;
-        width: 1177px;
+    .page-header.userinfos.container {
+        height: 260px;
+        width: 1178px;
         border: solid 1px rgb(255,255,255);
+        position: relative;
+        top: 4px;
+        left: 10px;
     }
 
-        .page-header.adverts.content.container {
-            position: relative;
-            left: 0px;
-            top: 0px;
-            height: 195px;
-            width: 1175px;
-            border: solid 1px rgb(204,204,204);
-            border-bottom-width: 2px;
-            overflow: hidden;
-        }
-
-    .page-header.adverts.images.container {
-        position: absolute;
-        border: none;
-        height: 195px;
-        width: 5890px;
-        background-color: rgb(236,245,244);
-        animation: advertsroll 30s linear 0s infinite normal running;
-        -moz-animation: advertsroll 30s linear 0s infinite normal running;
-        -webkit-animation: advertsroll 30s linear 0s infinite normal running;
-        -o-animation: advertsroll 30s linear 0s infinite normal running;
-    }
-
-    .page-header.adverts.image.item {
-        height: 195px;
-        width: 1175px;
-    }
-
-div#header_adverts_images_index_container {
-    position: absolute;
-    top: 150px;
-    left: 700px;
-    height: 22px;
-}
-
-.page-header.adverts.image.index {
+div#userinfosLeftContainer {
+    width: 265px;
+    height: 208px;
+    border: solid 1px rgb(255,255,255);
+    border-top: none;
     position: relative;
-    background: none;
-    background-color: rgb(153,153,153);
-    height: 10px;
-    width: 10px;
-    border: solid 1px rgb(102,102,102);
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    color: rgb(255,147,38);
-    font-size: 12px;
-    line-height: 14px;
-    top: 2px;
-    margin-left: 5px;
+    left: 5px;
+    top: -5px;
 }
 
-    .page-header.adverts.image.index:hover {
-        top: 0px;
-        height: 15px;
-        width: 15px;
-        -moz-border-radius: 13px;
-        -webkit-border-radius: 13px;
-        border-radius: 13px;
-        background-color: rgb(255,255,255);
-        border-width: 3px;
-    }
+div#userinfosCenterContainer {
+    width: 265px;
+    height: 205px;
+    border: solid 1px rgb(255,255,255);
+    border-top: none;
+    position: relative;
+    left: 5px;
+    top: -5px;
+}
 
-        .page-header.adverts.image.index:hover::after {
-            content: attr(index);
-        }
+div#userinfosRightContainer {
+    width: 265px;
+    height: 205px;
+    border: solid 1px rgb(255,255,255);
+    border-top: none;
+    position: relative;
+    left: 5px;
+    top: -5px;
+}
+
+div#userinfosBottomContainer {
+    height: 40px;
+    border: none;
+    border-top: solid 1px rgb(255,255,255);
+}

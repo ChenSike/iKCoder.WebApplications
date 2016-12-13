@@ -132,19 +132,30 @@
     }
 }
 
-function buildHeaderAdverts(advertsFlag) {
+function buildHeaderAdverts(isLongAdverts) {
     var tmpEls = document.getElementsByClassName("page-header adverts");
-    if (tmpEls.length == 1) {
+    if (tmpEls.length > 0) {
+        var advertsArray = [
+            "images/TmpAdv/Adv1.fw.png",
+            "images/TmpAdv/Adv2.fw.png",
+            "images/TmpAdv/Adv1.fw.png",
+            "images/TmpAdv/Adv2.fw.png",
+            "images/TmpAdv/Adv1.fw.png",
+            "images/TmpAdv/Adv2.fw.png"
+        ];
+
         var headerAdvertsContainer = tmpEls[0];
-        if (advertsFlag) {
+        if (isLongAdverts) {
             headerAdvertsContainer.style.display = "block";
         } else {
             headerAdvertsContainer.style.display = "none";
         }
+
+        buildAdverts(advertsArray);
     }
 }
 
-function buildHeader(advertsFlag) {
+function buildHeader(isLongAdverts) {
     buildHeaderOptions();
-    buildHeaderAdverts(advertsFlag);
+    buildHeaderAdverts(isLongAdverts);
 }

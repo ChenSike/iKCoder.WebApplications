@@ -35,10 +35,10 @@ PacMan.bindClick = function (el, func) {
 PacMan.importPrettify = function () {
     var link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', '../../styles/prettify.css');
+    link.setAttribute('href', '../../../styles/prettify.css');
     document.head.appendChild(link);
     var script = document.createElement('script');
-    script.setAttribute('src', '../../javascripts/common/prettify.js');
+    script.setAttribute('src', '../../../javascripts/common/prettify.js');
     document.head.appendChild(script);
 };
 
@@ -79,7 +79,7 @@ PacMan.init = function () {
         {
             scrollbars: true,
             collapse: false,
-            media: '../../media/',
+            media: '../../../media/',
             rtl: false,
             toolbox: blocksXMLDoc,
             //grid: {

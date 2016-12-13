@@ -5,8 +5,11 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" href="styles/adverts_long.css" />
     <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
     <script src="../../javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="../../javascripts/common/common.js"></script>
+    <script src="javascripts/adverts_long.js"></script>
     <script src="javascripts/header.js"></script>
     <script src="javascripts/footer.js"></script>
     <script src="javascripts/mainform.js"></script>
@@ -18,24 +21,44 @@
             <div class="page-header adverts content">
                 <div class="page-header adverts content container">
                     <div id="header_adverts_images_container" class="page-header adverts images container">
-                    </div>
-                    <div id="header_adverts_images_index_container">
+                        <div id="header_adverts_images_index_container">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="page-header userinfos"></div>
+        <div class="page-header userinfos">
+            <div class="page-header userinfos container">
+                <table>
+                    <tr>
+                        <td>
+                            <div id="userinfosLeftContainer">
+                            </div>
+                        </td>
+                        <td>
+                            <div id="userinfosCenterContainer">
+                            </div>
+                        </td>                        
+                        <td>
+                            <div id="userinfosRightContainer">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="height:41px;">
+                            <div id="userinfosBottomContainer">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="page-content">
     </div>
     <div class="page-footer"></div>
     <script type="text/javascript">
-        window.addEventListener('load', onLoad);
-        function onLoad() {
-            buildHeader(true);
-            buildFooter();
-            loadAdverts([]);
-        }
+
     </script>
 </body>
 </html>

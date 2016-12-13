@@ -1,0 +1,213 @@
+﻿.page-header.adverts {
+    border-top: none;
+    height: 216px;
+}
+
+    .page-header.adverts.image {
+        position: relative;
+        display: inline-block;
+        border: none;
+        height: 195px;
+        width: 1175px;
+    }
+
+    .page-header.adverts.content {
+        position: relative;
+        left: 10px;
+        top: 7px;
+        height: 198px;
+        width: 1177px;
+        border: solid 1px rgb(255,255,255);
+    }
+
+        .page-header.adverts.content.container {
+            position: relative;
+            left: 0px;
+            top: 0px;
+            height: 195px;
+            width: 1175px;
+            border: solid 1px rgb(204,204,204);
+            border-bottom-width: 2px;
+            overflow: hidden;
+        }
+
+    .page-header.adverts.images.container {
+        position: absolute;
+        border: none;
+        height: 195px;
+        width: 2350px;
+        background-color: rgb(236,245,244);
+        animation: advertsroll 30s linear 0s infinite normal running;
+        -moz-animation: advertsroll 30s linear 0s infinite normal running;
+        -webkit-animation: advertsroll 30s linear 0s infinite normal running;
+        -o-animation: advertsroll 30s linear 0s infinite normal running;
+    }
+
+    .page-header.adverts.image.item {
+        position: absolute;
+        height: 195px;
+        width: 1175px;
+        left: 1175px;
+        top: 0px;
+    }
+
+div#header_adverts_images_index_container {
+    position: absolute;
+    top: 150px;
+    left: 700px;
+    height: 22px;
+    z-index: 1000;
+}
+
+.page-header.adverts.image.index {
+    position: relative;
+    background: none;
+    background-color: rgb(153,153,153);
+    height: 10px;
+    width: 10px;
+    border: solid 1px rgb(102,102,102);
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    color: rgb(255,147,38);
+    font-size: 12px;
+    line-height: 14px;
+    top: 2px;
+    margin-left: 5px;
+}
+
+    .page-header.adverts.image.index:hover {
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        -moz-border-radius: 13px;
+        -webkit-border-radius: 13px;
+        border-radius: 13px;
+        background-color: rgb(255,255,255);
+        border-width: 3px;
+    }
+
+        .page-header.adverts.image.index:hover::after {
+            content: attr(index);
+        }
+
+    .page-header.adverts.image.index.hover {
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        -moz-border-radius: 13px;
+        -webkit-border-radius: 13px;
+        border-radius: 13px;
+        background-color: rgb(255,255,255);
+        border-width: 3px;
+    }
+
+        .page-header.adverts.image.index.hover::after {
+            content: attr(index);
+        }
+
+@keyframes advertsroll_0 {
+    0% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -1175px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -1175px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 1175px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 1175px;
+        opacity: 1;
+    }
+}
+
+@keyframes advertsroll_1 {
+    0% {
+        left: 1175px;
+        opacity: 1;
+    }
+
+    17% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -1175px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -1175px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 1175px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 1175px;
+        opacity: 1;
+    }
+}
+
+@keyframes advertsroll_2 {
+    0% {
+        left: 1175px;
+        opacity: 1;
+    }
+
+    17% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -1175px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -1175px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 1175px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 1175px;
+        opacity: 1;
+    }
+}
