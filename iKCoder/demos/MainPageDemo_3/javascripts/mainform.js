@@ -22,16 +22,14 @@
             var newIdx = $('<div id="header_adverts_index_' + i + '" class="text page-header adverts image index" index="' + (i + 1) + '"></div>');
             imgContainer.append(newImg);
             idxContainer.append(newIdx);
-            //if (i < advertsArray.length - 1) {
             currPer = timeStep * (i + 1);
-            animationArray.push[(currPer - 2) + "% {left: " + currLeft + "px;}"];
-            currLeft += 1175;
-            animationArray.push[currPer + "% {left: " + currLeft + "px;}"];
-            //}
-        }
-
-        if (currPer != 100) {
-            animationArray.push["100% {left: " + (1175 * advertsArray.length) + "px;}"];
+            animationArray.push((currPer - 2) + "% {left: " + currLeft + "px;}");
+            if (i < advertsArray.length - 1) {
+                currLeft -= 1175;
+                animationArray.push(currPer + "% {left: " + currLeft + "px;}");
+            } else {
+                animationArray.push("100% {left: 0px;}");
+            }
         }
 
         var animationStr = animationArray.join(" ");

@@ -6,7 +6,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
         <field name="race_resource_image_src">car1</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car1.png</field>
+        <field name="race_resource_image">images/car1.png</field>
 			</block>
 		</statement>
 		<statement name="race_lane_setting_2">
@@ -14,7 +14,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car2</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car2.png</field>
+        <field name="race_resource_image">images/car2.png</field>
       </block>
 		</statement>
 		<statement name="race_lane_setting_3">
@@ -22,7 +22,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car3</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car3.png</field>
+        <field name="race_resource_image">images/car3.png</field>
       </block>
 		</statement>
 		<statement name="race_lane_setting_4">
@@ -30,7 +30,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car4</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car4.png</field>
+        <field name="race_resource_image">images/car4.png</field>
       </block>
 		</statement>
 		<statement name="race_lane_setting_5">
@@ -38,7 +38,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car5</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car5.png</field>
+        <field name="race_resource_image">images/car5.png</field>
 			</block>
 		</statement>
 		<statement name="race_lane_setting_6">
@@ -46,7 +46,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car6</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car6.png</field>
+        <field name="race_resource_image">images/car6.png</field>
 			</block>
 		</statement>
 		<statement name="race_lane_setting_7">
@@ -54,7 +54,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car7</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car7.png</field>
+        <field name="race_resource_image">images/car7.png</field>
 			</block>
 		</statement>
 		<statement name="race_lane_setting_8">
@@ -62,7 +62,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car8</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car8.png</field>
+        <field name="race_resource_image">images/car8.png</field>
 			</block>
 		</statement>
 		<statement name="race_lane_setting_9">
@@ -70,7 +70,7 @@
 				<field name="race_resource_speed_min">80</field>
 				<field name="race_resource_speed_max">180</field>
 				<field name="race_resource_image_src">car9</field>
-        <field name="race_resource_image">http://localhost/ikcoder/demos/racegame/images/car9.png</field>
+        <field name="race_resource_image">images/car9.png</field>
 			</block>
 		</statement>
 	</block>

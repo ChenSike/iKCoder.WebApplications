@@ -1287,7 +1287,7 @@ Blockly.WorkspaceSvg.prototype.updateGridPattern_ = function () {
                 line1.setAttribute('width', safeSpacing * 2);
                 line1.setAttribute('height', safeSpacing * 2);
             } else {
-                line1.setAttribute('stroke-width', tmpWidth);
+                line1.setAttribute('stroke-width', this.scale);
                 line1.setAttribute('x1', start);
                 line1.setAttribute('y1', half);
                 line1.setAttribute('x2', end);

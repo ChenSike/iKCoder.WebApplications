@@ -23,14 +23,14 @@ Blockly.Blocks['race_player'] = {
                     }
                 ), "race_player_image_src"
              )
-            .appendField(new Blockly.FieldImage("http://localhost/ikcoder/demos/racegame/images/car_p1.png", 20, 40, "*"), "race_player_image");
+            .appendField(new Blockly.FieldImage("images/car_p1.png", 20, 40, "*"), "race_player_image");
         this.setColour(65);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     },
 
     updateImage_: function (option) {
-        this.inputList[2].fieldRow[3].setValue("http://localhost/ikcoder/demos/racegame/images/" + option + ".png");
+        this.inputList[2].fieldRow[3].setValue("images/" + option + ".png");
     }
 };
 
@@ -77,7 +77,7 @@ Blockly.Blocks['race_resource'] = {
                      }
                 ), "race_resource_image_src"
              )
-             .appendField(new Blockly.FieldImage("http://localhost/ikcoder/demos/racegame/images/car1.png", 20, 40, "*"), "race_resource_image");
+             .appendField(new Blockly.FieldImage("images/car1.png", 20, 40, "*"), "race_resource_image");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(65);
@@ -94,7 +94,7 @@ Blockly.Blocks['race_resource'] = {
             this.inputList[0].fieldRow[4].setValue(120, 200, 1);
         }
 
-        this.inputList[1].fieldRow[2].setValue("http://localhost/ikcoder/demos/racegame/images/" + option + ".png");
+        this.inputList[1].fieldRow[2].setValue("images/" + option + ".png");
     }
 };
 

@@ -982,7 +982,7 @@ Blockly.ConnectionDB.init=function(a){var b=[];b[Blockly.INPUT_VALUE]=new Blockl
 Blockly.ALIGN_CENTRE=0;Blockly.ALIGN_RIGHT=1;Blockly.DRAG_NONE=0;Blockly.DRAG_STICKY=1;Blockly.DRAG_BEGIN=1;Blockly.DRAG_FREE=2;Blockly.OPPOSITE_TYPE=[];Blockly.OPPOSITE_TYPE[Blockly.INPUT_VALUE]=Blockly.OUTPUT_VALUE;Blockly.OPPOSITE_TYPE[Blockly.OUTPUT_VALUE]=Blockly.INPUT_VALUE;Blockly.OPPOSITE_TYPE[Blockly.NEXT_STATEMENT]=Blockly.PREVIOUS_STATEMENT;Blockly.OPPOSITE_TYPE[Blockly.PREVIOUS_STATEMENT]=Blockly.NEXT_STATEMENT;Blockly.TOOLBOX_AT_TOP=0;Blockly.TOOLBOX_AT_BOTTOM=1;
 Blockly.TOOLBOX_AT_LEFT=2;Blockly.TOOLBOX_AT_RIGHT=3;Blockly.Options=function(a){var b=!!a.readOnly;if(b)var c=null,d=!1,e=!1,f=!1,g=!1,h=!1,k=!1;else c=Blockly.Options.parseToolboxTree(a.toolbox),d=!(!c||!c.getElementsByTagName("category").length),e=a.trashcan,void 0===e&&(e=d),f=a.collapse,void 0===f&&(f=d),g=a.comments,void 0===g&&(g=d),h=a.disable,void 0===h&&(h=d),k=a.sounds,void 0===k&&(k=!0);var m=!!a.rtl,p=a.horizontalLayout;void 0===p&&(p=!1);var l=a.toolboxPosition,l="end"===l?!1:!0,l=p?l?Blockly.TOOLBOX_AT_TOP:Blockly.TOOLBOX_AT_BOTTOM:l==
 m ? Blockly.TOOLBOX_AT_RIGHT : Blockly.TOOLBOX_AT_LEFT, n = a.scrollbars; void 0 === n && (n = d); var q = a.css; void 0 === q && (q = !0);
-var t = "/ikcoder/media/";
+var t = "../../media/";
 a.media ? t = a.media : a.path && (t = a.path + "media/");
 var r = void 0 === a.oneBasedIndex ? !0 : !!a.oneBasedIndex;
 this.RTL = m; this.oneBasedIndex = r;

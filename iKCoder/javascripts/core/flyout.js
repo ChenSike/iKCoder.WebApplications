@@ -274,7 +274,7 @@ Blockly.Flyout.prototype.createDom = function (workspaceOptions) {
     */
     this.svgGroup_ = Blockly.createSvgElement('g', { 'class': 'blocklyFlyout' }, null);
     var params = { 'class': 'blocklyFlyoutBackground' };
-    if (workspaceOptions.customCfg.toolbox_collapse) {
+    if (workspaceOptions.customCfg && workspaceOptions.customCfg.toolbox_collapse) {
         this.customCfg = workspaceOptions.customCfg.toolbox_collapse;
         var tmpStyles = "";
         if (this.customCfg.fill) {

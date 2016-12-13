@@ -227,10 +227,10 @@ div#currentLevelBlock {
         height: 195px;
         width: 5890px;
         background-color: rgb(236,245,244);
-        animation: advertsroll 15s linear 3s infinite normal running;
-        -moz-animation: advertsroll 15s linear 3s infinite normal running;
-        -webkit-animation: advertsroll 15s linear 3s infinite normal running;
-        -o-animation: advertsroll 15s linear 3s infinite normal running;
+        animation: advertsroll 30s linear 0s infinite normal running;
+        -moz-animation: advertsroll 30s linear 0s infinite normal running;
+        -webkit-animation: advertsroll 30s linear 0s infinite normal running;
+        -o-animation: advertsroll 30s linear 0s infinite normal running;
     }
 
     .page-header.adverts.image.item {
@@ -445,6 +445,7 @@ div#header_adverts_images_index_container {
     position: absolute;
     top: 150px;
     left: 700px;
+    height:22px;
 }
 
 .page-header.adverts.image.index {
@@ -459,12 +460,13 @@ div#header_adverts_images_index_container {
     border-radius: 6px;
     color: rgb(255,147,38);
     font-size: 12px;
-    line-height: 14px;
-    top: 3px;
+    line-height: 14px;    
+    top:2px;
+    margin-left:5px;
 }
 
     .page-header.adverts.image.index:hover {
-        top: 0px;
+        top:0px;
         height: 15px;
         width: 15px;
         -moz-border-radius: 13px;
