@@ -201,25 +201,68 @@ div#userinfosLeftContainer {
     border: solid 1px rgb(255,255,255);
     border-top: none;
     position: relative;
-    left: 5px;
+    left: 20px;
     top: -5px;
+}
+
+.user-icon-name {
+    height: 176px;
+    border-bottom: solid 1px rgb(255,255,255);
+    text-align:center;
+}
+
+div#userinfoHeadIcon{
+    background:url(../images/Icons/head_icon.png);
+    height:80px;
+    width:80px;
+    -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    border-radius: 40px;
+    position: relative;
+    left: 92px;
+}
+div#userinfosUserName {
+    font-size: 24px;
+    height:30px;
+    font-weight: bold;
+}
+
+div#changeHeadIcon {
+    font-size: 12px;
+    cursor: pointer;
+    height:15px;
+}
+
+    div#changeHeadIcon:hover {
+        color: rgb(204,204,204);
+    }
+
+.user-scene-gold {
+    height: 30px;
+    border-top: solid 1px rgb(255,255,255);
+    background-color: rgb(204,204,204);
+    text-align: center;
+    color: rgb(85,85,85);
+}
+
+.user-scene-info {
+    border-right: solid 1px rgb(255,255,255);
+    height: 30px;
+    line-height: 30px;
 }
 
 div#userinfosCenterContainer {
-    width: 265px;
-    height: 205px;
+    width: 275px;
+    height: 208px;
     border: solid 1px rgb(255,255,255);
     border-top: none;
     position: relative;
-    left: 5px;
     top: -5px;
+    left: 5px;
 }
 
 div#userinfosRightContainer {
-    width: 265px;
     height: 205px;
-    border: solid 1px rgb(255,255,255);
-    border-top: none;
     position: relative;
     left: 5px;
     top: -5px;
@@ -229,4 +272,56 @@ div#userinfosBottomContainer {
     height: 40px;
     border: none;
     border-top: solid 1px rgb(255,255,255);
+    background-color: rgb(204,204,204);
+    color: rgb(85,85,85);
 }
+
+.newmessage {
+    position: relative;
+    display: inline-block;
+    width: 284px;
+    height: 40px;
+    line-height: 40px;
+    border-right: solid 1px rgb(255,255,255);
+}
+
+    .newmessage.title-text {
+        width: auto;
+        height: 30px;
+        line-height: 30px;
+        border: none;
+        top: -5px;
+    }
+
+    .newmessage.title-icon {
+        background: url(../images/Icons/sences_newmessage.fw.png);
+        width: 30px;
+        height: 30px;
+        border: none;
+        top: 5px;
+        left: 15px;
+    }
+
+.newmessage-text {
+    padding-left: 10px;
+    text-align: left;
+    line-height: 30px;
+}
+
+span#userinfosBottomMsgSender {
+    color: rgb(0,51,102);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+    span#userinfosBottomMsgSender:hover {
+        color: rgb(255,255,255);
+    }
+
+div#userinfosBottomMsgCenter {
+    cursor: pointer;
+}
+
+    div#userinfosBottomMsgCenter:hover {
+        color: rgb(255,255,255);
+    }
