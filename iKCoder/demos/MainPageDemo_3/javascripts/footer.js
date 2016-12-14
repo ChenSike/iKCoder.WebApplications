@@ -1,4 +1,6 @@
-﻿function buildFooter() {
+﻿'use strict';
+
+function buildFooter() {
     var _footerHTMLStrArray = [];
     _footerHTMLStrArray.push('<table>');
     _footerHTMLStrArray.push('      <tr>');

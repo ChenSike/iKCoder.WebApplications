@@ -1,0 +1,367 @@
+﻿
+.page-header.options {
+    height: 125px;
+}
+
+    .page-header.options.middle {
+        height: 35px;
+        width: 955px;
+    }
+
+    .page-header.options.left {
+        width: 245px;
+    }
+
+    .page-header.options.left-space {
+        background-color: rgb(102,102,102);
+        border: none;
+        height: auto;
+    }
+
+    .page-header.options.logo.background-row {
+        position: relative;
+        height: 35px;
+        background-color: rgb(102,102,102);
+        border: none;
+        border-radius: 0px;
+        top: -1px;
+    }
+
+    .page-header.options.logo {
+        position: relative;
+        height: 110px;
+        top: -40px;
+        background-color: rgb(204,204,204);
+        border-top-right-radius: 71px;
+        -moz-border-top-right-radius: 71px;
+        -webkit-border-top-right-radius: 71px;
+        border-top-left-radius: 22px;
+        -moz-border-top-left-radius: 22px;
+        -webkit-border-top-left-radius: 22px;
+    }
+
+        .page-header.options.logo.image {
+            border: none;
+            background: url(../images/Labels/logo.fw.png);
+            position: relative;
+            height: 80px;
+            width: 200px;
+            top: 14px;
+            left: 18px;
+        }
+
+.button.playstore {
+    background: url(../images/Buttons/playstore.png);
+    height: 40px;
+    width: 120px;
+}
+
+.button.home {
+    height: 50px;
+    width: 52px;
+    border-left: solid 2px rgb(85,85,85);
+    border-right: solid 1px rgb(85,85,85);
+}
+
+    .button.home.image {
+        background: url(../images/Icons/sences_home.fw.png);
+        border: none;
+        height: 24px;
+        width: 23px;
+        top: 13px;
+        left: 13px;
+    }
+
+.text.header-info {
+    font-size: 12px;
+    text-align: right;
+}
+
+.user-empirical {
+    display: inline;
+}
+
+div#userlevelTxt {
+    width: 20px;
+}
+
+.button.middle {
+    width: 80px;
+    height: 32px;
+    line-height: 30px;
+    text-align: center;
+    background-color: rgb(102,102,102);
+    border-right: solid 2px rgb(85,85,85);
+}
+
+    .button.middle:hover {
+        background-color: rgb(204,204,204);
+    }
+
+    .button.middle.bottom {
+        border: none;
+        border-left: solid 2px rgb(85,85,85);
+    }
+
+img.login {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: -10px;
+}
+
+.login-text {
+    top: -5px;
+    left: 4px;
+    display: inline-block;
+    width: 35px;
+    position: relative;
+}
+
+.level-progressbar {
+    border: solid 2px rgb(204,204,204);
+    height: 14px;
+    width: 740px;
+    -moz-border-radius: 9px;
+    -webkit-border-radius: 9px;
+    border-radius: 9px;
+}
+
+div#currentLevelBlock {
+    position: relative;
+    border: none;
+    background-color: rgb(255,201,38);
+    height: 14px;
+    width: 145px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 12px;
+    color: rgb(85,85,85);
+}
+
+.page-header.userinfos {
+    height: 270px;
+    border: none;
+}
+
+    .page-header.userinfos.container {
+        height: 260px;
+        width: 1178px;
+        border: solid 1px rgb(255,255,255);
+        position: relative;
+        top: 4px;
+        left: 10px;
+        background-color: rgb(0,51,102);
+    }
+
+div#userinfosLeftContainer {
+    width: 265px;
+    height: 208px;
+    border: solid 1px rgb(255,255,255);
+    border-top: none;
+    position: relative;
+    left: 20px;
+    top: -5px;
+}
+
+.user-icon-name {
+    height: 176px;
+    border-bottom: solid 1px rgb(255,255,255);
+    text-align: center;
+}
+
+.vip-symbol {
+    position: absolute;
+    top: 1px;
+    left: 52px;
+    background: url(../images/Icons/vip_icon.png);
+    width: 30px;
+    height: 18px;
+}
+
+div#userinfoHeadIcon {
+    background: url(../images/Icons/head_icon.png);
+    height: 80px;
+    width: 80px;
+    -moz-border-radius: 40px;
+    -webkit-border-radius: 40px;
+    border-radius: 40px;
+    position: relative;
+    left: 92px;
+}
+
+div#userinfosUserName {
+    font-size: 24px;
+    height: 30px;
+    font-weight: bold;
+}
+
+div#changeHeadIcon {
+    font-size: 12px;
+    cursor: pointer;
+    height: 15px;
+}
+
+    div#changeHeadIcon:hover {
+        color: rgb(204,204,204);
+    }
+
+.user-scene-gold {
+    height: 30px;
+    border-top: solid 1px rgb(255,255,255);
+    background-color: rgb(204,204,204);
+    text-align: center;
+    color: rgb(85,85,85);
+}
+
+.user-scene-info {
+    border-right: solid 1px rgb(255,255,255);
+    height: 30px;
+    line-height: 30px;
+}
+
+div#userinfosCenterContainer {
+    width: 275px;
+    height: 208px;
+    border: solid 1px rgb(255,255,255);
+    border-top: none;
+    position: relative;
+    top: -5px;
+    left: 5px;
+}
+
+div#userinfosRightContainer {
+    height: 217px;
+    width: 609px;
+    position: relative;
+}
+
+div#userLearningContainer {
+    position: relative;
+    width: 559px;
+    height: 185px;
+    top: 15px;
+    left: 25px;
+}
+
+div#userLearningCurveContainer {
+    background: url(../images/Gra/mainform_test_gra.fw.png);
+}
+
+.text.user-learning-infor {
+    font-size: 12px;
+    text-align: left;
+}
+
+.user-learning-infor.item {
+    display: inline-block;
+    width: auto;
+}
+
+div#userLearningCurveContainer {
+    width: 555px;
+    height: 103px;
+    border: solid 2px rgb(155,230,255);
+}
+
+.upgrade-buy {
+    height: 30px;
+    line-height: 30px;
+    border-top: solid 1px rgb(255,255,255);
+}
+
+.user-account-info {
+    height: 166px;
+    padding-top: 10px;
+}
+
+.user-account-status-icon {
+    position: relative;
+    left: 10px;
+    background: url(../images/Icons/login.fw.png);
+    width: 20px;
+    height: 20px;
+}
+
+.user-account-info-item {
+    height: 23px;
+    width: 140px;
+    line-height: 23px;
+    text-align: center;
+    background-color: rgb(0,105,140);
+    border: solid 1px rgb(255,255,255);
+}
+
+div#upgradeBuyBtn {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 170px;
+    left: 560px;
+    background-color: rgb(0,178,0);
+    border: solid 2px rgb(255,255,255);
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    cursor: pointer;
+}
+
+div#userinfosBottomContainer {
+    height: 40px;
+    border: none;
+    border-top: solid 1px rgb(255,255,255);
+    background-color: rgb(204,204,204);
+    color: rgb(85,85,85);
+}
+
+.newmessage {
+    position: relative;
+    display: inline-block;
+    width: 284px;
+    height: 40px;
+    line-height: 40px;
+    border-right: solid 1px rgb(255,255,255);
+}
+
+    .newmessage.title-text {
+        width: auto;
+        height: 30px;
+        line-height: 30px;
+        border: none;
+        top: -5px;
+    }
+
+    .newmessage.title-icon {
+        background: url(../images/Icons/sences_newmessage.fw.png);
+        width: 30px;
+        height: 30px;
+        border: none;
+        top: 5px;
+        left: 15px;
+    }
+
+.newmessage-text {
+    padding-left: 10px;
+    text-align: left;
+    line-height: 30px;
+}
+
+span#userinfosBottomMsgSender {
+    color: rgb(0,51,102);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+    span#userinfosBottomMsgSender:hover {
+        color: rgb(255,255,255);
+    }
+
+div#userinfosBottomMsgCenter {
+    cursor: pointer;
+}
+
+    div#userinfosBottomMsgCenter:hover {
+        color: rgb(255,255,255);
+    }

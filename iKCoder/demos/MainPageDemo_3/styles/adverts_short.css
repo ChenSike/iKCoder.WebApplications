@@ -1,0 +1,215 @@
+﻿.page-header.adverts-short {
+    border: none;
+    height: 216px;
+    left: 35px;
+}
+
+    .page-header.adverts-short.image {
+        position: relative;
+        display: inline-block;
+        border: none;
+        height: 195px;
+        width: 550px;       
+    }
+
+    .page-header.adverts-short.content {
+        position: relative;
+        left: 10px;
+        top: 7px;
+        height: 198px;
+        width: 552px;
+        border: solid 1px rgb(255,255,255);
+    }
+
+        .page-header.adverts-short.content.container {
+            position: relative;
+            left: 0px;
+            top: 0px;
+            height: 195px;
+            width: 550px;
+            border: solid 1px rgb(204,204,204);
+            border-bottom-width: 2px;
+            overflow: hidden;
+        }
+
+    .page-header.adverts-short.images.container {
+        position: absolute;
+        border: none;
+        height: 195px;
+        width: 1100px;
+        left: 0px;
+        background-color: rgb(236,245,244);
+        animation: advertsroll 30s linear 0s infinite normal running;
+        -moz-animation: advertsroll 30s linear 0s infinite normal running;
+        -webkit-animation: advertsroll 30s linear 0s infinite normal running;
+        -o-animation: advertsroll 30s linear 0s infinite normal running;
+    }
+
+    .page-header.adverts-short.image.item {
+        position: absolute;
+        height: 195px;
+        width: 550px;
+        left: 550px;
+        top: 0px;
+    }
+
+div#header_adverts_short_images_index_container {
+    position: absolute;
+    top: 10px;
+    left: 180px;
+    height: 22px;
+    z-index: 1000;
+}
+
+.page-header.adverts-short.image.index {
+    position: relative;
+    background: none;
+    background-color: rgb(153,153,153);
+    height: 10px;
+    width: 10px;
+    border: solid 1px rgb(102,102,102);
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    color: rgb(255,147,38);
+    font-size: 12px;
+    line-height: 14px;
+    top: 2px;
+    margin-left: 5px;
+}
+
+    .page-header.adverts-short.image.index:hover {
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        -moz-border-radius: 13px;
+        -webkit-border-radius: 13px;
+        border-radius: 13px;
+        background-color: rgb(255,255,255);
+        border-width: 3px;
+    }
+
+        .page-header.adverts-short.image.index:hover::after {
+            content: attr(index);
+        }
+
+    .page-header.adverts-short.image.index.hover {
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        -moz-border-radius: 13px;
+        -webkit-border-radius: 13px;
+        border-radius: 13px;
+        background-color: rgb(255,255,255);
+        border-width: 3px;
+    }
+
+        .page-header.adverts-short.image.index.hover::after {
+            content: attr(index);
+        }
+
+@keyframes advertsroll_0 {
+    0% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -550px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -550px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 550px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 550px;
+        opacity: 1;
+    }
+}
+
+@keyframes advertsroll_1 {
+    0% {
+        left: 550px;
+        opacity: 1;
+    }
+
+    17% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -550px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -550px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 550px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 550px;
+        opacity: 1;
+    }
+}
+
+@keyframes advertsroll_2 {
+    0% {
+        left: 1175px;
+        opacity: 1;
+    }
+
+    17% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    80% {
+        left: 0px;
+        opacity: 1;
+    }
+
+    97% {
+        left: -550px;
+        opacity: 1;
+    }
+
+    98% {
+        left: -550px;
+        opacity: 0;
+    }
+
+    99% {
+        left: 550px;
+        opacity: 0;
+    }
+
+    100% {
+        left: 550px;
+        opacity: 1;
+    }
+}

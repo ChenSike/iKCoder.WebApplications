@@ -1,4 +1,6 @@
-﻿function buildHeaderOptions() {
+﻿'use strict';
+
+function buildHeaderOptions() {
     var _headerOptionsHTMLStrArray = [];
     _headerOptionsHTMLStrArray.push('<table>');
     _headerOptionsHTMLStrArray.push('    <tr>');
@@ -51,9 +53,12 @@
     _headerOptionsHTMLStrArray.push('    </tr>');
     _headerOptionsHTMLStrArray.push('    <tr>');
     _headerOptionsHTMLStrArray.push('        <td rowspan="3">');
-    _headerOptionsHTMLStrArray.push('            <div class="page-header options logo">');
-    _headerOptionsHTMLStrArray.push('                <div class="page-header options logo image"></div>');
-    _headerOptionsHTMLStrArray.push('            </div>');
+    _headerOptionsHTMLStrArray.push('                <div style="height:110px;">');
+    _headerOptionsHTMLStrArray.push('                    <div class="page-header options logo background-row"></div>');
+    _headerOptionsHTMLStrArray.push('                    <div class="page-header options logo">');
+    _headerOptionsHTMLStrArray.push('                        <div class="page-header options logo image"></div>');
+    _headerOptionsHTMLStrArray.push('                    </div>');
+    _headerOptionsHTMLStrArray.push('                </div>');
     _headerOptionsHTMLStrArray.push('        </td>');
     _headerOptionsHTMLStrArray.push('    </tr>');
     _headerOptionsHTMLStrArray.push('    <tr>');
@@ -132,30 +137,189 @@
     }
 }
 
-function buildHeaderAdverts(isLongAdverts) {
-    var tmpEls = document.getElementsByClassName("page-header adverts");
-    if (tmpEls.length > 0) {
-        var advertsArray = [
-            "images/TmpAdv/Adv1.fw.png",
-            "images/TmpAdv/Adv2.fw.png",
-            "images/TmpAdv/Adv1.fw.png",
-            "images/TmpAdv/Adv2.fw.png",
-            "images/TmpAdv/Adv1.fw.png",
-            "images/TmpAdv/Adv2.fw.png"
-        ];
+function buildHeaderUserInfo() {
+    var _headerUserInfoHTMLStrArray = [];
+    _headerUserInfoHTMLStrArray.push('<div class="page-header userinfos container">');
+    _headerUserInfoHTMLStrArray.push('<table>');
+    _headerUserInfoHTMLStrArray.push('    <tr>');
+    _headerUserInfoHTMLStrArray.push('        <td style="width:287px;">');
+    _headerUserInfoHTMLStrArray.push('            <div id="userinfosLeftContainer">');
+    _headerUserInfoHTMLStrArray.push('                <div class="text user-icon-name">');
+    _headerUserInfoHTMLStrArray.push('                    <table>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td>');
+    _headerUserInfoHTMLStrArray.push('                                <div id="userinfoHeadIcon">');
+    _headerUserInfoHTMLStrArray.push('                                    <div id="userinfoVIPFlag" class="vip-symbol"></div>');
+    _headerUserInfoHTMLStrArray.push('                                </div>');
+    _headerUserInfoHTMLStrArray.push('                            </td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td>');
+    _headerUserInfoHTMLStrArray.push('                                <div id="changeHeadIcon">');
+    _headerUserInfoHTMLStrArray.push('                                    |更换头像|');
+    _headerUserInfoHTMLStrArray.push('                                </div>');
+    _headerUserInfoHTMLStrArray.push('                            </td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td>');
+    _headerUserInfoHTMLStrArray.push('                                <div id="userinfosUserName">');
+    _headerUserInfoHTMLStrArray.push('                                    Alex');
+    _headerUserInfoHTMLStrArray.push('                                </div>');
+    _headerUserInfoHTMLStrArray.push('                            </td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                    </table>');
+    _headerUserInfoHTMLStrArray.push('                </div>');
+    _headerUserInfoHTMLStrArray.push('                <div class="text user-scene-gold">');
+    _headerUserInfoHTMLStrArray.push('                    <table>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td style="width: 133px;">');
+    _headerUserInfoHTMLStrArray.push('                                <div class="user-scene-info">');
+    _headerUserInfoHTMLStrArray.push('                                    <span>完成 : </span><span id="userSceneCompleteCount">4</span><span>场景</span>');
+    _headerUserInfoHTMLStrArray.push('                                </div>');
+    _headerUserInfoHTMLStrArray.push('                            </td>');
+    _headerUserInfoHTMLStrArray.push('                            <td>');
+    _headerUserInfoHTMLStrArray.push('                                <div class="user-gold-info">');
+    _headerUserInfoHTMLStrArray.push('                                    <span>金币 : </span><span id="userGoldCount">40</span>');
+    _headerUserInfoHTMLStrArray.push('                                </div>');
+    _headerUserInfoHTMLStrArray.push('                            </td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                    </table>');
+    _headerUserInfoHTMLStrArray.push('                </div>');
+    _headerUserInfoHTMLStrArray.push('            </div>');
+    _headerUserInfoHTMLStrArray.push('        </td>');
+    _headerUserInfoHTMLStrArray.push('        <td style="width:282px;">');
+    _headerUserInfoHTMLStrArray.push('            <div id="userinfosCenterContainer">');
+    _headerUserInfoHTMLStrArray.push('                <div class="text user-account-info">');
+    _headerUserInfoHTMLStrArray.push('                    <table style="height:120px;">');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td style="width:35px;"><div class="user-account-status-icon"></div></td>');
+    _headerUserInfoHTMLStrArray.push('                            <td id="userAccountStatus_title" style="width:80px;">账户状态 : </td>');
+    _headerUserInfoHTMLStrArray.push('                            <td><div id="userAccountStatus" class="user-account-info-item">1年课程学员会员</div></td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td></td>');
+    _headerUserInfoHTMLStrArray.push('                            <td id="userAccountPeriod_title">账户期限 : </td>');
+    _headerUserInfoHTMLStrArray.push('                            <td><div id="userAccountPeriod" class="user-account-info-item">2017-12-01</div></td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                        <tr>');
+    _headerUserInfoHTMLStrArray.push('                            <td></td>');
+    _headerUserInfoHTMLStrArray.push('                            <td id="userAccountPeriod_Title">主题数量 : </td>');
+    _headerUserInfoHTMLStrArray.push('                            <td><div id="userThemeCount" class="user-account-info-item">无限制</div></td>');
+    _headerUserInfoHTMLStrArray.push('                        </tr>');
+    _headerUserInfoHTMLStrArray.push('                    </table>');
+    _headerUserInfoHTMLStrArray.push('                </div>');
+    _headerUserInfoHTMLStrArray.push('                <div class="text upgrade-buy">');
+    _headerUserInfoHTMLStrArray.push('                    购买课程或者升级会员, 更多优惠');
+    _headerUserInfoHTMLStrArray.push('                </div>');
+    _headerUserInfoHTMLStrArray.push('            </div>');
+    _headerUserInfoHTMLStrArray.push('        </td>');
+    _headerUserInfoHTMLStrArray.push('        <td>');
+    _headerUserInfoHTMLStrArray.push('            <div id="userinfosRightContainer">');
+    _headerUserInfoHTMLStrArray.push('                   <div class="page-header adverts-short">');
+    _headerUserInfoHTMLStrArray.push('                   </div>');
+    _headerUserInfoHTMLStrArray.push('                   <div id="userLearningContainer" class="text user-learning-infor">');
+    _headerUserInfoHTMLStrArray.push('                       <table>');
+    _headerUserInfoHTMLStrArray.push('                           <tr>');
+    _headerUserInfoHTMLStrArray.push('                               <td colspan="4" style="height:115px;">');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="userLearningCurveContainer"></div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                           </tr>');
+    _headerUserInfoHTMLStrArray.push('                           <tr>');
+    _headerUserInfoHTMLStrArray.push('                               <td style="width:20px;"></td>');
+    _headerUserInfoHTMLStrArray.push('                               <td style="height:30px; width:180px;">');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneCompleteTitle" class="user-learning-infor item">已经完成的学习场景 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneCompleteCount" class="user-learning-infor item">5</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                               <td style="width:160px;">');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneAnalysTitle" class="user-learning-infor item">已经分析的学习场景 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneAnalysCount" class="user-learning-infor item">5</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                               <td>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneGoldTitle" class="user-learning-infor item">金币 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneGoldCount" class="user-learning-infor item">20</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                           </tr>');
+    _headerUserInfoHTMLStrArray.push('                           <tr>');
+    _headerUserInfoHTMLStrArray.push('                               <td></td>');
+    _headerUserInfoHTMLStrArray.push('                               <td style="height:30px;">');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneDeployTitle" class="user-learning-infor item">已经发布的学习场景 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneDeployCount" class="user-learning-infor item">1</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                               <td>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneAccessTitle" class="user-learning-infor item">被访问的次数 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneAccessCount" class="user-learning-infor item">300</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                               <td>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneUsedTitle" class="user-learning-infor item">在PlayStore中呗使用的次数 : </div>');
+    _headerUserInfoHTMLStrArray.push('                                   <div id="sceneUsedCount" class="user-learning-infor item">1200</div>');
+    _headerUserInfoHTMLStrArray.push('                               </td>');
+    _headerUserInfoHTMLStrArray.push('                           </tr>');
+    _headerUserInfoHTMLStrArray.push('                       </table>');
+    _headerUserInfoHTMLStrArray.push('                   </div>');
+    _headerUserInfoHTMLStrArray.push('            </div>');
+    _headerUserInfoHTMLStrArray.push('        </td>');
+    _headerUserInfoHTMLStrArray.push('    </tr>');
+    _headerUserInfoHTMLStrArray.push('    <tr>');
+    _headerUserInfoHTMLStrArray.push('        <td colspan="3" style="height:40px;">');
+    _headerUserInfoHTMLStrArray.push('            <div id="userinfosBottomContainer" class="text page-header userinfos message">');
+    _headerUserInfoHTMLStrArray.push('                <table>');
+    _headerUserInfoHTMLStrArray.push('                    <tr>');
+    _headerUserInfoHTMLStrArray.push('                        <td style="width:285px;">');
+    _headerUserInfoHTMLStrArray.push('                            <div class="newmessage">');
+    _headerUserInfoHTMLStrArray.push('                                <div class="newmessage title-text">New Message 最新短消息</div>');
+    _headerUserInfoHTMLStrArray.push('                                <div class="newmessage title-icon"></div>');
+    _headerUserInfoHTMLStrArray.push('                            </div>');
+    _headerUserInfoHTMLStrArray.push('                        </td>');
+    _headerUserInfoHTMLStrArray.push('                        <td>');
+    _headerUserInfoHTMLStrArray.push('                            <div class="newmessage-text">');
+    _headerUserInfoHTMLStrArray.push('                                <span>来自</span><span id="userinfosBottomMsgSender">@Tom</span><span> : </span><span>我已经发布了吃豆子2的游戏到PLAYSTORE，一会儿去玩一下吧</span>');
+    _headerUserInfoHTMLStrArray.push('                            </div>');
+    _headerUserInfoHTMLStrArray.push('                        </td>');
+    _headerUserInfoHTMLStrArray.push('                        <td style="width:100px;">');
+    _headerUserInfoHTMLStrArray.push('                            <div id="userinfosBottomMsgCenter" class="newmessage-center">');
+    _headerUserInfoHTMLStrArray.push('                                [进入查看]');
+    _headerUserInfoHTMLStrArray.push('                            </div>');
+    _headerUserInfoHTMLStrArray.push('                        </td>');
+    _headerUserInfoHTMLStrArray.push('                    </tr>');
+    _headerUserInfoHTMLStrArray.push('                </table>');
+    _headerUserInfoHTMLStrArray.push('            </div>');
+    _headerUserInfoHTMLStrArray.push('        </td>');
+    _headerUserInfoHTMLStrArray.push('    </tr>');
+    _headerUserInfoHTMLStrArray.push('</table>');
+    _headerUserInfoHTMLStrArray.push('<div id="upgradeBuyBtn">');
+    _headerUserInfoHTMLStrArray.push('   <div style="position:absolute; left:18px; top:9px; width:4px; height:22px; background-color:rgb(255,255,255);"></div>');
+    _headerUserInfoHTMLStrArray.push('   <div style="position:absolute; left:9px; top:18px;height:4px; width:22px; background-color:rgb(255,255,255);"></div>');
+    _headerUserInfoHTMLStrArray.push('</div>');
+    _headerUserInfoHTMLStrArray.push('</div>');
+    var _headerUserInfoHTMLStr = _headerUserInfoHTMLStrArray.join("");
+    var tmpEls = document.getElementsByClassName("page-header userinfos");
+    if (tmpEls.length == 1) {
+        var headerUserInfoContainer = tmpEls[0];
+        headerUserInfoContainer.innerHTML = _headerUserInfoHTMLStr;
+    }
+}
 
-        var headerAdvertsContainer = tmpEls[0];
+function buildHeaderAdverts(isLongAdverts, advertsArray) {
+    var longContainer = $('.page-header.adverts');
+    var shortContainer = $('.page-header.adverts-short');
+    var curveContainer = $('#userLearningCurveContainer');
+    if (longContainer && shortContainer && curveContainer) {
         if (isLongAdverts) {
-            headerAdvertsContainer.style.display = "block";
+            longContainer.css('display', 'block');
+            shortContainer.css('display', 'none');
+            curveContainer.css('display', 'block');
         } else {
-            headerAdvertsContainer.style.display = "none";
+            longContainer.css('display', 'none');
+            shortContainer.css('display', 'block');
+            curveContainer.css('display', 'none');
         }
 
         buildAdverts(advertsArray);
     }
 }
 
-function buildHeader(isLongAdverts) {
+function buildHeader(isLongAdverts, advertsArray) {
     buildHeaderOptions();
-    buildHeaderAdverts(isLongAdverts);
+    buildHeaderUserInfo();
+    buildHeaderAdverts(isLongAdverts, advertsArray);
 }
