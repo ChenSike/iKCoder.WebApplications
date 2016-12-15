@@ -73,4 +73,26 @@ div {
     padding: 10px;
 }
 
+.theme-off.title-container {
+    background: url(../images/Background/B_3.fw.png);
+    height: 45px;
+}
 
+.theme-off.title-text {
+    font-size: 18px;
+}
+
+.theme-off.title-button {
+    height: 25px;
+    line-height:25px;
+    background-color: rgb(153,153,153);
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+}
+
+.theme-off.title-store{
+    width:220px;
+    height:40px;
+    background:url(../images/Buttons/Button_Playstore.fw.png);
+}

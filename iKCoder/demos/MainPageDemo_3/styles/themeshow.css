@@ -1,92 +1,59 @@
 ﻿
-.text.library-title {
-    font-size: 16px;
-}
-
-div#libraryPrevPageBtn {
-    width: 40px;
-    height: 40px;
-    background: url(../images/Buttons/Button_PrevSences.fw.png);
-    cursor: pointer;
-}
-
-div#libraryNextPageBtn {
-    width: 40px;
-    height: 40px;
-    background: url(../images/Buttons/Button_NextSences.fw.png);
-    cursor: pointer;
-}
-
-.library-background {
-    height: 420px;
-    width: 1176px;
+.theme-off-items-container {
     position: absolute;
-    top: 73px;
-    background: url(../images/Background/B_3.fw.png);
-    border: solid 2px rgb(112,112,112);
-    z-index: -1;
+    height: 350px;
 }
 
-.library-items-screen {
-    position: relative;
-    height: 450px;
-    overflow: hidden;
-}
-
-.library-items-container {
-    position: absolute;
-    height: 450px;
-}
-
-.library-item-container {
+.theme-off-item-container {
     width: 249px;
-    height: 450px;
-    padding: 0px 23px;
+    height: 350px;
+    padding: 20px 23px;
     display: inline-block;
 }
 
-.library-item-border {
-    width: 247px;
-    height: 448px;
+.theme-off-item-border {
+    width: 249px;
+    height: 350px;
     color: rgb(51,51,51);
-    border: solid 1px rgb(255,255,255);
     background-color: rgb(204,204,204);
 }
 
-.library-item-part {
+.theme-off-item-part {
     position: relative;
-    width: 247px;
+    width: 249px;
 }
 
-    .library-item-part.item-title {
+    .theme-off-item-part.item-title {
         height: 29px;
         padding-top: 6px;
     }
 
-    .library-item-part.item-title-text {
+    .theme-off-item-part.item-title-price {
         width: 50px;
         line-height: 29px;
         top: -5px;
         display: inline-block;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: bold;
+        color:rgb(0,55,215);
     }
 
-    .library-item-part.item-title-progress {
-        width: 180px;
+    .theme-off-item-part.item-title-favour {    
+        width: 80px;
         height: 19px;
         display: inline-block;
-        border: solid 1px rgb(255,255,255);
-        -moz-border-radius: 17px;
-        -webkit-border-radius: 17px;
-        border-radius: 17px;
+        font-weight: bold;
+        color:rgb(12,108,12);
     }
 
-    .library-item-part.screen-shot {
+    .theme-off-item-part.item-title-free{
+    }
+
+    .theme-off-item-part.screen-shot {
         height: 165px;
     }
 
-    .library-item-part.item-name {
+    .theme-off-item-part.item-name {
         height: 40px;
         background-color: rgb(153,153,153);
         font-size: 16px;
@@ -95,7 +62,7 @@ div#libraryNextPageBtn {
         color: rgb(255,255,255);
     }
 
-    .library-item-part.item-note {
+    .theme-off-item-part.item-note {
         height: 75px;
         width: 237px;
         color: rgb(51,51,51);
@@ -106,7 +73,7 @@ div#libraryNextPageBtn {
         font-weight: bold;
     }
 
-    .library-item-part.item-point {
+    .theme-off-item-part.item-point {
         height: 75px;
         width: 230px;
         border: solid 1px rgb(120,120,120);
@@ -115,7 +82,7 @@ div#libraryNextPageBtn {
         background-color: rgb(238,238,238);
     }
 
-        .library-item-part.item-point:after {
+        .theme-off-item-part.item-point:after {
             display: inline-block;
             width: 0;
             height: 100%;
@@ -124,7 +91,7 @@ div#libraryNextPageBtn {
         }
 
 
-    .library-item-part.item-split {
+    .theme-off-item-part.item-split {
         height: 1px;
         width: 200px;
         background-color: rgb(255,255,255);
@@ -132,7 +99,7 @@ div#libraryNextPageBtn {
         margin-left: 23px;
     }
 
-    .library-item-part.item-begin {
+    .theme-off-item-part.item-begin {
         height: 35px;
     }
 
