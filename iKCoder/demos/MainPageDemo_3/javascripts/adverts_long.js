@@ -36,10 +36,14 @@ function buildAdverts(advertsArray) {
 
             newIdx.mouseover(function () {
                 $('.page-header.adverts.image.index').removeClass("hover");
+                //var items = $('.page-header.adverts.image.item');
+                //for (var i = 0; i < items.length; i++) {
+                //}
                 $('.page-header.adverts.image.item').css('animation', '');
                 $('.page-header.adverts.image.item').css('left', _constWidth + 'px');
                 var tmpArr = arguments[0].target.id.split('_');
                 var currIdx = parseInt(tmpArr[tmpArr.length - 1]);
+                //$('#header_adverts_item_' + currIdx).css('transition', 'left 1s');
                 $('#header_adverts_item_' + currIdx).css('left', '0px');
             });
 

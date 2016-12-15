@@ -7,8 +7,8 @@ function bindEvents() {
     $("#shareBtn").click(shareScene);
     $("#homeBtn").click(goHomePage)
     $("#sceneNewBtn").click(createNew);
-    $("#sceneSaveBtn").click(saveCurrent);
-    $("#sceneLoadBtn").click(loadSaved);
+    //$("#sceneSaveBtn").click(saveCurrent);
+    //$("#sceneLoadBtn").click(loadSaved);
     $("#loginBtn").click(login);
     $("#fullScreenBtn").click(fullScreen);
     $("#pauseBtn").click(pauseGame);
@@ -69,11 +69,11 @@ function loadSaved() {
     var container = $('#sceneLoadBtn')[0];
     var recordsDiv = $('#savedRecords')[0];
     if (!recordsDiv) {
-        recordsDiv = document.createElement( 'div');
+        recordsDiv = document.createElement('div');
         recordsDiv.id = "savedRecords";
         recordsDiv.className = "saved-records";
         recordsDiv.style.display = "none";
-        recordsUl = document.createElement( 'ul');
+        recordsUl = document.createElement('ul');
         recordsUl.id = "savedRecordsList";
         recordsUl.className = "records-list";
         recordsDiv.appendChild(recordsUl);

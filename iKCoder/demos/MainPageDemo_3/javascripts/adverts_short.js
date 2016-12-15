@@ -39,7 +39,7 @@ function buildAdverts(advertsArray) {
                 $('.page-header.adverts-short.image.item').css('animation', '');
                 $('.page-header.adverts-short.image.item').css('left', _constWidth + 'px');
                 var tmpArr = arguments[0].target.id.split('_');
-                var currIdx = parseInt(tmpArr[tmpArr.length - 1]);
+                var currIdx = parseInt(tmpArr[tmpArr.length - 1]);               
                 $('#header_adverts_short_item_' + currIdx).css('left', '0px');
             });
 
