@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/adverts_short.css" />
+    <link rel="stylesheet" href="styles/lessons.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
+    <script src="../../javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="../../javascripts/common/common.js"></script>
+    <script src="javascripts/adverts_short.js"></script>
+    <script src="javascripts/header.js"></script>
+    <script src="javascripts/lessons.js"></script>
+    <script src="javascripts/footer.js"></script>
+    <script src="javascripts/mylessons.js"></script>
+</head>
+<body>
+    <div class="page-header">
+        <div class="page-header options"></div>
+        <div class="page-header adverts"></div>
+        <div class="page-header userinfos"></div>
+    </div>
+    <div class="page-content">
+        <div class="mylessons-container">
+            <table>
+                <tr>
+                    <td style="width:75px;"><div class="mylessons-symbol"></div></td>
+                    <td style="width:225px;"><div class="text mylessons-title">我的课程 My Lessons</div></td>
+                    <td style="width:135px;"><div id="lessonCatBasicBtn" class="text button mylessons-category current">Basic 基础</div></td>
+                    <td style="width:135px;"><div id="lessonCatMathBtn" class="text button mylessons-category">Math 数学</div></td>
+                    <td style="width:135px;"><div id="lessonCatEnglishBtn" class="text button mylessons-category">English 英语</div></td>
+                    <td style="width:135px;"><div id="lessonCatLogicBtn" class="text button mylessons-category">Logic 逻辑</div></td>
+                    <td style="width:135px;"><div id="lessonCatCompBtn" class="text button mylessons-category">Computer 计算机</div></td>
+                    <td>
+                        <div class="mylessons-level">
+                            <table>
+                                <tr>
+                                    <td><div class="mylessons-level item level-g1"></div></td>
+                                    <td><div class="mylessons-level item level-g2"></div></td>
+                                    <td><div class="mylessons-level item level-g3"></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="height:30px;">
+                        <div class="mylessons-part-title">
+                            <div class="text mylessons-part-title-item title">当前进行的课程</div>
+                            <div id="lessonCurrCmpBtn" class="text button mylessons-part-title-item selection selected">完成</div>
+                            <div id="lessonCurrUnCmpBtn" class="text button mylessons-part-title-item selection">未完成</div>
+                            <div class="text mylessons-part-title-item paging">
+                                <span id="lessonCurrCurrent">4</span>/<span id="lessonCurrTotal">16</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="height:410px;">
+                        <div class="mylessons-part-content learning">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="lessonCurrPrevBtn" class="button trianglebutton container">
+                                            <div class="trianglebutton horizontal-back left">
+                                                <div class="trianglebutton horizontal-fore left"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mylessons-part-content-screen learning">
+                                            <div class="mylessons-part-content-screen learning">
+                                                <div class="mylessons-part-content-container learning">
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                    <div class="mylessons-part-content-item">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div id="lessonCurrNextBtn" class="button trianglebutton container">
+                                            <div class="trianglebutton horizontal-back right">
+                                                <div class="trianglebutton horizontal-fore right"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="height:30px;">
+                        <div class="mylessons-part-title">
+                            <div class="text mylessons-part-title-item title">历史课程</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="height:410px;">
+                        <div class="mylessons-part-content history">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id="lessonHistPrevBtn" class="button trianglebutton container">
+                                            <div class="trianglebutton horizontal-back left">
+                                                <div class="trianglebutton horizontal-fore left"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mylessons-part-content-screen history">
+                                            <div class="mylessons-part-content-screen history">
+                                                <div class="mylessons-part-content-container history">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div id="lessonHistNextBtn" class="button trianglebutton container">
+                                            <div class="trianglebutton horizontal-back right">
+                                                <div class="trianglebutton horizontal-fore right"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="page-footer"></div>
+</body>
+</html>

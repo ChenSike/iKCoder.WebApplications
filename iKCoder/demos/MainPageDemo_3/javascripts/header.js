@@ -302,7 +302,7 @@ function buildHeaderUserInfo() {
 function buildHeaderAdverts(isLongAdverts, advertsArray) {
     var longContainer = $('.page-header.adverts');
     var shortContainer = $('.page-header.adverts-short');
-    var curveContainer = $('#userLearningCurveContainer');
+    var curveContainer = $('#userLearningContainer');
     if (longContainer && shortContainer && curveContainer) {
         if (isLongAdverts) {
             longContainer.css('display', 'block');

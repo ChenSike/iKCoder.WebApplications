@@ -73,4 +73,122 @@ div {
     padding: 10px;
 }
 
+.trianglebutton {
+    width: 0;
+    height: 0;
+}
 
+    .trianglebutton.container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .trianglebutton.vertical-back {
+        border-right: 19px solid transparent;
+        border-left: 19px solid transparent;
+        position: relative;
+        left: 1px;
+    }
+
+        .trianglebutton.vertical-back:hover {
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            left: 0px;
+        }
+
+        .trianglebutton.vertical-back.up {
+            border-bottom: 32px solid rgb(255,255,255);
+        }
+
+            .trianglebutton.vertical-back.up:hover {
+                border-bottom-width: 34px;
+            }
+
+        .trianglebutton.vertical-back.down {
+            border-top: 32px solid rgb(255,255,255);
+        }
+
+            .trianglebutton.vertical-back.down:hover {
+                border-top-width: 34px;
+            }
+
+    .trianglebutton.vertical-fore {
+        position: relative;
+        border-right: 16px solid transparent;
+        border-left: 16px solid transparent;
+    }
+
+        .trianglebutton.vertical-fore.up {
+            border-bottom: 29px solid rgb(204,204,204);
+            left: -16px;
+            top: 2px;
+        }
+
+            .trianglebutton.vertical-fore.up:hover {
+                top: 3px;
+            }
+
+        .trianglebutton.vertical-fore.down {
+            border-top: 29px solid rgb(204,204,204);
+            left: -16px;
+            top: -31px;
+        }
+
+            .trianglebutton.vertical-fore.down:hover {
+                top: -32px;
+            }
+
+    .trianglebutton.horizontal-back {
+        border-top: 19px solid transparent;
+        border-bottom: 19px solid transparent;
+    }
+
+        .trianglebutton.horizontal-back:hover {
+            position: relative;
+            top: -1px;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+        }
+
+        .trianglebutton.horizontal-back.left {
+            border-right: 32px solid rgb(255,255,255);
+        }
+
+            .trianglebutton.horizontal-back.left:hover {
+                border-right-width: 34px;
+            }
+
+        .trianglebutton.horizontal-back.right {
+            border-left: 32px solid rgb(255,255,255);
+            margin-left:10px;
+        }
+
+            .trianglebutton.horizontal-back.right:hover {
+                border-left-width: 34px;
+            }
+
+    .trianglebutton.horizontal-fore {
+        position: relative;
+        border-top: 17px solid transparent;
+        border-bottom: 17px solid transparent;
+    }
+
+        .trianglebutton.horizontal-fore.left {
+            border-right: 29px solid rgb(204,204,204);
+            left: 2px;
+            top: -17px;
+        }
+
+            .trianglebutton.horizontal-fore.left:hover {
+                left: 3px;
+            }
+
+        .trianglebutton.horizontal-fore.right {
+            border-left: 29px solid rgb(204,204,204);
+            left: -31px;
+            top: -17px;
+        }
+
+            .trianglebutton.horizontal-fore.right:hover {
+                left: -32px;
+            }
