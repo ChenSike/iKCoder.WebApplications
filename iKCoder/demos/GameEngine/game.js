@@ -1,4 +1,6 @@
-﻿var Game = function (containerId) {
+﻿'use strict';
+
+var Game = function (containerId) {
     this.container = document.getElementById(containerId);
     this.canvas = null;
     this.context = null;
@@ -8,6 +10,10 @@
         this.initCanvas();
     }
 };
+
+Game.coordTransition = function (x, y) {
+
+}
 
 Game.prototype.initCanvas = function () {
     this.canvas = document.createElement("canvas");

@@ -1,4 +1,6 @@
-﻿var ResourceLoader = function () {
+﻿'use strict';
+
+var ResourceLoader = function () {
     this.resource = {};
 };
 

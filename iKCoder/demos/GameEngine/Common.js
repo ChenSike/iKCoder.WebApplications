@@ -1,11 +1,12 @@
-﻿if (!Date.now) {
+﻿'use strict';
+
+if (!Date.now) {
     Date.now = function () {
         return new Date().getTime();
     };
 }
 
 (function () {
-    'use strict';
     var vendors = ['webkit', 'moz', 'o', 'ms'];
     for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
         var vp = vendors[i];
@@ -28,7 +29,12 @@
     }
 }());
 
-function _Inherits (childCtor, parentCtor) {
+var Object = function () {
+    this.name = '';
+    this.type = ''
+}
+
+function _Inherits(childCtor, parentCtor) {
     function tempCtor() { }
     tempCtor.prototype = parentCtor.prototype;
     childCtor.superClass_ = parentCtor.prototype;
@@ -69,38 +75,3 @@ function _CloneObject(source) {
 
     return newObj;
 };
-
-function _RectImpactCheck(rect_1, rect_2) {
-
-
-
-
-    C += A, D += B, G += E, H += F;
-
-    // 没有相交
-    if (C <= E || G <= A || D <= F || H <= B)
-        return [0, 0, 0, 0];
-
-    var tmpX, tmpY;
-
-    if (E > A) {
-        tmpX = G < C ? [E, G] : [E, C];
-    } else {
-        tmpX = C < G ? [A, C] : [A, G];
-    }
-
-    if (F > B) {
-        tmpY = H < D ? [F, H] : [F, D];
-    } else {
-        tmpY = D < H ? [B, D] : [B, H];
-    }
-
-    return [tmpX[0], tmpY[0], tmpX[1], tmpY[1]];
-}
-
-// 相交矩形坐标信息
-var rect = check(fish.pos.x, fish.pos.y, fish.size.x, fish.size.y,
-  cat.pos.x, cat.pos.y, cat.size.x, cat.size.y);
-
-// 相交面积大于 0 即为碰撞
-var isHit = (rect[2] - rect[0]) * (rect[3] - rect[1]) > 0;

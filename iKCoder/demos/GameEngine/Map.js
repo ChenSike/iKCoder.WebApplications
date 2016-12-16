@@ -1,4 +1,6 @@
-﻿var Map = function (params) {
+﻿'use strict';
+
+var Map = function (params) {
     this._params = params || {};
     this._settings = {
         x: 0,

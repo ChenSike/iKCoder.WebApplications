@@ -1,4 +1,6 @@
-﻿var Stage = function (params) {
+﻿'use strict';
+
+var Stage = function (params) {
     this._params = params || {};
     this._settings = {
         map: null,
