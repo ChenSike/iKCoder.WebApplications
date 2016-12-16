@@ -1,0 +1,146 @@
+﻿body {
+    margin: auto;
+    min-width: 1200px;
+    min-height: 930px;
+    border: none;
+    background-color: rgb(255,255,255);
+}
+
+.page-header {
+    min-height: 50px;
+    min-width: 1200px;
+    position: relative;
+    border: none;
+    border-bottom: solid 1px rgb(221,221,221);
+}
+
+.page-header-content {
+    color: rgb(0,90,180);
+}
+
+.playstore-title.title {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(170,170,170);
+}
+
+.playstore-title.copyright {
+    font-size: 9px;
+    color: rgb(85,85,85);
+}
+
+.playstore-title.search {
+    height: 26px;
+    border: solid 1px rgb(170,170,170);
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.playstore-title.searchtxt {
+    position: relative;
+    border: none;
+    height: 20px;
+    left: 10px;
+    width: 100%;
+}
+
+.playstore-title.searchbtn:hover {
+    font-weight: bold;
+}
+
+.playstore-title.login {
+    height: 25px;
+    width: 80px;
+    border: none;
+    line-height: 25px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background-color: rgb(255,128,0);
+    color: rgb(255,255,255);
+    position: relative;
+    left: 20px;
+}
+
+    .playstore-title.login:hover {
+        font-weight: bold;
+    }
+
+.playstore-title.nopass {
+    font-size: 12px;
+    text-align: right;
+    text-decoration: underline;
+}
+
+    .playstore-title.nopass:hover {
+        font-weight: bold;
+    }
+
+.playstore-title.goback {
+    font-size: 12px;
+    text-align: right;
+}
+
+    .playstore-title.goback:hover {
+        font-weight: bold;
+    }
+
+.page-content {
+    position: relative;
+    min-height: 650px;
+    min-width: 1200px;
+    border: none;
+    border-bottom: solid 1px rgb(221,221,221);
+}
+
+.page-content-item {
+    width: 1130px;
+    min-height: 275px;
+    border-top: dotted 1px rgb(0,163,217);
+    margin: 0px 35px;
+}
+
+    .page-content-item.container-header {
+        min-height: 0px;
+        width: 1125px;
+        height: 47px;
+        line-height: 65px;
+        border: none;
+        border-bottom: solid 3px rgb(0,163,217);
+        margin: 0px;
+        color: rgb(0,90,180);
+        font-size: 20px;
+        /*font-weight: bold;*/
+        text-align: left;
+        padding-left: 5px;
+    }
+
+        .page-content-item.container-header span {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+.advert-items-container {
+    border: none;
+}
+
+.nestest-items-container {
+}
+
+.top-items-container {
+}
+
+.favarite-items-container {
+}
+
+
+
+.page-footer {
+    position: relative;
+    height: 216px;
+    min-width: 1200px;
+    border: none;
+    background-color: rgb(85,85,85);
+}
