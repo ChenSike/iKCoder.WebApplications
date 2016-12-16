@@ -135,7 +135,7 @@ function buildHeaderOptions() {
         var headerOptionsContainer = tmpEls[0];
         headerOptionsContainer.innerHTML = _headerOptionsHTMLStr;
     }
-}
+};
 
 function buildHeaderUserInfo() {
     var _headerUserInfoHTMLStrArray = [];
@@ -297,7 +297,7 @@ function buildHeaderUserInfo() {
         var headerUserInfoContainer = tmpEls[0];
         headerUserInfoContainer.innerHTML = _headerUserInfoHTMLStr;
     }
-}
+};
 
 function buildHeaderAdverts(isLongAdverts, advertsArray) {
     var longContainer = $('.page-header.adverts');
@@ -316,24 +316,24 @@ function buildHeaderAdverts(isLongAdverts, advertsArray) {
 
         buildAdverts(advertsArray);
     }
-}
+};
 
 function buildHeader(isLongAdverts, advertsArray) {
     buildHeaderOptions();
     buildHeaderUserInfo();
     buildHeaderAdverts(isLongAdverts, advertsArray);
 
-    $('#headerOptionsWorkspaceBtn').click("scene/index.html",gotoOtherPage);
-    $('#headerOptionsCertificateBtn').click("certificate.html", gotoOtherPage);
+    $('#headerOptionsWorkspaceBtn').click("scene/index.html", gotoOtherPage);
+    $('#headerOptionsCertificateBtn').click("mycertificates.html", gotoOtherPage);
     $('#headerOptionsLessonsBtn').click("mylessons.html", gotoOtherPage);
     $('#headerOptionsStorageBtn').click("storage.html", gotoOtherPage);
     $('#headerOptionsMessageBtn').click("message.html", gotoOtherPage);
     $('#headerOptionsReportBtn').click("reports.html", gotoOtherPage);
     $('#headerOptionsClubBtn').click("memberclub.html", gotoOtherPage);
     $('#headerOptionsTestBtn').click("testpage.html", gotoOtherPage);
-}
+};
 
 function gotoOtherPage(eventObj) {
     //window.location.replace(eventObj.data);
     window.open(eventObj.data);
-}
+};
