@@ -36,6 +36,9 @@ div#libraryNextPageBtn {
 .library-items-container {
     position: absolute;
     height: 450px;
+    /*-moz-transition: left 500ms;
+    -webkit-transition: left 500ms;
+    transition: left 500ms;*/
 }
 
 .library-item-container {

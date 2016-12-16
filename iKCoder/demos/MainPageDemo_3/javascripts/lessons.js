@@ -198,6 +198,7 @@ function moveNextCard(eventObj) {
         for (var i = 0; i < _cssPrefixArr.length; i++) {
             container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
         }
+
         if (left % 270 != 0) {
             if (left > 0) {
                 left = 270 * Math.floor(left / 270);

@@ -59,15 +59,14 @@ function movePrevCard() {
     if (left < 0) {
         //$('div#libraryPrevPageBtn').unbind();
         //$('div#libraryNextPageBtn').unbind();
-        for (var i = 0; i < _cssPrefixArr.length; i++) {
-            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
-        }
-
         if (left % 295 != 0) {
             left = 295 * Math.floor(left / 295);
         }
 
         container.css('left', (left + 295) + 'px');
+        for (var i = 0; i < _cssPrefixArr.length; i++) {
+            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
+        }
         //this.addEventListener("webkitTransitionEnd", function () {
         //    $('div#libraryPrevPageBtn').click(movePrevCard);
         //    $('div#libraryNextPageBtn').click(moveNextCard);
@@ -80,9 +79,6 @@ function moveNextCard() {
     var left = parseInt(container.css('left'));
     var width = parseInt(container.css('width'));
     if ((width - Math.abs(left)) / 295 > 4) {
-        for (var i = 0; i < _cssPrefixArr.length; i++) {
-            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
-        }
         if (left % 295 != 0) {
             if (left > 0) {
                 left = 295 * Math.floor(left / 295);
@@ -92,6 +88,9 @@ function moveNextCard() {
         }
 
         container.css('left', (left - 295) + 'px');
+        for (var i = 0; i < _cssPrefixArr.length; i++) {
+            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
+        }
     }
 };
 
@@ -134,6 +133,13 @@ function buildLiberary(cardObjArr) {
             var htmlStr = getLiberaryCardHTML(cardObjArr[i]);
             container.append($(htmlStr));
         }
+        //for transition load
+        var left = parseInt(container.css('left'));
+        container.css('left', (left - 1) + 'px');
+        for (var i = 0; i < _cssPrefixArr.length; i++) {
+            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
+        }
+        container.css('left', (left + 1) + 'px');
     }
 
     $('div#libraryPrevPageBtn').click(movePrevCard);
