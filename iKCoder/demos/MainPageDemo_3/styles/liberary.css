@@ -195,15 +195,29 @@ div#libraryNextPageBtn {
     height: 25px;
 }
 
+    .item-begin.fast-begin:hover {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
 .item-begin.fast-delete {
     position: relative;
     top: -25px;
     left: 76px;
     width: 100px;
     height: 25px;
+    line-height: 25px;
     color: rgb(255,255,255);
     background-color: rgb(136,136,136);
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
 }
+
+    .item-begin.fast-delete:hover {
+        top: -27px;
+        border: solid 2px rgb(255,255,255);
+        -moz-border-radius: 14px;
+        -webkit-border-radius: 14px;
+        border-radius: 14px;
+    }
