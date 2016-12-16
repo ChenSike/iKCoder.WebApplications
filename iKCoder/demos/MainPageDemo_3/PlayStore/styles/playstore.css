@@ -43,7 +43,8 @@
     border: none;
     height: 20px;
     left: 10px;
-    width: 100%;
+    width:100%;
+    outline:medium;
 }
 
 .playstore-title.searchbtn:hover {
