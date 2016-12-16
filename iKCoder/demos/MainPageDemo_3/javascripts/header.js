@@ -14,7 +14,7 @@ function buildHeaderOptions() {
     _headerOptionsHTMLStrArray.push('                            <div class="text">MY WORKSTATION 我的工作台</div>');
     _headerOptionsHTMLStrArray.push('                        </td>');
     _headerOptionsHTMLStrArray.push('                        <td>');
-    _headerOptionsHTMLStrArray.push('                            <div class="button playstore"></div>');
+    _headerOptionsHTMLStrArray.push('                            <div id="headerOptionsPlayStoreBtn" class="button playstore"></div>');
     _headerOptionsHTMLStrArray.push('                        </td>');
     _headerOptionsHTMLStrArray.push('                        <td></td>');
     _headerOptionsHTMLStrArray.push('                        <td style="width:190px;">');
@@ -42,7 +42,7 @@ function buildHeaderOptions() {
     _headerOptionsHTMLStrArray.push('                            </div>');
     _headerOptionsHTMLStrArray.push('                        </td>');
     _headerOptionsHTMLStrArray.push('                        <td style="width:55px;">');
-    _headerOptionsHTMLStrArray.push('                            <div id="homeBtn" class="button home">');
+    _headerOptionsHTMLStrArray.push('                            <div id="headerOptionsHomeBtn" class="button home">');
     _headerOptionsHTMLStrArray.push('                                <div class="button home image"></div>');
     _headerOptionsHTMLStrArray.push('                            </div>');
     _headerOptionsHTMLStrArray.push('                        </td>');
@@ -81,10 +81,10 @@ function buildHeaderOptions() {
     _headerOptionsHTMLStrArray.push('                            </table>');
     _headerOptionsHTMLStrArray.push('                        </td>');
     _headerOptionsHTMLStrArray.push('                        <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                            <div id="configBtn" class="text button middle config">配置</div>');
+    _headerOptionsHTMLStrArray.push('                            <div id="headerOptionsConfigBtn" class="text button middle config">配置</div>');
     _headerOptionsHTMLStrArray.push('                        </td>');
     _headerOptionsHTMLStrArray.push('                        <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                            <div id="loginBtn" class="text button middle login">');
+    _headerOptionsHTMLStrArray.push('                            <div id="headerOptionsLoginBtn" class="text button middle login">');
     _headerOptionsHTMLStrArray.push('                                <img class="login" src="images/Icons/login.fw.png" />');
     _headerOptionsHTMLStrArray.push('                                <div class="login-text">登录</div>');
     _headerOptionsHTMLStrArray.push('                            </div>');
@@ -100,28 +100,28 @@ function buildHeaderOptions() {
     _headerOptionsHTMLStrArray.push('            <table>');
     _headerOptionsHTMLStrArray.push('                <tr>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">工作台</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsWorkspaceBtn" class="text button middle bottom">工作台</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">电子证书</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsCertificateBtn" class="text button middle bottom">电子证书</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">课程</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsLessonsBtn" class="text button middle bottom">课程</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">仓库</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsStorageBtn" class="text button middle bottom">仓库</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">消息</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsMessageBtn" class="text button middle bottom">消息</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">报告</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsReportBtn" class="text button middle bottom">报告</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">俱乐部</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsClubBtn" class="text button middle bottom">俱乐部</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td style="width:82px;">');
-    _headerOptionsHTMLStrArray.push('                        <div id="configBtn" class="text button middle bottom">测试</div>');
+    _headerOptionsHTMLStrArray.push('                        <div id="headerOptionsTestBtn" class="text button middle bottom">测试</div>');
     _headerOptionsHTMLStrArray.push('                    </td>');
     _headerOptionsHTMLStrArray.push('                    <td></td>');
     _headerOptionsHTMLStrArray.push('                </tr>');
@@ -322,4 +322,18 @@ function buildHeader(isLongAdverts, advertsArray) {
     buildHeaderOptions();
     buildHeaderUserInfo();
     buildHeaderAdverts(isLongAdverts, advertsArray);
+
+    $('#headerOptionsWorkspaceBtn').click("scene/index.html",gotoOtherPage);
+    $('#headerOptionsCertificateBtn').click("certificate.html", gotoOtherPage);
+    $('#headerOptionsLessonsBtn').click("mylessons.html", gotoOtherPage);
+    $('#headerOptionsStorageBtn').click("storage.html", gotoOtherPage);
+    $('#headerOptionsMessageBtn').click("message.html", gotoOtherPage);
+    $('#headerOptionsReportBtn').click("reports.html", gotoOtherPage);
+    $('#headerOptionsClubBtn').click("memberclub.html", gotoOtherPage);
+    $('#headerOptionsTestBtn').click("testpage.html", gotoOtherPage);
+}
+
+function gotoOtherPage(eventObj) {
+    //window.location.replace(eventObj.data);
+    window.open(eventObj.data);
 }

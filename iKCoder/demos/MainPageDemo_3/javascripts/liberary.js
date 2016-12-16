@@ -59,7 +59,10 @@ function movePrevCard() {
     if (left < 0) {
         //$('div#libraryPrevPageBtn').unbind();
         //$('div#libraryNextPageBtn').unbind();
-        container.css('transition', 'left 500ms');
+        for (var i = 0; i < _cssPrefixArr.length; i++) {
+            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
+        }
+
         if (left % 295 != 0) {
             left = 295 * Math.floor(left / 295);
         }
@@ -77,7 +80,9 @@ function moveNextCard() {
     var left = parseInt(container.css('left'));
     var width = parseInt(container.css('width'));
     if ((width - Math.abs(left)) / 295 > 4) {
-        container.css('transition', 'left 500ms');
+        for (var i = 0; i < _cssPrefixArr.length; i++) {
+            container.css(_cssPrefixArr[i] + 'transition', 'left 500ms');
+        }
         if (left % 295 != 0) {
             if (left > 0) {
                 left = 295 * Math.floor(left / 295);
@@ -91,6 +96,37 @@ function moveNextCard() {
 };
 
 function buildLiberary(cardObjArr) {
+    var parent = $('.page-content.library');
+    var libraryHtmlStrArr = [];
+    libraryHtmlStrArr.push('<table>');
+    libraryHtmlStrArr.push('    <tr>');
+    libraryHtmlStrArr.push('        <td style="height:50px;width:150px;">');
+    libraryHtmlStrArr.push('            <div class="text library-title">Library 主题库</div>');
+    libraryHtmlStrArr.push('        </td>');
+    libraryHtmlStrArr.push('        <td style="width:50px;">');
+    libraryHtmlStrArr.push('            <div id="libraryPrevPageBtn" class="button triangleBgButton container">');
+    libraryHtmlStrArr.push('                <div class="triangleBgButton horizontal-fore left"></div>');
+    libraryHtmlStrArr.push('            </div>');
+    //libraryHtmlStrArr.push('            <div id="libraryPrevPageBtn"></div>');
+    libraryHtmlStrArr.push('        </td>');
+    libraryHtmlStrArr.push('        <td style="width:50px;">');
+    libraryHtmlStrArr.push('            <div id="libraryNextPageBtn" class="button triangleBgButton container">');
+    libraryHtmlStrArr.push('                <div class="triangleBgButton horizontal-fore right"></div>');
+    libraryHtmlStrArr.push('            </div>');
+    //libraryHtmlStrArr.push('            <div id="libraryNextPageBtn"></div>');
+    libraryHtmlStrArr.push('        </td>');
+    libraryHtmlStrArr.push('        <td></td>');
+    libraryHtmlStrArr.push('    </tr>');
+    libraryHtmlStrArr.push('    <tr>');
+    libraryHtmlStrArr.push('        <td colspan="4">');
+    libraryHtmlStrArr.push('            <div class="library-items-screen">');
+    libraryHtmlStrArr.push('                <div class="library-items-container"></div>');
+    libraryHtmlStrArr.push('            </div>');
+    libraryHtmlStrArr.push('            <div class="library-background"></div>');
+    libraryHtmlStrArr.push('        </td>');
+    libraryHtmlStrArr.push('    </tr>');
+    libraryHtmlStrArr.push('</table>');
+    parent.append($(libraryHtmlStrArr.join('')));
     var container = $('.library-items-container');
     if (container) {
         container.css('width', (295 * cardObjArr.length) + 'px');

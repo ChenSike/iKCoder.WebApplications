@@ -3,7 +3,7 @@
     font-size: 16px;
 }
 
-div#libraryPrevPageBtn {
+/*div#libraryPrevPageBtn {
     width: 40px;
     height: 40px;
     background: url(../images/Buttons/Button_PrevSences.fw.png);
@@ -15,7 +15,7 @@ div#libraryNextPageBtn {
     height: 40px;
     background: url(../images/Buttons/Button_NextSences.fw.png);
     cursor: pointer;
-}
+}*/
 
 .library-background {
     height: 420px;

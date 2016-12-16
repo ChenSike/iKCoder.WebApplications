@@ -71,7 +71,40 @@ function onLoad() {
         }
     ];
 
+    var themesArray = [
+        {
+            id: '1',
+            name: '数字秀',
+            note: '实现动画效果的数字',
+            img: 'images/span/SoleTheme.fw.png',
+            diff: '2',
+            price: 'Free'
+        }, {
+            id: '2',
+            name: '皮卡丘Show',
+            note: '炫酷的角色介绍效果演示',
+            img: 'images/span/SoleTheme_PCShow.fw.png',
+            diff: '3',
+            price: '35.0'
+        }, {
+            id: '3',
+            name: '月饼杀手',
+            note: '月饼将统治世界',
+            img: 'images/span/SoleTheme_MCKiller.fw.png',
+            diff: '3',
+            price: '25'
+        }, {
+            id: '4',
+            name: '真假眼睛 3D Scene',
+            note: '真的假不了',
+            img: 'images/span/SoleTheme_3DEyes.fw.png',
+            diff: '2',
+            price: 'Free'
+        }
+    ];
+
     buildHeader(true, advertsArray);
     buildLiberary(liberaryArray);
+    buildThemesOff(themesArray);
     buildFooter();
 }

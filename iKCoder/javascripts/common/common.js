@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+var _cssPrefixArr = ['', '-moz-', '-o-', '-webkit-'];
+
 if (!Date.now) {
     Date.now = function () {
         return new Date().getTime();

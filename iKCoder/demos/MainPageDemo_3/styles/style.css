@@ -192,32 +192,59 @@ div {
             .trianglebutton.horizontal-fore.right:hover {
                 left: -32px;
             }
-            
-.theme-off.title-container {
-    background: url(../images/Background/B_3.fw.png);
-    height: 45px;
+
+
+.triangleBgButton {
+    width: 0;
+    height: 0;
 }
 
-.theme-off.title-text {
-    font-size: 18px;
-}
+    .triangleBgButton.container {
+        width: 30px;
+        height: 30px;
+        background-color: rgb(255,128,0);
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+    }
 
-.theme-off.title-button {
-    height: 25px;
-    line-height: 25px;
-    background-color: rgb(153,153,153);
-    -moz-border-radius: 13px;
-    -webkit-border-radius: 13px;
-    border-radius: 13px;
-}
+    .triangleBgButton.container:hover {
+            border: 2px solid rgb(255,255,255);
+    }
 
-.theme-off.title-button:hover {
-            border: solid 2px rgb(255,255,255);
+    .triangleBgButton.vertical-fore {
+        position: relative;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+    }
 
-}
+        .triangleBgButton.vertical-fore.up {
+            border-bottom: 18px solid rgb(255,255,255);
+            top: 4px;
+            left: 5px;
+        }
 
-.theme-off.title-store {
-    width: 220px;
-    height: 40px;
-    background: url(../images/Buttons/Button_Playstore.fw.png);
-}
+
+        .triangleBgButton.vertical-fore.down {
+            border-top: 18px solid rgb(255,255,255);
+            top: 8px;
+            left: 5px;
+        }
+
+    .triangleBgButton.horizontal-fore {
+        position: relative;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+
+        .triangleBgButton.horizontal-fore.left {
+            border-right: 18px solid rgb(255,255,255);
+            top: 5px;
+            left: 3px;
+        }
+
+        .triangleBgButton.horizontal-fore.right {
+            border-left: 18px solid rgb(255,255,255);
+            top: 5px;
+            left: 9px;
+        }
