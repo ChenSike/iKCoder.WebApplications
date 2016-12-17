@@ -4,7 +4,7 @@ var ResourceLoader = function () {
     this.resource = {};
 };
 
-ResourceLoader.prototype.initResource = function (resourceArr, ) {
+ResourceLoader.prototype.initResource = function (resourceArr) {
     this.resource = {};
     var tmpFlag = 0;
     for (var i = 0; i < resourceArr.length; i++) {

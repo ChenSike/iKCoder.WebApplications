@@ -7,6 +7,7 @@ var GameObject = function (params) {
         y: 0,
         width: 20,
         height: 20,
+        angle: 0,
         type: 0,                    //0: fixed item; 1: floating item; 2: NPC; 3: Player
         color: '#F00',
         status: 1,                  //0: pause; 1: normal; 2: new creating; 3: Removing; 4: fixing
@@ -17,14 +18,13 @@ var GameObject = function (params) {
         location: null,
         coord: null,
         path: [],
-        vector: null,
-        size: null,
         stage: null,
         draw_type: 0,    //0: path; 1: image
         images: []
     };
 
     _Extend(this, this._settings, this._params);
+    Rectangle.call(this, this.x, this.y, this.width, this.height, this.angle);
 };
 
 GameObject.prototype.update = function () {

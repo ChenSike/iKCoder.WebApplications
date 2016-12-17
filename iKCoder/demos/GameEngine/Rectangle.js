@@ -37,16 +37,16 @@ var Size = function (w, h) {
     };
 }
 
-var Rectangle = function (vector, size, angle) {
-    this._vector = vector;
-    this._size = size;
-    if (angle) {
-        this.angle = angle;
+var Rectangle = function (x, y, w, h, a) {
+    this._vector = new Vector(x, y);
+    this._size = new Size(w, h);
+    if (a) {
+        this._angle = angle;
     }
 }
 
 Rectangle.prototype.rotate = function (a) {
-    this.angle = a;
+    this._angle = a;
 };
 
 Rectangle.prototype.checkHit = function (rect) {
