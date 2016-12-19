@@ -10,11 +10,14 @@ var Map = function (params) {
         stage: null,
         type: 0, //0: fixed; 1: horizontal ; 2: vertical 
         draw_type: 0, //0: path; 1: image
-        images: [],
-
+        images: []
     };
 
     _extend(this, this._settings, this._params);
+};
+
+Map.prototype.setStage = function (stage) {
+    this.stage = stage;
 };
 
 Map.prototype.get = function (x, y) {
