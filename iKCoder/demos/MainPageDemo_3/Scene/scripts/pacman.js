@@ -74,7 +74,16 @@ PacMan.init = function () {
     };
 
     window.addEventListener('resize', onresize, false);
-    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("xml/blocks.xml")));
+    //var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("xml/blocks.xml")));
+    var tempXMLStr = '<xml id="toolbox" style="display: none">' +
+        '   <block type="pacman_map_wall_detail"></block>' +
+        '   <block type="pacman_map_goods_detail"></block>' +
+        '   <block type="pacman_npc_detail"></block>' +
+        '   <block type="pacman_coord_number"></block>' +
+        '   <block type="pacman_coord_random"></block>' +
+        '</xml>';
+    var blocksXMLDoc = Blockly.Xml.textToDom(tempXMLStr);
+
     PacMan.workspace = Blockly.inject('content_blocks',
         {
             scrollbars: true,

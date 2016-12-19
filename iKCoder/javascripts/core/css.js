@@ -141,6 +141,7 @@ Blockly.Css.CONTENT = [
   '.blocklyWidgetDiv {',
     'display: none;',
     'position: absolute;',
+    'width: auto;',
     'z-index: 99999;', /* big value for bootstrap3 compatibility */
   '}',
 
@@ -548,11 +549,13 @@ Blockly.Css.CONTENT = [
   '.blocklyWidgetDiv .goog-palette {',
     'outline: none;',
     'cursor: default;',
+    'width: auto;',
   '}',
 
   '.blocklyWidgetDiv .goog-palette-table {',
     'border: 1px solid #666;',
     'border-collapse: collapse;',
+     'width: auto;',
   '}',
 
   '.blocklyWidgetDiv .goog-palette-cell {',
