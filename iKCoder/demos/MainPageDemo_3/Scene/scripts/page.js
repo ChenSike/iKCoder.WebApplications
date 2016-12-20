@@ -1,5 +1,28 @@
-﻿function onLoad() {
-    PacMan.init();
+﻿var currSceneSymbol = 'pacman';
+
+function onLoad() {
+    var scenes = 'pacman;race';
+    var params = window.location.search.replace("?", "").split("&");    
+    for (var i = 0; i < params.length; i++) {
+        var tmpParaArr = params[i].split("=");
+        if (tmpParaArr.length == 2) {
+            if (tmpParaArr[0] == "scene") {
+                currSceneSymbol = tmpParaArr[1];
+                break;
+            }
+        }
+    }
+
+    if (currSceneSymbol.trim() == '' || scenes.indexOf(currSceneSymbol) < 0) {
+        currSceneSymbol = 'pacman';
+    }
+
+    if (currSceneSymbol == 'pacman') {
+        PacMan.init();
+    } else if (currSceneSymbol == 'race') {
+        RaceGame.init();
+    }
+
     bindEvents();
 }
 
@@ -117,11 +140,19 @@ function fullScreen() {
 };
 
 function pauseGame() {
-    PacMan.pauseScene();
+    if (currSceneSymbol == 'pacman') {
+        PacMan.pauseScene();
+    } else if (currSceneSymbol == 'race') {
+        RaceGame.endGame();
+    }
 };
 
 function startGame() {
-    PacMan.runJS();
+    if (currSceneSymbol == 'pacman') {
+        PacMan.runJS();
+    } else if (currSceneSymbol == 'race') {
+        RaceGame.runJS();
+    }
 };
 
 function editCode() {
@@ -136,7 +167,11 @@ function editCode() {
 };
 
 function restoreCode() {
-    PacMan.outputCode();
+    if (currSceneSymbol == 'pacman') {
+        PacMan.outputCode();
+    } else if (currSceneSymbol == 'race') {
+        RaceGame.outputCode();
+    }
 };
 
 window.addEventListener('load', onLoad);
