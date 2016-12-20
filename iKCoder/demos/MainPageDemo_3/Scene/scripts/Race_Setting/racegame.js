@@ -82,15 +82,34 @@ RaceGame.init = function () {
             media: '../../../media/',
             rtl: false,
             toolbox: blocksXMLDoc,
-            grid: {
-                spacing: 25,
-                length: 3,
-                colour: '#ccc',
-                snap: true
+            //grid: {
+            //    spacing: 25,
+            //    length: 3,
+            //    colour: '#ccc',
+            //    snap: true
+            //},
+            customCfg: {
+                background_path: {
+                    spacing: 10,
+                    color: '#666666',
+                    path: {
+                        color: '#757575',
+                        path: 'M 5,0 L 10,5 5,10 0,5 5,0'
+                    }
+                },
+                toolbox_collapse: {
+                    border: {
+                        stroke: 'rgb(0,163,217)',
+                        width: 1
+                    },
+                    fill: 'rgb(221, 221, 221)',
+                    opacity: 1,
+                    radius: 0
+                }
             },
             zoom: {
                 controls: true,
-                wheel: true
+                wheel: false
             }
         }
     );
