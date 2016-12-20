@@ -142,3 +142,28 @@ function ConvertImgToBase64(url, callback, outputFormat) {
 //ConvertImgToBase64('http://bit.ly/18g0VNp', function (base64Img) {
 //    // Base64DataURL
 //});
+
+function testTextWidth(sourceTagId) {
+    var sourceTag = document.getElementById(sourceTagId);
+    if (!sourceTag) {
+        return -1;
+    }
+
+    var testDiv = document.getElementById("div_test_text_widht");
+    if (!testDiv) {
+        testDiv = document.createElement("div");
+        testDiv.id = "div_test_text_widht";
+        testDiv.style.position = "absolute";
+        testDiv.style.left = "-10000px";
+        testDiv.style.top = "-10000px";
+        testDiv.style.width = "auto";
+        document.body.appendChild(testDiv);
+    }
+
+    testDiv.style.fontFamily = sourceTag.style.fontFamily;
+    testDiv.style.fontSize = sourceTag.style.fontSize;
+    testDiv.style.fontWeight = sourceTag.style.fontWeight;
+    testDiv.innerHTML = sourceTag.innerHTML;
+
+    return testDiv.clientWidth;
+};

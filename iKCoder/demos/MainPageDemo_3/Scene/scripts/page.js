@@ -2,7 +2,7 @@
 
 function onLoad() {
     var scenes = 'pacman;race';
-    var params = window.location.search.replace("?", "").split("&");    
+    var params = window.location.search.replace("?", "").split("&");
     for (var i = 0; i < params.length; i++) {
         var tmpParaArr = params[i].split("=");
         if (tmpParaArr.length == 2) {
@@ -18,9 +18,25 @@ function onLoad() {
     }
 
     if (currSceneSymbol == 'pacman') {
-        PacMan.init();
+        $.getScript("scripts/PacMan_Setting/Blocks/blocks.js", function () {
+            $.getScript("scripts/PacMan_Setting/Engine/game_engine.js", function () {
+                $.getScript("scripts/PacMan_Setting/Scene/scene.js", function () {
+                    $.getScript("scripts/PacMan_Setting/pacman.js", function () {
+                        PacMan.init();
+                    });
+                });
+            });
+        });
     } else if (currSceneSymbol == 'race') {
-        RaceGame.init();
+        $.getScript("scripts/Race_Setting/Blocks/blocks.js", function () {
+            $.getScript("scripts/Race_Setting/Engine/game_engine.js", function () {
+                $.getScript("scripts/Race_Setting/Scene/scene.js", function () {
+                    $.getScript("scripts/Race_Setting/racegame.js", function () {
+                        RaceGame.init();
+                    });
+                });
+            });
+        });
     }
 
     bindEvents();

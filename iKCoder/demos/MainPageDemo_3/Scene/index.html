@@ -13,41 +13,8 @@
     <script src="../../../javascripts/blocks_uncompressed.js"></script>
     <script src="../../../javascripts/javascript_uncompressed.js"></script>
     <script src="../../../msg/messages.js"></script>
-    <script src="scripts/PacMan_Setting/Blocks/blocks.js"></script>
-    <script src="scripts/PacMan_Setting/Engine/game_engine.js"></script>
-    <script src="scripts/PacMan_Setting/Scene/scene.js"></script>
-    <script src="scripts/PacMan_Setting/pacman.js"></script>
-    <!--<script src="scripts/Race_Setting/Blocks/blocks.js"></script>
-    <script src="scripts/Race_Setting/Engine/game_engine.js"></script>
-    <script src="scripts/Race_Setting/Scene/scene.js"></script>
-    <script src="scripts/Race_Setting/racegame.js"></script>-->
     <script src="scripts/page.js"></script>
     <script type="text/javascript">
-        function testTextWidth(sourceTagId) {
-            var sourceTag = document.getElementById(sourceTagId);
-            if (!sourceTag) {
-                return -1;
-            }
-
-            var testDiv = document.getElementById("div_test_text_widht");
-            if (!testDiv) {
-                testDiv = document.createElement("div");
-                testDiv.id = "div_test_text_widht";
-                testDiv.style.position = "absolute";
-                testDiv.style.left = "-10000px";
-                testDiv.style.top = "-10000px";
-                testDiv.style.width = "auto";
-                document.body.appendChild(testDiv);
-            }
-
-            testDiv.style.fontFamily = sourceTag.style.fontFamily;
-            testDiv.style.fontSize = sourceTag.style.fontSize;
-            testDiv.style.fontWeight = sourceTag.style.fontWeight;
-            testDiv.innerHTML = sourceTag.innerHTML;
-
-            return testDiv.clientWidth;
-        }
-
         function setTextHorizontalScroll(sourceTagId, maxWidth) {
             var sourceTag = document.getElementById(sourceTagId);
             if (!sourceTag) {

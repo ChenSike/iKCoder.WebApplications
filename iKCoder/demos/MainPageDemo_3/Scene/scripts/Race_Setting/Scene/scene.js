@@ -167,8 +167,10 @@ var Scene = {
         this.canvas.id = this.canvasId;
         this.container.appendChild(this.canvas);
         //this.canvas.style.backgroundColor = "#000000";
-        var height = this.container.clientHeight;
-        var width = this.container.clientWidth;
+        //var height = this.container.clientHeight;
+        //var width = this.container.clientWidth;
+        var height = 480;
+        var width = 640;
         this.canvas.style.height = height + "px";
         this.canvas.style.width = width + "px";
         this.context = this.canvas.getContext('2d');
