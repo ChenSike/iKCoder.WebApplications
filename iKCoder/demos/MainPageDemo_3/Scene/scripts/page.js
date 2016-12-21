@@ -1,7 +1,11 @@
 ﻿var currSceneSymbol = 'pacman';
 
 function onLoad() {
-    var scenes = 'pacman;race';
+    var scenes = {
+        'pacman': 'PacMan_Setting',
+        'race': 'Race_Setting'
+    };
+
     var params = window.location.search.replace("?", "").split("&");
     for (var i = 0; i < params.length; i++) {
         var tmpParaArr = params[i].split("=");
@@ -13,33 +17,29 @@ function onLoad() {
         }
     }
 
-    if (currSceneSymbol.trim() == '' || scenes.indexOf(currSceneSymbol) < 0) {
-        currSceneSymbol = 'pacman';
-    }
-
-    if (currSceneSymbol == 'pacman') {
-        $.getScript("scripts/PacMan_Setting/Blocks/blocks.js", function () {
-            $.getScript("scripts/PacMan_Setting/Engine/game_engine.js", function () {
-                $.getScript("scripts/PacMan_Setting/Scene/scene.js", function () {
-                    $.getScript("scripts/PacMan_Setting/pacman.js", function () {
-                        PacMan.init();
+    if (scenes[currSceneSymbol]) {
+        $.getScript("scripts/" + scenes[currSceneSymbol] + "/Blocks/blocks.js", function () {
+            $.getScript("scripts/" + scenes[currSceneSymbol] + "/Engine/game_engine.js", function () {
+                $.getScript("scripts/" + scenes[currSceneSymbol] + "/Scene/scene.js", function () {
+                    $.getScript("scripts/" + scenes[currSceneSymbol] + "/WorkScene.js", function () {
+                        WorkScene.init();
                     });
                 });
             });
         });
-    } else if (currSceneSymbol == 'race') {
-        $.getScript("scripts/Race_Setting/Blocks/blocks.js", function () {
-            $.getScript("scripts/Race_Setting/Engine/game_engine.js", function () {
-                $.getScript("scripts/Race_Setting/Scene/scene.js", function () {
-                    $.getScript("scripts/Race_Setting/racegame.js", function () {
-                        RaceGame.init();
+    } else {
+        $.getScript("scripts/" + scenes['pacman'] + "/Blocks/blocks.js", function () {
+            $.getScript("scripts/" + scenes['pacman'] + "/Engine/game_engine.js", function () {
+                $.getScript("scripts/" + scenes['pacman'] + "/Scene/scene.js", function () {
+                    $.getScript("scripts/" + scenes['pacman'] + "/WorkScene.js", function () {
+                        WorkScene.init();
                     });
                 });
             });
         });
     }
 
-    bindEvents();
+    //bindEvents();
 }
 
 function bindEvents() {
@@ -156,19 +156,11 @@ function fullScreen() {
 };
 
 function pauseGame() {
-    if (currSceneSymbol == 'pacman') {
-        PacMan.pauseScene();
-    } else if (currSceneSymbol == 'race') {
-        RaceGame.endGame();
-    }
+    WorkScene.pauseScene();
 };
 
 function startGame() {
-    if (currSceneSymbol == 'pacman') {
-        PacMan.runJS();
-    } else if (currSceneSymbol == 'race') {
-        RaceGame.runJS();
-    }
+    WorkScene.runJS();
 };
 
 function editCode() {
@@ -183,11 +175,7 @@ function editCode() {
 };
 
 function restoreCode() {
-    if (currSceneSymbol == 'pacman') {
-        PacMan.outputCode();
-    } else if (currSceneSymbol == 'race') {
-        RaceGame.outputCode();
-    }
+    WorkScene.outputCode();
 };
 
 window.addEventListener('load', onLoad);

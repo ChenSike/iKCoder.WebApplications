@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-var PacMan = {};
+var WorkScene = {};
 
-PacMan.workspace = null;
+WorkScene.workspace = null;
 
-PacMan.loadBlocks = function (defaultXml) {
+WorkScene.loadBlocks = function (defaultXml) {
     try {
         var loadOnce = window.sessionStorage.loadOnceBlocks;
     } catch (e) {
@@ -15,16 +15,16 @@ PacMan.loadBlocks = function (defaultXml) {
     } else if (loadOnce) {
         delete window.sessionStorage.loadOnceBlocks;
         var xml = Blockly.Xml.textToDom(loadOnce);
-        Blockly.Xml.domToWorkspace(xml, PacMan.workspace);
+        Blockly.Xml.domToWorkspace(xml, WorkScene.workspace);
     } else if (defaultXml) {
         var xml = Blockly.Xml.textToDom(defaultXml);
-        Blockly.Xml.domToWorkspace(xml, PacMan.workspace);
+        Blockly.Xml.domToWorkspace(xml, WorkScene.workspace);
     } else if ('BlocklyStorage' in window) {
         window.setTimeout(BlocklyStorage.restoreBlocks, 0);
     }
 };
 
-PacMan.bindClick = function (el, func) {
+WorkScene.bindClick = function (el, func) {
     if (typeof el == 'string') {
         el = document.getElementById(el);
     }
@@ -32,7 +32,7 @@ PacMan.bindClick = function (el, func) {
     el.addEventListener('touchend', func, true);
 };
 
-PacMan.importPrettify = function () {
+WorkScene.importPrettify = function () {
     var link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', '../../../styles/prettify.css');
@@ -42,7 +42,7 @@ PacMan.importPrettify = function () {
     document.head.appendChild(script);
 };
 
-PacMan.getBBox_ = function (element) {
+WorkScene.getBBox_ = function (element) {
     var height = element.offsetHeight;
     var width = element.offsetWidth;
     var x = 0;
@@ -60,10 +60,10 @@ PacMan.getBBox_ = function (element) {
     };
 };
 
-PacMan.init = function () {
+WorkScene.init = function () {
     var container = document.getElementById('content_area');
     var onresize = function (e) {
-        var bBox = PacMan.getBBox_(container);
+        var bBox = WorkScene.getBBox_(container);
         var el = document.getElementById('content_blocks');
         el.style.top = bBox.y + 'px';
         el.style.left = bBox.x + 'px';
@@ -84,7 +84,7 @@ PacMan.init = function () {
         '</xml>';
     var blocksXMLDoc = Blockly.Xml.textToDom(tempXMLStr);
 
-    PacMan.workspace = Blockly.inject('content_blocks',
+    WorkScene.workspace = Blockly.inject('content_blocks',
         {
             scrollbars: true,
             collapse: false,
@@ -143,29 +143,29 @@ PacMan.init = function () {
       '   </value>' +
       '</block>' +
       '</xml>';
-    PacMan.loadBlocks(defaultXml);
-    PacMan.workspace.addChangeListener(PacMan.outputCode);
+    WorkScene.loadBlocks(defaultXml);
+    WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
     if ('BlocklyStorage' in window) {
-        BlocklyStorage.backupOnUnload(PacMan.workspace);
+        BlocklyStorage.backupOnUnload(WorkScene.workspace);
     }
 
-    PacMan.renderContent();
-    PacMan.workspace.setVisible(true);
-    Blockly.svgResize(PacMan.workspace);
+    WorkScene.renderContent();
+    WorkScene.workspace.setVisible(true);
+    Blockly.svgResize(WorkScene.workspace);
 
-    //PacMan.bindClick('trashButton',
+    //WorkScene.bindClick('trashButton',
     //    function () {
-    //        PacMan.discard();
-    //        PacMan.renderContent();
+    //        WorkScene.discard();
+    //        WorkScene.renderContent();
     //    }
     //);
 
-    PacMan.bindClick('startRunBtn', PacMan.runJS);
-    //PacMan.bindClick('resetButton', PacMan.resetScene);
+    WorkScene.bindClick('startRunBtn', WorkScene.runJS);
+    //WorkScene.bindClick('resetButton', WorkScene.resetScene);
     onresize();
-    Blockly.svgResize(PacMan.workspace);
-    window.setTimeout(PacMan.importPrettify, 1);
+    Blockly.svgResize(WorkScene.workspace);
+    window.setTimeout(WorkScene.importPrettify, 1);
 
     var configs = {};
     configs.lifeCount = 4;
@@ -174,7 +174,7 @@ PacMan.init = function () {
     Scene.Init('game_container', configs);
 };
 
-PacMan.runJS = function () {
+WorkScene.runJS = function () {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = '  checkTimeout();\n';
     var timeouts = 0;
     var checkTimeout = function () {
@@ -182,7 +182,7 @@ PacMan.runJS = function () {
             throw 'timeout';
         }
     };
-    var code = Blockly.JavaScript.workspaceToCode(PacMan.workspace);
+    var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         eval(code);
@@ -192,20 +192,20 @@ PacMan.runJS = function () {
     }
 };
 
-PacMan.discard = function () {
-    var count = PacMan.workspace.getAllBlocks().length;
+WorkScene.discard = function () {
+    var count = WorkScene.workspace.getAllBlocks().length;
     if (count < 2 ||
         window.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace('%1', count))) {
-        PacMan.workspace.clear();
+        WorkScene.workspace.clear();
         if (window.location.hash) {
             window.location.hash = '';
         }
     }
 };
 
-PacMan.renderContent = function () {
+WorkScene.renderContent = function () {
     var content = document.getElementById('codeContentTxt');
-    var code = Blockly.JavaScript.workspaceToCode(PacMan.workspace);
+    var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     content.textContent = code;
     if (typeof prettyPrintOne == 'function') {
         code = content.innerHTML;
@@ -214,18 +214,18 @@ PacMan.renderContent = function () {
     }
 };
 
-PacMan.outputCode = function () {
+WorkScene.outputCode = function () {
     Scene.pause();
     var content = document.getElementById('codeContentTxt');
-    var code = Blockly.JavaScript.workspaceToCode(PacMan.workspace);
+    var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     content.value = code;
 }
 
-PacMan.pauseScene = function () {
+WorkScene.pauseScene = function () {
     Scene.pause();
 }
 
-PacMan.resetScene = function () {
+WorkScene.resetScene = function () {
     window.location.reload();
     //if(Scene.canvas){
     //    var sceneContainer = document.getElementById('canvas_content');

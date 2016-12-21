@@ -162,18 +162,23 @@ var Scene = {
         //for (var attr in config) {
         //    this[attr] = config[attr];
         //}        
-        this.container = document.getElementById(containerId);
-        this.canvas = document.createElement("canvas");
-        this.canvas.id = this.canvasId;
-        this.container.appendChild(this.canvas);
+        //this.container = document.getElementById(containerId);
+        //this.canvas = document.createElement("canvas");
+        //this.canvas.id = this.canvasId;
+        //this.container.appendChild(this.canvas);
         //this.canvas.style.backgroundColor = "#000000";
         //var height = this.container.clientHeight;
         //var width = this.container.clientWidth;
-        var height = 480;
-        var width = 640;
-        this.canvas.style.height = height + "px";
-        this.canvas.style.width = width + "px";
+        //this.canvas.style.height = height + "px";
+        //this.canvas.style.width = width + "px";
+        this.container = $("#" + containerId);
+        var height = this.container.css("height");
+        var width = this.container.css("width");
+        this.container.append($('<canvas id="' + this.canvasId + '" height="' + height + '" width="' + width + '">aaaaaaaa</canvas>'))
+        this.canvas = document.getElementById(this.canvasId);
+        this.canvas.style.backgroundColor = "#999";
         this.context = this.canvas.getContext('2d');
+        this.context.scale(0.78, 1.2);
         this.canvasPos = Util.getPosInDoc(this.canvas);
         this.initEvent();
     },
@@ -409,12 +414,10 @@ var Scene = {
     renderFrame: function () {
         var self = this;
         this.nowTime = new Date().getTime();
-        this.context.clearRect(0, 0, 640, 480);
+        this.context.clearRect(0, 0, 500, 580);
         this.diffTime = this.nowTime - this.startTime;
         Scene.screenObjPool.foreach(this.context);
-
         this.startTime = this.nowTime;
-
         if (self.runStatus)
             window.requestAnimationFrame(function () {
                 self.renderFrame();
@@ -666,7 +669,7 @@ var Scene = {
         var found = false;
         for (var i = 0 ; i < config.length; i++) {
             found = false;
-            for(var j=0;j<this.resource.car.length;j++){
+            for (var j = 0; j < this.resource.car.length; j++) {
                 if (this.resource.car[j].src.indexOf(config[i].src) >= 0) {
                     this.resource.car[j].speed = config[i].speed;
                     cfg.resource.push(this.resource.car[j]);
@@ -675,8 +678,8 @@ var Scene = {
                 }
             }
 
-            if(!found){
-                for(var j=0;j<this.resource.block.length;j++){
+            if (!found) {
+                for (var j = 0; j < this.resource.block.length; j++) {
                     if (this.resource.block[j].src.indexOf(config[i].src) >= 0) {
                         this.resource.block[j].speed = config[i].speed;
                         cfg.resource.push(this.resource.block[j]);
