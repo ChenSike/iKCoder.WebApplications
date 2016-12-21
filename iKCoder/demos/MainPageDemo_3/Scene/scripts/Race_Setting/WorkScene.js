@@ -78,7 +78,8 @@ WorkScene.init = function () {
     var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"> <block type="race_resource"></block></xml>');
     WorkScene.workspace = Blockly.inject('content_blocks',
         {
-            collapse: true,
+            scrollbars: true,
+            collapse: false,
             media: '../../../media/',
             rtl: false,
             toolbox: blocksXMLDoc,
