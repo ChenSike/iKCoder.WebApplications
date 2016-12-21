@@ -278,7 +278,7 @@ WorkScene.renderContent = function () {
 WorkScene.outputCode = function () {
     var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
-    content.textContent = code;
+    content.value = code;
 };
 
 WorkScene.resetScene = function () {
