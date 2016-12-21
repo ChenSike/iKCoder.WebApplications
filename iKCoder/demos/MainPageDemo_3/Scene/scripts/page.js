@@ -17,29 +17,29 @@ function onLoad() {
         }
     }
 
-    if (scenes[currSceneSymbol]) {
-        $.getScript("scripts/" + scenes[currSceneSymbol] + "/Blocks/blocks.js", function () {
-            $.getScript("scripts/" + scenes[currSceneSymbol] + "/Engine/game_engine.js", function () {
-                $.getScript("scripts/" + scenes[currSceneSymbol] + "/Scene/scene.js", function () {
-                    $.getScript("scripts/" + scenes[currSceneSymbol] + "/WorkScene.js", function () {
-                        WorkScene.init();
-                    });
-                });
-            });
-        });
-    } else {
-        $.getScript("scripts/" + scenes['pacman'] + "/Blocks/blocks.js", function () {
-            $.getScript("scripts/" + scenes['pacman'] + "/Engine/game_engine.js", function () {
-                $.getScript("scripts/" + scenes['pacman'] + "/Scene/scene.js", function () {
-                    $.getScript("scripts/" + scenes['pacman'] + "/WorkScene.js", function () {
-                        WorkScene.init();
-                    });
-                });
-            });
-        });
-    }
-
-    //bindEvents();
+    //if (scenes[currSceneSymbol]) {
+    //    $.getScript("scripts/" + scenes[currSceneSymbol] + "/Blocks/blocks.js", function () {
+    //        $.getScript("scripts/" + scenes[currSceneSymbol] + "/Engine/game_engine.js", function () {
+    //            $.getScript("scripts/" + scenes[currSceneSymbol] + "/Scene/scene.js", function () {
+    //                $.getScript("scripts/" + scenes[currSceneSymbol] + "/WorkScene.js", function () {
+    //                    WorkScene.init();
+    //                });
+    //            });
+    //        });
+    //    });
+    //} else {
+    //    $.getScript("scripts/" + scenes['pacman'] + "/Blocks/blocks.js", function () {
+    //        $.getScript("scripts/" + scenes['pacman'] + "/Engine/game_engine.js", function () {
+    //            $.getScript("scripts/" + scenes['pacman'] + "/Scene/scene.js", function () {
+    //                $.getScript("scripts/" + scenes['pacman'] + "/WorkScene.js", function () {
+    //                    WorkScene.init();
+    //                });
+    //            });
+    //        });
+    //    });
+    //}
+    WorkScene.init();
+    bindEvents();
 }
 
 function bindEvents() {

@@ -178,7 +178,7 @@ var Scene = {
         this.canvas = document.getElementById(this.canvasId);
         this.canvas.style.backgroundColor = "#999";
         this.context = this.canvas.getContext('2d');
-        this.context.scale(0.78, 1.2);
+        //this.context.scale(0.78, 1.2);
         this.canvasPos = Util.getPosInDoc(this.canvas);
         this.initEvent();
     },
@@ -369,9 +369,9 @@ var Scene = {
             this.loadedCount = 0;
             this.totalCount = tCount;
             EntityObject.call(this);
-            var backgroundRect = new RectEntityObject(new Vector(267, 210), 106, 10, { border: { color: '#ccc', width: '2' } });
-            var forgroundRect = new RectEntityObject(new Vector(270, 213), 0, 4, { fill: '#999' });
-            var text = Scene.getTextEntityObject('LOADING...', { x: 281, y: 190 }, '#000', 12);
+            var backgroundRect = new RectEntityObject(new Vector(197, 260), 106, 10, { border: { color: '#ccc', width: '2' } });
+            var forgroundRect = new RectEntityObject(new Vector(200, 263), 0, 4, { fill: '#999' });
+            var text = Scene.getTextEntityObject('LOADING...', { x: 211, y: 240 }, '#000', 12);
             this._draw = function (context) {
                 backgroundRect.draw(context);
                 forgroundRect.draw(context);
@@ -425,7 +425,7 @@ var Scene = {
     },
 
     renderRoad: function () {
-        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), 640, 480);
+        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), 500, 580);
         this.screenObjPool.add(road);
     },
 
@@ -437,10 +437,10 @@ var Scene = {
     },
 
     showWelcome: function () {
-        var logo = this.getTextEntityObject('CAR RACE', { x: 160, y: 150 }, '#900', 64);
-        var welcome = this.getTextEntityObject('Click To Start', { x: 267, y: 310 }, '#333', 24);
-        var magic = new Magic(new Vector(70, 160), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
-        var magic2 = new Magic(new Vector(70, 260), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
+        var logo = this.getTextEntityObject('CAR RACE', { x: 80, y: 200 }, '#900', 64);
+        var welcome = this.getTextEntityObject('Click To Start', { x: 187, y: 360 }, '#333', 24);
+        var magic = new Magic(new Vector(140, 210), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
+        var magic2 = new Magic(new Vector(140, 310), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
         this.screenObjPool.add(logo);
         this.screenObjPool.add(welcome);
         this.screenObjPool.add(magic);
@@ -483,7 +483,7 @@ var Scene = {
     renderLane: function () {
         for (var i = 0; i < 9; i++) {
             var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, 9) : i];
-            var newCar = new Car(new Vector(i * 64 + 50, Util.random(-480, -80)), Util.randomColor(), null, false, lanCfg);
+            var newCar = new Car(new Vector(i * 50 + 25, Util.random(-580, -80)), Util.randomColor(), null, false, lanCfg);
             newCar.hitable = true;
             this.screenObjPool.add(newCar);
         }
@@ -495,10 +495,10 @@ var Scene = {
         this.renderRoad();
         this.renderLane();
 
-        var leftC = new CollisionEntityObject(new Vector(0, 0), 30, 480);
-        var rightC = new CollisionEntityObject(new Vector(610, 0), 30, 480);
-        var topC = new CollisionEntityObject(new Vector(0, 0), 640, 40);
-        var bottomC = new CollisionEntityObject(new Vector(0, 480), 640, 10);
+        var leftC = new CollisionEntityObject(new Vector(0, 0), 25, 580);
+        var rightC = new CollisionEntityObject(new Vector(475, 0), 25, 580);
+        var topC = new CollisionEntityObject(new Vector(0, 0), 500, 20);
+        var bottomC = new CollisionEntityObject(new Vector(0, 580), 500, 10);
         var cMap = new CollistionMap();
         cMap.add(leftC);
         cMap.add(rightC);
@@ -506,7 +506,7 @@ var Scene = {
         cMap.add(bottomC);
 
         var self = this;
-        var player = new Car(new Vector(240, 390), Util.randomColor(), this.playerCfg.resource, { min: 0, max: 0 }, this.playerCfg);
+        var player = new Car(new Vector(225, 490), Util.randomColor(), this.playerCfg.resource, { min: 0, max: 0 }, this.playerCfg);
         player.setCollisionMap(cMap);
         var speedChange = this.playerCfg.change * 50;
         this.addEventListener(player, 'keyup', function (e) {
@@ -589,11 +589,11 @@ var Scene = {
     },
 
     endGame: function () {
-        var end = this.getTextEntityObject('GAME OVER', { x: 120, y: 150 }, '#900', 64);
-        var score = this.getTextEntityObject('Score ' + this.SCORE, { x: 240, y: 240 }, '#000', 32);
-        var restart = this.getTextEntityObject('Click To Restart', { x: 267, y: 310 }, '#333', 24);
-        var magic = new Magic(new Vector(70, 160), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
-        var magic2 = new Magic(new Vector(70, 260), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
+        var end = this.getTextEntityObject('GAME OVER', { x: 50, y: 200 }, '#900', 64);
+        var score = this.getTextEntityObject('Score ' + this.SCORE, { x: 170, y: 290 }, '#000', 32);
+        var restart = this.getTextEntityObject('Click To Restart', { x: 147, y: 360 }, '#333', 24);
+        var magic = new Magic(new Vector(0, 210), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
+        var magic2 = new Magic(new Vector(0, 310), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
         this.screenObjPool.add(end);
         this.screenObjPool.add(score);
         this.screenObjPool.add(restart);
@@ -707,5 +707,14 @@ var Scene = {
         }
         this.startRun();
         this.showWelcome();
+    },
+
+    pause: function () {
+        if (this.runStatus) {
+            this.runStatus = false;
+        } else {
+            this.runStatus = true;
+            this.renderFrame();
+        }
     }
 };

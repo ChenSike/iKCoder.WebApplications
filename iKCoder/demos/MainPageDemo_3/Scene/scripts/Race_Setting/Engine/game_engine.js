@@ -184,8 +184,8 @@ var Car = function (v, style, resource, speed, laneCfg) {
             }
         }
 
-        if (this.position.y > 480) {
-            this.position.y = Util.random(-240, 0);
+        if (this.position.y > 580) {
+            this.position.y = Util.random(-290, 0);
             this.speedVector = new Vector(0, Math.ceil(Util.random(this.speed.min, this.speed.max)));
             if (this.laneConfig) {
                 if (this.resource.length > 1) {
@@ -203,7 +203,9 @@ var Car = function (v, style, resource, speed, laneCfg) {
 
     this._draw = function (context) {
         //if (this.position.y < 280) {
-        context.drawImage(this.img, this.position.x - 3, this.position.y - 3);
+        //context.drawImage(this.img, this.position.x - 3, this.position.y - 3);
+        //context.drawImage(this.img, this.position.x - 3, this.position.y - 3, this.img.width * 0.78, this.img.height * 0.78);
+        context.drawImage(this.img, this.position.x, this.position.y, this.img.width * 0.78, this.img.height * 0.78);
         // if (this.index) {
         //    context["fillStyle"] ="#900";
         //    context["font"] ="bold 16px Verdana";

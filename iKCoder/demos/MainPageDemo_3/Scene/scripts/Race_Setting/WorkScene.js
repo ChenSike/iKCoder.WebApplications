@@ -278,7 +278,7 @@ WorkScene.outputCode = function () {
     var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     content.textContent = code;
-}
+};
 
 WorkScene.resetScene = function () {
     window.location.reload();
@@ -293,4 +293,8 @@ WorkScene.resetScene = function () {
     //configs.enemySpeed = 0;
     //configs.activeEnemyCount = 2;
     //Scene.Init('canvas_content', configs);
-}
+};
+
+WorkScene.pauseScene = function () {
+    Scene.pause();
+}; 
