@@ -10,7 +10,7 @@ var Game = function (containerId) {
     this.endScene = null;
     this.statusFun = null;
     //0: pause; 1: normal; 2:...
-    this.status = 0;
+    this.status = 1;
     //0: static, like pac man; 1: horizontal move; 2:vertical move; 3: personal point of view; 4: 3D
     this.type = 0;
     this.score = 0;
@@ -61,3 +61,19 @@ Game.prototype.goPrevStage = function () {
         this.currentStage.init();
     }
 };
+
+Game.prototype.start = function () {
+
+}
+
+Game.prototype.end = function () {
+
+}
+
+Game.prototype.over = function () {
+
+}
+
+Game.prototype.pause = function () {
+
+}

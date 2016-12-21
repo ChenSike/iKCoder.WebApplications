@@ -124,6 +124,7 @@ Map.prototype.finder = function (params) {
         }
     };
     _render([options.start]);
+
     if (finded) {
         var current = options.end;
         if (options.type == 'path') {
