@@ -6,6 +6,7 @@ var Game = function (containerId) {
     this.context = null;
     this.stages = [];
     this.openingScene = null;
+    this.overScene = null;
     this.endScene = null;
     this.statusFun = null;
     //0: pause; 1: normal; 2:...
@@ -33,12 +34,11 @@ Game.prototype.initCanvas = function () {
     this.context = this.canvas.getContext("2d");
 };
 
-Game.prototype.init = function (stages, openingScene, endScene, statusFunctions) {
+Game.prototype.init = function (stages, openingScene, endScene, overScene, statusFunctions) {
     this.openingScene = openingScene;
     this.stages = stages;
     this.endScene = endScene;
-    this.openingScene.init();
-    this.endScene.init();
+    this.overScene = overScene;
     this.currentStageIndex = 0;
     this.currentStage = stages[0];
     this.currentStage.init(this);
@@ -49,7 +49,7 @@ Game.prototype.goNextStage = function () {
     if (this.currentStageIndex < this.stages.length - 1) {
         this.currentStageIndex++;
         this.currentStage = this.stages[this.currentStageIndex];
-        this.currentStage.init();
+        this.currentStage.init(this);
     }
 };
 
@@ -57,22 +57,36 @@ Game.prototype.goPrevStage = function () {
     if (this.currentStageIndex > 0) {
         this.currentStageIndex--;
         this.currentStage = this.stages[this.currentStageIndex];
-        this.currentStage.init();
+        this.currentStage.init(this);
     }
 };
 
 Game.prototype.start = function () {
-
+    this.openingScene.init(this);
+    this.openingScene.load();
 }
 
 Game.prototype.end = function () {
-
+    this.endScene.init(this);
+    this.endScene.load();
 }
 
 Game.prototype.over = function () {
-
+    this.overScene.init(this);
+    this.overScene.load();
 }
 
 Game.prototype.pause = function () {
+    this.currentStage.pause();
+}
 
+Game.prototype.run = function () {
+    this.currentStage.run();
+}
+
+Game.prototype.restart = function () {
+    this.currentStageIndex = 0;
+    this.currentStage = this.stages[this.currentStageIndex];
+    this.currentStage.init(this);
+    this.currentStage.start();
 }

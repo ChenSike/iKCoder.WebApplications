@@ -28,7 +28,8 @@ if (!Date.now) {
                 nextTime - now
             );
         };
-        window.cancelAnimationFrame = clearTimeout;
+
+        window.cancelAnimationFrame = window.clearTimeout;
     }
 }());
 
@@ -36,6 +37,7 @@ function Extend(target, settings, params) {
     for (var i in settings) {
         target[i] = params[i] || settings[i];
     }
+
     return target;
 };
 
@@ -46,7 +48,7 @@ function CloneObject(source) {
     }
 
     return newObj;
-}
+};
 
 function ChangeStyleSheet(selector, newStyle) {
     var flag = false;
@@ -71,13 +73,14 @@ function ChangeStyleSheet(selector, newStyle) {
             for (var key in newStyle) {
                 newRuleStr += key + ":" + newStyle[key] + ";";
             }
+
             sheet.addRule(selector, newRuleStr, sheet.rules.length);
         }
     }
     catch (ex) {
         var message = ex;
     }
-}
+};
 
 function CreateNewStyleSheet() {
     if (document.all) {
@@ -90,7 +93,7 @@ function CreateNewStyleSheet() {
         document.getElementsByTagName('HEAD').item(0).appendChild(style);
         return document.styleSheets[document.styleSheets.length - 1];
     }
-}
+};
 
 function GetKeyframesRuleInfo(keyframesName) {
     var currRule = null;
@@ -112,7 +115,7 @@ function GetKeyframesRuleInfo(keyframesName) {
     }
 
     return { sheet: currentSheet, rule: currRule, index: -1 };
-}
+};
 
 function DeleteKeyframesRule(keyframesName) {
     var tmpobj = GetKeyframesRuleInfo(keyframesName);
@@ -121,7 +124,7 @@ function DeleteKeyframesRule(keyframesName) {
     }
 
     return tmpobj.sheet;
-}
+};
 
 function ConvertImgToBase64(url, callback, outputFormat) {
     var canvas = document.createElement('CANVAS'),
@@ -136,8 +139,9 @@ function ConvertImgToBase64(url, callback, outputFormat) {
         callback.call(this, dataURL);
         canvas = null;
     };
+
     img.src = url;
-}
+};
 
 //ConvertImgToBase64('http://bit.ly/18g0VNp', function (base64Img) {
 //    // Base64DataURL
