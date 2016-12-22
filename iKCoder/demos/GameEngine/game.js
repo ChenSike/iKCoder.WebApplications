@@ -1,6 +1,5 @@
 ﻿'use strict';
 
-
 var Game = function (containerId) {
     this.container = document.getElementById(containerId);
     this.canvas = null;

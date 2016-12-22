@@ -29,12 +29,6 @@ if (!Date.now) {
     }
 }());
 
-var Object = function () {
-    this.name = '';
-    this.type = '';
-    this.stgge = null;
-};
-
 function _Inherits(childCtor, parentCtor) {
     function tempCtor() { }
     tempCtor.prototype = parentCtor.prototype;
