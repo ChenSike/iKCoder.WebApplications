@@ -86,7 +86,7 @@ EntityObject.prototype._draw = function (context, styles) {
     }
 
     if (styles.border) {
-        context.strokeStyle = styles.border.color
+        context.strokeStyle = styles.border.color;
         context.lineWidth = styles.border.width;
         context.strokeRect(this._position.x, this._position.y, this._size.width, this._size.height);
     }
@@ -111,7 +111,7 @@ var TextEntityObject = function (content, p, s, a, styles) {
 TextEntityObject.prototype.setContent = function (content) {
     this.content = content;
 };
-//请使用 font 属性来定义字体和字号，并使用 fillStyle 属性以另一种颜色/渐变来渲染文本。
+//use attribute 'font' to define the font-size and font family, and use attribute 'fillStyle' to rander the text by color/shadow.
 TextEntityObject.prototype.setStyle = function (s) {
     for (var attr in s) {
         this.styles[attr] = s[attr];
@@ -138,3 +138,41 @@ ImageEntityObject.prototype._draw = function (context) {
 };
 
 _Inherits(ImageEntityObject, EntityObject);
+
+var ContourEntityObject = function (p, s, a) {
+    EntityObject.call(this, p, s, a);
+};
+
+ContourEntityObject.prototype._draw = function (context) {
+    context.strokeStyle = "rgba(0,0,0,0)";
+    context.lineWidth = "1px";
+    context.strokeRect(this._position.x, this._position.y, this._size.width, this._size.height);
+};
+
+_Inherits(ContourEntityObject, EntityObject);
+
+var ContourMap = function () {
+    var objectsIds = [];
+    var objects = {};
+    this.add = function (o) {
+        objectsIds.push(o.guid);
+        objects[o.guid] = o;
+    };
+
+    this.remove = function (o) {
+        var index = objectsIds.indexOf(o.guid);
+        delete objects[o.guid];
+        objectsIds.splice(index, 1);
+    };
+
+    this.checkContour = function (rect) {
+        for (var i = 0, len = objectsIds.length; i < len; i++) {
+            var co = objects[objectsIds[i]];
+            if (co.checkHit(rect)) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+};

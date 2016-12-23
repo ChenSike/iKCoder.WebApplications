@@ -1,19 +1,19 @@
 ﻿'use strict';
 
-var Map = function (params) {
-    this._params = params || {};
-    this._settings = {
-        x: 0,
-        y: 0,
-        width: 20,
-        height: 20,
-        stage: null,
-        type: 0, //0: fixed; 1: horizontal ; 2: vertical 
-        draw_type: 0, //0: path; 1: image
-        images: []
+var Map = function (p, s, type, drawConfig) {
+    this.stage = null;
+    //0: static, like pac man; 1: horizontal move; 2:vertical move; 3: personal point of view; 4: 3D
+    this.type = type ? type : 0;
+    this.draw_config = drawConfig ? drawConfig : {
+        //0: brush; 1: image
+        type: 0,
+        //for static map, by pixel
+        grid_unit: 20,
+        brushFun: function () { },
+        imageFun: function () { }
     };
 
-    _extend(this, this._settings, this._params);
+    Rectangle.call(this, p.x, p.y, s.width, s.height, 0);
 };
 
 Map.prototype.setStage = function (stage) {
@@ -21,33 +21,53 @@ Map.prototype.setStage = function (stage) {
 };
 
 Map.prototype.get = function (x, y) {
-    if (this.data[y] && typeof this.data[y][x] != 'undefined') {
-        return this.data[y][x];
+    if (this.type == 0) {
+        if (this.data) {
+            if (this.data[y] && typeof this.data[y][x] != 'undefined') {
+                return this.data[y][x];
+            }
+
+            return -1;
+        }
     }
+
     return -1;
 };
 
 Map.prototype.set = function (x, y, value) {
-    if (this.data[y]) {
-        this.data[y][x] = value;
+    if (this.type == 0) {
+        if (this.data) {
+            if (this.data[y]) {
+                this.data[y][x] = value;
+            }
+        }
     }
 };
 
 Map.prototype.coord2position = function (cx, cy) {
-    return {
-        x: this.x + cx * this.size + this.size / 2,
-        y: this.y + cy * this.size + this.size / 2
-    };
+    var x = 0;
+    var y = 0;
+    if (this.type == 0) {
+        if (this.data) {
+            x = cx * this.draw_config.grid_unit;
+            y = cy * this.draw_config.grid_unit;
+        }
+    }
+
+    return { x: x, y: y };
 };
 
 Map.prototype.position2coord = function (x, y) {
-    var fx = Math.abs(x - this.x) % this.size - this.size / 2;
-    var fy = Math.abs(y - this.y) % this.size - this.size / 2;
-    return {
-        x: Math.floor((x - this.x) / this.size),
-        y: Math.floor((y - this.y) / this.size),
-        offset: Math.sqrt(fx * fx + fy * fy)
-    };
+    var x = 0;
+    var y = 0;
+    if (this.type == 0) {
+        if (this.data) {
+            x = Math.floor(Math.abs(x) / this.draw_config.grid_unit);
+            y = Math.floor(Math.abs(y) / this.draw_config.grid_unit);
+        }
+    }
+
+    return { x: x, y: y };
 };
 
 Map.prototype.finder = function (params) {
@@ -141,3 +161,5 @@ Map.prototype.finder = function (params) {
     }
     return result;
 };
+
+_Inherits(EntityObject, Rectangle);

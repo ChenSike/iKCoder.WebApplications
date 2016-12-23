@@ -3,13 +3,13 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
-    <script type="text/javascript" src="Common.js"></script>
-    <script type="text/javascript" src="Rectangle.js"></script>
-    <script type="text/javascript" src="GameObject.js"></script>
-    <script type="text/javascript" src="Map.js"></script>
-    <script type="text/javascript" src="Stage.js"></script>
-    <script type="text/javascript" src="ResourceLoader.js"></script>
-    <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="Engine/Common.js"></script>
+    <script type="text/javascript" src="Engine/Rectangle.js"></script>
+    <script type="text/javascript" src="Engine/GameObject.js"></script>
+    <script type="text/javascript" src="Engine/Map.js"></script>
+    <script type="text/javascript" src="Engine/Stage.js"></script>
+    <script type="text/javascript" src="Engine/ResourceLoader.js"></script>
+    <script type="text/javascript" src="Engine/Game.js"></script>
 </head>
 <body>
     <p style="font-family:微软雅黑; font-size:14px;">
@@ -25,7 +25,7 @@
         10.对于横版, 一般都应有一个较大的全局地图,适合使用地图移动, Objects固定, 即地图坐标改变而Player坐标不变, 例如超级玛丽<br />
         11.对于第一人称视角, 一般有一个较大的全局地图和动态地图截面, 需要两个移动点, 全局地图上的Player位置和可见的地图截面, 如极品飞车和CS<br />
         12.对于第三人称视角, 一般有一个较大的全局地图和动态地图截面以及Player当前状态, 需要两个移动点, 全局地图上的Player位置和可见的地图截面, 以及一个Player当前状态变换，如极品飞车和CS<br />
-        GameObject继承于Rectangle, 此处需完善碰撞机制，包括像素级碰撞取代矩形碰撞和多角度碰撞。<br />
+        13.GameObject继承于Rectangle, 此处需完善碰撞机制，包括像素级碰撞取代矩形碰撞和多角度碰撞。<br />
     </p>
     <div id="game_cantainer" style="width:600px;height:800px;">
     </div>

@@ -77,7 +77,7 @@ ResourceLoader.prototype._loadResource = function (key) {
 
 ResourceLoader.prototype.getResource = function (key) {
     if (!this.resource[key]) {
-        window.console.log("The resource '" + key + "' is non-existent.");        
+        window.console.log("The resource '" + key + "' is non-existent.");
     } else if (this.resource[key].obj == null) {
         this._loadResource(key);
     }
@@ -108,9 +108,9 @@ ResourceLoader.prototype.checkResourceInfo = function (info) {
 var _LoadScreen = {
     totalCount: 0,
     currentCount: 0,
-    callBack: function(){},
+    callBack: function () { },
 
-    initCount: function (tmpCount , callBack) {
+    initCount: function (tmpCount, callBack) {
         this.totalCount = tmpCount;
         this.currentCount = 0;
         this.callBack = callBack;
