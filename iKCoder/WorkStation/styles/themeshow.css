@@ -1,0 +1,187 @@
+﻿
+.theme-off.title-container {
+    background: url(../images/Background/B_3.fw.png);
+    height: 45px;
+}
+
+.theme-off.title-text {
+    font-size: 18px;
+}
+
+.theme-off.title-button {
+    height: 25px;
+    line-height: 25px;
+    background-color: rgb(153,153,153);
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+}
+
+    .theme-off.title-button:hover {
+        border: solid 2px rgb(255,255,255);
+    }
+
+.theme-off.title-store {
+    width: 220px;
+    height: 40px;
+    background: url(../images/Buttons/Button_Playstore.fw.png);
+}
+
+.theme-off-items-container {
+    position: absolute;
+    height: 350px;
+}
+
+.theme-off-item-container {
+    width: 249px;
+    height: 350px;
+    padding: 20px 23px;
+    display: inline-block;
+}
+
+.theme-off-item-border {
+    width: 247px;
+    height: 350px;
+    color: rgb(51,51,51);
+    background-color: rgb(204,204,204);
+    border: solid 1px rgb(255,255,255);
+}
+
+.theme-off-item-part {
+    position: relative;
+    width: 247px;
+}
+
+    .theme-off-item-part.item-title {
+        height: 29px;
+        padding-top: 6px;
+    }
+
+    .theme-off-item-part.item-title-price {
+        width: 50px;
+        line-height: 29px;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(0,55,215);
+        left: -5px;
+    }
+
+    .theme-off-item-part.item-title-favour {
+        width: 85px;
+        height: 19px;
+        display: inline-block;
+        font-weight: bold;
+        color: rgb(10,110,10);
+        left: -5px;
+    }
+
+    .theme-off-item-part.screen-shot {
+        height: 165px;
+    }
+
+    .theme-off-item-part.item-name {
+        height: 40px;
+        background-color: rgb(153,153,153);
+        font-size: 18px;
+        text-align: left;
+        color: rgb(255,255,255);
+    }
+
+    .theme-off-item-part.item-more {
+        color: rgb(51,51,51);
+        text-align: right;
+    }
+
+    .theme-off-item-part.item-diff {
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+.item-diff.difficulty-icon-1 {
+    background: url(../images/Labels/g1.fw.png);
+}
+
+.item-diff.difficulty-icon-2 {
+    background: url(../images/Labels/g2.fw.png);
+}
+
+.item-diff.difficulty-icon-3 {
+    background: url(../images/Labels/g3.fw.png);
+}
+
+.theme-off-item-part.item-buy {
+    width: 50px;
+    height: 50px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.item-buy-container {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255,130,0);
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+}
+
+    .item-buy-container:hover {
+        width: 48px;
+        height: 48px;
+        border: solid 2px rgb(255,255,255);
+    }
+
+.item-buy-item {
+    position: absolute;
+    background-color: rgb(255,255,255);
+}
+
+    .item-buy-item.icon-h-line {
+        height: 2px;
+        width: 10px;
+        top: 10px;
+        left: 30px;
+    }
+
+    .item-buy-item.icon-v-line {
+        height: 10px;
+        width: 2px;
+        top: 6px;
+        left: 34px;
+    }
+
+    .item-buy-item.split-line {
+        height: 1px;
+        width: 20px;
+        top: 20px;
+        left: 25px;
+    }
+
+    .item-buy-item.buy-text {
+        background-color: transparent;
+        top: 25px;
+        left: 5px;
+        width: 100%;
+    }
+
+.theme-off-item-part.item-moreinfo {
+    height: 25px;
+    width: 145px;
+    line-height: 25px;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+    background-color: rgb(153,153,153);
+    position: relative;
+    left: 20px;
+}
+
+    .theme-off-item-part.item-moreinfo:hover {
+        height: 23px;
+        width: 143px;
+        line-height: 23px;
+        border: solid 2px rgb(255,255,255);
+    }
