@@ -208,9 +208,9 @@ td {
         border-radius: 20px;
     }
 
-    .triangleBgButton.container:hover {
+        .triangleBgButton.container:hover {
             border: 2px solid rgb(255,255,255);
-    }
+        }
 
     .triangleBgButton.vertical-fore {
         position: relative;

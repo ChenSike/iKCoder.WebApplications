@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var _cssPrefixArr = ['', '-moz-', '-o-', '-webkit-'];
+var _cssPrefixArr = ['', '-moz-', '-o-', '-webkit-', 'ms'];
 
 if (!Date.now) {
     Date.now = function () {
@@ -10,9 +10,9 @@ if (!Date.now) {
 
 (function () {
     'use strict';
-    var vendors = ['webkit', 'moz', 'o', 'ms'];
-    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
-        var vp = vendors[i];
+    var _cssPrefixArr = ['webkit', 'moz', 'o', 'ms'];
+    for (var i = 0; i < _cssPrefixArr.length && !window.requestAnimationFrame; ++i) {
+        var vp = _cssPrefixArr[i];
         window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
         window.cancelAnimationFrame = (window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame']);
     }
