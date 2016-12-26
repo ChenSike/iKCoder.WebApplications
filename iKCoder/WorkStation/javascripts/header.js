@@ -326,7 +326,7 @@ function buildHeader(isLongAdverts, advertsArray) {
     $('#headerOptionsWorkspaceBtn').click("scene/index.html", gotoOtherPage);
     $('#headerOptionsCertificateBtn').click("mycertificates.html", gotoOtherPage);
     $('#headerOptionsLessonsBtn').click("mylessons.html", gotoOtherPage);
-    $('#headerOptionsStorageBtn').click("playstore/playstore.html", gotoOtherPage);
+    $('#headerOptionsStorageBtn').click("../playstore/playstore.html", gotoOtherPage);
     $('#headerOptionsMessageBtn').click("message.html", gotoOtherPage);
     $('#headerOptionsReportBtn').click("reports.html", gotoOtherPage);
     $('#headerOptionsClubBtn').click("memberclub.html", gotoOtherPage);
