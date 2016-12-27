@@ -525,62 +525,66 @@ div#signInMaskDiv {
 
 div.sign-in-buttons-container {
     width: 100%;
-    height: 40px;
+    height: 50px;
     position: relative;
     top: 0px;
     left: 0px;
 }
 
-div#signInLoginBtn {
+div.sign-in-button {
     width: 80px;
     height: 30px;
     line-height: 30px;
-    position: relative;
-    top: 5px;
-    left: 80px;
     font-size: 16px;
+    position: relative;
     background-color: rgb(36,118,191);
     border-radius: 15px;
     -moz-border-radius: 15px;
     -o-border-radius: 15px;
     -webkit-border-radius: 15px;
+    cursor: pointer;
 }
 
-    div#signInLoginBtn:hover {
-        background-color: rgb(0,51,102);
-        border: solid 2px rgb(255,255,255);
-        line-height: 26px;
-    }
+div.sign-in-button:hover {
+    background-color: rgb(0,51,102);
+    border: solid 2px rgb(255,255,255);
+    line-height: 26px;
+}
+
+div#signInLoginBtn {
+    top: 5px;
+    left: 40px;
+}
 
 div#signInRegistBtn {
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
-    position: relative;
     top: -25px;
-    left: 200px;
-    font-size: 16px;
-    background-color: rgb(36,118,191);
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    -o-border-radius: 15px;
-    -webkit-border-radius: 15px;
+    left: 140px;
 }
 
-    div#signInRegistBtn:hover {
-        background-color: rgb(0,51,102);
-        border: solid 2px rgb(255,255,255);
-        line-height: 26px;
-    }
+div#signInCancelBtn {
+    top: -55px;
+    left: 240px;
+}
 
-    
 input.sign-in-input-field {
-    width:200px;
-    height:25px;
-    border:none;
-    line-height:10px;
+    width: 200px;
+    height: 25px;
+    border: none;
+    line-height: 10px;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -o-border-radius: 10px;
     -webkit-border-radius: 10px;
 }
+
+div#signInForgetPwd {
+    text-align: right;
+    font-size: 12px;
+    text-decoration: underline;
+    /*width: 200px;*/
+    cursor: pointer;
+}
+
+    div#signInForgetPwd:hover {
+        color: rgb(0,51,102);
+    }

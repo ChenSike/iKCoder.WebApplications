@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var Game = function (containerId) {
+var Game = function (containerId, width, height) {
     this.container = document.getElementById(containerId);
     this.canvas = null;
     this.context = null;
@@ -18,6 +18,9 @@ var Game = function (containerId) {
     this.model = 1;
     this.currentStage = this.stages[0];
     this.currentStageIndex = 0;
+    this.scale = 1;
+    this.originalHeight = height;
+    this.originalWidth = width;
     if (this.container) {
         this.initCanvas();
     }
@@ -26,12 +29,23 @@ var Game = function (containerId) {
 Game.ObjectGUID = 0;
 
 Game.prototype.initCanvas = function () {
+    var parentHeight = this.container.clientHeight;
+    var parentWidth = this.container.clientWidth;
     this.canvas = document.createElement("canvas");
     this.canvas.id = "canvas_main";
-    this.canvas.width = this.container.clientWidth;
-    this.canvas.height = this.container.clientHeight;
     this.container.appendChild(canvas);
+    this.canvas.width = parentWidth;
+    this.canvas.height = parentHeight;
     this.context = this.canvas.getContext("2d");
+    if (this.originalHeight != parentHeight || this.originalWidth != parentWidth) {
+        var heightScale = parentHeight / this.originalHeight;
+        var widthScale = parentWidth / this.originalWidth;
+        this.scale = Math.min(heightScale, widthScale);
+        var offsetTop = (parentHeight - this.originalHeight * this.scale) / 2;
+        var offsetLeft = (parentWidth - this.originalWidth * this.scale) / 2;
+        this.context.translate(offsetLeft, offsetTop);
+        this.context.scale(this.scale, this.scale);
+    }
 };
 
 Game.prototype.init = function (stages, openingScene, endScene, overScene, statusFunctions) {
@@ -45,20 +59,20 @@ Game.prototype.init = function (stages, openingScene, endScene, overScene, statu
     this.statusFun = statusFunctions;
 };
 
-Game.prototype.goNextStage = function () {
-    if (this.currentStageIndex < this.stages.length - 1) {
-        this.currentStageIndex++;
+Game.prototype.goStage = function (index) {
+    if (index >= 0 && index < this.stages.length) {
+        this.currentStageIndex = index;        
         this.currentStage = this.stages[this.currentStageIndex];
         this.currentStage.init(this);
     }
 };
 
+Game.prototype.goNextStage = function () {
+    this.goStage(this.currentStageIndex + 1);
+};
+
 Game.prototype.goPrevStage = function () {
-    if (this.currentStageIndex > 0) {
-        this.currentStageIndex--;
-        this.currentStage = this.stages[this.currentStageIndex];
-        this.currentStage.init(this);
-    }
+    this.goStage(this.currentStageIndex - 1);
 };
 
 Game.prototype.start = function () {

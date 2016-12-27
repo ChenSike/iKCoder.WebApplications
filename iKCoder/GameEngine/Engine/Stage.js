@@ -58,7 +58,6 @@ Stage.prototype.randerFrame = function () {
     }
 
     this.player.draw();
-
     if (this.running) {
         window.requestAnimationFrame(this.randerFrame);
     }

@@ -40,6 +40,7 @@ var Size = function (w, h) {
 var Rectangle = function (x, y, w, h, a) {
     this._position = new Position(x, y);
     this._size = new Size(w, h);
+    this._angle = 0;
     if (a) {
         this._angle = angle;
     }
@@ -50,8 +51,20 @@ Rectangle.prototype.rotate = function (a) {
 };
 
 Rectangle.prototype.checkHit = function (rect) {
-    var xFlag = Math.abs((this._position.x + this._size.width / 2) - (rect._position.x + rect._size.width / 2)) < (this._size.width + rect._size.width) / 2;
-    var yFlag = Math.abs((this._position.y + this._size.height / 2) - (rect._position.y + rect._size.height / 2)) < (this._size.height + rect._size.height) / 2;
+    var tmpSize = this._size;
+    var tmpPos = this._position;
+    var tmpRectSize = rect._size;
+    var tmpRectPos = rect._position;
+    if (this._angle != 0) {
+        tmpSize = Rectangle.calculateRotateSize(this._size, this._angle, true);
+    }
+
+    if (rect._angle != 0) {
+        tmpRectSize = Rectangle.calculateRotateSize(rect._size, rect._angle, true);
+    }
+
+    var xFlag = Math.abs((tmpPos.x + tmpSize.width / 2) - (tmpRectPos.x + rect._size.width / 2)) < (tmpSize.width + tmpRectSize.width) / 2;
+    var yFlag = Math.abs((tmpPos.y + tmpSize.height / 2) - (tmpRectPos.y + rect._size.height / 2)) < (tmpSize.height + tmpRectSize.height) / 2;
     if (xFlag && yFlag) {
         return true;
     } else {
@@ -65,6 +78,41 @@ Rectangle.prototype.checkContain = function (position) {
     } else {
         return false;
     }
+}
+
+Rectangle.calculateRotateSize = function (size, rad, isAngle) {
+    var radian = 0;
+    if (typeof rad == 'number') {
+        radian = rad;
+        if (isAngle && isAngle === true) {
+            radian = Rectangle.AngleToRadian(radian);
+        }
+    }
+
+    if (angle != 0) {
+        if (angle > 90 && angle <= 180) {
+            angle = angle - 90;
+        } else if (angle > 180 && angle <= 270) {
+            angle = angle - 180;
+        } else if (angle > 270 && angle <= 360) {
+            angle = angle - 270;
+        }
+
+        var tmpHeight = size.width * Math.sin(radian) + size.height * Math.cos(radian);
+        var tmpWidth = size.height * Math.sin(radian) + size.width * Math.cos(radian);
+        return (new Size(tmpWidth, tmpHeight));
+
+    }
+
+    return (new Size(size.width, size.height));
+}
+
+Rectangle.AngleToRadian = function (angle) {
+    return angle * Math.PI / 180;
+}
+
+Rectangle.RadianToAngle = function (radian) {
+    return radian / Math.PI * 180;
 }
 
 var EntityObject = function (p, s, a) {

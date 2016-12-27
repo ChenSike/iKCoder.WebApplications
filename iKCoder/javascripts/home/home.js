@@ -3,58 +3,76 @@
 var _cssPrefixArr = ['', '-moz-', '-o-', '-webkit-', 'ms'];
 
 function signIn() {
-    var container = document.getElementById("signInContainer");
-    var mask = document.getElementById("signInContainer");
+    var container = jQuery("#signInContainer");
+    var mask = jQuery("#signInMaskDiv");
     var pageSize = getPageSize();
-    if (!container) {
-        mask = document.createElement("div");
-        mask.id = 'signInMaskDiv';
-        setStyle(mask, 'width', pageSize.bw + 'px');
-        setStyle(mask, 'height', pageSize.bh + 'px');
-        document.body.appendChild(mask);
-
-        container = document.createElement("div");
-        container.id = 'signInContainer';        
-        document.body.appendChild(container);        
-        var tmpHTML = '<table style="width:100%; height:100%;">';
+    if (container.length < 1) {
+        var tmpHTML = '<div id="signInContainer">';
+        tmpHTML += '<table style="width:100%; height:100%;">';
         tmpHTML += '    <tr>';
-        tmpHTML += '        <td colspan="2">登录</td>';
+        tmpHTML += '        <td colspan="3"><span id="signInPopWinTitle">登录</span></td>';
         tmpHTML += '    </tr>';
         tmpHTML += '    <tr>';
         tmpHTML += '        <td style="width:120px;">用户名</td>';
         tmpHTML += '        <td><input id="signInUserNameTxt" type="text" class="sign-in-input-field" placeholder="手机号/E-Mail/用户名"/></td>';
+        tmpHTML += '        <td style="width:20px;"></td>';
         tmpHTML += '    </tr>';
         tmpHTML += '    <tr>';
         tmpHTML += '        <td>密   码</td>';
         tmpHTML += '        <td><input id="signInPasswordTxt" type="password"  class="sign-in-input-field"/></td>';
         tmpHTML += '    </tr>';
         tmpHTML += '    <tr>';
-        tmpHTML += '        <td colspan="2">';
+        tmpHTML += '        <td></td>';
+        tmpHTML += '        <td><div id="signInForgetPwd">忘记密码</div></td>';
+        tmpHTML += '    </tr>';
+        tmpHTML += '    <tr>';
+        tmpHTML += '        <td colspan="3">';
         tmpHTML += '            <div class="sign-in-buttons-container">';
-        tmpHTML += '                <div id="signInLoginBtn">登录</div>';
-        tmpHTML += '                <div id="signInRegistBtn">注册</div>';
+        tmpHTML += '                <div id="signInLoginBtn" class="sign-in-button">登录</div>';
+        tmpHTML += '                <div id="signInRegistBtn" class="sign-in-button">注册</div>';
+        tmpHTML += '                <div id="signInCancelBtn" class="sign-in-button">取消</div>';
         tmpHTML += '            </div>';
         tmpHTML += '        </td>';
         tmpHTML += '    </tr>';
         tmpHTML += '</table>';
-        container.innerHTML = tmpHTML;
+        tmpHTML += '</div>';
+        jQuery('body').append(jQuery(tmpHTML));
+        container = jQuery("#signInContainer");
+        jQuery("#signInLoginBtn").click(userLogin);
+        jQuery("#signInRegistBtn").click(userRegist);
+        jQuery("#signInCancelBtn").click(cancelSign);
+        jQuery("#signInForgetPwd").click(forgetPwd);
+        
+        if (mask.length < 1) {
+            jQuery('body').append(jQuery('<div id="signInMaskDiv"></div>'));
+            mask = jQuery("#signInMaskDiv");
+            mask.css('width', pageSize.bw + 'px');
+            mask.css('height', pageSize.bh + 'px');
+        }
+        
+        jQuery(window).scroll(
+            function () {
+                var container = jQuery("#signInContainer");
+                if (container.css('display') != "none") {
+                    var pageSize = getPageSize();
+                    var tmpTop = (pageSize.h - container.outerHeight()) / 2 + pageSize.t;
+                    var tmpLeft = (pageSize.w - container.outerWidth()) / 2 + pageSize.l;
+                    container.css('top', tmpTop + 'px');
+                    container.css('left', tmpLeft + 'px');
+                }
+            }
+        );
     }
 
-    setStyle(mask, 'display', 'block');
-    setStyle(container, 'display', 'block');
-    var containerHeight = container.offsetHeight;
-    var containerWidth = container.offsetWidth;
-    var tmpTop = (pageSize.h - containerHeight) / 2 + pageSize.t;
-    var tmpLeft = (pageSize.w - containerWidth) / 2 + pageSize.l;
-    setStyle(container, 'top', tmpTop + 'px');
-    setStyle(container, 'left', tmpLeft + 'px');
-};
+    mask.css('display', 'block');
+    container.css('display', 'block');
+    jQuery("#signInUserNameTxt").val(""),
+    jQuery("#signInPasswordTxt").val("")
 
-function setStyle(element, key, value) {
-    for (var i = 0; i < _cssPrefixArr.length; i++) {
-        var vp = _cssPrefixArr[i];
-        element.style[vp + key] = value;
-    }
+    var tmpTop = (pageSize.h - container.outerHeight()) / 2 + pageSize.t;
+    var tmpLeft = (pageSize.w - container.outerWidth()) / 2 + pageSize.l;
+    container.css('top', tmpTop + 'px');
+    container.css('left', tmpLeft + 'px');
 };
 
 function getPageSize() {
@@ -66,3 +84,47 @@ function getPageSize() {
     var innerWidth = window.innerWidth;
     return { h: innerHeight, w: innerWidth, t: bodyTop, l: bodyLeft, bh: bodyHeight, bw: bodyWidth };
 };
+
+function userLogin() {
+    jQuery("#signInPopWinTitle").text("登录");
+    jQuery("#signInForgetPwd").css('display', "block");
+    jQuery.post(
+        "demo_test_post.asp",
+        {
+            name: jQuery("#signInUserNameTxt").val(),
+            city: jQuery("#signInPasswordTxt").val()
+        },
+        function (data, status) {
+            jQuery("#signInContainer").css('display', "none");
+            jQuery("#signInMaskDiv").css('display', "none");
+            alert("Data: " + data + "\nStatus: " + status);
+        }
+    );
+}
+
+function userRegist() {
+    jQuery("#signInPopWinTitle").text("注册");
+    jQuery("#signInForgetPwd").css('display', "none");
+    jQuery.post(
+        "demo_test_post.asp",
+        {
+            name: jQuery("#signInUserNameTxt").val(),
+            city: jQuery("#signInPasswordTxt").val()
+        },
+        function (data, status) {
+            jQuery("#signInContainer").css('display', "none");
+            jQuery("#signInMaskDiv").css('display', "none");
+            alert("Data: " + data + "\nStatus: " + status);
+        }
+    );
+}
+
+function cancelSign() {
+    jQuery("#signInPopWinTitle").text("登录");
+    jQuery("#signInContainer").css('display', "none");
+    jQuery("#signInMaskDiv").css('display', "none");
+}
+
+function forgetPwd() {
+
+}

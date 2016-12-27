@@ -17,25 +17,31 @@ var GameObject = function (params) {
     this.speed = params.speed ? params.speed : 1;
     //just for the gridding games, like pac man.
     this.grid_map = params.gridMap ? params.gridMap : null;
-    this.grid_position = null;
-    //
+    this.grid_position = null;    
     this.draw_config = params.drawCfg ? params.drawCfg : {
         //0: brush; 1: image
         type: 0,
-        btushFun: function () { },
+        brushFun: function () { },
         imageFun: function () { }
     };
 
     EntityObject.call(this, p, s, a);
 };
 
-GameObject.prototype._update = function () {
-
+GameObject.prototype.update = function () {    
 };
 
-GameObject.prototype._draw = function (context, styles) {
-
+GameObject.prototype._draw = function (context) {
+    if (this.draw_config.type == 0) {
+        this.draw_config.brushFun(context);
+    } else{
+        this.draw_config.imageFun(context);
+    }
 };
+
+GameObject.prototype.draw = function (context) {
+    this._draw(context);
+}
 
 GameObject.prototype.bindEvent = function () {
 
