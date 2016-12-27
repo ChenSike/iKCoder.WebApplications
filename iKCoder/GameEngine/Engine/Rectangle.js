@@ -113,6 +113,7 @@ Rectangle.AngleToRadian = function (angle) {
 
 Rectangle.RadianToAngle = function (radian) {
     return radian / Math.PI * 180;
+
 }
 
 var EntityObject = function (p, s, a) {
