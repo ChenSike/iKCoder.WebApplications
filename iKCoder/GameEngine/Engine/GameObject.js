@@ -12,6 +12,9 @@ var GameObject = function (params) {
     this.orientation_type = params.orientation_type ? params.orientation_type : 0;
     //0: left; 1: up; 2: right; 3: down; 4: up-left; 5: up-right; 6: down-right; 7: down-left
     this.orientation = params.orientation ? params.orientation : 0;
+    //the interval to update object.
+    this.frame = 10;
+    this.frameCount = 0;
     //speed base pixel/second
     this.speed_unit = params.speed_unit ? params.speed_unit : 1;
     this.speed = params.speed ? params.speed : 1;
@@ -28,21 +31,23 @@ var GameObject = function (params) {
     EntityObject.call(this, p, s, a);
 };
 
-GameObject.prototype.update = function () {
-};
-
-GameObject.prototype._draw = function (context) {
-    if (this.draw_config.type == 0) {
-        this.draw_config.brushFun(context);
-    } else {
-        this.draw_config.imageFun(context);
+GameObject.prototype._update = function () {
+    this.frameCount++;
+    if (!(this.frameCount % this.frame)) {
+        this.update();
     }
 };
-
-GameObject.prototype.draw = function (context) {
-    this._draw(context);
+//for inherit
+GameObject.prototype.update = function () {
 }
 
+GameObject.prototype._draw = function (context) {
+    this.draw(context);
+};
+//for inherit
+GameObject.prototype.draw = function (context) {
+}
+//for inherit
 GameObject.prototype.bindEvent = function () {
 
 };

@@ -475,7 +475,7 @@ Scene.CreateMainStage = function () {
         coord: { x: 12, y: 23 },
         orientation: 2,
         speed: Scene._PacSpeed,
-        frames: 10,
+        frames: 5,
         update: function (skip) {
             if (skip) {
                 return;

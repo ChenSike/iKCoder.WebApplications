@@ -126,8 +126,8 @@ PacMan.init = function () {
 
     var configs = {};
     configs.lifeCount = 3;
-    configs.pacSpeed = 1;
-    configs.enemySpeed = 0;
+    configs.pacSpeed = 2;
+    configs.enemySpeed = 1;
     configs.activeEnemyCount = 2;
     Scene.Init('canvas_content', configs);
 };
