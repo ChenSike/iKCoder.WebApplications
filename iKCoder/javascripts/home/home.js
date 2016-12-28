@@ -89,11 +89,8 @@ function userLogin() {
     jQuery("#signInPopWinTitle").text("登录");
     jQuery("#signInForgetPwd").css('display', "block");
     jQuery.post(
-        "demo_test_post.asp",
-        {
-            name: jQuery("#signInUserNameTxt").val(),
-            city: jQuery("#signInPasswordTxt").val()
-        },
+        "http://10.86.17.204/PlatformAPI/Token/api_getToken.aspx",
+        '<root><name>iKCoder</name><code>12345678</code></root>',
         function (data, status) {
             jQuery("#signInContainer").css('display', "none");
             jQuery("#signInMaskDiv").css('display', "none");
@@ -106,16 +103,14 @@ function userRegist() {
     jQuery("#signInPopWinTitle").text("注册");
     jQuery("#signInForgetPwd").css('display', "none");
     jQuery.post(
-        "demo_test_post.asp",
-        {
-            name: jQuery("#signInUserNameTxt").val(),
-            city: jQuery("#signInPasswordTxt").val()
-        },
+        "http://10.86.17.204/PlatformAPI/Account/api_OperationUserAccount.aspx ",
+        '<root><token>7f4c38c1-33df-4900-bd74-664eee4bf711</token><operation>insert</operation><username>' + jQuery("#signInUserNameTxt").val() + '</username><password>' + jQuery("#signInPasswordTxt").val() + '</password></root>',
         function (data, status) {
             jQuery("#signInContainer").css('display', "none");
             jQuery("#signInMaskDiv").css('display', "none");
-            alert("Data: " + data + "\nStatus: " + status);
-        }
+            alert(XMLToString(data));
+        },
+        'xml'
     );
 }
 
@@ -128,3 +123,11 @@ function cancelSign() {
 function forgetPwd() {
 
 }
+
+function XMLToString(xmlDoc) {
+    if (window.ActiveXObject) {
+        return xmlDoc.xml;
+    } else {
+        return (new XMLSerializer()).serializeToString(xmlDoc);
+    }
+};

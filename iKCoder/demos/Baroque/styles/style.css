@@ -1,0 +1,55 @@
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+html, body { 
+	/* width: 100%; */
+	/* height: 100%; */
+	font-family: Helvetica, Arial, sans-serif;
+	cursor:default;
+}
+
+body.piece1, canvas.piece1 {
+  background: #b02e2e;
+}
+
+body.piece2, canvas.piece2 {
+  background: #3D76D1;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#main-layer {
+	position: absolute;
+}
+
+/* time box */
+#loader {
+	position: absolute;
+	font-weight: bold;
+	width: 150px;
+	color: #FFFFFF;
+	font-size: 11px;
+}
+
+a, a:visited, a:hover, a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+a:hover {
+	color: #FFFFFF;
+}
+
+
+/* about link box */
+#about {
+	position: absolute;
+	font-weight: bold;
+	font-size: 16px;
+}

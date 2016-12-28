@@ -15,6 +15,7 @@ var GameObject = function (params) {
     //the interval to update object.
     this.frame = 10;
     this.frameCount = 0;
+    this.needRedraw = true;
     //speed base pixel/second
     this.speed_unit = params.speed_unit ? params.speed_unit : 1;
     this.speed = params.speed ? params.speed : 1;
@@ -32,21 +33,27 @@ var GameObject = function (params) {
 };
 
 GameObject.prototype._update = function () {
-    this.frameCount++;
     if (!(this.frameCount % this.frame)) {
         this.update();
+        this.needRedraw = true;
+    } else {
+        this.needRedraw = false;
     }
+
+    this.frameCount++;
 };
 //for inherit
 GameObject.prototype.update = function () {
-}
+};
 
 GameObject.prototype._draw = function (context) {
-    this.draw(context);
+    if (this.needRedraw) {
+        this.draw(context);
+    }    
 };
 //for inherit
 GameObject.prototype.draw = function (context) {
-}
+};
 //for inherit
 GameObject.prototype.bindEvent = function () {
 

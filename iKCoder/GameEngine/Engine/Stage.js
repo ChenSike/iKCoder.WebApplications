@@ -1,20 +1,34 @@
 ﻿'use strict';
 
-var Stage = function (params) {
-    this._params = params || {};
-    this._settings = {
-        items: []
-    };
-
+var Stage = function () {
     this.game = null;
     this.resLoader = null;
     this.resources = [];
-    this.map = null;
-    this.npcs = [];
+    this.map = null;    
     this.player = null;
-    this.running = true;
+    this.npcs = [];
+    this.items = [];
+    this.running = true;    
+};
 
-    _extend(this, this._settings, this._params);
+Stage.prototype.setMap = function (map) {
+    this.map = map;
+};
+
+Stage.prototype.setPlayer = function (palyer) {
+    this.palyer = palyer;
+};
+
+Stage.prototype.addNPC = function (npc) {
+    this.npcs.push(npc);
+};
+
+Stage.prototype.addItem = function (item) {
+    this.items.push(item);
+};
+
+Stage.prototype.removeItem = function (item) {
+    this.items.push(item);
 };
 
 Stage.prototype.init = function (game) {
@@ -43,11 +57,7 @@ Stage.prototype.update = function () {
     }
 };
 
-Stage.prototype.start = function () {
-    window.requestAnimationFrame(this.randerFrame);
-};
-
-Stage.prototype.randerFrame = function () {
+Stage.prototype.draw = function () {
     this.map.draw();
     for (var i = 0; i < this.npcs.length; i++) {
         this.npcs[i].draw();
@@ -58,9 +68,18 @@ Stage.prototype.randerFrame = function () {
     }
 
     this.player.draw();
+};
+
+Stage.prototype.randerFrame = function () {
+    this.update();
+    this.draw();
     if (this.running) {
         window.requestAnimationFrame(this.randerFrame);
     }
+};
+
+Stage.prototype.start = function () {
+    window.requestAnimationFrame(this.randerFrame);
 };
 
 Stage.prototype.pause = function () {

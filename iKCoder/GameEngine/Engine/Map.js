@@ -13,7 +13,33 @@ var Map = function (p, s, type, drawConfig) {
         imageFun: function () { }
     };
 
+    this.frame = 0;
+    this.frameCount = 0;
+    this.needRedraw = true;
     Rectangle.call(this, p.x, p.y, s.width, s.height, 0);
+};
+
+Map.prototype._update = function () {
+    if (!(this.frameCount % this.frame)) {
+        this.update();
+        this.needRedraw = true;
+    } else {
+        this.needRedraw = false;
+    }
+
+    this.frameCount++;
+};
+//for inherit
+Map.prototype.update = function () {
+}
+
+Map.prototype._draw = function (context) {
+    if (this.needRedraw) {
+        this.draw(context);
+    }
+};
+//for inherit
+GameObject.prototype.draw = function (context) {
 };
 
 Map.prototype.setStage = function (stage) {
