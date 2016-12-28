@@ -4,19 +4,22 @@ var Stage = function () {
     this.game = null;
     this.resLoader = null;
     this.resources = [];
-    this.map = null;    
-    this.player = null;
+    this.map = null;
+    this.players = [];
     this.npcs = [];
     this.items = [];
-    this.running = true;    
+    this.scoreBoard = null;
+    this.lifeBorad = null;
+    this.statusBoard = null;
+    this.running = true;
 };
 
 Stage.prototype.setMap = function (map) {
     this.map = map;
 };
 
-Stage.prototype.setPlayer = function (palyer) {
-    this.palyer = palyer;
+Stage.prototype.addPlayer = function (palyer) {
+    this.palyers.push(palyer);
 };
 
 Stage.prototype.addNPC = function (npc) {
@@ -35,7 +38,10 @@ Stage.prototype.init = function (game) {
     this.resLoader = new ResourceLoader(this.resources);
     this.game = game;
     this.map.setStage(this);
-    this.player.setStage(this);
+    for (var i = 0; i < this.players.length; i++) {
+        this.players[i].setStage(this);
+    }
+
     for (var i = 0; i < this.npcs.length; i++) {
         this.npcs[i].setStage(this);
     }
@@ -47,7 +53,10 @@ Stage.prototype.init = function (game) {
 
 Stage.prototype.update = function () {
     this.map.update();
-    this.player.update();
+    for (var i = 0; i < this.players.length; i++) {
+        this.players[i].update();
+    }
+
     for (var i = 0; i < this.npcs.length; i++) {
         this.npcs[i].update();
     }
@@ -67,7 +76,9 @@ Stage.prototype.draw = function () {
         this.items[i].draw();
     }
 
-    this.player.draw();
+    for (var i = 0; i < this.players.length; i++) {
+        this.players[i].draw();
+    }
 };
 
 Stage.prototype.randerFrame = function () {
