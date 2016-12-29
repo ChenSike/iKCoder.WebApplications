@@ -42,14 +42,14 @@ function signIn() {
         jQuery("#signInRegistBtn").click(userRegist);
         jQuery("#signInCancelBtn").click(cancelSign);
         jQuery("#signInForgetPwd").click(forgetPwd);
-        
+
         if (mask.length < 1) {
             jQuery('body').append(jQuery('<div id="signInMaskDiv"></div>'));
             mask = jQuery("#signInMaskDiv");
             mask.css('width', pageSize.bw + 'px');
             mask.css('height', pageSize.bh + 'px');
         }
-        
+
         jQuery(window).scroll(
             function () {
                 var container = jQuery("#signInContainer");
@@ -88,29 +88,46 @@ function getPageSize() {
 function userLogin() {
     jQuery("#signInPopWinTitle").text("登录");
     jQuery("#signInForgetPwd").css('display', "block");
-    jQuery.post(
-        "http://10.86.17.204/PlatformAPI/Token/api_getToken.aspx",
-        '<root><name>iKCoder</name><code>12345678</code></root>',
-        function (data, status) {
+    jQuery.ajax({
+        type: 'POST',
+        url: "http://10.86.17.204/PlatformAPI/Token/api_getToken.aspx",
+        data: '<root><name>iKCoder</name><code>12345678</code></root>',
+        success: function (data, status) {
             jQuery("#signInContainer").css('display', "none");
             jQuery("#signInMaskDiv").css('display', "none");
             alert("Data: " + data + "\nStatus: " + status);
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            alert('aaa');
         }
+    }
     );
 }
 
 function userRegist() {
     jQuery("#signInPopWinTitle").text("注册");
     jQuery("#signInForgetPwd").css('display', "none");
-    jQuery.post(
-        "http://10.86.17.204/PlatformAPI/Account/api_OperationUserAccount.aspx ",
-        '<root><token>7f4c38c1-33df-4900-bd74-664eee4bf711</token><operation>insert</operation><username>' + jQuery("#signInUserNameTxt").val() + '</username><password>' + jQuery("#signInPasswordTxt").val() + '</password></root>',
-        function (data, status) {
+    jQuery.ajax({
+        type:'POST',
+        url: "http://10.86.17.204/PlatformAPI/Account/api_OperationUserAccount.aspx",
+        data: '<root><operation>insert</operation><username>' + jQuery("#signInUserNameTxt").val() + '</username><password>' + jQuery("#signInPasswordTxt").val() + '</password></root>',
+        success: function (data, status) {
             jQuery("#signInContainer").css('display', "none");
             jQuery("#signInMaskDiv").css('display', "none");
             alert(XMLToString(data));
         },
-        'xml'
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            alert('aaa');
+        }
+    }
     );
 }
 
