@@ -1,0 +1,73 @@
+﻿body {
+    font-family: "微软雅黑";
+    font-size: 16px;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+@media screen and (min-width: 1200px) {
+    .panel-bg-1 {
+        background: url(../images/background/Banner.png) no-repeat left;
+        background-size: contain;
+        background-color: rgb(242,242,242);
+        height: 700px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-device-width:1199px) {
+    .panel-bg-1 {
+        background: url(../images/background/Banner.png) no-repeat left;
+        background-size: contain;
+        background-color: rgb(242,242,242);
+    }
+
+    .panel-bg-2 {
+        background: url(../images/background/FEATURE-1.jpg) no-repeat left;
+        background-size: cover;
+        background-color: rgb(242,242,242);
+        color: #ffffff;
+    }
+
+    .panel-bg-3 {
+        /*background: url(images/background/ParentFocus.png) no-repeat left;
+            background-size: initial;*/
+        background-color: rgb(242,242,242);
+    }
+
+    .panel-bg-4 {
+        background: url(../images/background/Educators.png) no-repeat left;
+        background-size: cover;
+        background-color: rgb(242,242,242);
+    }
+
+    .shadow {
+        box-shadow: -5px 5px 10px 5px #aaaaaa;
+    }
+
+    .qr-code {
+        width: 150px;
+        height: 150px;
+    }
+
+    .bold-label {
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width:768px) and (max-device-width:991px) {
+    .panel-bg-1 {
+        background: url(../images/background/Banner.png) no-repeat left;
+        background-size: contain;
+        background-color: rgb(242,242,242);
+    }
+}
+
+@media screen and (max-device-width:765px) {
+    .panel-bg-1 {
+        background: url(../images/background/Banner.png) no-repeat left;
+        background-size: contain;
+        background-color: rgb(242,242,242);
+        height: 440px;
+    }
+}
