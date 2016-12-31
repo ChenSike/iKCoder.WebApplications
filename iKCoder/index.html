@@ -1,437 +1,164 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title></title>
-    <meta charset="utf-8">
+    <title>Home</title>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="bootstrap-3.3.0/dist/css/bootstrap.min.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/home/style.css">
+    <script src="javascripts/jQuery/waypoints.min.js"></script>
+    <script src="javascripts/jQuery/jquery.counterup.min.js"></script>
+    <script src="javascripts/jQuery/jquery.fitvids.js"></script>
+    <script src="javascripts/jQuery/jquery.placeholder.min.js"></script>
+    <script src="javascripts/jQuery/slick.min.js"></script>
+    <script src="javascripts/jQuery/jquery.fancybox.pack.js"></script>
+    <script src="javascripts/jQuery/jquery.imgpreload.min.js"></script>
+    <script src="javascripts/jQuery/jquery.easing.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" style="height:10px;">
+    <header id="header">
+        <!-- #navigation -->
+        <nav id="navigation" class="navbar scrollspy">
+            <!-- .container -->
+            <div class="container">
+                <div class="navbar-brand">
+                    <a href="#"><img src="images/logo.jpg" alt="Logo"></a>
+                </div>
+                <ul class="nav navbar-nav" style="color:rgb(0,0,0);">
+                    <li><a href="#header" class="smooth-scroll">Home</a></li>
+                    <li><a href="#features" class="smooth-scroll">Features</a></li>
+                    <li><a href="#testimonials" class="smooth-scroll">Testimonials</a></li>
+                    <li><a href="#screenshots" class="smooth-scroll">Screenshots</a></li>
+                    <li><a href="#pricing" class="smooth-scroll">Pricing</a></li>
+                    <li class="menu-btn"><a href="page.html">Page</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-xs-12">
-                <img src="images/logo.jpg" class="img-responsive">
-            </div>
-            <div class="clearfix visible-xs"></div>
-            <div class="col-md-10 col-xs-12">
-                <nav class="navbar" role="navigation">
-                    <div class="container-fluid">
-                        <ul class="nav nav-pills navbar-right">
-                            <li><a href="#">首页</a></li>
-                            <li><a href="#">线上体验课</a></li>
-                            <li><a href="#">家长</a></li>
-                            <li><a href="#">教育工作者</a></li>
-                            <li><a href="#">关于艾酷</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <form class="form-search" role="form">
-                                        <div class="form-group">
-                                            <div class="col-sm-10">
-                                                <input class="form-control" id="homeSearchTxt" type="text" placeholder="Search">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <div class="row panel-bg-1">
-            <div class="col-md-6  col-xs-1"></div>
-            <div class="col-md-6  col-xs-10">
+            <!-- .container end -->
+        </nav>
+        <!-- #navigation end -->
+    </header>
+    <div id="features" class="section-wrap padding-top100">
+        <!-- .container-padding -->
+        <div class="container-padding10060 bg-color features-section-1">
+            <!-- .container -->
+            <div class="container">
+                <!-- .row -->
                 <div class="row">
-                    <div class="col-md-10">
-                        <br /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10 col-xs-12">
-                        <h2>
-                            化繁为简，适合中国孩子的启蒙式编程教育平台
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <br /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4>
-                            同步全球关于青少年编程教育的最新研究成果，我们建立了循序渐进、充满趣味同时又符合中国孩子认知习惯的课程体系和教学平台，让孩子可以快乐学习编程，同时在编程过程中学习相关的数学、逻辑、物理和英文等能力。
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10">
-                        <br /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-6">
-                        <h4>
-                            <a href="#">了解我们的平台></a>
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 col-md-offset-6">
-                        <h4>
-                            <a href="#">查看孩子的作品></a>
-                        </h4>
-                    </div>
-                </div>
-            </div>            
-        </div>
-        <div class="row panel-bg-2">
-            <div class="col-md-10  col-md-offset-1">
-                <div class="row">
-                    <div class="col-md-12" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h2>
-                            学习编程，制作游戏，控制无人机，探索孩子们的无限可能
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            孩子们通过引导式的教程快速学习程序结构、代码逻辑和控制指令，建立起编程思维。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            通过互动式的引导课程，循序渐进的指南和教学视频，孩子们编写自己的代码。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            一系列激动人心的挑战和有趣任务，帮助孩子们在学习路线上持续进步。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            伴随着一次次进步，孩子们将获得经验值，得到奖杯，同时解锁一系列更深入的课程。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            通过家长中心跟踪孩子的进度，分享孩子的成就到朋友圈和社区，了解孩子的学习内容和成长记录。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:190px;">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row panel-bg-3">
-            <div class="col-md-5 col-sm-5  col-md-offset-1">
-                <div class="row">
-                    <div class="col-md-12" style="height:100px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h2>
-                            同为爸爸妈妈，我们关注家长的关注
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            从孩子的学习时间到知识点汇总，再到课程级别、孩子的成就以及下一步的学习计划，随时随地，我们和您一起分享。或者，试一试，和孩子一起快乐编程。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            <a href="#">查看我们的所有课程></a>
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:100px;">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6  col-sm-6">
-                <div class="row">
-                    <div class="col-md-11" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11 shadow">
-                        <img src="images/background/ParentFocus.png" class="img-responsive">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row panel-bg-4">
-            <div class="col-md-5">
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-12" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>
-                            教育工作者
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:20px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            我们为学校和专业机构提供一体化的科学教育解决方案，包括
-                            课程开发、课程传授、教学设备解决方案、套件提供、知识内
-                            容定制等。
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4>
-                            我们坚信，科学教育在教会学生科学知识的同时，能够最好地
-                            鼓励学生的好奇心，激发探索欲望，培养良好的学习习惯。
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:50px;"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/label/CloudClassRoom.png" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h5 class="bold-label">云课堂</h5>
-                                    </div>
-                                </div>
+                    <div class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-md-offset-0 col-lg-offset-1">
+                        <div class="text-wrap40 text-center-sm text-center-xs">
+                            <div class="post-heading-left">
+                                <h2 style="color:rgb(76,76,76);"> 化繁为简，适合中国孩子的启蒙式编程教育平台</h2>
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/label/Data.png" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="text-align:center;">
-                                        <h5 class="bold-label">教学数据分析</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/label/CourseDesign.png" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="text-align:center;">
-                                        <h5 class="bold-label">课程设计</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/label/Coursecreate.png" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="text-align:center;">
-                                        <h5 class="bold-label">课件创作</h5>
-                                    </div>
-                                </div>
-                            </div>
+                            <p class="margin-bottom30">
+                                同步全球关于青少年编程教育的最新研究成果，我们建立了循序渐进、充满趣味同时又符合中国孩子认知习惯的课程体系和教学平台，让孩子可以快乐学习编程，同时在编程过程中学习相关的数学、逻辑、物理和英文等能力。
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12" style="height:50px;"></div>
-                </div>
+                <!-- .row end -->
             </div>
-            <div class="col-md-1">
-            </div>
+            <!-- .container end -->
         </div>
-        <div class="row panel-bg-3">
-            <div class="col-md-5  col-md-offset-1">
+        <!-- .container-padding end -->
+        <!-- .container-padding -->
+        <div class="container-padding10060 bg-grey">
+
+            <!-- .container -->
+            <div class="container">
+
+                <!-- .row -->
                 <div class="row">
-                    <div class="col-md-12" style="height:100px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h2>
-                            孩子们的成就，分享给全世界
-                        </h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11" style="height:50px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            从网站到微信，亦或App Store, 孩子们的成就，值得全世界看到。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            每一天，我们都看到许多激动人心的作品。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <h5>
-                            试试和您的亲朋好友，分享孩子进步的喜悦。
-                        </h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11" style="height:20px;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/background/qr-code-sample.jpg" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row" style="text-align:center;">
-                                    <div class="col-md-12">
-                                        <h5> 微信公众号</h5>
-                                    </div>
-                                </div>
+
+                    <div class="col-sm-6 col-md-7 col-lg-6 margin-bottom40">
+                        <div class="text-wrap100">
+                            <div class="post-heading-left text-center-xs">
+                                <h2>Clean Design, Powerfull and<br>Awesome</h2>
                             </div>
-                            <div class="col-md-2">
-                            </div>
-                            <div class="col-md-5">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="images/background/qr-code-sample.jpg" class="img-responsive">
-                                    </div>
-                                </div>
-                                <div class="row" style="text-align:center;">
-                                    <div class="col-md-12">
-                                        <h5> App Store下载</h5>
-                                    </div>
-                                </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit posuere diam facilisis metus ultricies tristique. Vestibulum feugiat imperdiet arcu gravida suspendisse auctor duis ornare dapibus metus ac accumsan.</p>
+                            <div class="list-icon margin-bottom0">
+                                <ul>
+                                    <li><i class="ion ion-android-done"></i> Reliable and secure platform</li>
+                                    <li><i class="ion ion-android-done"></i> Everything is perfectly orgainized for future</li>
+                                    <li><i class="ion ion-android-done"></i> Attach large files easily</li>
+                                    <li><i class="ion ion-android-done"></i> Forwarding email accounts for free</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-11" style="height:50px;">
+
+                    <div class="col-sm-6 col-md-5 col-lg-offset-1 margin-bottom40">
+                        <figure class="img-layers2 img-layer-left-front">
+                            <div class="img-layer-left">
+                                <img src="images/content/landing/feature-6.jpg" alt="Image Left" class="animation" data-animation="animation-fade-in-left" data-delay="400">
+                            </div>
+                            <div class="img-layer-right">
+                                <img src="images/content/landing/feature-7.jpg" alt="Image Right" class="animation" data-animation="animation-fade-in-right">
+                            </div>
+                        </figure>
                     </div>
+
                 </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <img src="images/background/share.png" class="img-responsive">
-                    </div>
-                </div>
+                <!-- .row end -->
+
             </div>
+            <!-- .container end -->
+
         </div>
-        <div class="row" style="background-color:rgb(45,45,45);">
-            <div class="col-md-2">
-                <h5>
-                    <a href="#" style="color:rgb(187,187,187)">关于艾酷</a>
-                </h5>
-            </div>
-            <div class="col-md-2">
-                <h5>
-                    <a href="#" style="color:rgb(187,187,187)">线上体验课</a>
-                </h5>
-            </div>
-        </div>
-        <div class="row" style="background-color:rgb(23,23,23);">
-            <div class="col-md-9">
-                <h5>
-                    Designed By <span style="font-weight:bold">Elegant Themes</span> | Powered by <span style="font-weight:bold">WordPress</span>
-                </h5>
-            </div>
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-3">
-                        <a href="#"><img src="images/label/facebook.png" class="img-responsive"></a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"><img src="images/label/twitter.png" class="img-responsive"></a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"><img src="images/label/google.png" class="img-responsive"></a>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"><img src="images/label/rss.png" class="img-responsive"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- .container-padding end -->
     </div>
+    <div class="container">
+        <div class="sep-border"></div> <!-- separator -->
+    </div>
+    <!-- #footer -->
+    <footer id="footer">
+        <!-- #contact -->
+        <div id="contact" class="container-padding10080">
+            <!-- .container -->
+            <div class="container">
+            </div>
+            <!-- .container end -->
+        </div>
+        <!-- #contact end -->
+        <!-- .footer-txt -->
+        <div class="footer-txt" style="background-color: rgb(45,45,45);">
+            <!-- .container -->
+            <div class="container">
+                <div class="footer-copyright">
+                    <p class="footer-hypelink"><a href="#" title="About iKCoder">关于爱酷</a><a href="#" title="OnlineClass" style="padding-left:20px;">线上体验课</a></p>
+                </div>
+            </div>
+            <!-- .container end -->
+        </div>
+        <!-- .footer-txt end -->
+        <!-- .footer-txt -->
+        <div class="footer-txt" style="background-color: rgb(23,23,23);">
+            <!-- .container -->
+            <div class="container">
+                <div class="footer-copyright">
+                    <p class="copyright-txt">Designed By <span style="font-weight:bold">Elegant Themes</span> | Powered by <span style="font-weight:bold">WordPress</span></p>
+                    <div class="socials">
+                        <a href="#" title="Facebook"><i class="ion ion-social-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="ion ion-social-twitter"></i></a>
+                        <a href="#" title="Google"><i class="ion ion-social-google"></i></a>
+                        <a href="#" title="RSS"><i class="ion ion-social-rss"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- .container end -->
+        </div>
+        <!-- .footer-txt end -->
+        <a href="#" class="scrollup" title="Back to Top!"><i class="ion ion-ios-arrow-up"></i></a>
+    </footer>
+    <!-- #footer end -->
+    <script src="javascripts/home/home.js"></script>
 </body>
 </html>
