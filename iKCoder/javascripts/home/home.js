@@ -107,7 +107,7 @@
         // Slider with Slick carousel
         Carousel: function () {
             // Header slider
-            $('#header .carousel-slider').slick({
+            $('#features .carousel-slider').slick({
                 arrows: false,
                 dots: true,
                 speed: 300,
