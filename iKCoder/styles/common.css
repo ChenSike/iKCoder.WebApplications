@@ -9,7 +9,7 @@ body {
     line-height: 24px;
     font-weight: 400;
     letter-spacing: .3px;
-    color: #333333;
+    color: rgb(76,76,76);
     background-color: #ffffff;
 }
 
@@ -53,7 +53,7 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "微软雅黑";
-    color: #333333;
+    color: rgb(76,76,76);
     font-weight: 400;
     letter-spacing: 0px;
     margin-top: 0px;
@@ -847,7 +847,7 @@ button.close {
 }
 
 .text-black {
-    color: rgb(42,42,42);
+    color: rgb(76,76,76);
 }
 
 .shadow {
@@ -861,6 +861,13 @@ button.close {
 
 header button .navbar-toggle {
     display: none;
+}
+
+@media screen and (min-width: 1960px) {
+    body{
+        width:1960px;
+        margin:auto;
+    }
 }
 
 @media screen and (min-width: 1200px) {
