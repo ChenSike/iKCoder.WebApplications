@@ -786,14 +786,14 @@ button.close {
     }
 
         #footer .socials a:hover {
-            color: #2863f9;
-            background-color: #FFF;
+            color: rgb(40,99,249);
+            background-color: rgb(255,255,255);
         }
 
 #footer .scrollup {
     display: none;
     width: 48px;
-    color: #d8e1fa;
+    color: rgb(42,42,42);
     font-size: 48px;
     line-height: 1;
     text-align: center;
@@ -802,7 +802,7 @@ button.close {
 }
 
     #footer .scrollup:hover {
-        color: #FFF;
+        color: rgb(102,102,102);
     }
 
 #footer .footer-hypelink {
@@ -873,16 +873,50 @@ button.close {
     height: 150px;
 }
 
+header button .navbar-toggle {
+    display: none;
+}
+
 @media screen and (min-width: 1200px) {
 }
 
-@media screen and (min-width: 992px) and (max-device-width:1199px) {
+@media screen and (min-width: 992px) and (max-width:1199px) {
 }
 
-@media screen and (min-width:768px) and (max-device-width:991px) {
+@media screen and (min-width:768px) and (max-width:991px) {
+    .form-control.header-search-field {
+        width: 90px;
+        padding-left: 5px;
+    }
 }
 
-@media screen and (max-device-width:767px) {
+@media screen and (max-width:767px) {
+    #footer .scrollup {
+        display: block;
+    }
+
+    .header-search-field-icon {
+        left: 90%;
+        top: -30px;
+    }
+
+    form.navbar-form.navbar-right {
+        padding-bottom: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    header button .navbar-toggle {
+        display: block;
+    }
+
+    li.nav-item {
+        text-align: center;
+    }
+
+        li.nav-item a {
+            font-weight: 700;
+        }
 }
 
 @media (max-width: 640px) {
