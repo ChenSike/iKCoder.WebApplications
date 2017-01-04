@@ -863,10 +863,15 @@ header button .navbar-toggle {
     display: none;
 }
 
+.text-center-white {
+    text-align: center;
+    color: rgb(255,255,255);
+}
+
 @media screen and (min-width: 1960px) {
-    body{
-        width:1960px;
-        margin:auto;
+    body {
+        width: 1960px;
+        margin: auto;
     }
 }
 
