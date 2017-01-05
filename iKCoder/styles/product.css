@@ -1,11 +1,4 @@
-﻿.product-panel-4-bg{
-    background: url(../images/background/Coopschool.png) no-repeat fixed left;
-    background-size: contain;
-    background-color: rgb(180,170,160);
-    color: rgb(255,255,255);
-}
-
-@media screen and (min-width: 1200px) {
+﻿@media screen and (min-width: 1200px) {
 }
 
 @media screen and (min-width: 992px) and (max-width:1199px) {

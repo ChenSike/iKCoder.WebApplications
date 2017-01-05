@@ -22,6 +22,16 @@ body {
     background: rgb(255,255,255) no-repeat center;
 }
 
+.bg-all-245 {
+    color: rgb(76,76,76);
+    background: rgb(245,245,245) no-repeat center;
+}
+
+.bg-all-230 {
+    color: rgb(76,76,76);
+    background: rgb(230,230,230) no-repeat center;
+}
+
 .bg-img {
     position: relative;
     background-color: rgb(36,36,36);
@@ -879,12 +889,20 @@ header button .navbar-toggle {
 }
 
 @media screen and (min-width: 992px) and (max-width:1199px) {
+    .form-control.header-search-field {
+        width: 120px;
+        padding-left: 5px;
+    }
 }
 
 @media screen and (min-width:768px) and (max-width:991px) {
     .form-control.header-search-field {
         width: 90px;
         padding-left: 5px;
+    }
+
+    .no-padding-xs {
+        padding: 0px;
     }
 }
 
