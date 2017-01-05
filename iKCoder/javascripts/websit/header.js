@@ -45,9 +45,14 @@ function initHeaderFields() {
         $("#signinAlert").alert('close');
     });
 
-    $("#img_CAPTCHA").on('click', function () {
-        $("#img_CAPTCHA").attr("src", "http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=5&name=signincaptcha&width=150&height=30&rnd=" + Date.now());
+    $("#img_SignIn_CAPTCHA").on('click', function () {
+        $("#img_SignIn_CAPTCHA").attr("src", "http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd=" + Date.now());
     });
+
+    $("#img_SignUp_CAPTCHA").on('click', function () {
+        $("#img_SignUp_CAPTCHA").attr("src", "http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd=" + Date.now());
+    });
+
 
     $('#linkBtn_ForgetPwd').on('click', function () {
         forgetPassword();

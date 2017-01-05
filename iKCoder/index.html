@@ -364,7 +364,7 @@
         </div>
         <a href="#" class="scrollup" title="Back to Top!"><i class="ion ion-ios-arrow-up"></i></a>
     </footer>
-    <div class="modal fade" id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" id="mWindow_SignUp_Dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -392,14 +392,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="txt_SignUp_CAPTCHA" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-7 col-xs-12">
+                                <div class="col-sm-8 col-xs-12">
                                     <input type="text" class="form-control" id="txt_SignUp_CAPTCHA">
                                 </div>
-                                <div class="col-sm-3 col-xs-12">
+                                <div class="col-sm-2 col-xs-12">
                                     <!--<button type="button" class="btn btn-default">
                                         获取验证码
                                     </button>-->
-                                    <img src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=5&name=signupcaptcha&width=150&height=30">
+                                    <img class="cursor-hand" id="img_SignUp_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signupcaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">
                                     <!--<img src="images/label/CloudClassRoom.png">-->
                                 </div>
                             </div>
@@ -443,20 +443,20 @@
                                     <input type="text" class="form-control" id="txt_SignIn_Password">
                                 </div>
                                 <div class="col-sm-3 col-xs-12">
-                                    <a href="#"  id="linkBtn_ForgetPwd"><label class="control-label text-underline cursor-hand">忘记密码</label></a>
+                                    <a href="#" id="linkBtn_ForgetPwd"><label class="control-label text-underline cursor-hand">忘记密码</label></a>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="txt_SignUp_CAPTCHA" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-7 col-xs-12">
+                                <div class="col-sm-8 col-xs-12">
                                     <input type="text" class="form-control" id="txt_SignIn_CAPTCHA">
                                 </div>
-                                <div class="col-sm-3 col-xs-12">
+                                <div class="col-sm-2 col-xs-12">
                                     <!--<button type="button" class="btn btn-default">
                                         获取验证码
                                     </button>-->
-                                    <!--<img class="cursor-hand" id="img_SignUp_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=5&name=signincaptcha&width=150&height=30" title="点击刷新验证码">-->
-                                    <img src="images/label/CloudClassRoom.png">
+                                    <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">
+                                    <!--<img src="images/label/CloudClassRoom.png">-->
                                 </div>
                             </div>
                         </form>
@@ -474,7 +474,7 @@
         </div><!-- /.modal -->
     </div>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             initHeaderFields();
             initIndexPageFields();
         });

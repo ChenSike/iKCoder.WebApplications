@@ -895,6 +895,17 @@ header button .navbar-toggle {
         width: 1960px;
         margin: auto;
     }
+
+    .modal-dialog {
+        width: 960px;
+        margin: 30px auto;
+    }
+}
+
+@media screen and (min-width: 1959px) and (min-height:1079px) {
+    .modal-dialog {
+        margin-top: 20%;
+    }
 }
 
 @media screen and (min-width: 1200px) {
