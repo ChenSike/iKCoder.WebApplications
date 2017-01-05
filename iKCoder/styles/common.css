@@ -112,7 +112,7 @@ h6 {
 }
 
 a, a:visited {
-    color: #2863f9;
+    color: rgb(40,100,250);
     -webkit-transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
     transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
 }
@@ -231,7 +231,7 @@ textarea {
 
     input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, .ie input[type="range"]:focus, .ie9 input[type="range"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, select:focus, textarea:focus {
         color: #404040;
-        border-color: #2863f9;
+        border-color: rgb(40,100,250);
         box-shadow: 0px 0px 10px rgba(40,99,249,.15);
     }
 
@@ -248,16 +248,15 @@ input[type="color"]:disabled, input[type="date"]:disabled, input[type="datetime"
 
 .btn-custom, input[type="button"], input[type="submit"], input[type="reset"], button {
     font-family: "微软雅黑";
-    color: #FFF !important;
     font-size: 15px;
     line-height: 50px;
     text-align: left;
     font-weight: 700;
     text-transform: uppercase;
     white-space: nowrap;
-    background-color: #2863f9;
+    background-color: rgb(40,100,250);
     padding: 14px 30px;
-    border: 1px solid #2863f9;
+    border: 1px solid rgb(40,100,250);
     outline: none !important;
     border-radius: 25px;
     box-shadow: 0px 0px 10px rgba(40,99,249,.15);
@@ -272,8 +271,8 @@ input[type="button"], input[type="submit"], input[type="reset"], button {
 }
 
     .btn-custom.btn-blue, input[type="button"].btn-blue, input[type="submit"].btn-blue, input[type="reset"].btn-blue, button.btn-blue {
-        background-color: #2863f9;
-        border-color: #2863f9;
+        background-color: rgb(40,100,250);
+        border-color: rgb(40,100,250);
         box-shadow: 0px 0px 10px rgba(40,99,249,.15);
     }
 
@@ -308,14 +307,14 @@ input[type="button"], input[type="submit"], input[type="reset"], button {
     }
 
 .bg-color .btn-custom, .bg-color input[type="button"], .bg-color input[type="submit"], .bg-color input[type="reset"], .bg-color button, .bg-color .btn-custom.btn-blue, .bg-color input[type="button"].btn-blue, .bg-color input[type="submit"].btn-blue, .bg-color input[type="reset"].btn-blue, .bg-color button.btn-blue {
-    color: #2863f9 !important;
+    color: rgb(40,100,250) !important;
     background-color: #FFF;
     border-color: #FFF;
     box-shadow: none;
 }
 
 .btn-custom.btn-border, input[type="button"].btn-border, input[type="submit"].btn-border, input[type="reset"].btn-border, button.btn-border, .btn-custom.btn-blue.btn-border, input[type="button"].btn-blue.btn-border, input[type="submit"].btn-blue.btn-border, input[type="reset"].btn-blue.btn-border, button.btn-blue.btn-border {
-    color: #2863f9 !important;
+    color: rgb(40,100,250) !important;
     background-color: transparent;
 }
 
@@ -380,7 +379,7 @@ input[type="button"], input[type="submit"], input[type="reset"], button {
 }
 
 .bg-color .btn-custom:hover, .bg-color input[type="button"]:hover, .bg-color input[type="submit"]:hover, .bg-color input[type="reset"]:hover, .bg-color button:hover, .bg-color .btn-custom.btn-blue:hover, .bg-color input[type="button"].btn-blue:hover, .bg-color input[type="submit"].btn-blue:hover, .bg-color input[type="reset"].btn-blue:hover, .bg-color button.btn-blue:hover {
-    color: #2863f9 !important;
+    color: rgb(40,100,250) !important;
     background-color: #d8e1fa;
     border-color: #d8e1fa;
 }
@@ -688,7 +687,7 @@ button.close {
     }
 
         #footer .affa-form-contact a {
-            color: #2863f9;
+            color: rgb(40,100,250);
         }
 
             #footer .affa-form-contact a:hover {
@@ -700,7 +699,7 @@ button.close {
         }
 
             #footer .affa-form-contact input[type="text"]:focus, #footer .affa-form-contact input[type="email"]:focus, #footer .affa-form-contact textarea:focus {
-                border-color: #2863f9;
+                border-color: rgb(40,100,250);
                 box-shadow: 0px 0px 10px rgba(40,99,249,.15);
             }
 
@@ -715,13 +714,13 @@ button.close {
 
         #footer .affa-form-contact .form-contact-submit input[type="submit"], #footer .affa-form-contact .form-contact-submit input[type="submit"].btn-blue {
             color: #FFF !important;
-            background-color: #2863f9;
-            border-color: #2863f9;
+            background-color: rgb(40,100,250);
+            border-color: rgb(40,100,250);
             box-shadow: 0px 0px 10px rgba(40,99,249,.15);
         }
 
             #footer .affa-form-contact .form-contact-submit input[type="submit"].btn-border, #footer .affa-form-contact .form-contact-submit input[type="submit"].btn-blue.btn-border {
-                color: #2863f9 !important;
+                color: rgb(40,100,250) !important;
                 background-color: transparent;
             }
 
@@ -860,6 +859,24 @@ button.close {
     color: rgb(76,76,76);
 }
 
+.text-center-white {
+    text-align: center;
+    color: rgb(255,255,255);
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-header-userinfo {
+    font-weight: 600;
+    color: rgb(40,100,250);
+}
+
+.cursor-hand {
+    cursor: pointer;
+}
+
 .shadow {
     box-shadow: -5px 5px 10px 5px #aaaaaa;
 }
@@ -871,11 +888,6 @@ button.close {
 
 header button .navbar-toggle {
     display: none;
-}
-
-.text-center-white {
-    text-align: center;
-    color: rgb(255,255,255);
 }
 
 @media screen and (min-width: 1960px) {
