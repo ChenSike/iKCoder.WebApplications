@@ -2,11 +2,12 @@
 
 var _checkCodePage = 'ikcoder/data/get_checkcodenua.aspx';
 var _signUpPage = 'iKCoder/Account/SET_Reg.aspx';
+var _checkSigned = '';
 var _checkCodeParams = {
     length: 8,
     name: 'signincode',
     width: 150,
-    height: 40
+    height: 50
 };
 
 
@@ -28,15 +29,19 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + _getLabel('线上体验课') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + _getLabel('家长') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + _getLabel('教育工作者') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_About">' + _getLabel('关于艾酷') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Product">' + _getLabel('艾酷教育平台') + '</a></li>');    
+    tmpHtmlStrArr.push('                <li class="dropdown">');
+    tmpHtmlStrArr.push('                    <a href="#" class="dropdown-toggle" id="linkBtn_About" data-toggle="dropdown">' + _getLabel('关于艾酷') + '<b class="caret"></b></a>');
+    tmpHtmlStrArr.push('                    <ul class="dropdown-menu">');
+    tmpHtmlStrArr.push('                        <li><a href="#" id="linkBtn_Product">' + _getLabel('艾酷教育平台') + '</a></li>');
+    tmpHtmlStrArr.push('                    </ul>');
+    tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
     tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
     tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
-    tmpHtmlStrArr.push('                <li>');
+    tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
     tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search">');
     tmpHtmlStrArr.push('                        <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
     tmpHtmlStrArr.push('                        <a href="#" class="dropdown-toggle header-search-field-icon" id="linkBtn_Search" data-toggle="dropdown">');
@@ -124,33 +129,40 @@ function initHeader() {
     BuildHeaderHTML();
     BuildSignInWindowHTML();
     initHeaderEvent();
+    updateUserInfor();
 }
 
 function initHeaderEvent() {
-    $("#linkBtn_Home").on('click', function () {
-        window.location.href = "index.html";
-    });
+    $("#linkBtn_Home").on('click',
+        function () {
+            window.location.href = "index.html";
+        });
 
-    $("#linkBtn_OnlineCourse").on('click', function () {
-        window.location.href = "index.html";
-    });
+    $("#linkBtn_OnlineCourse").on('click',
+        function () {
+            window.location.href = "index.html";
+        });
 
-    $("#linkBtn_Parents").on('click', function () {
-        window.location.href = "index.html";
-    });
+    $("#linkBtn_Parents").on('click',
+        function () {
+            window.location.href = "index.html";
+        });
 
-    $("#linkBtn_Education").on('click', function () {
-        window.location.href = "index.html";
-    });
+    $("#linkBtn_Education").on('click',
+        function () {
+            window.location.href = "index.html";
+        });
 
-    $("#linkBtn_About").on('click', function () {
-        window.location.href = "index.html";
-    });
+    $("#linkBtn_About").on('click',
+        function () {
+            window.location.href = "index.html";
+        });
 
-    $("#linkBtn_Product").on('click', function () {
-        window.location.href = "product.html";
-    });
-    
+    $("#linkBtn_Product").on('click',
+        function () {
+            window.location.href = "product.html";
+        });
+
     $("#linkBtn_Search").on('click', headerSearch);
     $("#btn_SignInOK").on('click', signIn);
     $("#btn_GotoSignUp").on('click', gotoSignUp);
@@ -158,13 +170,21 @@ function initHeaderEvent() {
     $("#btn_GotoSignIn").on('click', gotoSignIn);
     $('#linkBtn_ForgetPwd').on('click', forgetPassword);
 
-    $('#btn_SignInCancel').on('click', function () {
-        $("#signinAlert").alert('close');
-    });
+    $('#btn_SignInCancel').on('click',
+        function () {
+            $("#signinAlert").alert('close');
+        });
 
-    $("#img_SignIn_CAPTCHA").on('click', function () {
-        $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
-    });
+    $("#img_SignIn_CAPTCHA").on('click',
+        function () {
+            $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+        });
+
+    $('#mWindow_SignIn').on('show.bs.modal', reinitSignInFileds);
+    $('#mWindow_SignIn').on('hide.bs.modal',
+        function () {
+            $("#signinAlert").alert('close');
+        });
 }
 
 function signUp() {
@@ -202,7 +222,7 @@ function signUp() {
             '<symbol>' + $("#txt_SignIn_UserName").val() + '</symbol>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
             '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CAPTCHA").val() + '</codename>' +
+            '<codevalue>' + $("#txt_SignIn_CAPTCHA").val() + '</codevalue>' +
             '</root>',
         success: function (data, status) {
             $("#signinAlert").alert('close');
@@ -251,7 +271,7 @@ function signIn() {
         success: function (data, status) {
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
-            updateUserInfor();
+            updateUserInfor(true);
         },
         dataType: 'xml',
         xhrFields: {
@@ -290,10 +310,41 @@ function forgetPassword() {
 
 }
 
-function updateUserInfor() {
-    $('li#nav_SignUp_Item').remove();
-    $('li#nav_SignIn_Item').remove();
-    $('#navbar_collapse_ul').prepend(
+function updateUserInfor(signed) {
+    if (typeof signed != 'undefined') {
+        if (signed) {
+            $('li#nav_SignIn_Item').toggleClass('hidden');
+            if ($("li##nav_UserInfo_Item").length <= 0) {
+                createUserInfoItem();
+            } else {
+                $('li#nav_UserInfo_Item').toggleClass('hidden');
+            }
+        } else {
+            if ($("li#nav_UserInfo_Item").length > 0) {
+                $('li#nav_UserInfo_Item').toggleClass('hidden');
+            }
+        }
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: _getRequestURL(_checkSigned),
+            data: '<root></root>',
+            success: function (data, status) {
+                updateUserInfor(true);
+            },
+            dataType: 'xml',
+            xhrFields: {
+                withCredentials: true
+            },
+            error: function () {
+                updateUserInfor(false);
+            }
+        });
+    }
+}
+
+function createUserInfoItem() {
+    $('#nav_Search_Item').before(
         $(
             '<li class="nav-item" id="nav_UserInfo_Item">' +
             '   <a href="#">' +
@@ -308,6 +359,20 @@ function updateUserInfor() {
     $("#linkBtn_UserInfo").on('click', function () {
         window.location.href = "index.html";
     });
+}
+
+function reinitSignInFileds() {
+    $("#txt_SignIn_Password_Container").addClass("col-sm-10");
+    $("#linkBtn_ForgetPwd_Container").removeClass("hidden");
+    $("#txt_SignUp_Confirm_Container").addClass("hidden");
+    $("#btn_SignInOK").removeClass("hidden");
+    $("#btn_GotoSignUp").removeClass("hidden");
+    $("#btn_SignUpOK").addClass("hidden");
+    $("#btn_GotoSignIn").addClass("hidden");
+    $("#txt_SignIn_UserName").val('');
+    $("#txt_SignIn_Password").val('');
+    $("#txt_SignIn_CAPTCHA").val('');
+    $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
 }
 
 function showAlertMessage(containerId, alertId, message) {
