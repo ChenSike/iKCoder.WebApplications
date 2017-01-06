@@ -1,5 +1,106 @@
 ﻿'use strict';
 
+function BuildHeaderHTML() {
+    var tmpHtmlStrArr = [];
+    tmpHtmlStrArr.push('<nav class="navbar navbar-default padding-top10 padding-bottom10" role="navigation">');
+    tmpHtmlStrArr.push('    <div class="container-fluid">');
+    tmpHtmlStrArr.push('        <div class="navbar-header padding-left10">');
+    tmpHtmlStrArr.push('            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">');
+    tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
+    tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
+    tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
+    tmpHtmlStrArr.push('            </button>');
+    tmpHtmlStrArr.push('            <a href="#"><img src="images/logo.png" class="img-responsive"></a>');
+    tmpHtmlStrArr.push('        </div>');
+    tmpHtmlStrArr.push('        <div class="collapse navbar-collapse" id="example-navbar-collapse">');
+    tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Home">' + getLabel('首页') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + getLabel('线上体验课') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + getLabel('家长') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + getLabel('教育工作者') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_About">' + getLabel('关于艾酷') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignUp_Item">');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignUp">');
+    tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
+    tmpHtmlStrArr.push(getLabel('登录'));
+    tmpHtmlStrArr.push('                   </a>');
+    tmpHtmlStrArr.push('                </li>');
+    tmpHtmlStrArr.push('                <li>');
+    tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search">');
+    tmpHtmlStrArr.push('                        <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
+    tmpHtmlStrArr.push('                        <a href="#" class="dropdown-toggle header-search-field-icon" id="linkBtn_Search" data-toggle="dropdown">');
+    tmpHtmlStrArr.push('                            <span class="glyphicon glyphicon-search"></span>');
+    tmpHtmlStrArr.push('                        </a>');
+    tmpHtmlStrArr.push('                    </form>');
+    tmpHtmlStrArr.push('                <li>');
+    tmpHtmlStrArr.push('            </ul>');
+    tmpHtmlStrArr.push('        </div>');
+    tmpHtmlStrArr.push('    </div>');
+    tmpHtmlStrArr.push('</nav>');
+    $('header').append($(tmpHtmlStrArr.join('')));
+}
+
+function BuildSignInWindowHTML() {
+    var tmpHtmlStrArr = [];
+    tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+    tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignIn_Dialog">');
+    tmpHtmlStrArr.push('        <div class="modal-content">');
+    tmpHtmlStrArr.push('            <div class="modal-header">');
+    tmpHtmlStrArr.push('                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">');
+    tmpHtmlStrArr.push('                    &times;');
+    tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('                <h4 class="modal-title" id="mwTitle_SignIn">');
+    tmpHtmlStrArr.push(getLabel('创建新用户'));
+    tmpHtmlStrArr.push('                </h4>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('            <div class="modal-body">');
+    tmpHtmlStrArr.push('                <div class="container bg-white">');
+    tmpHtmlStrArr.push('                    <form class="form-horizontal" role="form">');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_UserName"  placeholder="' + getLabel('手机号') + '">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + getLabel('密码') + '">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Confirm" placeholder="' + getLabel('确认密码') + '">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-8 col-xs-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_CAPTCHA" placeholder="' + getLabel('验证码') + '">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-xs-12">');
+    tmpHtmlStrArr.push('                                <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signupcaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </form>');
+    tmpHtmlStrArr.push('                </div>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('            <div class="modal-footer">');
+    tmpHtmlStrArr.push('                <button type="button" class="btn btn-default" id="btn_SignInCancel" data-dismiss="modal">');
+    tmpHtmlStrArr.push('                    取消');
+    tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary" id="btn_SignInOK">');
+    tmpHtmlStrArr.push('                    注册');
+    tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('        </div>');
+    tmpHtmlStrArr.push('    </div>');
+    tmpHtmlStrArr.push('</div>');
+}
+
+function initHeader() {
+    BuildHeaderHTML();
+
+}
+
+
 //var headerBtn_Home;
 //var headerBtn_OnlineCourse;
 //var headerBtn_Parents;
