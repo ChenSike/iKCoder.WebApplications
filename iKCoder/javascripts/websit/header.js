@@ -1,5 +1,15 @@
 ﻿'use strict';
 
+var _checkCodePage = 'ikcoder/data/get_checkcodenua.aspx';
+var _signUpPage = 'iKCoder/Account/SET_Reg.aspx';
+var _checkCodeParams = {
+    length: 8,
+    name: 'signincode',
+    width: 150,
+    height: 40
+};
+
+
 function BuildHeaderHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<nav class="navbar navbar-default padding-top10 padding-bottom10" role="navigation">');
@@ -14,15 +24,16 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('        <div class="collapse navbar-collapse" id="example-navbar-collapse">');
     tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Home">' + getLabel('首页') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + getLabel('线上体验课') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + getLabel('家长') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + getLabel('教育工作者') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_About">' + getLabel('关于艾酷') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignUp_Item">');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignUp">');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Home">' + _getLabel('首页') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + _getLabel('线上体验课') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + _getLabel('家长') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + _getLabel('教育工作者') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_About">' + _getLabel('关于艾酷') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Product">' + _getLabel('艾酷教育平台') + '</a></li>');    
+    tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
     tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
-    tmpHtmlStrArr.push(getLabel('登录'));
+    tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li>');
@@ -42,7 +53,7 @@ function BuildHeaderHTML() {
 
 function BuildSignInWindowHTML() {
     var tmpHtmlStrArr = [];
-    tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+    tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
     tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignIn_Dialog">');
     tmpHtmlStrArr.push('        <div class="modal-content">');
     tmpHtmlStrArr.push('            <div class="modal-header">');
@@ -50,33 +61,36 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                    &times;');
     tmpHtmlStrArr.push('                </button>');
     tmpHtmlStrArr.push('                <h4 class="modal-title" id="mwTitle_SignIn">');
-    tmpHtmlStrArr.push(getLabel('创建新用户'));
+    tmpHtmlStrArr.push(_getLabel('用户登录'));
     tmpHtmlStrArr.push('                </h4>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('            <div class="modal-body">');
     tmpHtmlStrArr.push('                <div class="container bg-white">');
     tmpHtmlStrArr.push('                    <form class="form-horizontal" role="form">');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_UserName"  placeholder="' + getLabel('手机号') + '">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_UserName"  placeholder="' + _getLabel('手机号') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + getLabel('密码') + '">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-10 col-xs-12"  id="txt_SignIn_Password_Container" >');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('输入密码') + '">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-xs-12" id="linkBtn_ForgetPwd_Container">');
+    tmpHtmlStrArr.push('                                <a href="#" id="linkBtn_ForgetPwd"><label class="control-label text-underline cursor-hand">' + _getLabel('忘记密码') + '</label></a>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group hidden" id="txt_SignUp_Confirm_Container">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_Confirm" placeholder="' + _getLabel('确认密码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-10">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Confirm" placeholder="' + getLabel('确认密码') + '">');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-8 col-xs-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_CAPTCHA" placeholder="' + getLabel('验证码') + '">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-10 col-xs-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_CAPTCHA" placeholder="' + _getLabel('验证码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                            <div class="col-sm-2 col-xs-12">');
-    tmpHtmlStrArr.push('                                <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signupcaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">');
+    tmpHtmlStrArr.push('                                <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
@@ -84,37 +98,35 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('            <div class="modal-footer">');
     tmpHtmlStrArr.push('                <button type="button" class="btn btn-default" id="btn_SignInCancel" data-dismiss="modal">');
-    tmpHtmlStrArr.push('                    取消');
+    tmpHtmlStrArr.push(_getLabel('取消'));
     tmpHtmlStrArr.push('                </button>');
     tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary" id="btn_SignInOK">');
-    tmpHtmlStrArr.push('                    注册');
+    tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary" id="btn_GotoSignUp">');
+    tmpHtmlStrArr.push(_getLabel('注册'));
+    tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary hidden" id="btn_SignUpOK">');
+    tmpHtmlStrArr.push(_getLabel('注册'));
+    tmpHtmlStrArr.push('                </button>');
+    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary hidden" id="btn_GotoSignIn">');
+    tmpHtmlStrArr.push(_getLabel('登录'));
+    tmpHtmlStrArr.push('                </button>');
+
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('    </div>');
     tmpHtmlStrArr.push('</div>');
+    $('body').append($(tmpHtmlStrArr.join('')));
 }
 
 function initHeader() {
     BuildHeaderHTML();
-
+    BuildSignInWindowHTML();
+    initHeaderEvent();
 }
 
-
-//var headerBtn_Home;
-//var headerBtn_OnlineCourse;
-//var headerBtn_Parents;
-//var headerBtn_Education;
-//var headerBtn_About;
-//var headerBtn_SignUp;
-//var headerBtn_SignIn;
-//var headerBtn_Search;
-//var headerTxt_Search;
-//var mwBtn_SignUpCalcel;
-//var mwBtn_SignUpOK;
-//var mwBtn_SignInCalcel;
-//var mwBtn_SignInOK;
-function initHeaderFields() {
+function initHeaderEvent() {
     $("#linkBtn_Home").on('click', function () {
         window.location.href = "index.html";
     });
@@ -135,66 +147,74 @@ function initHeaderFields() {
         window.location.href = "index.html";
     });
 
-    $("#linkBtn_Search").on('click', headerSearch);
-    $("#btn_SignUpOK").on('click', signUp);
-    $('#btn_SignUpCancel').on('click', function () {
-        $("#signupAlert").alert('close');
+    $("#linkBtn_Product").on('click', function () {
+        window.location.href = "product.html";
     });
-
+    
+    $("#linkBtn_Search").on('click', headerSearch);
     $("#btn_SignInOK").on('click', signIn);
+    $("#btn_GotoSignUp").on('click', gotoSignUp);
+    $("#btn_SignUpOK").on('click', signUp);
+    $("#btn_GotoSignIn").on('click', gotoSignIn);
+    $('#linkBtn_ForgetPwd').on('click', forgetPassword);
+
     $('#btn_SignInCancel').on('click', function () {
         $("#signinAlert").alert('close');
     });
 
     $("#img_SignIn_CAPTCHA").on('click', function () {
-        $("#img_SignIn_CAPTCHA").attr("src", "http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd=" + Date.now());
-    });
-
-    $("#img_SignUp_CAPTCHA").on('click', function () {
-        $("#img_SignUp_CAPTCHA").attr("src", "http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd=" + Date.now());
-    });
-
-
-    $('#linkBtn_ForgetPwd').on('click', function () {
-        forgetPassword();
+        $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
     });
 }
 
 function signUp() {
-    $("#signupAlert").alert('close');
-    if ($("#txt_SignUp_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入用户名!');
+    $("#signinAlert").alert('close');
+    if ($("#txt_SignIn_UserName").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
+        return;
+    } else if (!_checkPhoneNumber($("#txt_SignIn_UserName").val().trim())) {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
         return;
     }
 
-    if ($("#txt_SignUp_Password").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
+    if ($("#txt_SignIn_Password").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入密码!');
         return;
     }
 
-    if ($("#txt_SignUp_CAPTCHA").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入验证码!');
+    if ($("#txt_SignUp_Confirm").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请确认密码!');
+        return;
+    } else if ($("#txt_SignUp_Confirm").val().trim() != $("#txt_SignIn_Password").val().trim()) {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '两次输入的密码不一致!');
+        return;
+    }
+
+    if ($("#txt_SignIn_CAPTCHA").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp_Dialog', 'signinAlert', '请输入验证码!');
         return;
     }
 
     $.ajax({
         type: 'POST',
-        url: "http://10.86.17.204/PlatformAPI/Account/api_OperationUserAccount.aspx",
+        url: _getRequestURL(_signUpPage),
         data: '<root>' +
-            '<operation>insert</operation>' +
-            '<username>' + $("#txt_SignUp_UserName").val() + '</username>' +
-            '<password>' + $("#txt_SignUp_Password").val() + '</password>' +
-            '<checkcode>' + $("#txt_SignUp_CAPTCHA").val() + '</checkcode>' +
+            '<symbol>' + $("#txt_SignIn_UserName").val() + '</symbol>' +
+            '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
+            '<codename>signincode</codename>' +
+            '<codename>' + $("#txt_SignIn_CAPTCHA").val() + '</codename>' +
             '</root>',
         success: function (data, status) {
-            $('#mWindow_SignUp').modal('hide');
+            $("#signinAlert").alert('close');
+            $('#mWindow_SignIn').modal('hide');
         },
         dataType: 'xml',
         xhrFields: {
             withCredentials: true
         },
         error: function () {
-            showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '注册失败, 请联系客服!');
+            $("#signinAlert").alert('close');
+            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '注册失败, 请联系客服!');
         }
     });
 }
@@ -202,7 +222,10 @@ function signUp() {
 function signIn() {
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入用户名!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
+        return;
+    } else if (!_checkPhoneNumber($("#txt_SignIn_UserName").val().trim())) {
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
         return;
     }
 
@@ -216,17 +239,17 @@ function signIn() {
         return;
     }
 
-
     $.ajax({
         type: 'POST',
-        url: "http://10.86.17.204/PlatformAPI/Account/api_OperationUserAccount.aspx",
+        url: _getRequestURL(_signUpPage),
         data: '<root>' +
-            '<operation>insert</operation>' +
             '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
-            '<checkcode>' + $("#txt_SignIn_CAPTCHA").val() + '</checkcode>' +
+            '<codename>signincode</codename>' +
+            '<codename>' + $("#txt_SignIn_CAPTCHA").val() + '</codename>' +
             '</root>',
         success: function (data, status) {
+            $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
             updateUserInfor();
         },
@@ -235,13 +258,32 @@ function signIn() {
             withCredentials: true
         },
         error: function () {
+            $("#signinAlert").alert('close');
             showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
         }
     });
 }
 
-function headerSearch() {
+function gotoSignUp() {
+    $("#signinAlert").alert('close');
+    $("#mwTitle_SignIn").text(_getLabel('创建一个新用户'));
+    toggleSignInFields();
+}
 
+function gotoSignIn() {
+    $("#signinAlert").alert('close');
+    $("#mwTitle_SignIn").text(_getLabel('用户登录'));
+    toggleSignInFields();
+}
+
+function toggleSignInFields() {
+    $("#txt_SignIn_Password_Container").toggleClass("col-sm-10");
+    $("#linkBtn_ForgetPwd_Container").toggleClass("hidden");
+    $("#txt_SignUp_Confirm_Container").toggleClass("hidden");
+    $("#btn_SignInOK").toggleClass("hidden");
+    $("#btn_GotoSignUp").toggleClass("hidden");
+    $("#btn_SignUpOK").toggleClass("hidden");
+    $("#btn_GotoSignIn").toggleClass("hidden");
 }
 
 function forgetPassword() {
@@ -270,11 +312,15 @@ function updateUserInfor() {
 
 function showAlertMessage(containerId, alertId, message) {
     $('#' + containerId).prepend(
-            $(
-                '<div id="' + alertId + '" class="alert alert-danger alert-dismissable">' +
-                '   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
-                    message +
-                '</div>'
-            )
-        );
+        $(
+            '<div id="' + alertId + '" class="alert alert-danger alert-dismissable">' +
+            '   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' +
+                message +
+            '</div>'
+        )
+    );
+}
+
+function headerSearch() {
+
 }

@@ -14,6 +14,7 @@
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/header.js"></script>
+    <script src="javascripts/websit/footer.js"></script>
     <script src="javascripts/websit/index.js"></script>
 </head>
 <body>
@@ -43,22 +44,19 @@
                                 同步全球关于青少年编程教育的最新研究成果，我们建立了循序渐进、充满趣味同时又符合中国孩子认知习惯的课程体系和教学平台，让孩子可以快乐学习编程，同时在编程过程中学习相关的数学、逻辑、物理和英文等能力。
                             </p>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <br /><br />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 col-sm-3  col-xs-8 col-md-offset-6 col-sm-offset-9 col-xs-offset-5">
-                            <h6>
+                    </div>                    
+                    <div class="row padding-top40">
+                        <!--<div class="col-md-5 col-sm-3  col-xs-8 col-md-offset-6 col-sm-offset-9 col-xs-offset-5">-->
+                        <div class="col-md-12">
+                            <h6 class="text-align-right">
                                 <a id="linkBtn_OurPlatform" href="#">了解我们的平台></a>
                             </h6>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5 col-sm-3  col-xs-8 col-md-offset-6 col-sm-offset-9 col-xs-offset-5">
-                            <h6>
+                        <!--<div class="col-md-5 col-sm-3  col-xs-8 col-md-offset-6 col-sm-offset-9 col-xs-offset-5">-->
+                        <div class="col-md-12">
+                            <h6 class="text-align-right">
                                 <a id="linkBtn_SeeWorks" href="#">查看孩子的作品></a>
                             </h6>
                         </div>
@@ -310,141 +308,10 @@
             </div>
         </div>
     </div>
-    <footer id="footer">
-        <div class="footer-txt" style="background-color: rgb(45,45,45);">
-            <div class="container">
-                <div>
-                    <p class="footer-hypelink"><a href="#" title="About iKCoder">关于爱酷</a><a href="#" title="OnlineClass" style="padding-left:20px;">线上体验课</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-txt" style="background-color: rgb(23,23,23);">
-            <div class="container">
-                <div>
-                    <p class="copyright-txt">Designed By <span style="font-weight:bold">Elegant Themes</span> | Powered by <span style="font-weight:bold">WordPress</span></p>
-                    <div class="socials">
-                        <a href="#" title="Facebook"><i class="ion ion-social-facebook"></i></a>
-                        <a href="#" title="Twitter"><i class="ion ion-social-twitter"></i></a>
-                        <a href="#" title="Google"><i class="ion ion-social-google"></i></a>
-                        <a href="#" title="RSS"><i class="ion ion-social-rss"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="scrollup" title="Back to Top!"><i class="ion ion-ios-arrow-up"></i></a>
-    </footer>
-    <div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="mWindow_SignUp_Dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="mwTitle_SignUp">
-                        注册
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container bg-white">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="txt_UserName" class="col-sm-2 control-label">用户名</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="txt_SignUp_UserName" placeholder="用户名/E-Mail/手机号">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt_Password" class="col-sm-2 control-label">密码</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="txt_SignUp_Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt_SignUp_CAPTCHA" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-8 col-xs-12">
-                                    <input type="text" class="form-control" id="txt_SignUp_CAPTCHA">
-                                </div>
-                                <div class="col-sm-2 col-xs-12">
-                                    <!--<button type="button" class="btn btn-default">
-                                        获取验证码
-                                    </button>-->
-                                    <img class="cursor-hand" id="img_SignUp_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signupcaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">
-                                    <!--<img src="images/label/CloudClassRoom.png">-->
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="btn_SignUpCancel" data-dismiss="modal">
-                        取消
-                    </button>
-                    <button type="button" class="btn btn-primary" id="btn_SignUpOK">
-                        注册
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-    <div class="modal fade" id="mWindow_SignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="mWindow_SignIn_Dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        登录
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container bg-white">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="txt_UserName" class="col-sm-2 control-label">用户名</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="txt_SignIn_UserName" placeholder="用户名/E-Mail/手机号">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt_Password" class="col-sm-2 control-label">密&nbsp;&nbsp;码</label>
-                                <div class="col-sm-7 col-xs-12">
-                                    <input type="text" class="form-control" id="txt_SignIn_Password">
-                                </div>
-                                <div class="col-sm-3 col-xs-12">
-                                    <a href="#" id="linkBtn_ForgetPwd"><label class="control-label text-underline cursor-hand">忘记密码</label></a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt_SignUp_CAPTCHA" class="col-sm-2 control-label">验证码</label>
-                                <div class="col-sm-8 col-xs-12">
-                                    <input type="text" class="form-control" id="txt_SignIn_CAPTCHA">
-                                </div>
-                                <div class="col-sm-2 col-xs-12">
-                                    <!--<button type="button" class="btn btn-default">
-                                        获取验证码
-                                    </button>-->
-                                    <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="http://ikcoder.iok.la:24525/ikcoder/data/get_checkcodenua.aspx?length=8&name=signincaptcha&width=150&height=40&rnd="+Date.now() title="点击刷新验证码">
-                                    <!--<img src="images/label/CloudClassRoom.png">-->
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" id="btn_SignInCancel" data-dismiss="modal">
-                        关闭
-                    </button>
-                    <button type="button" class="btn btn-primary" id="btn_SignInOK">
-                        登录
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
+    <footer id="footer"></footer>
     <script type="text/javascript">
         $(document).ready(function () {
-            loadLabels();
+            _loadLabels();
             initHeader();
             initFooter();
         });
