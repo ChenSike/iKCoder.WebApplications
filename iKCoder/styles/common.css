@@ -841,6 +841,15 @@ button.close {
     padding-left: 10px;
 }
 
+.padding-H5050 {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.padding-left50 {
+    padding-left: 50px;
+}
+
 .padding-right20 {
     padding-right: 20px;
 }
@@ -873,9 +882,13 @@ button.close {
     color: rgb(40,100,250);
 }
 
-.text-align-right{
-    text-align:right;
-    padding-right:10px;
+.text-align-right {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.text-size-25 {
+    font-size: 25px;
 }
 
 .cursor-hand {
@@ -892,7 +905,7 @@ button.close {
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
 
 header button .navbar-toggle {

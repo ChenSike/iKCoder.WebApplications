@@ -1,0 +1,188 @@
+﻿#btn_Top_Carousel_Item {
+    color: rgb(255,255,255);
+    font-size: 22px;
+    text-align: center;
+}
+
+    #btn_Top_Carousel_Item:hover {
+        border-width: 2px;
+        border-color: rgb(255,255,255);
+    }
+
+#title_HonorWall {
+    color: rgb(68,191,160);
+    text-align: center;
+}
+
+.honor-wall-container {
+    height: 180px;
+}
+
+.honor-wall-item {
+    height: 180px;
+    width: 140px;
+    display: inline-block;
+}
+
+.honor-item-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(68,191,160);
+    text-align: center;
+    padding: 10px 0px;
+}
+
+    .honor-item-title.unreached {
+        color: rgb(147,146,145);
+    }
+
+.honor-item-reached {
+    background: url(../images/honor/yesicon.png) no-repeat;
+    width: 42px;
+    height: 36px;
+    position: relative;
+    top: -97px;
+    left: 96px;
+}
+
+.bg-efefef {
+    background-color: rgb(239,239,238);
+}
+
+.bg-edede5 {
+    background-color: rgb(237,237,229);
+}
+
+.user-info-container {
+    border: 2px solid rgb(187,187,187);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px rgb(80,80,80);
+}
+
+.user-info-content-top {
+    background-color: rgb(107,203,202);
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -moz-border-bottom-left-radius: 0px;
+    -moz-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    margin-right: -17px;
+    padding: 20px;
+}
+
+#icon_UserInfo_Header {
+    padding: 10px;
+    border: 1px solid rgb(255,255,255);
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.user-info-detail-count {
+    margin-bottom: 0px;
+    padding-top: 20px;
+    color: rgb(129,115,102);
+}
+
+.user-info-detail-title {
+    padding-bottom: 10px;
+    color: rgb(129,115,102);
+}
+
+.show-r-l-border {
+    border: 3px solid rgb(147,132,109);
+    border-top: none;
+    border-bottom: none;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+}
+
+#btn_UserInfo_ChangeHeader {
+    background-color: rgb(148,132,109);
+    border-bottom: 5px solid rgb(133,117,92);
+}
+
+#btn_UserInfo_Share {
+    background-color: rgb(255,103,102);
+    border-bottom: 5px solid rgb(255,75,74);
+}
+
+#txt_UserInfo_SendMsg {
+    font-size: 18px;
+    padding-left: 5px;
+    resize: none;
+    border: 1px solid rgb(147,132,109);
+}
+
+img.user-info-bottom-button {
+    display: inline-block;
+    margin-top: -10px;
+}
+
+h4.user-info-bottom-button {
+    margin-bottom: 0px;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.user-info-content-bottom {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    -moz-border-top-left-radius: 0px;
+    -moz-border-top-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+}
+
+@media screen and (min-width: 1960px) {
+    body {
+        width: 1960px;
+        margin: auto;
+    }
+
+    .modal-dialog {
+        width: 960px;
+        margin: 30px auto;
+    }
+}
+
+@media screen and (min-width: 1959px) and (min-height:1079px) {
+}
+
+@media screen and (min-width: 1200px) {
+}
+
+@media screen and (min-width: 992px) and (max-width:1199px) {
+}
+
+@media screen and (min-width:769px) and (max-width:991px) {
+}
+
+@media screen and (max-width:768px) {
+    .padding-H5050 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 540px) {
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-width: 400px) {
+}

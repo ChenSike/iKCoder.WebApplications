@@ -357,7 +357,7 @@ function createUserInfoItem() {
     );
 
     $("#linkBtn_UserInfo").on('click', function () {
-        window.location.href = "index.html";
+        window.location.href = "studentcenter.html";
     });
 }
 
