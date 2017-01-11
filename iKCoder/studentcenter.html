@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/studentcanter.css">
+    <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/xmloperator.js"></script>
+    <script src="javascripts/websit/common.js"></script>
+    <script src="javascripts/websit/header.js"></script>
+    <script src="javascripts/websit/footer.js"></script>
+    <script src="javascripts/websit/studentcenter.js"></script>
+</head>
+<body>
+    <header></header>
+    <div class="container margin-top-20 bg-white">
+        <div class="row" style="margin: 0px -30px;">
+            <div class="col-sm-12">
+                <div id="myCarousel" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators" id="carousel_Top_Indicators"></ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner" id="carousel_Top_Inner"></div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="carousel-control left" style="width:5%" href="#myCarousel" data-slide="prev"></a>
+                    <a class="carousel-control right" style="width:5%" href="#myCarousel" data-slide="next"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-20 bg-white">
+        <div class="row">
+            <div class="col-sm-12 padding-top20 padding-bottom30">
+                <h3 class="text-white" id="title_HonorWall"></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 padding-bottom30">
+                <div class="honor-wall-wrap" id="wrap_HonorWall">
+                    <div class="honor-wall-container padding-H5050" id="container_HonorWall">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-20 bg-efefef">
+        <div class="row">
+            <div class="col-sm-5 padding-top10 padding-bottom10">
+                <div class="container user-info-container">
+                    <div class="row user-info-content-top">
+                        <div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-0">
+                            <img id="icon_UserInfo_Header" src="images/header/head_icon.png" />
+                        </div>
+                        <div class="col-sm-8 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+                            <h3 class="text-white">可乐</h3>
+                            <h4 class="text-white">实习工程师</h4>
+                        </div>
+                    </div>
+                    <div class="row bg-edede5">
+                        <div class="col-sm-4 text-center">
+                            <h3 class="user-info-detail-count">18</h3>
+                            <h4 class="user-info-detail-title">作品</h4>
+                        </div>
+                        <div class="col-sm-4 text-center show-r-l-border">
+                            <h3 class="user-info-detail-count">25</h3>
+                            <h4 class="user-info-detail-title">课程</h4>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <h3 class="user-info-detail-count">30</h3>
+                            <h4 class="user-info-detail-title">小伙伴</h4>
+                        </div>
+                    </div>
+                    <div class="row padding-top20 padding-bottom10 bg-white">
+                        <div class="col-sm-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="txt_UserInfo_SendMsg" rows="4" placeholder="发布一条动态给小伙伴"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row padding-top20 padding-bottom20 bg-edede5 text-center user-info-content-bottom">
+                        <div class="col-sm-6 padding-top10">
+                            <div class="container padding-top10 padding-bottom10" id="btn_UserInfo_ChangeHeader">
+                                <div class="row">
+                                    <div class="col-xs-10 col-xs-offset-1">
+                                        <img class="user-info-bottom-button" src="images/label/changeheaderbtn.png" />
+                                        <h4 class="text-white user-info-bottom-button">更换头像</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 padding-top10">
+                            <div class="container padding-top10 padding-bottom10" id="btn_UserInfo_Share">
+                                <div class="row">
+                                    <div class="col-xs-10 col-xs-offset-1">
+                                        <img class="user-info-bottom-button" src="images/label/sharebtn.png" />
+                                        <h4 class="text-white user-info-bottom-button">分享</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+            </div>
+        </div>
+    </div>
+    <footer id="footer"></footer>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            _loadLabels();
+            initHeader();
+            initFooter();
+            initPage();
+        });
+    </script>
+</body>
+
+</html>
