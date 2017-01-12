@@ -62,6 +62,10 @@
     background-color: rgb(237,237,229);
 }
 
+.bg-f4f4f4 {
+    background-color: rgb(244,244,244);
+}
+
 .user-info-container {
     border: 2px solid rgb(187,187,187);
     -moz-border-radius: 10px;
@@ -378,6 +382,28 @@ p.app-lab-centent {
 #btn_Enter_App_Lab {
     background-color: rgb(33,193,146);
     color: rgb(255,255,255);
+}
+
+.border-edede5 {
+    border: 2px solid rgb(237,237,229);
+}
+
+.border-1-edede5 {
+    border: 1px solid rgb(237,237,229);
+    border-top: none;
+}
+
+.bg-f4f4f4 li a {
+    color: rgb(102,102,102);
+}
+
+.bg-f4f4f4 li.active a {
+    color: rgb(51,51,51);
+}
+
+.padding-H4040 {
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 @media screen and (min-width: 1960px) {

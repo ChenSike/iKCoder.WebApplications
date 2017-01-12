@@ -262,6 +262,47 @@ function initLearningCourseList() {
     $('#container_Learning_Course_List').css('width', tmpWidth + 'px');
 }
 
+function initCourseTypeList() {
+    
+    var data = [];
+    data.push({
+        title: 'Star Wars',
+        content: 'Learn to program droids, and create your own Star Wars game in a galaxy far, far away.',
+        img: '1'
+    });
+
+    data.push({
+        title: 'Frozen',
+        content: 'Let\'s use code to join Anna and Elsa as they explore the magic and beauty of ice.',
+        img: '2'
+    });
+
+    data.push({
+        title: 'Flappy Code',
+        content: 'Wanna write your own game in less than 10 minutes? Try our Flappy Code tutorial!',
+        img: '3'
+    });
+
+    data.push({
+        title: 'Infinity Play Lab',
+        content: 'Use Play Lab to create a story or game starring Disney Infinity characters.',
+        img: '4'
+    });
+
+    data.push({
+        title: 'Play Lab',
+        content: 'Create a story or game with Play Lab.',
+        img: '5'
+    });
+
+    for (var i = 0; i < data.length; i++) {
+        $('#container_Course_Type_Computer_List').append($(buildCourseItemHTML(data[i])));
+    }
+
+    var tmpWidth = (222 + 20) * data.length;
+    $('#container_Course_Type_Computer_List').css('width', tmpWidth + 'px');
+}
+
 function changeUserHead() {
 
 };
@@ -276,4 +317,5 @@ function initPage() {
     initUserInfo();
     initUserCourse();
     initLearningCourseList();
+    initCourseTypeList();
 };
