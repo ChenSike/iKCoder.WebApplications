@@ -9,9 +9,18 @@
         border-color: rgb(255,255,255);
     }
 
-#title_HonorWall {
+.section-title {
     color: rgb(68,191,160);
     text-align: center;
+}
+
+.honor-wall-wrap {
+    padding: 10px 0px;
+    overflow: hidden;
+}
+
+.honor-wall-arrow {
+    margin-top: -30px;
 }
 
 .honor-wall-container {
@@ -76,12 +85,22 @@
     padding: 20px;
 }
 
-#icon_UserInfo_Header {
+#icon_UserInfo_Head {
     padding: 10px;
     border: 1px solid rgb(255,255,255);
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
+}
+
+.user-info-head-vip-tip {
+    background: url(../images/head/vip_icon.png) no-repeat;
+    position: relative;
+    top: -94px;
+    left: 63px;
+    z-index: 10000;
+    height: 18px;
+    width: 30px;
 }
 
 .user-info-detail-count {
@@ -109,7 +128,7 @@
     border-bottom: 5px solid rgb(133,117,92);
 }
 
-#btn_UserInfo_Share {
+#wrap_UserInfo_Share_Btn {
     background-color: rgb(255,103,102);
     border-bottom: 5px solid rgb(255,75,74);
 }
@@ -132,6 +151,15 @@ h4.user-info-bottom-button {
     padding-left: 10px;
 }
 
+.bg-edede3 {
+    background-color: rgb(237,237,227);
+}
+
+.border-r-l-white {
+    border-left: 2px solid rgb(255,255,255);
+    border-right: 2px solid rgb(255,255,255);
+}
+
 .user-info-content-bottom {
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -142,6 +170,214 @@ h4.user-info-bottom-button {
     -moz-border-top-right-radius: 0px;
     -webkit-border-top-left-radius: 0px;
     -webkit-border-top-right-radius: 0px;
+}
+
+.user-course-container {
+    border: 2px solid rgb(187,187,187);
+    background-color: rgb(255,255,255);
+    box-shadow: 4px 4px 5px rgb(80,80,80);
+}
+
+.user-course-content-top {
+    padding: 0px 20px;
+}
+
+    .user-course-content-top p {
+        color: rgb(147,132,109);
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .user-course-content-top ul {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        list-style: none;
+        padding-left: 0px;
+    }
+
+        .user-course-content-top ul li {
+            color: rgb(68,68,68);
+            font-weight: 600;
+            float: left;
+            *float: none;
+            *display: inline;
+            *zoom: 1;
+        }
+
+.user-course-detail-title {
+    margin-bottom: 0px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(156,151,147);
+}
+
+.user-course-detail-count {
+    font-size: 32px;
+    font-weight: 700;
+    color: rgb(129,115,102);
+    padding-top: 10px;
+}
+
+.user-course-content-liner_1 {
+    height: 5px;
+    margin: 0px -15px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(108,211,140),endColorStr=rgb(89,189,124));
+    background: -ms-linear-gradient(top, rgb(108,211,140), rgb(89,189,124));
+    background: -moz-linear-gradient(top, rgb(108,211,140), rgb(89,189,124));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(108,211,140)), to(rgb(89,189,124)));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(108,211,140)), to(rgb(89,189,124)));
+    background: -webkit-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
+    background: -o-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
+}
+
+.user-course-content-liner_2 {
+    height: 5px;
+    margin: 0px -15px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(89,189,124),endColorStr=rgb(62,161,103));
+    background: -ms-linear-gradient(top, rgb(89,189,124), rgb(62,161,103));
+    background: -moz-linear-gradient(top, rgb(89,189,124), rgb(62,161,103));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(89,189,124)), to(rgb(62,161,103)));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(89,189,124)), to(rgb(62,161,103)));
+    background: -webkit-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
+    background: -o-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
+}
+
+.user-course-content-liner_3 {
+    height: 5px;
+    margin: 0px -15px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(62,161,103),endColorStr=rgb(41,136,86));
+    background: -ms-linear-gradient(top, rgb(62,161,103), rgb(41,136,86));
+    background: -moz-linear-gradient(top, rgb(62,161,103), rgb(41,136,86));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(62,161,103)), to(rgb(41,136,86)));
+    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(62,161,103)), to(rgb(41,136,86)));
+    background: -webkit-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
+    background: -o-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
+}
+
+span.user-course-datapoint {
+    font-size: 22px;
+    color: rgb(252,124,6);
+}
+
+.user-course-container .border-right {
+    border-right: 2px solid rgb(237,237,227);
+}
+
+#canvas_User_Course_Distribution {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+}
+
+#canvas_User_Course_CodeTime {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+}
+
+.user-course-legend {
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+
+.container.learning-course-wrap {
+    padding: 10px 0px;
+    overflow: hidden;
+}
+
+.container.learning-course-item {
+    width: 222px;
+    height: 300px;
+    padding-left: 0px;
+    padding-right: 0px;
+    display: inline-block;
+    margin-right: 20px;
+    border: 2px solid rgb(191,191,191);
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+    .container.learning-course-item .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+.col-sm-12.learning-course-item {
+    height: 120px;
+    background: url(../images/course/course_1.png) no-repeat left top;
+}
+
+.learning-course-item-play-btn {
+    position: relative;
+    top: 105px;
+    left: 78px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+    .learning-course-item-play-btn:hover {
+        border: 2px solid rgb(255,255,255);
+        top: 103px;
+        left: 76px;
+        cursor: pointer;
+    }
+
+.learning-course-item h4 {
+    font-weight: 600;
+}
+
+.learning-course-item p {
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
+
+.learning-course-list-arrow {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    padding-right: 2px;
+}
+
+    .learning-course-list-arrow:hover {
+        background-color: rgb(255,255,255);
+    }
+
+.learning-course-inner {
+    overflow: hidden;
+    display: inline-block;
+}
+
+table.list-container {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: none;
+    width: 100%;
+    border: none;
+    table-layout: fixed;
+}
+
+p.app-lab-centent {
+    color: rgb(126,134,140);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#btn_Enter_App_Lab {
+    background-color: rgb(33,193,146);
+    color: rgb(255,255,255);
 }
 
 @media screen and (min-width: 1960px) {

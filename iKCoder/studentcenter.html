@@ -37,14 +37,25 @@
     <div class="container margin-top-20 bg-white">
         <div class="row">
             <div class="col-sm-12 padding-top20 padding-bottom30">
-                <h3 class="text-white" id="title_HonorWall"></h3>
+                <h3 class="section-title" id="title_HonorWall"></h3>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 padding-bottom30">
                 <div class="honor-wall-wrap" id="wrap_HonorWall">
-                    <div class="honor-wall-container padding-H5050" id="container_HonorWall">
-                    </div>
+                    <table class="list-container">
+                        <tr>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_HonorWall_List_Left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+                            </td>
+                            <td style="overflow:hidden;">
+                                <div class="honor-wall-container" id="container_HonorWall"></div>
+                            </td>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_HonorWall_List_Right" style="margin-left:5px;"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -55,24 +66,25 @@
                 <div class="container user-info-container">
                     <div class="row user-info-content-top">
                         <div class="col-sm-4 col-xs-6 col-xs-offset-3 col-sm-offset-0">
-                            <img id="icon_UserInfo_Header" src="images/header/head_icon.png" />
+                            <img id="icon_UserInfo_Head" src="" />
+                            <div class="user-info-head-vip-tip"></div>
                         </div>
                         <div class="col-sm-8 col-xs-10 col-xs-offset-1 col-sm-offset-0">
-                            <h3 class="text-white">可乐</h3>
-                            <h4 class="text-white">实习工程师</h4>
+                            <h3 class="text-white" id="lb_UserInfo_UserName"></h3>
+                            <h4 class="text-white" id="lb_UserInfo_UserLevel"></h4>
                         </div>
                     </div>
                     <div class="row bg-edede5">
                         <div class="col-sm-4 text-center">
-                            <h3 class="user-info-detail-count">18</h3>
+                            <h3 class="user-info-detail-count" id="lb_UserInfo_WorksCount"></h3>
                             <h4 class="user-info-detail-title">作品</h4>
                         </div>
                         <div class="col-sm-4 text-center show-r-l-border">
-                            <h3 class="user-info-detail-count">25</h3>
+                            <h3 class="user-info-detail-count" id="lb_UserInfo_CourseCount"></h3>
                             <h4 class="user-info-detail-title">课程</h4>
                         </div>
                         <div class="col-sm-4 text-center">
-                            <h3 class="user-info-detail-count">30</h3>
+                            <h3 class="user-info-detail-count" id="lb_UserInfo_FriendCount"></h3>
                             <h4 class="user-info-detail-title">小伙伴</h4>
                         </div>
                     </div>
@@ -90,18 +102,18 @@
                             <div class="container padding-top10 padding-bottom10" id="btn_UserInfo_ChangeHeader">
                                 <div class="row">
                                     <div class="col-xs-10 col-xs-offset-1">
-                                        <img class="user-info-bottom-button" src="images/label/changeheaderbtn.png" />
-                                        <h4 class="text-white user-info-bottom-button">更换头像</h4>
+                                        <img class="user-info-bottom-button" src="images/label/changeheadbtn.png" />
+                                        <h4 class="text-white user-info-bottom-button" id="btn_UserInfo_ChangeHead">更换头像</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 padding-top10">
-                            <div class="container padding-top10 padding-bottom10" id="btn_UserInfo_Share">
+                            <div class="container padding-top10 padding-bottom10" id="wrap_UserInfo_Share_Btn">
                                 <div class="row">
                                     <div class="col-xs-10 col-xs-offset-1">
                                         <img class="user-info-bottom-button" src="images/label/sharebtn.png" />
-                                        <h4 class="text-white user-info-bottom-button">分享</h4>
+                                        <h4 class="text-white user-info-bottom-button" id="btn_UserInfo_Share">分享</h4>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +121,146 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class="col-sm-7 padding-top10">
+                <div class="container user-course-container padding-top30">
+                    <div class="row padding-bottom20">
+                        <div class="col-sm-6">
+                            <div class="container user-course-content-top border-right">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>当前课程总排名: 第&nbsp;<span class="user-course-datapoint" id="lb_User_Course_CourseRank"></span>&nbsp;名</p>
+                                        <p>经验值: <span id="lb_User_Course_Empirical"></span></p>
+                                        <p>共发布作品: &nbsp;<span id="lb_User_Course_Works"></span>&nbsp;个(在小伙伴中排名第&nbsp;<span class="user-course-datapoint" id="lb_User_Course_WorksRank"></span>&nbsp;)</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <canvas id="canvas_User_Course_Distribution"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ul>
+                                            <li><div class="user-course-legend" style="background-color:rgb(36,90,186);"></div>科学</li>
+                                            <li><div class="user-course-legend" style="background-color:rgb(236,15,33);"></div>技术</li>
+                                            <li><div class="user-course-legend" style="background-color:rgb(165,165,165);"></div>工程</li>
+                                            <li><div class="user-course-legend" style="background-color:rgb(255,191,0);"></div>数学</li>
+                                            <li><div class="user-course-legend" style="background-color:rgb(71,143,208);"></div>语言</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="container user-course-content-top">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>本月学习时间</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <canvas id="canvas_User_Course_CodeTime"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>累积编程: &nbsp;<span class="user-course-datapoint" id="lb_User_Course_CodeTime"></span>&nbsp;小时</p>
+                                        <p>超过了: &nbsp;<span class="user-course-datapoint" id="lb_User_Course_CodeTime_Exceed"></span>&nbsp;的小伙伴</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row bg-edede3">
+                        <div class="col-sm-4 text-center ">
+                            <div class="user-course-content-liner_1"></div>
+                            <p class="user-course-detail-title padding-top20">初级课程</p>
+                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Primary_Rate"></p>
+                        </div>
+                        <div class="col-sm-4 text-center border-r-l-white">
+                            <div class="user-course-content-liner_2"></div>
+                            <p class="user-course-detail-title padding-top20">中级课程</p>
+                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Middel_Rate"></p>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <div class="user-course-content-liner_3"></div>
+                            <p class="user-course-detail-title padding-top20">高级课程</p>
+                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Advanced_Rate"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="section-title">学习中的课程</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="container learning-course-wrap">
+                    <table class="list-container">
+                        <tr>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow" id="arrow_Learning_Course_List_Left"><span class="glyphicon glyphicon-chevron-left"></span></div>
+                            </td>
+                            <td style="overflow:hidden;">
+                                <div class="learning-course-contianer" id="container_Learning_Course_List"></div>
+                            </td>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow" id="arrow_Learning_Course_List_Right" style="margin-left:5px;"><span class="glyphicon glyphicon-chevron-right"></span></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="section-title">推荐课程</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li><a href="#home" data-toggle="tab">首页</a></li>
+                    <li><a href="#profile" data-toggle="tab">档案</a></li>
+                    <li><a href="#messages" data-toggle="tab">信息</a></li>
+                    <li><a href="#settings" data-toggle="tab">设置</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container margin-top-20 padding-top50 padding-bottom50 bg-efefef">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="section-title">信心满满, 想试试自己编写完整的App吗? 试试艾酷App实验室吧!</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-sm-offset-1 col-lg-offset-1  padding-top20">
+                <img src="images/background/applab.png" />
+            </div>
+            <div class="col-sm-4 col-lg-4 padding-top20">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="app-lab-centent">
+                                App实验室提供了完整而有趣的开发环境, 你可以发挥创意、设计界面、用积木或者程序语言编写代码, 运行自己的作品, 还可以与小伙伴和爸爸妈妈分享你的成就,快来试试吧!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 padding-top50">
+                            <button type="button" class="btn btn-default btn-lg btn-block" id="btn_Enter_App_Lab" style="background-color:rgb(33,193,146);">进入App实验室 ></button>'
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
