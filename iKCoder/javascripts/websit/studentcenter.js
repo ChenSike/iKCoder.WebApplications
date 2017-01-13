@@ -1,5 +1,10 @@
 ﻿'use strict';
 
+var courseItemWidth = 222;
+var courseItemSpace = 20;
+var honerItemWidth = 140;
+var honerItemSpace = 0;
+
 function buildCarouselItemHTML(dataItem, index) {
     var active = '';
     if (index == 0) {
@@ -50,17 +55,20 @@ function buildTopCarousel(data) {
             active = ' class="active"';
         }
 
-        $('#carousel_Top_Indicators').append($('<li data-target="#myCarousel" data-slide-to="0"' + active + '></li>'));
+        $('#carousel_Top_Indicators').append($('<li data-target="#carousel_Top" data-slide-to="' + i + '"' + active + '></li>'));
         $('#carousel_Top_Inner').append($(buildCarouselItemHTML(data[i], i)));
     }
 };
 
-function buildCourseItemHTML(data) {
+function buildCourseItemHTML(data, needPlay) {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="container learning-course-item bg-white">');
     tmpHtmlStrArr.push('    <div class="row">');
     tmpHtmlStrArr.push('        <div class="col-sm-12 learning-course-item" style="background-image: url(images/course/course_' + data.img + '.png)">');
-    tmpHtmlStrArr.push('            <img class="learning-course-item-play-btn" src="images/course/play.png"/>');
+    if (needPlay) {
+        tmpHtmlStrArr.push('            <img class="learning-course-item-play-btn" src="images/course/play.png"/>');
+    }
+
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('    </div>');
     tmpHtmlStrArr.push('    <div class="row">');
@@ -138,6 +146,43 @@ function buildHonorItemHTML(imgSrc, title, disabled) {
     return tmpHtmlStrArr.join('');
 };
 
+function buildCourseClassifyTHItemHTML(id, title, isActive) {
+    var active = isActive ? ' class="active"' : '';
+    return '<li' + active + '><a href="#course_Classify_' + id + '" data-toggle="tab">' + title + '</a></li>';
+}
+
+function buildCourseClassifyTCItemHTML(data, isActive) {
+    var active = isActive ? 'active' : '';
+    var tmpHtmlStrArr = [];
+    tmpHtmlStrArr.push('<div class="tab-pane fade in ' + active + ' border-1-edede5" id="course_Classify_' + data.id + '">');
+    tmpHtmlStrArr.push('    <div class="container learning-course-wrap">');
+    tmpHtmlStrArr.push('        <table class="list-container">');
+    tmpHtmlStrArr.push('            <tr>');
+    tmpHtmlStrArr.push('                <td style="width:30px;">');
+    var tmpId = 'container_Course_Classify_' + data.id + '_List';
+    tmpHtmlStrArr.push('                    <div class="learning-course-list-arrow" id="arrow_Course_Classify_' + data.id + '_List_Left" data-target="' + tmpId + '">');
+    tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-chevron-left"></span>');
+    tmpHtmlStrArr.push('                    </div>');
+    tmpHtmlStrArr.push('                </td>');
+    tmpHtmlStrArr.push('                <td style="overflow:hidden;">');
+    tmpHtmlStrArr.push('                    <div class="learning-course-contianer items-list-container" id="' + tmpId + '"></div>');
+    tmpHtmlStrArr.push('                </td>');
+    tmpHtmlStrArr.push('                <td style="width:30px;">');
+    tmpHtmlStrArr.push('                    <div class="learning-course-list-arrow" id="arrow_Course_Classify_' + data.id + '_List_Right" style="margin-left:5px;" data-target="' + tmpId + '">');
+    tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-chevron-right"></span>');
+    tmpHtmlStrArr.push('                    </div>');
+    tmpHtmlStrArr.push('                </td>');
+    tmpHtmlStrArr.push('            </tr>');
+    tmpHtmlStrArr.push('        </table>');
+    tmpHtmlStrArr.push('    </div>');
+    tmpHtmlStrArr.push('</div>');
+    return tmpHtmlStrArr.join('');
+}
+
+function buildDistributionLegendItemHTML(data) {
+    return '<li><div class="user-course-legend" style="background-color:' + data.color + ';"></div>' + data.title + '</li>';
+}
+
 function initHonorWall() {
     var data = [];
     data.push({ map: 'computerprofessor', title: '计算机小专家', condition: '' });
@@ -156,10 +201,7 @@ function initHonorWall() {
     };
 
     $('#title_HonorWall').text(user.name + '的荣誉墙');
-
-    var itemWidth = 150;
-    var containerWidth = (itemWidth + 10) * data.length;
-    $('#container_HonorWall').css('width', containerWidth + 'px');
+    $('#container_HonorWall').css('width', (honerItemWidth + honerItemSpace) * data.length + 'px');
     var tmpFlag = false;
     for (var i = 0; i < data.length; i++) {
         tmpFlag = false;
@@ -172,6 +214,9 @@ function initHonorWall() {
 
         $('#container_HonorWall').append($(buildHonorItemHTML(data[i].map, data[i].title, !tmpFlag)));
     }
+    var funData = { id: "container_HonorWall", step: honerItemWidth + honerItemSpace };
+    $('#arrow_HonorWall_List_Left').on('click', funData, listMovePrev);
+    $('#arrow_HonorWall_List_Right').on('click', funData, listMoveNext);
 };
 
 function initUserInfo() {
@@ -205,21 +250,57 @@ function initUserCourse() {
         primary_rate: 85,
         middel_rate: 11,
         advanced_rate: 5,
-        distribution: {},
-        codetime_bar: []
+        distribution: [
+            { id: 'science', title: '科学', color: 'rgb(36,90,186)', exp: 250 },
+            { id: 'skill', title: '技术', color: 'rgb(236,15,33)', exp: 400 },
+            { id: 'engineering', title: '工程', color: 'rgb(165,165,165)', exp: 550 },
+            { id: 'math', title: '数学', color: 'rgb(255,191,0)', exp: 700 },
+            { id: 'language', title: '语言', color: 'rgb(71,143,208)', exp: 700 },
+        ],
+        codetimes: [
+            { date: '2017-1-1', time: 3 },
+            { date: '2017-1-2', time: 2 },
+            { date: '2017-1-3', time: 4 },
+            { date: '2017-1-4', time: 1 },
+            { date: '2017-1-5', time: 3 },
+            { date: '2017-1-6', time: 2 },
+            { date: '2017-1-7', time: 4 },
+            { date: '2017-1-8', time: 5 },
+            { date: '2017-1-9', time: 6 },
+            { date: '2017-1-10', time: 7 },
+            { date: '2017-1-11', time: 2 },
+            { date: '2017-1-12', time: 1 },
+            { date: '2017-1-13', time: 3 },
+            { date: '2017-1-14', time: 2 },
+            { date: '2017-1-15', time: 4 },
+            { date: '2017-1-16', time: 1 },
+            { date: '2017-1-17', time: 2 },
+            { date: '2017-1-18', time: 3 },
+            { date: '2017-1-19', time: 5 },
+            { date: '2017-1-20', time: 2 },
+            { date: '2017-1-21', time: 4 },
+            { date: '2017-1-22', time: 1 },
+            { date: '2017-1-23', time: 3 },
+            { date: '2017-1-24', time: 2 },
+            { date: '2017-1-25', time: 1 }
+        ]
     };
+
+    for (var i = 0; i < userCourse.distribution.length; i++) {
+        $('#ul_User_Course_Distribution_Legend').append($(buildDistributionLegendItemHTML(userCourse.distribution[i])));
+    }
 
     $('#lb_User_Course_CourseRank').text(userCourse.rank);
     $('#lb_User_Course_Empirical').text(userCourse.emp);
     $('#lb_User_Course_Works').text(userCourse.works);
     $('#lb_User_Course_WorksRank').text(userCourse.works_rank);
-    //$('#canvas_User_Course_Distribution');
-    //$('#canvas_User_Course_CodeTime');
     $('#lb_User_Course_CodeTime').text(userCourse.code_time);
     $('#lb_User_Course_CodeTime_Exceed').text(userCourse.code_time_exceed + "%");
     $('#lb_User_Course_Primary_Rate').text(userCourse.primary_rate + "%");
     $('#lb_User_Course_Middel_Rate').text(userCourse.middel_rate + "%");
     $('#lb_User_Course_Advanced_Rate').text(userCourse.advanced_rate + "%");
+    drawDistribution(userCourse.distribution);
+    drawCodeTime(userCourse.codetimes);
 };
 
 function initLearningCourseList() {
@@ -229,25 +310,21 @@ function initLearningCourseList() {
         content: 'Learn to program droids, and create your own Star Wars game in a galaxy far, far away.',
         img: '1'
     });
-
     data.push({
         title: 'Frozen',
         content: 'Let\'s use code to join Anna and Elsa as they explore the magic and beauty of ice.',
         img: '2'
     });
-
     data.push({
         title: 'Flappy Code',
         content: 'Wanna write your own game in less than 10 minutes? Try our Flappy Code tutorial!',
         img: '3'
     });
-
     data.push({
         title: 'Infinity Play Lab',
         content: 'Use Play Lab to create a story or game starring Disney Infinity characters.',
         img: '4'
     });
-
     data.push({
         title: 'Play Lab',
         content: 'Create a story or game with Play Lab.',
@@ -255,52 +332,74 @@ function initLearningCourseList() {
     });
 
     for (var i = 0; i < data.length; i++) {
-        $('#container_Learning_Course_List').append($(buildCourseItemHTML(data[i])));
+        $('#container_Learning_Course_List').append($(buildCourseItemHTML(data[i], true)));
     }
 
-    var tmpWidth = (222 + 20) * data.length;
+    var tmpWidth = (courseItemWidth + courseItemSpace) * data.length;
     $('#container_Learning_Course_List').css('width', tmpWidth + 'px');
+    var funData = { id: "container_Learning_Course_List", step: courseItemWidth + courseItemSpace };
+    $('#arrow_Learning_Course_List_Left').on('click', funData, listMovePrev);
+    $('#arrow_Learning_Course_List_Right').on('click', funData, listMoveNext);
 }
 
-function initCourseTypeList() {
-    
-    var data = [];
-    data.push({
+function initCourseClassifyList() {
+    var tmpData = [];
+    tmpData.push({
         title: 'Star Wars',
         content: 'Learn to program droids, and create your own Star Wars game in a galaxy far, far away.',
         img: '1'
     });
-
-    data.push({
+    tmpData.push({
         title: 'Frozen',
         content: 'Let\'s use code to join Anna and Elsa as they explore the magic and beauty of ice.',
         img: '2'
     });
-
-    data.push({
+    tmpData.push({
         title: 'Flappy Code',
         content: 'Wanna write your own game in less than 10 minutes? Try our Flappy Code tutorial!',
         img: '3'
     });
-
-    data.push({
+    tmpData.push({
         title: 'Infinity Play Lab',
         content: 'Use Play Lab to create a story or game starring Disney Infinity characters.',
         img: '4'
     });
-
-    data.push({
+    tmpData.push({
         title: 'Play Lab',
         content: 'Create a story or game with Play Lab.',
         img: '5'
     });
+    var dataCmp = { id: 'Computer', title: '计算机基础', data: tmpData };
+    var dataMath = { id: 'Math', title: '数学', data: tmpData };
+    var dataPhy = { id: 'Physics', title: '绘图', data: tmpData };
+    var dataPaint = { id: 'Paint', title: '物理', data: tmpData };
+    var dataLang = { id: 'Language', title: '语言学', data: tmpData };
+    var data = [];
+    data.push(dataCmp);
+    data.push(dataMath);
+    data.push(dataPhy);
+    data.push(dataPaint);
+    data.push(dataLang);
+    var isActive = false;
+    var tmpItem = null;
+    var tmpWidth = 0;
+    var tmpId = '';
+    for (var j = 0; j < data.length; j++) {
+        isActive = (j == 0 ? true : false);
+        tmpItem = data[j];
+        $('#container_Course_Classify_TabHeader').append($(buildCourseClassifyTHItemHTML(tmpItem.id, tmpItem.title, isActive)));
+        $('#container_Course_Classify_TabContent').append($(buildCourseClassifyTCItemHTML(tmpItem, isActive)));
+        tmpId = 'container_Course_Classify_' + tmpItem.id + '_List';
+        for (var i = 0; i < tmpItem.data.length; i++) {
+            $('#' + tmpId).append($(buildCourseItemHTML(tmpItem.data[i], false)));
+        }
 
-    for (var i = 0; i < data.length; i++) {
-        $('#container_Course_Type_Computer_List').append($(buildCourseItemHTML(data[i])));
+        tmpWidth = (courseItemWidth + courseItemSpace) * tmpItem.data.length;
+        $('#' + tmpId).css('width', tmpWidth + 'px');
+        var funData = { id: tmpId, step: courseItemWidth + courseItemSpace };
+        $('#arrow_Course_Classify_' + tmpItem.id + '_List_Left').on('click', funData, listMovePrev);
+        $('#arrow_Course_Classify_' + tmpItem.id + '_List_Right').on('click', funData, listMoveNext);
     }
-
-    var tmpWidth = (222 + 20) * data.length;
-    $('#container_Course_Type_Computer_List').css('width', tmpWidth + 'px');
 }
 
 function changeUserHead() {
@@ -311,11 +410,167 @@ function userShare() {
 
 };
 
+function listMovePrev() {
+    if (arguments[0] && arguments[0].data) {
+        var targetId = arguments[0].data.id;
+        var step = arguments[0].data.step;
+        var container = $('#' + targetId);
+        var wrap = container.parent();
+        var left = parseInt(container.css('left').replace('px', ''));
+        var width = parseInt(container.css('width').replace('px', ''));
+        var wrapWidth = parseInt(wrap.css('width').replace('px', ''));
+        if (left < 0) {
+            var tmpStep = step;
+            if (Math.abs(left) < step) {
+                tmpStep = Math.abs(left);
+            }
+
+            container.animate({ left: left + tmpStep + 'px', });
+        }
+    }
+}
+
+function listMoveNext() {
+    if (arguments[0] && arguments[0].data) {
+        var targetId = arguments[0].data.id;
+        var step = arguments[0].data.step;
+        var container = $('#' + targetId);
+        var wrap = container.parent();
+        var left = parseInt(container.css('left').replace('px', ''));
+        var width = parseInt(container.css('width').replace('px', ''));
+        var wrapWidth = parseInt(wrap.css('width').replace('px', ''));
+        if (width + left > wrapWidth) {
+            var tmpStep = step;
+            if (width + left - wrapWidth < step) {
+                tmpStep = width + left - wrapWidth;
+            }
+
+            container.animate({ left: left - tmpStep + 'px', });
+        }
+    }
+}
+
+function drawDistribution(datas) {
+    var lineWidth = 30;
+    var canvas = document.getElementById('canvas_User_Course_Distribution');
+    var parent = $($(canvas).parent());
+    var width = parseInt(parent.css('width'));
+    var height = parseInt(parent.css('height'));
+    canvas.width = Math.floor(width - 5);
+    canvas.height = Math.floor(height - 10)
+    var context = canvas.getContext('2d');
+    var radius = Math.floor(Math.min(width, height) / 2) - lineWidth;
+    var centerX = Math.floor(width / 2);
+    var centerY = Math.floor(height / 2) - 5;
+    var total = 0;
+    for (var i = 0; i < datas.length; i++) {
+        total += datas[i].exp;
+    }
+
+    var startRadian = 0;
+    var endRadian = 0;
+    var tmpRadian = 0;
+    var tmpX = 0;
+    var tmpY = 0;
+    for (var i = 0; i < datas.length; i++) {
+        startRadian = endRadian;
+        tmpRadian = datas[i].exp / total * Math.PI * 2;
+        endRadian += tmpRadian;
+        context.beginPath();
+        context.strokeStyle = datas[i].color;
+        context.arc(centerX, centerY, radius, startRadian, endRadian);
+        context.lineWidth = lineWidth;
+        context.stroke();
+        context.closePath();
+
+        tmpX = centerX + radius * Math.cos(startRadian + tmpRadian / 2) - 8;
+        tmpY = centerY + radius * Math.sin(startRadian + tmpRadian / 2);
+        context.font = "normal normal bold 11px \"微软雅黑\"";
+        context.fillStyle = "rgb(255,255,255)";
+        context.fillText(datas[i].exp, tmpX, tmpY);
+    }
+}
+
+function drawCodeTime(datas) {
+    var barWidth = 15;
+    var barSpace = 10;
+    var lineWidth = 1;
+    var canvas = document.getElementById('canvas_User_Course_CodeTime');
+    var parent = $($(canvas).parent());
+    var width = parseInt(parent.css('width'));
+    var height = parseInt(parent.css('height'));
+    canvas.width = Math.floor((barWidth + barSpace) * datas.length);
+    canvas.height = Math.floor(height - 10)
+    var context = canvas.getContext('2d');
+    var maxValue = datas[0].time;
+    for (var i = 1; i < datas.length; i++) {
+        maxValue = Math.max(maxValue, datas[i].time);
+    }
+
+    var unit = Math.floor((height - 10 - 30) / maxValue);
+    var startX = barSpace;
+    var startY = height - 30;
+    var ltX, ltY, rtX, rtY, rbX, rbY, linearGradient, bHeight, bWidth, tmpX, tmpY, tmpArr;
+    for (var i = 1; i < datas.length; i++) {
+        if (datas[i].time <= 0) {
+            startX = rtX + barSpace;
+            continue;
+        }
+
+        ltX = startX;
+        ltY = startY - datas[i].time * unit - lineWidth * 2;
+        rtX = startX + barWidth + lineWidth;
+        rtY = ltY;
+        rbX = rtX;
+        rbY = startY;
+        bHeight = datas[i].time * unit + lineWidth * 2;
+        bWidth = barWidth + lineWidth * 2;
+        //draw bar
+        linearGradient = context.createLinearGradient(ltX, ltY, 0, bHeight);
+        linearGradient.addColorStop(0, "rgb(98,163,54)");
+        linearGradient.addColorStop(1, "rgb(128,184,95)");
+        context.fillStyle = linearGradient;
+        context.fillRect(ltX, ltY, bWidth, bHeight);
+        //draw border
+        context.strokeStyle = 'rgb(167,196,150)';
+        context.lineWidth = 1;
+        context.moveTo(startX, startY);
+        context.lineTo(ltX, ltY);
+        context.lineTo(rtX, rtY);
+        context.lineTo(rbX, rbY);
+        context.lineTo(startX, startY);
+        context.stroke();
+        //draw time label
+        tmpX = ltX + 4;
+        tmpY = ltY - 2;
+        context.font = "normal normal bold 11px \"微软雅黑\"";
+        context.fillStyle = "rgb(97,97,97)";
+        context.fillText(datas[i].time, tmpX, tmpY);
+        //draw date label
+        tmpX = startX;
+        tmpY = startY + 12;
+        context.font = "normal normal 600 8px \"微软雅黑\"";
+        context.fillStyle = "rgb(97,97,97)";
+        tmpArr = datas[i].date.split('-');
+        context.fillText(tmpArr[1] + '-' + tmpArr[2], tmpX, tmpY);
+        //calculate next X
+        startX = rtX + barSpace;
+    }
+
+    $('#arrow_User_Course_CodeTime_Left').css('top', Math.floor((height - 24) / 2) + 'px');
+    $('#arrow_User_Course_CodeTime_Left').css('left', '0px');
+    $('#arrow_User_Course_CodeTime_Right').css('top', (-1 * Math.floor((height - 24) / 2) - 40) + 'px');
+    $('#arrow_User_Course_CodeTime_Right').css('left', (width - 15) + 'px');
+    var funData = { id: 'canvas_User_Course_CodeTime', step: barWidth + barSpace };
+    $('#arrow_User_Course_CodeTime_Left').on('click', funData, listMovePrev);
+    $('#arrow_User_Course_CodeTime_Right').on('click', funData, listMoveNext);
+}
+
 function initPage() {
     initTopCarousel();
     initHonorWall();
     initUserInfo();
     initUserCourse();
     initLearningCourseList();
-    initCourseTypeList();
+    initCourseClassifyList();
 };

@@ -9,6 +9,14 @@
         border-color: rgb(255,255,255);
     }
 
+.carousel-indicators .active {
+    margin-right: 5px;
+}
+
+.carousel-indicators li {
+    margin-right: 5px;
+}
+
 .section-title {
     color: rgb(68,191,160);
     text-align: center;
@@ -22,6 +30,19 @@
 .honor-wall-arrow {
     margin-top: -30px;
 }
+
+    .honor-wall-arrow span {
+        font-size: 25px;
+        color: rgb(102,102,102);
+        cursor: pointer;
+    }
+
+        .honor-wall-arrow span:hover {
+            color: rgb(51,51,51);
+            -webkit-transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
+            transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
+        }
+
 
 .honor-wall-container {
     height: 180px;
@@ -268,17 +289,18 @@ span.user-course-datapoint {
     border-right: 2px solid rgb(237,237,227);
 }
 
-#canvas_User_Course_Distribution {
+.canvas-container {
     width: 100%;
     height: 100%;
-    min-height: 200px;
 }
 
-#canvas_User_Course_CodeTime {
-    width: 100%;
-    height: 100%;
-    min-height: 260px;
-}
+    .canvas-container.distribution {
+        min-height: 200px;
+    }
+
+    .canvas-container.codetime {
+        min-height: 260px;
+    }
 
 .user-course-legend {
     width: 6px;
@@ -290,7 +312,7 @@ span.user-course-datapoint {
 }
 
 .container.learning-course-wrap {
-    padding: 10px 0px;
+    padding: 10px 10px;
     overflow: hidden;
 }
 
@@ -355,9 +377,17 @@ span.user-course-datapoint {
     padding-right: 2px;
 }
 
-    .learning-course-list-arrow:hover {
-        background-color: rgb(255,255,255);
+    .learning-course-list-arrow span {
+        font-size: 25px;
+        color: rgb(102,102,102);
+        cursor: pointer;
     }
+
+        .learning-course-list-arrow span:hover {
+            color: rgb(51,51,51);
+            -webkit-transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
+            transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
+        }
 
 .learning-course-inner {
     overflow: hidden;
@@ -406,6 +436,20 @@ p.app-lab-centent {
     padding-left: 40px;
 }
 
+.padding-H3030 {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.padding-H2020 {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.items-list-container {
+    position: relative;
+}
+
 @media screen and (min-width: 1960px) {
     body {
         width: 1960px;
@@ -434,6 +478,10 @@ p.app-lab-centent {
     .padding-H5050 {
         padding-left: 10px;
         padding-right: 10px;
+    }
+
+    p.app-lab-centent {
+        font-size: 15px;
     }
 }
 
