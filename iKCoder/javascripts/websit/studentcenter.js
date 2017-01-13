@@ -168,7 +168,7 @@ function buildCourseClassifyTCItemHTML(data, isActive) {
     tmpHtmlStrArr.push('                    <div class="learning-course-contianer items-list-container" id="' + tmpId + '"></div>');
     tmpHtmlStrArr.push('                </td>');
     tmpHtmlStrArr.push('                <td style="width:30px;">');
-    tmpHtmlStrArr.push('                    <div class="learning-course-list-arrow" id="arrow_Course_Classify_' + data.id + '_List_Right" style="margin-left:5px;" data-target="' + tmpId + '">');
+    tmpHtmlStrArr.push('                    <div class="learning-course-list-arrow margin-top-10" id="arrow_Course_Classify_' + data.id + '_List_Right" style="margin-left:5px;" data-target="' + tmpId + '">');
     tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-chevron-right"></span>');
     tmpHtmlStrArr.push('                    </div>');
     tmpHtmlStrArr.push('                </td>');
@@ -559,7 +559,7 @@ function drawCodeTime(datas) {
 
     $('#arrow_User_Course_CodeTime_Left').css('top', Math.floor((height - 24) / 2) + 'px');
     $('#arrow_User_Course_CodeTime_Left').css('left', '0px');
-    $('#arrow_User_Course_CodeTime_Right').css('top', (-1 * Math.floor((height - 24) / 2) - 40) + 'px');
+    $('#arrow_User_Course_CodeTime_Right').css('top', (-1 * Math.floor((height - 24) / 2) - 40 - 7) + 'px');
     $('#arrow_User_Course_CodeTime_Right').css('left', (width - 15) + 'px');
     var funData = { id: 'canvas_User_Course_CodeTime', step: barWidth + barSpace };
     $('#arrow_User_Course_CodeTime_Left').on('click', funData, listMovePrev);
