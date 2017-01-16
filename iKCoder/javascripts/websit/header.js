@@ -135,32 +135,32 @@ function initHeader() {
 function initHeaderEvent() {
     $("#linkBtn_Home").on('click',
         function () {
-            window.location.href = "index.html";
+            window.location.href = "index.html?cid=" + _gCID;
         });
 
     $("#linkBtn_OnlineCourse").on('click',
         function () {
-            window.location.href = "index.html";
+            window.location.href = "index.html?cid=" + _gCID;
         });
 
     $("#linkBtn_Parents").on('click',
         function () {
-            window.location.href = "index.html";
+            window.location.href = "index.html?cid=" + _gCID;
         });
 
     $("#linkBtn_Education").on('click',
         function () {
-            window.location.href = "index.html";
+            window.location.href = "index.html?cid=" + _gCID;
         });
 
-    $("#linkBtn_About").on('click',
-        function () {
-            window.location.href = "index.html";
-        });
+    //$("#linkBtn_About").on('click',
+    //    function () {
+    //        window.location.href = "index.html";
+    //    });
 
     $("#linkBtn_Product").on('click',
         function () {
-            window.location.href = "product.html";
+            window.location.href = "product.html?cid=" + _gCID;
         });
 
     $("#linkBtn_Search").on('click', headerSearch);
