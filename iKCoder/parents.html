@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/parents.css">
+    <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/xmloperator.js"></script>
+    <script src="javascripts/websit/common.js"></script>
+    <script src="javascripts/websit/header.js"></script>
+    <script src="javascripts/websit/footer.js"></script>
+    <script src="javascripts/websit/parents.js"></script>
+</head>
+<body>
+    <header class="bg-031034039"></header>
+    <div class="container margin-top-20 bg-031034039 padding-v-dynamic">
+        <div class="row">
+            <div class="col-md-4 col-sm-offset-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="text-center text-white">您的关注，是孩子学习的</h2>
+                            <h1 class="text-139195074 text-center">动力</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-center text-white">点击头像, 获取您孩子学习编程的详细信息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="height:200px;">
+                <div class="children-list-wrap" id="wrap_ChildrenList">
+                    <table class="list-container">
+                        <tr>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow" id="arrow_Children_List_Left">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </div>
+                            </td>
+                            <td style="overflow:hidden;">
+                                <div class="children-list-container items-list-container" id="container_ChildrenList">
+                                    <div class="children-item">
+                                        <div class="text-center-white  active">
+                                            <img class="children-item-img" src="images/children/child_1.png" />
+                                            <div class="children-item-img-mask"></div>
+                                        </div>
+                                        <div>
+                                            <p class="children-item-title">Tom</p>
+                                        </div>
+                                    </div>
+                                    <div class="children-item">
+                                        <div class="text-center-white">
+                                            <img class="children-item-img" src="images/children/child_2.png" />
+                                            <div class="children-item-img-mask"></div>
+                                        </div>
+                                        <div>
+                                            <p class="children-item-title">Jerry</p>
+                                        </div>
+                                    </div>
+                                    <div class="children-item">
+                                        <div class="text-center-white">
+                                            
+                                        </div>
+                                        <div>
+                                            <p class="children-item-title">添加</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:30px;">
+                                <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_Children_List_Right" style="margin-left:5px;">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            _loadLabels();
+            initHeader();
+            $("nav").addClass('bg-031034039');
+            initFooter();
+        });
+    </script>
+</body>
+</html>
