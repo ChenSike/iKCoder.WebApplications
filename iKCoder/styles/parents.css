@@ -6,6 +6,14 @@
     color: rgb(139,195,74);
 }
 
+.text-252136035{
+    color:rgb(252,136,35);
+}
+
+.text-26{
+   font-size:26px;
+}
+
 .navbar-default {
     border-color: rgb(31,34,39);
 }
@@ -79,8 +87,9 @@ table.list-container {
     height: 150px;
     background-color: rgb(121,121,121);
     filter: alpha(Opacity=80);
-    -moz-opacity: 0.7;
-    opacity: 0.7;
+    -moz-opacity: 0.8;
+    -webkit-opacity: 0.8;
+    opacity: 0.8;
     position: absolute;
     top: 0px;
     margin-left: 15px;
@@ -96,6 +105,50 @@ table.list-container {
 
 .active .children-item-img-mask {
     display: none;
+}
+
+.children-add-item-wrap {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 25px;
+    margin-left: 40px;
+    background-color: rgb(85,222,75);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.children-add-item-h-line {
+    width: 70px;
+    height: 20px;
+    background-color: rgb(255,255,255);
+    position: relative;
+    top: 40px;
+    left: 15px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.children-add-item-v-line {
+    width: 20px;
+    height: 70px;
+    background-color: rgb(255,255,255);
+    position: relative;
+    top: -5px;
+    left: 40px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.overview-child-img {
+    background-color: rgb(255,255,255);
+    border: 2px solid rgb(46,88,136);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 50px;
+    border-radius: 5px;
 }
 
 @media screen and (min-width: 1920px) {
