@@ -48,37 +48,7 @@
                                 </div>
                             </td>
                             <td style="overflow:hidden;">
-                                <div class="children-list-container items-list-container" id="container_ChildrenList">
-                                    <div class="children-item">
-                                        <div class="text-center-white  active">
-                                            <img class="children-item-img" src="images/children/child_1.png" />
-                                            <div class="children-item-img-mask"></div>
-                                        </div>
-                                        <div>
-                                            <p class="children-item-title">Tom</p>
-                                        </div>
-                                    </div>
-                                    <div class="children-item">
-                                        <div class="text-center-white">
-                                            <img class="children-item-img" src="images/children/child_2.png" />
-                                            <div class="children-item-img-mask"></div>
-                                        </div>
-                                        <div>
-                                            <p class="children-item-title">Jerry</p>
-                                        </div>
-                                    </div>
-                                    <div class="children-item">
-                                        <div class="text-center-white" style="height:150px;">
-                                            <div class="children-add-item-wrap">
-                                                <div class="children-add-item-h-line"></div>
-                                                <div class="children-add-item-v-line"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p class="children-item-title">添加</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="children-list-container items-list-container" id="container_ChildrenList"></div>
                             </td>
                             <td style="width:30px;">
                                 <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_Children_List_Right" style="margin-left:5px;">
@@ -91,10 +61,10 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector-Report-Overview">
         <div class="row">
             <div class="col-sm-4 col-md-2 col-sm-offset-7 col-md-offset-9">
-                <p class="text-report-date">报告生成日期: 2017-1-1</p>
+                <p class="text-report-date" id="lb_Report_Overview_Date"></p>
             </div>
         </div>
         <div class="row">
@@ -110,7 +80,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <p class="text-report-overview-beyond">超越<span class="text-report-overview-beyond-data"> 88% </span>的全国学员</p>
+                                        <p class="text-report-overview-beyond">超越<span class="text-report-overview-beyond-data"></span>的全国学员</p>
                                     </div>
                                     <div class="col-sm-2">
                                         <img class="report-overview-child-img" src="images/children/child_1.png" />
@@ -119,8 +89,11 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <p class="text-report-content">Tom, 实习工程师</p>
-                                                    <p class="text-report-content">当前课程经验值 : <span class="text-report-content-data">2600</span></p>
+                                                    <p class="text-report-content" id="lb_Report_Overview_NameTitle"></p>
+                                                    <p class="text-report-content">
+                                                        当前课程经验值 : 
+                                                        <span class="text-report-content-data" id="lb_Report_Overview_Exp"></span>
+                                                    </p>
                                                     <hr style="background-color:rgb(223,223,222); height:2px;" />
                                                 </div>
                                             </div>
@@ -129,7 +102,7 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col-sm-12">
-                                                                <p class="text-report-content-data">18</p>
+                                                                <p class="text-report-content-data" id="lb_Report_Overview_Work_Count"></p>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -143,7 +116,7 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col-sm-12">
-                                                                <p class="text-report-content-data">25</p>
+                                                                <p class="text-report-content-data" id="lb_Report_Overview_Course_Count"></p>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -157,7 +130,7 @@
                                                     <div class="container">
                                                         <div class="row">
                                                             <div class="col-sm-12">
-                                                                <p class="text-report-content-data">30</p>
+                                                                <p class="text-report-content-data" id="lb_Report_Overview_Friend_Count"></p>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -588,6 +561,7 @@
             initHeader();
             $("nav").addClass('bg-031034039');
             initFooter();
+            initPage();
         });
     </script>
 </body>
