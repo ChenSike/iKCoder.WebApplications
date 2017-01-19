@@ -247,10 +247,9 @@ h4.user-info-bottom-button {
 .user-course-content-liner_1 {
     height: 5px;
     margin: 0px -15px;
-    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(108,211,140),endColorStr=rgb(89,189,124));
-    background: -ms-linear-gradient(top, rgb(108,211,140), rgb(89,189,124));
-    background: -moz-linear-gradient(top, rgb(108,211,140), rgb(89,189,124));
-    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(108,211,140)), to(rgb(89,189,124)));
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=rgb(108,211,140),endColorStr=rgb(89,189,124));
+    background: -ms-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
+    background: -moz-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
     background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(108,211,140)), to(rgb(89,189,124)));
     background: -webkit-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
     background: -o-linear-gradient(left, rgb(108,211,140), rgb(89,189,124));
@@ -259,10 +258,9 @@ h4.user-info-bottom-button {
 .user-course-content-liner_2 {
     height: 5px;
     margin: 0px -15px;
-    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(89,189,124),endColorStr=rgb(62,161,103));
-    background: -ms-linear-gradient(top, rgb(89,189,124), rgb(62,161,103));
-    background: -moz-linear-gradient(top, rgb(89,189,124), rgb(62,161,103));
-    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(89,189,124)), to(rgb(62,161,103)));
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=rgb(89,189,124),endColorStr=rgb(62,161,103));
+    background: -ms-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
+    background: -moz-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
     background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(89,189,124)), to(rgb(62,161,103)));
     background: -webkit-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
     background: -o-linear-gradient(left, rgb(89,189,124), rgb(62,161,103));
@@ -271,10 +269,9 @@ h4.user-info-bottom-button {
 .user-course-content-liner_3 {
     height: 5px;
     margin: 0px -15px;
-    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgb(62,161,103),endColorStr=rgb(41,136,86));
-    background: -ms-linear-gradient(top, rgb(62,161,103), rgb(41,136,86));
-    background: -moz-linear-gradient(top, rgb(62,161,103), rgb(41,136,86));
-    background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(62,161,103)), to(rgb(41,136,86)));
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=rgb(62,161,103),endColorStr=rgb(41,136,86));
+    background: -ms-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
+    background: -moz-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
     background: -webkit-gradient(linear, 0% 50%, 100% 50%, from(rgb(62,161,103)), to(rgb(41,136,86)));
     background: -webkit-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
     background: -o-linear-gradient(left, rgb(62,161,103), rgb(41,136,86));
@@ -287,6 +284,7 @@ span.user-course-datapoint {
 
 .user-course-container .border-right {
     border-right: 2px solid rgb(237,237,227);
+    display:inline-block;
 }
 
 .canvas-container {
