@@ -201,7 +201,7 @@ function initHonorWall() {
     };
 
     $('#title_HonorWall').text(user.name + '的荣誉墙');
-    $('#container_HonorWall').css('width', (honerItemWidth + honerItemSpace) * data.length + 'px');
+    $('#container_HonorWall').width((honerItemWidth + honerItemSpace) * data.length);
     var tmpFlag = false;
     for (var i = 0; i < data.length; i++) {
         tmpFlag = false;
@@ -336,7 +336,7 @@ function initLearningCourseList() {
     }
 
     var tmpWidth = (courseItemWidth + courseItemSpace) * data.length;
-    $('#container_Learning_Course_List').css('width', tmpWidth + 'px');
+    $('#container_Learning_Course_List').width(tmpWidth);
     var funData = { id: "container_Learning_Course_List", step: courseItemWidth + courseItemSpace };
     $('#arrow_Learning_Course_List_Left').on('click', funData, listMovePrev);
     $('#arrow_Learning_Course_List_Right').on('click', funData, listMoveNext);
@@ -395,7 +395,7 @@ function initCourseClassifyList() {
         }
 
         tmpWidth = (courseItemWidth + courseItemSpace) * tmpItem.data.length;
-        $('#' + tmpId).css('width', tmpWidth + 'px');
+        $('#' + tmpId).width(tmpWidth);
         var funData = { id: tmpId, step: courseItemWidth + courseItemSpace };
         $('#arrow_Course_Classify_' + tmpItem.id + '_List_Left').on('click', funData, listMovePrev);
         $('#arrow_Course_Classify_' + tmpItem.id + '_List_Right').on('click', funData, listMoveNext);
@@ -410,52 +410,12 @@ function userShare() {
 
 };
 
-function listMovePrev() {
-    if (arguments[0] && arguments[0].data) {
-        var targetId = arguments[0].data.id;
-        var step = arguments[0].data.step;
-        var container = $('#' + targetId);
-        var wrap = container.parent();
-        var left = parseInt(container.css('left').replace('px', ''));
-        var width = parseInt(container.css('width').replace('px', ''));
-        var wrapWidth = parseInt(wrap.css('width').replace('px', ''));
-        if (left < 0) {
-            var tmpStep = step;
-            if (Math.abs(left) < step) {
-                tmpStep = Math.abs(left);
-            }
-
-            container.animate({ left: left + tmpStep + 'px', });
-        }
-    }
-}
-
-function listMoveNext() {
-    if (arguments[0] && arguments[0].data) {
-        var targetId = arguments[0].data.id;
-        var step = arguments[0].data.step;
-        var container = $('#' + targetId);
-        var wrap = container.parent();
-        var left = parseInt(container.css('left').replace('px', ''));
-        var width = parseInt(container.css('width').replace('px', ''));
-        var wrapWidth = parseInt(wrap.css('width').replace('px', ''));
-        if (width + left > wrapWidth) {
-            var tmpStep = step;
-            if (width + left - wrapWidth < step) {
-                tmpStep = width + left - wrapWidth;
-            }
-
-            container.animate({ left: left - tmpStep + 'px', });
-        }
-    }
-}
-
 function drawDistribution(datas) {
     var lineWidth = 30;
     var canvas = document.getElementById('canvas_User_Course_Distribution');
     var parent = $($(canvas).parent());
-    var width = parseInt(parent.css('width'));
-    var height = parseInt(parent.css('height'));
+    var width = parent.width();
+    var height = parent.height();
     canvas.width = Math.floor(width - 5);
     canvas.height = Math.floor(height - 10)
     var context = canvas.getContext('2d');
@@ -497,8 +457,8 @@ function drawCodeTime(datas) {
     var lineWidth = 1;
     var canvas = document.getElementById('canvas_User_Course_CodeTime');
     var parent = $($(canvas).parent());
-    var width = parseInt(parent.css('width'));
-    var height = parseInt(parent.css('height'));
+    var width = parent.width();
+    var height = parent.height();
     canvas.width = Math.floor((barWidth + barSpace) * datas.length);
     canvas.height = Math.floor(height - 10)
     var context = canvas.getContext('2d');

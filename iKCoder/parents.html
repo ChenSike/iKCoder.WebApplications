@@ -19,7 +19,7 @@
 </head>
 <body>
     <header class="bg-031034039"></header>
-    <div class="container margin-top-20 bg-031034039 padding-v-dynamic">
+    <div class="container margin-top-20 bg-031034039 padding-v-dynamic" id="sector_Top_ChildrenList">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="container">
@@ -48,7 +48,19 @@
                                 </div>
                             </td>
                             <td style="overflow:hidden;">
-                                <div class="children-list-container items-list-container" id="container_ChildrenList"></div>
+                                <div class="children-list-container items-list-container" id="container_ChildrenList">
+                                    <div class="children-item" id="btn_ChildrenList_Add">
+                                        <div class="text-center" style="height:150px;">
+                                            <div class="children-add-item-wrap">
+                                                <div class="children-add-item-h-line"></div>
+                                                <div class="children-add-item-v-line"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="children-item-title">添加</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td style="width:30px;">
                                 <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_Children_List_Right" style="margin-left:5px;">
@@ -68,30 +80,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1 padding-top50">
+            <div class="col-sm-3 col-sm-offset-1 padding-top50">
                 <h3 class="text-report-sector-title">概览</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-8 col-sm-offset-2  padding-bottom60">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-5">
                                         <p class="text-report-overview-beyond">超越<span class="text-report-overview-beyond-data"></span>的全国学员</p>
                                     </div>
                                     <div class="col-sm-2">
-                                        <img class="report-overview-child-img" src="images/children/child_1.png" />
+                                        <img class="report-overview-child-img" id="img_Report_Overview_Child" src="" />
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-5">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <p class="text-report-content" id="lb_Report_Overview_NameTitle"></p>
                                                     <p class="text-report-content">
-                                                        当前课程经验值 : 
+                                                        当前课程经验值 :
                                                         <span class="text-report-content-data" id="lb_Report_Overview_Exp"></span>
                                                     </p>
                                                     <hr style="background-color:rgb(223,223,222); height:2px;" />
@@ -150,31 +162,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="report-overview-rank-wrap">
-                                <div class="report-overview-rank-beyond-wrap">
-                                    <!--<img class="report-overview-rank-beyond-img" style="margin-left:0px;" src="images/label/smlperson.png"/>
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/bigperson.png" />-->
-                                    <div class="report-overview-rank-beyond-items">
-                                    </div>
+                                <div class="report-overview-rank-container" id="container_Overview_RankMap">
+                                    <div class="report-overview-rank-beyond-wrap"></div>
+                                    <div class="report-overview-rank-current-wrap"></div>
                                 </div>
-                                <div class="report-overview-rank-unreached-wrap">
-                                    <img class="report-overview-rank-beyond-img" style="margin-left:0px;" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
-                                    <img class="report-overview-rank-beyond-img" src="images/label/smlperson.png" />
+                                <div class="report-overview-rank-end-container">
+                                    <div class="report-overview-rank-unreached-wrap"></div>
                                 </div>
                             </div>
                         </div>
@@ -190,50 +183,21 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Achieve">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">成就</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1 padding-top80 padding-bottom60">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <p class="text-report-achieve-number">01</p>
-                                    </div>
-                                    <div class="col-sm-7 padding-top20">
-                                        <p class="text-report-subsector-title">计算机小专家</p>
-                                        <p class="text-report-content">顺利完成了计算机原理的所有基础课程，对现代计算机的系统组成，运行方式和编程原理有了系统性的认知；</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-5 col-sm-offset-1">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-5">
-                                        <p class="text-report-achieve-number">02</p>
-                                    </div>
-                                    <div class="col-sm-7 padding-top20">
-                                        <p class="text-report-subsector-title">分享小达人</p>
-                                        <p class="text-report-content">分享了18个已完成作品， 这些作品已被565人次浏览；</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="container" id="container_Report_Achieve_Items"></div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Ability">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">能力</h3>
             </div>
         </div>
@@ -241,62 +205,41 @@
             <div class="col-sm-10 col-sm-offset-1 padding-top80 padding-bottom60">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 col-md-6">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <p class="text-report-content">基于艾酷为中国孩子开发的STEML课程体系，目前您的孩子已经进行了5大类，25个课程，125个课时的学习；在科学、技术、工程、数学和语言等各个领域都获得了显著的能力提升。</p>
+                                        <p class="text-report-content">
+                                            基于艾酷为中国孩子开发的STEML课程体系, 目前您的孩子已经进行了
+                                            <span id="lb_Report_Ability_CategoryCount"></span>大类,
+                                            <span id="lb_Report_Ability_CourseCount"></span>个课程,
+                                            <span id="lb_Report_Ability_CourseTime"></span>个课时的学习;
+                                            在<span id="lb_Report_Ability_PromoteCategory"></span>等各个领域都获得了显著的能力提升.
+                                        </p>
                                     </div>
                                     <div class="col-sm-12 padding-top100">
                                         <p class="text-report-subsector-title">已完成课程列表</p>
                                     </div>
                                 </div>
                                 <div class="row padding-top60">
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[1]</strong> 计算机原理</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[2]</strong> 空间概念和有序移动</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[3]</strong> 基础数据结构</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[4]</strong> 键盘及鼠标控制</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[5]</strong> 数学输入与输出</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[6]</strong> 条件循环</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[7]</strong> 条件判断语句</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[8]</strong> 音乐播放原理</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="text-report-content"><strong>[10]</strong> 基本绘图指令</p>
+                                    <div class="col-sm-12">
+
                                     </div>
                                 </div>
                             </div>
+                            <div class="container" id="container_Report_Ability_CompleteCourse"></div>
                         </div>
-                        <div class="col-sm-6">
-                            <canvas id="canvas_Report_Ability" height="500"></canvas>
+                        <div class="col-sm-12 col-md-6">
+                            <canvas id="canvas_Report_Ability"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Time">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">时间</h3>
             </div>
         </div>
@@ -305,13 +248,31 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <p class="text-report-content">到今天为止，您的孩子已经累计学习编程<span class="text-report-content-data bigger">195</span>195 小时，超过 <span class="text-report-content-data bigger">92% </span>的小伙伴。</p>
+                            <p class="text-report-content">
+                                到今天为止, 您的孩子已经累计学习编程
+                                <span class="text-report-content-data bigger" id="lb_Report_Time_Total"></span>小时,
+                                超过 <span class="text-report-content-data bigger" id="lb_Report_Time_Beyond"></span>的小伙伴.
+                            </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-5 padding-top140">
                             <p class="text-report-subsector-title">本月学习时间及趋势</p>
-                            <canvas id="canvas_Report_Time_1" height="400"></canvas>
+                            <div class="container">
+                                <div class="row" style="overflow:hidden;">
+                                    <div class="col-sm-12">
+                                        <div class="canvas-container codetime">
+                                            <div class="report-codetime-arrow" id="arrow_Report_CodeTime_Left">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                            </div>
+                                            <canvas id="canvas_Report_Time_Month" height="400" style="position:relative;"></canvas>
+                                            <div class="report-codetime-arrow" id="arrow_Report_CodeTime_Right">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-5 col-sm-offset-1 padding-top140">
                             <p class="text-report-subsector-title">各级课程完成率</p>
@@ -331,7 +292,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">潜力</h3>
             </div>
         </div>
@@ -370,7 +331,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">作品</h3>
             </div>
         </div>
@@ -451,7 +412,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">推荐</h3>
             </div>
         </div>
@@ -514,7 +475,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">关注</h3>
             </div>
         </div>
