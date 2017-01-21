@@ -398,6 +398,7 @@ table.list-container {
 .children-add-item-wrap.smaller {
     top: 0px;
     margin: 0px;
+    left: 0px;
 }
 
     .children-add-item-wrap.smaller:hover {

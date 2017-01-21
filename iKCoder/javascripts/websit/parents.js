@@ -105,6 +105,16 @@ function buildAbilityCompCourseHTML(datas) {
     $('#container_Report_Ability_CompleteCourse').append($(tmpHTMLArr.join('')));
 };
 
+function buildPotentialItems(datas) {
+    var container = $('#container_Report_Potential_Category');
+    for (var i = 0; i < datas.length; i++) {
+        container.append('<span class="text-report-content-data bigger">' + datas[i] + '</span>');
+        if (i < datas.length - 1) {
+            container.append('以及');
+        }
+    }
+};
+
 function drawAbilityGraph(datas) {
     var fontSize = 28;
     var valFontSize = 20;
@@ -197,24 +207,24 @@ function drawAbilityGraph(datas) {
 };
 
 function drawTimeMonthGraph(datas, month) {
+    var barWidth = 30;
+    var barSpace = 25;
+    var lineWidth = 1;
     var canvas = document.getElementById('canvas_Report_Time_Month');
     var parent = $($(canvas).parent());
-    var width = parent.width() - 50;
+    var width = Math.floor((barWidth + barSpace) * datas.length) - 30;
     var height = 400;
     canvas.width = width;
     canvas.height = height;
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, width, height);
-    var barWidth = 30;
-    var barSpace = 25;
-    var lineWidth = 1;
     var maxValue = datas[0];
     for (var i = 1; i < datas.length; i++) {
         maxValue = Math.max(maxValue, datas[i]);
     }
 
     var unit = Math.floor((height - 10 - 30) / maxValue);
-    var startX = barSpace;
+    var startX = 10;
     var startY = height - 30;
     var ltX, ltY, rtX, rtY, rbX, rbY, linearGradient, bHeight, bWidth, tmpX, tmpY;
     for (var i = 1; i < datas.length; i++) {
@@ -247,19 +257,157 @@ function drawTimeMonthGraph(datas, month) {
         context.lineTo(startX, startY);
         context.stroke();
         //draw time label
-        tmpX = ltX + 4;
+        tmpX = ltX + 10;
         tmpY = ltY - 2;
         context.font = "normal normal bold 11px \"微软雅黑\"";
         context.fillStyle = "rgb(97,97,97)";
         context.fillText(datas[i], tmpX, tmpY);
         //draw date label
-        tmpX = startX;
+        tmpX = startX + 5;
         tmpY = startY + 12;
-        context.font = "normal normal 600 8px \"微软雅黑\"";
+        context.font = "normal normal 600 10px \"微软雅黑\"";
         context.fillStyle = "rgb(97,97,97)";
         context.fillText(month + '-' + (i + 1), tmpX, tmpY);
         //calculate next X
         startX = rtX + barSpace;
+    }
+
+    $('#arrow_Report_CodeTime_Left').css('top', Math.floor((height - 24) / 2) + 'px');
+    $('#arrow_Report_CodeTime_Left').css('left', '0px');
+    $('#arrow_Report_CodeTime_Right').css('top', (-1 * Math.floor((height - 24) / 2) - 50 - 7) + 'px');
+    $('#arrow_Report_CodeTime_Right').css('left', (parent.width() - 15) + 'px');
+}
+
+function drawTimeCompleteRate(datas) {
+    var lineWidth = 10;
+    var rateFontSize = 28;
+    var textFontSize = 16;
+    for (var i = 0; i < datas.length; i++) {
+        var id = 'canvas_Report_Time_' + datas[i].id + 'Rate';
+        var canvas = document.getElementById(id);
+        var parent = $($(canvas).parent());
+        var width = parent.width() - 10;
+        var height = parent.height() - 10;
+        canvas.width = Math.floor(width);
+        canvas.height = Math.floor(height)
+        var context = canvas.getContext('2d');
+        var radius = Math.floor(Math.min(width, height) / 2) - lineWidth;
+        var centerX = Math.floor(width / 2);
+        var centerY = Math.floor(height / 2);
+        var startRadian = 0
+        var endRadian = Math.PI * 2;
+        context.lineWidth = lineWidth;
+        context.strokeStyle = 'rgb(230,230,230)';
+        context.beginPath();
+        context.arc(centerX, centerY, radius, startRadian, endRadian);
+        context.stroke();
+        context.closePath();
+        startRadian = Math.PI * 2 * 3 / 4;
+        endRadian = startRadian + datas[i].rate / 100 * Math.PI * 2;
+        context.strokeStyle = 'rgb(124,218,36)';
+        context.beginPath();
+        context.arc(centerX, centerY, radius, startRadian, endRadian);
+        context.stroke();
+        context.closePath();
+        //context.strokeStyle = 'rgb(230,230,230)';
+        //context.moveTo(width/2, 0);
+        //context.lineTo(width / 2, height);
+        //context.stroke();
+        var tmpX = centerX;
+        if (datas[i].rate < 10) {
+            tmpX = centerX - rateFontSize * 0.5;
+        } else {
+            tmpX = centerX - rateFontSize * 1;
+        }
+
+        var tmpY = centerY + rateFontSize / 2;
+        context.font = "normal normal bolder " + rateFontSize + "px \"微软雅黑\"";
+        context.fillStyle = "rgb(105,105,105)";
+        context.fillText(datas[i].rate + '%', tmpX, tmpY);
+
+        tmpX = centerX - textFontSize * 2;
+        tmpY = height / 2 + radius + (height / 2 - radius) / 2;
+        context.font = "normal normal bold " + 16 + "px \"微软雅黑\"";
+        context.fillStyle = "rgb(61,61,61)";
+        context.fillText(datas[i].name, tmpX, tmpY);
+    }
+}
+
+function drawPotentialEvaluate(datas) {
+    var mainLineWidth = 75;
+    var shadowHeight = 5;
+    var titleFontSize = 22;
+    var valueFontSize = 16;
+    var shadowStyles = [
+        'rgb(158,163,168)',
+        'rgb(178,182,186)',
+        'rgb(194,196,199)',
+        'rgb(209,211,213)',
+        'rgb(244,244,244)'
+    ];
+    var height = (mainLineWidth + shadowHeight) * datas.length;
+    var canvas = document.getElementById('canvas_Report_Potential_Evaluate');
+    var parent = $($(canvas).parent());
+    var width = parent.width();
+    var context = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+    context.clearRect(0, 0, width, height);
+    var titleX, titleY, lineStartX, lineStartY, lineEndX, lineEndY;
+    var startX = 10 + titleFontSize * 2 + 10;
+    var lengthUnit = (width - startX - 10) / datas[0].value;
+    var lineLength = [];
+    for (var i = 0; i < datas.length; i++) {
+        lineLength.push(lengthUnit * datas[i].value);
+    }
+
+    context.textBaseline = "middle";
+    for (var i = 0; i < datas.length; i++) {
+        titleX = 10;
+        titleY = (mainLineWidth + shadowHeight) * i + (mainLineWidth + shadowHeight) / 2;
+        context.fillStyle = "rgb(74,74,74)";
+        context.font = titleFontSize + "px '微软雅黑'";
+        context.fillText(datas[i].title, titleX, titleY);
+        context.restore();
+        context.lineWidth = mainLineWidth;
+        context.strokeStyle = 'rgb(91,155,213)';
+        lineStartX = startX + (width - 10 - lineLength[i] - startX) / 2;
+        lineStartY = mainLineWidth / 2 + (mainLineWidth + shadowHeight) * i;
+        lineEndX = lineStartX + lineLength[i];
+        lineEndY = lineStartY;
+        context.beginPath();
+        context.moveTo(lineStartX, lineStartY);
+        context.lineTo(lineEndX, lineEndY);
+        context.closePath();
+        context.stroke();
+        var shadowY = mainLineWidth + (mainLineWidth + shadowHeight) * i;
+        for (var j = 0; j < shadowStyles.length; j++) {
+            context.strokeStyle = shadowStyles[j];
+            context.lineWidth = 1;
+            context.beginPath();
+            context.moveTo(lineStartX, shadowY);
+            context.lineTo(lineEndX, shadowY);
+            context.closePath();
+            context.stroke();
+            shadowY++;
+        }
+
+        context.fillStyle = "rgb(255,255,255)";
+        if (i == 0) {
+            context.fillStyle = "rgb(237,125,49)";
+        }
+
+        titleX = startX + (width - startX) / 2 - 10;
+        if (datas[i].value < 10) {
+            titleX = titleX - valueFontSize * 0.5;
+        } else {
+            titleX = titleX - valueFontSize * 1;
+        }
+
+        titleY = (mainLineWidth + shadowHeight) * i + (mainLineWidth + shadowHeight) / 2;
+        context.font = valueFontSize + "px '微软雅黑'";
+        context.fillText(datas[i].value + '%', titleX, titleY);
+        context.restore();
     }
 }
 
@@ -308,6 +456,12 @@ function initTopWall() {
 
     loadChildReport({ data: { id: firstId } });
 };
+
+function initEvents() {
+    var funData = { id: "canvas_Report_Time_Month", step: 55 };
+    $('#arrow_Report_CodeTime_Left').on('click', funData, listMovePrev);
+    $('#arrow_Report_CodeTime_Right').on('click', funData, listMoveNext);
+}
 
 function addNewChild() {
 
@@ -362,10 +516,20 @@ function loadChildReport() {
             beyond: 92,
             month: 1,
             times: [3, 2, 4, 1, 3, 2, 4, 5, 6, 7, 2, 5, 3, 7, 4, 1],
-            course: [
-                { name: '初级课程', rate: 85 },
-                { name: '中级课程', rate: 11 },
-                { name: '高级课程', rate: 5 },
+            rate: [
+                { name: '初级课程', id: 'Primary', rate: 85 },
+                { name: '中级课程', id: 'Middle', rate: 11 },
+                { name: '高级课程', id: 'Advance', rate: 5 }
+            ]
+        },
+        potential: {
+            top: ['数学', '科学'],
+            evaluate: [
+                { title: '科学', value: 40 },
+                { title: '技术', value: 30 },
+                { title: '工程', value: 15 },
+                { title: '数学', value: 10 },
+                { title: '语言', value: 5 }
             ]
         }
     };
@@ -389,8 +553,12 @@ function loadChildReport() {
     $('#lb_Report_Time_Total').text(data.codetime.total);
     $('#lb_Report_Time_Beyond').text(data.codetime.beyond + '%');
     drawTimeMonthGraph(data.codetime.times, data.codetime.month);
+    drawTimeCompleteRate(data.codetime.rate);
+    buildPotentialItems(data.potential.top);
+    drawPotentialEvaluate(data.potential.evaluate);
 };
 
 function initPage() {
     initTopWall();
+    initEvents();
 };

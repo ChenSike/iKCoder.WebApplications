@@ -274,9 +274,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5 col-sm-offset-1 padding-top140">
+                        <div class="col-sm-6 col-sm-offset-1 padding-top140">
                             <p class="text-report-subsector-title">各级课程完成率</p>
-                            <canvas id="canvas_Report_Time_2" height="400"></canvas>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <canvas id="canvas_Report_Time_PrimaryRate" height="400"></canvas>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <canvas id="canvas_Report_Time_MiddleRate" height="400"></canvas>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <canvas id="canvas_Report_Time_AdvanceRate" height="400"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -290,7 +302,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Potential">
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">潜力</h3>
@@ -305,11 +317,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <p class="text-report-content text-center">通过目前已经完成的课程，您的孩子在</p>
-                                        <p class="text-report-content text-center">
-                                            <span class="text-report-content-data bigger">科学</span>
-                                            以及
-                                            <span class="text-report-content-data bigger">数学</span>
-                                        </p>
+                                        <p class="text-report-content text-center" id="container_Report_Potential_Category"></p>
                                         <p class="text-report-content text-center">这两个领域体现出了过人的潜力。</p>
                                     </div>
                                 </div>
@@ -322,7 +330,7 @@
                             </div>
                         </div>
                         <div class="col-sm-7">
-                            <canvas id="canvas_Report_Potential" height="420"></canvas>
+                            <canvas id="canvas_Report_Potential_Evaluate" height="400"></canvas>
                         </div>
                     </div>
                 </div>
