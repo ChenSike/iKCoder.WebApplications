@@ -449,7 +449,7 @@ function initTopWall() {
     var funData = { id: "container_ChildrenList", step: _childItemWidth };
     $('#arrow_Children_List_Left').on('click', funData, listMovePrev);
     $('#arrow_Children_List_Right').on('click', funData, listMoveNext);
-    $('#btn_ChildrenList_Add').on('click', addNewChild);
+    $('#btn_ChildrenList_Add').on('click', showAddSubAccountWindow);
     if (firstItem) {
         firstItem.addClass('active');
     }
@@ -461,6 +461,10 @@ function initEvents() {
     var funData = { id: "canvas_Report_Time_Month", step: 55 };
     $('#arrow_Report_CodeTime_Left').on('click', funData, listMovePrev);
     $('#arrow_Report_CodeTime_Right').on('click', funData, listMoveNext);
+}
+
+function showAddSubAccountWindow() {
+    $('#window_Add_New_SubAccount').modal({})
 }
 
 function addNewChild() {

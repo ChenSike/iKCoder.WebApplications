@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/ionicons.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/parents.css">
+    <link rel="stylesheet" href="styles/addsubaccount.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
@@ -16,6 +17,7 @@
     <script src="javascripts/websit/header.js"></script>
     <script src="javascripts/websit/footer.js"></script>
     <script src="javascripts/websit/parents.js"></script>
+    <script src="javascripts/websit/addsubaccount.js"></script>
 </head>
 <body>
     <header class="bg-031034039"></header>
@@ -524,6 +526,40 @@
         </div>
     </div>
     <footer id="footer"></footer>
+    <div class="modal fade" id="window_Add_New_SubAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p style="line-height:10px;margin:0px;">&nbsp;</p>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div class="title-add-new-subaccount"><h3>添加儿童账户</h3></div>
+                            </div>
+                            <div class="col-sm-8">
+                                
+                                <p>
+                                    通过为您的孩子建立独立子账户，您的每一位孩子都将拥有独立的学习空间和个性化课程；我们将为您的每一位孩子创建独立的学习报告以供您查阅。
+                                </p>
+                                <p>请注意您最多为 5 位孩子创建子账户</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-3">
+                                    <button type="button" class="btn btn-default">开始></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <img src="images/background/footersub.png" />
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
             _loadLabels();

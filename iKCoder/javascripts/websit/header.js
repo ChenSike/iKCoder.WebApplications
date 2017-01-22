@@ -10,7 +10,6 @@ var _checkCodeParams = {
     height: 50
 };
 
-
 function BuildHeaderHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<nav class="navbar navbar-default padding-top10 padding-bottom10" role="navigation">');
