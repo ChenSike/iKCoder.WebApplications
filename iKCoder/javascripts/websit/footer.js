@@ -44,7 +44,7 @@ function initFooter() {
 
 function initFooterEvent() {
     $("#linkBtn_Foot_About").on('click', function () {
-        window.location.href = "index.html";
+        window.location.href = "aboutus.html";
     });
 
     $("#linkBtn_Foot_OnlineCourse").on('click', function () {
@@ -52,7 +52,7 @@ function initFooterEvent() {
     });
 
     $("#linkBtn_Foot_Parents").on('click', function () {
-        window.location.href = "index.html";
+        window.location.href = "parents.html";
     });
 
     $("#linkBtn_Foot_Education").on('click', function () {

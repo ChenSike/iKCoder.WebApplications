@@ -33,6 +33,7 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                    <a href="#" class="dropdown-toggle" id="linkBtn_About" data-toggle="dropdown">' + _getLabel('关于艾酷') + '<b class="caret"></b></a>');
     tmpHtmlStrArr.push('                    <ul class="dropdown-menu">');
     tmpHtmlStrArr.push('                        <li><a href="#" id="linkBtn_Product">' + _getLabel('艾酷教育平台') + '</a></li>');
+    tmpHtmlStrArr.push('                        <li><a href="#" id="linkBtn_AboutUs">' + _getLabel('关于我们') + '</a></li>');
     tmpHtmlStrArr.push('                    </ul>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
@@ -145,7 +146,7 @@ function initHeaderEvent() {
 
     $("#linkBtn_Parents").on('click',
         function () {
-            window.location.href = "index.html?cid=" + _gCID;
+            window.location.href = "parents.html?cid=" + _gCID;
         });
 
     $("#linkBtn_Education").on('click',
@@ -162,7 +163,11 @@ function initHeaderEvent() {
         function () {
             window.location.href = "product.html?cid=" + _gCID;
         });
-
+    $("#linkBtn_AboutUs").on('click',
+        function () {
+            window.location.href = "aboutus.html?cid=" + _gCID;
+        });
+    
     $("#linkBtn_Search").on('click', headerSearch);
     $("#btn_SignInOK").on('click', signIn);
     $("#btn_GotoSignUp").on('click', gotoSignUp);
