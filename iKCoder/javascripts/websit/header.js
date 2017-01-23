@@ -36,8 +36,7 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                    </ul>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
-    //tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignUp">');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
     tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
@@ -170,9 +169,81 @@ function BuildSignInWindowHTML() {
     $('body').append($(tmpHtmlStrArr.join('')));
 }
 
+function BuildSignUpWindowHTML() {
+    var tmpHtmlStrArr = [];
+    tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+    tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignUp_Dialog">');
+    tmpHtmlStrArr.push('        <div class="modal-content">');
+    tmpHtmlStrArr.push('            <div class="modal-header" style="border:none;">');
+    tmpHtmlStrArr.push('                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+    tmpHtmlStrArr.push('                <p style="line-height:10px;margin:0px;">&nbsp;</p>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('            <div class="modal-body">');
+    tmpHtmlStrArr.push('                <div class="container bg-white">');
+    tmpHtmlStrArr.push('                    <div class="row padding-bottom30">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-2 col-sm-offset-3">');
+    tmpHtmlStrArr.push('                            <img src="images/label/Addicon.png" />');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="col-sm-4">');
+    tmpHtmlStrArr.push('                            <h4 style="line-height:60px;">' + _getLabel('艾酷通行证') + '</h4>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </div>');
+    tmpHtmlStrArr.push('                    <form class="form-horizontal" role="form">');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_UserName" placeholder="' + _getLabel('姓名') + '" />');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_PhoneNumber" placeholder="' + _getLabel('手机号码(仅支持中国大陆)') + '" />');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input class="form-control js-password-signup-control" id="txt_SignUp_Pwd" name="signup_pwd_new_pwd" type="password" placeholder="' + _getLabel('密码(不少于6位)') + '" aria-describedby="basic-addon1">');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-signup-btn"><i class="glyphicon glyphicon-eye-close" id="btn_SignUp_Show_Hide_Pwd"></i></span>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon">');
+    tmpHtmlStrArr.push('                                        <img class="cursor-hand" id="img_SignUp_CheckCode" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                                    </span>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK" data-dismiss="modal">' + _getLabel('登录') + ' </button>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <p>' + _getLabel('点击注册按钮, 即代表您同意《艾酷用户协议》') + ' </p>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </form>');
+    tmpHtmlStrArr.push('                </div>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('            <div class="modal-footer bg-white" style="border:none;">');
+    tmpHtmlStrArr.push('                <img src="images/background/footersub.png" />');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('        </div>');
+    tmpHtmlStrArr.push('    </div>');
+    tmpHtmlStrArr.push('</div>');
+
+    $('body').append($(tmpHtmlStrArr.join('')));
+}
+
 function initHeader() {
     BuildHeaderHTML();
     BuildSignInWindowHTML();
+    BuildSignUpWindowHTML();
     initHeaderEvent();
     updateUserInfor();
 }
@@ -230,15 +301,27 @@ function initHeaderEvent() {
         });
    */
 
-    var tmpField = $(".js-password-control");
     var tmpBtn = $("#btn_Show_Hide_Pwd");
     $(".js-password-btn").on('click', function () {
         if (tmpField.attr("type") == 'text') {
-            tmpField.attr("type", "password");
+            $(".js-password-control").attr("type", "password");
             tmpBtn.addClass('glyphicon-eye-close');
             tmpBtn.removeClass('glyphicon-eye-open');
         } else {
-            tmpField.attr("type", "text");
+            $(".js-password-control").attr("type", "text");
+            tmpBtn.addClass('glyphicon-eye-open');
+            tmpBtn.removeClass('glyphicon-eye-close');
+        }
+    });
+
+    var tmpBtn = $("#btn_SignUp_Show_Hide_Pwd");
+    $(".js-password-signup-btn").on('click', function () {
+        if ($(".js-password-signup-control").attr("type") == 'text') {
+            $(".js-password-signup-control").attr("type", "password");
+            tmpBtn.addClass('glyphicon-eye-close');
+            tmpBtn.removeClass('glyphicon-eye-open');
+        } else {
+            $(".js-password-signup-control").attr("type", "text");
             tmpBtn.addClass('glyphicon-eye-open');
             tmpBtn.removeClass('glyphicon-eye-close');
         }
@@ -249,6 +332,11 @@ function initHeaderEvent() {
         $("#signinAlert").alert('close');
         $('.sign-in-form').css('display', 'block');
         $('.sign-in-forget-pwd-form').css('display', 'none');
+    });
+
+    $('#mWindow_SignUp').on('show.bs.modal', reinitSignUpFileds);
+    $('#mWindow_SignUp').on('hide.bs.modal', function () {
+        $("#signupAlert").alert('close');        
     });
 }
 
@@ -350,9 +438,8 @@ function signIn() {
 }
 
 function openSignUp() {
-    //$("#signinAlert").alert('close');
-    //$("#mwTitle_SignIn").text(_getLabel('创建一个新用户'));
-    //toggleSignInFields();
+    $('#mWindow_SignIn').modal('hide');
+    $('#mWindow_SignUp').modal('show');
 }
 
 function updatePassword() {
@@ -418,6 +505,14 @@ function reinitSignInFileds() {
     $("#txt_ForgetPWD_NewPwd").val('');
     $("#txt_ForgetPWD_ConfirmPwd").val('');
     $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+}
+
+function reinitSignUpFileds() {
+    $("#txt_SignUp_UserName").val('');
+    $("#txt_SignUp_PhoneNumber").val('');
+    $("#txt_SignUp_Pwd").val('');
+    $("#txt_SignUp_CheckCode").val('');
+    $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
 }
 
 function showAlertMessage(containerId, alertId, message) {
