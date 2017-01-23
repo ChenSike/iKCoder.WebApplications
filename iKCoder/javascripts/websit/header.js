@@ -4,8 +4,8 @@ var _checkSigned = '';
 var _checkCodeParams = {
     length: 8,
     name: 'signincode',
-    width: 150,
-    height: 50
+    width: 130,
+    height: 30
 };
 
 function BuildHeaderHTML() {
@@ -361,6 +361,13 @@ function signUp() {
     if ($("#txt_SignUp_CheckCode").val().trim() == "") {
         showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入验证码!');
         return;
+    }
+
+    var params = {
+        symbol: $("#txt_SignUp_PhoneNumber").val(),
+        password: $("#txt_SignUp_Pwd").val(),
+        codename: 'signincode',
+        codevalue: $("#txt_SignUp_CheckCode").val()
     }
 
     $.ajax({
