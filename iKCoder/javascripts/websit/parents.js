@@ -115,6 +115,131 @@ function buildPotentialItems(datas) {
     }
 };
 
+function buildWorksItems(datas) {
+    var container = $('#container_Sector_Report_Works_Items');
+    var hitsRule = _getCSSRule('.report-works-item-hits');
+    var maskBeforeRule = _getCSSRule('.report-works-item-mask::before');
+    var maskRule = _getCSSRule('.report-works-item-mask');
+    var firstItem = null;
+    for (var i = 0; i < datas.length; i++) {
+        var tmpHTMLArr = [];
+        tmpHTMLArr.push('<div class="col-sm-6 col-md-4 report-works-item">');
+        tmpHTMLArr.push('   <div class="main-report-works-item">');
+        tmpHTMLArr.push('       <div class="report-works-item-hits">' + datas[i].hits + '</div>');
+        tmpHTMLArr.push('       <img src="images/works/' + datas[i].img + '" style="width:100%;" />');
+        tmpHTMLArr.push('       <div class="text-report-works-item-footer">' + datas[i].content + '</div>');
+        tmpHTMLArr.push('   </div>');
+        tmpHTMLArr.push('</div>');
+        var tmpItem = $(tmpHTMLArr.join(''));
+        container.append(tmpItem);
+        tmpItem.on('mouseenter', { maskRule: maskRule, maskBeforeRule: maskBeforeRule }, selectWorksItem);
+        if (i == 0) {
+            firstItem = tmpItem;
+        }
+    }
+
+    var width = firstItem.width();
+    var height = firstItem.height();
+    var mask = $('.report-works-item-mask');
+    var tmpSpace = Math.floor(width / 3);
+    if (tmpSpace > 100) {
+        $('.button-report-works-item.button_play').css('margin-right', tmpSpace - 100 + 'px');
+    }
+
+    var left = width - 45;
+    if (width - Math.floor(width / 10 * 9) < 30) {
+        left = width - 20;
+    }
+
+    var top = (width - left + 20);
+    hitsRule.style['top'] = top + 'px';
+    hitsRule.style['left'] = left + 'px';
+};
+
+function buildRecommendItems(datas) {
+    var container = $('#container_Sector_Report_Recommend_Items');
+    var hitsRule = _getCSSRule('.report-recommend-item-hits');
+    var maskBeforeRule = _getCSSRule('.report-recommend-item-mask::before');
+    var maskRule = _getCSSRule('.report-recommend-item-mask');
+    var firstItem = null;
+    for (var i = 0; i < datas.length; i++) {
+        var tmpHTMLArr = [];
+        tmpHTMLArr.push('<div class="col-sm-6 col-md-4 report-recommend-item">');
+        tmpHTMLArr.push('   <div class="main-report-recommend-item">');
+        tmpHTMLArr.push('       <div class="report-recommend-item-hits">' + datas[i].hits + '</div>');
+        tmpHTMLArr.push('       <img src="images/works/' + datas[i].img + '" style="width:100%;" />');
+        tmpHTMLArr.push('       <div class="text-report-works-item-footer">' + datas[i].content + '</div>');
+        tmpHTMLArr.push('   </div>');
+        tmpHTMLArr.push('</div>');
+        var tmpItem = $(tmpHTMLArr.join(''));
+        container.append(tmpItem);
+        tmpItem.on('mouseenter', { maskRule: maskRule, maskBeforeRule: maskBeforeRule }, selectRecommendItem);
+        if (i == 0) {
+            firstItem = tmpItem;
+        }
+    }
+
+    var width = firstItem.width();
+    var height = firstItem.height();
+    var mask = $('.report-recommend-item-mask');
+    var left = width - 45;
+    if (width - Math.floor(width / 10 * 9) < 30) {
+        left = width - 20;
+    }
+
+    var top = (width - left + 20);
+    hitsRule.style['top'] = top + 'px';
+    hitsRule.style['left'] = left + 'px';
+}
+
+function selectWorksItem(params) {
+    $('.main-report-works-item').removeClass('active');
+    var mask = $('.report-works-item-mask');
+    mask.css('display', 'block');
+    var target = $(params.currentTarget);
+    target.addClass('active');
+    var maskRule = params.data.maskRule;
+    var maskBeforeRule = params.data.maskBeforeRule;
+    var pos = target.position();
+    var left = pos.left - parseInt(target.css('padding-left'));
+    var top = pos.top - parseInt(target.css('padding-top'));
+    var targetWidth = target.width();
+    var targetHeight = target.height();
+    var maskWidth = mask.width();
+    var maskHeight = mask.height();
+    var paddingPos = _getOffsetPosition(target, 'wrap-sector-report-works-items');
+    maskRule.style['top'] = paddingPos.top + top + (targetHeight - maskHeight - 45) / 2 - 30 + 'px';
+    maskRule.style['left'] = paddingPos.left + left + (targetWidth - maskWidth) / 2 + 'px';
+    maskBeforeRule.style['width'] = targetWidth + 'px';
+    maskBeforeRule.style['height'] = targetHeight + 'px';
+    maskBeforeRule.style['top'] = -1 * (targetHeight - maskHeight) / 2 + 22 + 'px';
+    maskBeforeRule.style['left'] = -1 * (targetWidth - maskWidth) / 2 + 'px';
+};
+
+function selectRecommendItem(params) {
+    $('.main-report-recommend-item').removeClass('active');
+    var mask = $('.report-recommend-item-mask');
+    mask.css('display', 'block');
+    var target = $(params.currentTarget);
+    target.addClass('active');
+    var maskRule = params.data.maskRule;
+    var maskBeforeRule = params.data.maskBeforeRule;
+    var pos = target.position();
+    var left = pos.left - parseInt(target.css('padding-left'));
+    var top = pos.top - parseInt(target.css('padding-top'));
+    var targetWidth = target.width();
+    var targetHeight = target.height();
+    var maskWidth = mask.width();
+    var maskHeight = mask.height();
+    var paddingPos = _getOffsetPosition(target, 'wrap-sector-report-recommend-items');
+    maskRule.style['top'] = paddingPos.top + top + (targetHeight - maskHeight - 45) / 2 - 30 + 'px';
+    maskRule.style['left'] = paddingPos.left + left + (targetWidth - maskWidth) / 2 + 'px';
+    maskBeforeRule.style['width'] = targetWidth + 'px';
+    maskBeforeRule.style['height'] = targetHeight + 'px';
+    maskBeforeRule.style['top'] = -1 * (targetHeight - maskHeight) / 2 + 22 + 'px';
+    maskBeforeRule.style['left'] = -1 * (targetWidth - maskWidth) / 2 + 'px';
+};
+
 function drawAbilityGraph(datas) {
     var fontSize = 28;
     var valFontSize = 20;
@@ -461,6 +586,7 @@ function initEvents() {
     var funData = { id: "canvas_Report_Time_Month", step: 55 };
     $('#arrow_Report_CodeTime_Left').on('click', funData, listMovePrev);
     $('#arrow_Report_CodeTime_Right').on('click', funData, listMoveNext);
+    $('#btn_Sector_Attention_PDFReport').on('click', openReport);
 }
 
 function showAddSubAccountWindow() {
@@ -471,6 +597,10 @@ function addNewChild() {
 
 };
 
+function openReport() {
+    alert('BUILDING');
+}
+
 function loadChildReport() {
     if (!arguments[0] || !arguments[0].data) {
         return;
@@ -478,6 +608,7 @@ function loadChildReport() {
 
     var userId = arguments[0].data.id;
     var data = {
+        id:1,
         date: '2017-1-1',
         rank: 80,
         name: 'Tom',
@@ -535,7 +666,20 @@ function loadChildReport() {
                 { title: '数学', value: 10 },
                 { title: '语言', value: 5 }
             ]
-        }
+        },
+        worksitems: [
+            { id: 1, hits: 8, img: 'works_1.png', content: 'CREATIVE, ENTERTAINMENT' },
+            { id: 2, hits: 6, img: 'works_2.png', content: 'CORPORATE, CREATIVE, NEW' },
+            { id: 3, hits: 10, img: 'works_3.png', content: 'CREATIVE, ENTERTAINMENT' },
+            { id: 4, hits: 12, img: 'works_4.png', content: 'CORPORATE, ONE-PAGE, TECHNOLOGY' },
+            { id: 5, hits: 5, img: 'works_5.png', content: 'NEW, CORPORATE, TECHNOLOGY' },
+            { id: 6, hits: 7, img: 'works_6.png', content: 'BASE (MAIN DEMO)' }
+        ],
+        recommend: [
+            { id: 1, hits: 8, img: 'works_1.png', content: 'CREATIVE, ENTERTAINMENT' },
+            { id: 2, hits: 6, img: 'works_2.png', content: 'CORPORATE, CREATIVE, NEW' },
+            { id: 3, hits: 10, img: 'works_3.png', content: 'CREATIVE, ENTERTAINMENT' }
+        ]
     };
 
     $('#lb_Report_Overview_Date').text('报告生成日期: ' + data.date);
@@ -560,6 +704,12 @@ function loadChildReport() {
     drawTimeCompleteRate(data.codetime.rate);
     buildPotentialItems(data.potential.top);
     drawPotentialEvaluate(data.potential.evaluate);
+    buildWorksItems(data.worksitems);
+    buildRecommendItems(data.recommend);
+    $('#lb_Sector_Attention_Content_ChildName').text(data.name);
+    $('#lb_Sector_Attention_PDF_ChildName').text(data.name);
+    $('.report-focus-child-img-wrap').css('background-image', 'url(images/children/' + data.img + ')')
+    $('#btn_Sector_Attention_PDFReport').attr('data-target', data.id);
 };
 
 function initPage() {

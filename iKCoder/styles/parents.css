@@ -312,6 +312,10 @@ table.list-container {
     height: 45px;
 }
 
+.report-works-item {
+    padding-top: 30px;
+}
+
 .report-works-item-hits {
     height: 30px;
     width: 30px;
@@ -324,9 +328,8 @@ table.list-container {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
-    position: relative;
-    top: 50px;
-    left: 90%;
+    position: absolute;
+    left: 450px;
 }
 
     .report-works-item-hits:hover {
@@ -335,26 +338,25 @@ table.list-container {
     }
 
 .report-works-item-mask {
-    width: 210px;
-    height: 60px;
+    display: none;
     position: absolute;
-    top: 195px;
-    left: 170px;
+    top: 0px;
+    left: 0px;
     z-index: 1000;
 }
 
-    .report-works-item-mask:before {
+    .report-works-item-mask::before {
         content: '';
-        width: 488px;
-        height: 288px;
         background-color: rgb(194,196,194);
         filter: alpha(Opacity=50);
         -moz-opacity: 0.5;
         -webkit-opacity: 0.5;
         opacity: 0.5;
         position: absolute;
-        top: -105px;
-        left: -140px;
+        width: 0px;
+        height: 0px;
+        top: 0px;
+        left: 0px;
         z-index: -1;
     }
 
@@ -372,26 +374,27 @@ table.list-container {
     }
 
 .report-recommend-item-mask {
+    display: none;
     width: 100px;
     height: 100px;
     position: absolute;
-    top: 195px;
-    left: 170px;
+    top: 0px;
+    left: 0px;
     z-index: 1000;
 }
 
-    .report-recommend-item-mask:before {
+    .report-recommend-item-mask::before {
         content: '';
-        width: 488px;
-        height: 288px;
+        width: 0px;
+        height: 0px;
         background-color: rgb(194,196,194);
         filter: alpha(Opacity=50);
         -moz-opacity: 0.5;
         -webkit-opacity: 0.5;
         opacity: 0.5;
         position: absolute;
-        top: -105px;
-        left: -140px;
+        top: 0px;
+        left: 0px;
         z-index: -1;
     }
 
@@ -405,13 +408,38 @@ table.list-container {
         border: 1px solid rgb(255,255,255);
     }
 
+.report-recommend-item {
+    padding-top: 30px;
+}
+
+.report-recommend-item-hits {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(139,195,74);
+    color: rgb(255,255,255);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    left: 450px;
+}
+
+.report-works-recommend-hits:hover {
+    border: 2px solid rgb(255,255,255);
+    cursor: pointer;
+}
+
 
 .report-recommend-item-mask-add {
     text-align: center;
     position: absolute;
     height: 100px;
-    top: -35px;
-    left: 55px;
+    top: 0px;
+    left: 0px;
 }
 
     .report-recommend-item-mask-add:hover {
@@ -438,7 +466,7 @@ table.list-container {
     left: 40px;
     width: 115px;
     height: 135px;
-    background: rgb(159,224,245) url(../images/children/child_1.png) no-repeat -8px;
+    background: rgb(159,224,245) no-repeat -8px;
     background-size: cover;
     border: 4px solid rgb(255,255,255);
     -moz-border-radius: 20px;

@@ -33,6 +33,52 @@ function _checkPhoneNumber(phone) {
     return true;
 }
 
+function _getCSSRule(ruleName) {
+    for (var i = 0; i < document.styleSheets.length; i++) {
+        var sheet = document.styleSheets[i];
+        for (var j = 0; j < sheet.rules.length; j++) {
+            var rule = sheet.rules[j];
+            if (rule.selectorText == ruleName) {
+                return rule;
+            }
+        }
+    }
+
+    return null;
+}
+
+function _setCssRuleStyle(rule, style, value) {
+    if (typeof rule == 'string') {
+        rule = _getCSSRule(rule);
+    }
+
+    if (rule) {
+        rule.style[style] = value;
+    }
+}
+
+function _getOffsetPosition(target, topParentClass) {
+    var offsetPos = { left: 0, top: 0 };
+    var flag = true;
+    while (flag) {
+        var pLeft = parseInt(target.css('padding-left'));
+        var pTop = parseInt(target.css('padding-top'));
+        offsetPos.top += pTop;
+        offsetPos.left += pLeft;
+        if (target.hasClass(topParentClass)) {
+            flag = false;
+        } else {
+            var mLeft = parseInt(target.css('margin-left'));
+            var mTop = parseInt(target.css('margin-top'));
+            offsetPos.top += mTop;
+            offsetPos.left += mLeft;
+            target = target.parent();
+        }
+    }
+
+    return offsetPos;
+}
+
 function listMovePrev() {
     if (arguments[0] && arguments[0].data) {
         var targetId = arguments[0].data.id;

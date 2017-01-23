@@ -339,7 +339,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Works">
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">作品</h3>
@@ -357,56 +357,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-10  col-sm-offset-1 padding-top60  padding-bottom60">
+            <div class="col-sm-10  col-sm-offset-1 padding-top60  padding-bottom60 wrap-sector-report-works-items">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" id="container_Sector_Report_Works_Items">
                         <div class="report-works-item-mask">
-                            <img class="button-report-works-item" src="images/label/startarrow.png" style="margin-right:100px;" />
-                            <img class="button-report-works-item" src="images/label/sharearrow.png" />
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="active">
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_1.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CREATIVE, ENTERTAINMENT</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_2.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CORPORATE, CREATIVE, NEW</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_3.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CREATIVE, ENTERTAINMENT</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_4.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CORPORATE, ONE-PAGE, TECHNOLOGY</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_5.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">NEW, CORPORATE, TECHNOLOGY</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_6.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">BASE (MAIN DEMO)</div>
-                            </div>
+                            <img class="button-report-works-item button_play" src="images/label/startarrow.png" style="margin-right:100px;" />
+                            <img class="button-report-works-item button_share" src="images/label/sharearrow.png" />
                         </div>
                     </div>
                 </div>
@@ -420,7 +376,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Report_Recommend">
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">推荐</h3>
@@ -434,36 +390,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-10  col-sm-offset-1 padding-top60">
+            <div class="col-sm-10  col-sm-offset-1 padding-top60  wrap-sector-report-recommend-items">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" id="container_Sector_Report_Recommend_Items">
                         <div class="report-recommend-item-mask">
                             <div class="report-recommend-item-mask-add" style="height:100px;">
                                 <div class="children-add-item-wrap smaller">
                                     <div class="children-add-item-h-line smaller"></div>
                                     <div class="children-add-item-v-line smaller"></div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="active">
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_1.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CREATIVE, ENTERTAINMENT</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_2.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CORPORATE, CREATIVE, NEW</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>
-                                <div class="report-works-item-hits">8</div>
-                                <img src="images/works/works_3.png" style="width:100%;" />
-                                <div class="text-report-works-item-footer">CREATIVE, ENTERTAINMENT</div>
                             </div>
                         </div>
                     </div>
@@ -483,7 +418,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="sector_Attention">
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1">
                 <h3 class="text-report-sector-title">关注</h3>
@@ -494,14 +429,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <p class="text-report-content">感谢您阅读Jerry的艾酷学习报告。我们为您孩子的进步和成就感到同样骄傲.</p>
+                            <p class="text-report-content">感谢您阅读<span id="lb_Sector_Attention_Content_ChildName"></span>的艾酷学习报告。我们为您孩子的进步和成就感到同样骄傲.</p>
                             <p class="text-report-content padding-top20">您可以通过点击下面的链接下载本报告全文.</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-4 padding-top40 text-center">
-                            <img src="images/label/pdf.png" />
-                            <p class="text-report-content padding-top20">Tom的艾酷学习报告</p>
+                            <a href="#" id="btn_Sector_Attention_PDFReport" data-target="1"><img src="images/label/pdf.png" /></a>
+                            <p class="text-report-content padding-top20"><span id="lb_Sector_Attention_PDF_ChildName"></span>的艾酷学习报告</p>
                         </div>
                     </div>
                     <div class="row">
@@ -540,7 +475,7 @@
                                 <div class="title-add-new-subaccount"><h3>添加儿童账户</h3></div>
                             </div>
                             <div class="col-sm-8">
-                                
+
                                 <p>
                                     通过为您的孩子建立独立子账户，您的每一位孩子都将拥有独立的学习空间和个性化课程；我们将为您的每一位孩子创建独立的学习报告以供您查阅。
                                 </p>
