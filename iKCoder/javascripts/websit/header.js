@@ -36,7 +36,8 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                    </ul>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
+    //tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignUp">');
     tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
@@ -61,67 +62,111 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
     tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignIn_Dialog">');
     tmpHtmlStrArr.push('        <div class="modal-content">');
-    tmpHtmlStrArr.push('            <div class="modal-header">');
-    tmpHtmlStrArr.push('                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">');
-    tmpHtmlStrArr.push('                    &times;');
-    tmpHtmlStrArr.push('                </button>');
-    tmpHtmlStrArr.push('                <h4 class="modal-title" id="mwTitle_SignIn">');
-    tmpHtmlStrArr.push(_getLabel('用户登录'));
-    tmpHtmlStrArr.push('                </h4>');
+    tmpHtmlStrArr.push('            <div class="modal-header" style="border:none;">');
+    tmpHtmlStrArr.push('                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+    tmpHtmlStrArr.push('                <p style="line-height:10px;margin:0px;">&nbsp;</p>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('            <div class="modal-body">');
     tmpHtmlStrArr.push('                <div class="container bg-white">');
-    tmpHtmlStrArr.push('                    <form class="form-horizontal" role="form">');
+    tmpHtmlStrArr.push('                    <div class="row">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                            <img src="images/logo.png" />');
+    tmpHtmlStrArr.push('                            <p class="text-signin-dialog-title">' + _getLabel('只要有梦想, 谁都可以创造非凡') + '</p>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </div>');
+    tmpHtmlStrArr.push('                    <form class="form-horizontal sign-in-form" role="form">');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_UserName"  placeholder="' + _getLabel('手机号') + '">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_UserName" placeholder="' + _getLabel('手机号') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-10 col-xs-12"  id="txt_SignIn_Password_Container" >');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('输入密码') + '">');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-xs-12" id="linkBtn_ForgetPwd_Container">');
-    tmpHtmlStrArr.push('                                <a href="#" id="linkBtn_ForgetPwd"><label class="control-label text-underline cursor-hand">' + _getLabel('忘记密码') + '</label></a>');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                        <div class="form-group hidden" id="txt_SignUp_Confirm_Container">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_Confirm" placeholder="' + _getLabel('确认密码') + '">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('密码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-10 col-xs-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_CAPTCHA" placeholder="' + _getLabel('验证码') + '">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignIn_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon">');
+    tmpHtmlStrArr.push('                                        <img class="cursor-hand" id="img_SignIn_CheckCode" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                                    </span>');
+    tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-xs-12">');
-    tmpHtmlStrArr.push('                                <img class="cursor-hand" id="img_SignIn_CAPTCHA" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                                <div class="checkbox">');
+    tmpHtmlStrArr.push('                                    <label>');
+    tmpHtmlStrArr.push('                                        <input type="checkbox" id="chk_SignIn_RememberMe">');
+    tmpHtmlStrArr.push(_getLabel('记住我'));
+    tmpHtmlStrArr.push('                                    </label>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                                <a id="linkBtn_ForgetPwd" href="#"><p class="text-signin-dialog-title padding-bottom0">' + _getLabel('忘记密码') + '</p></a>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-sm-offset-4">');
+    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK" data-dismiss="modal">');
+    tmpHtmlStrArr.push(_getLabel('登录'));
+    tmpHtmlStrArr.push('                                </button>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </form>');
+    tmpHtmlStrArr.push('                    <form class="form-horizontal sign-in-forget-pwd-form" role="form" style="display:none;">');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_ForgetPWD_PhoneNumber" placeholder="' + _getLabel('申请通行证使用的手机号') + '" />');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_ForgetPWD_CheckCode" placeholder="' + _getLabel('6位数验证码') + '" />');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-btn">' + _getLabel('获取验证码') + '</span>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input class="form-control js-password-control" id="txt_ForgetPWD_NewPwd" name="forget_pwd_new_pwd" type="password" placeholder="' + _getLabel('新密码(不少于6位)') + '" aria-describedby="basic-addon1">  ');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-btn"><i class="glyphicon glyphicon-eye-close" id="btn_Show_Hide_Pwd"></i></span>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input class="form-control js-password-control" id="txt_ForgetPWD_ConfirmPwd" name="forget_pwd_confirm_pwd" type="password" placeholder="' + _getLabel('确认新密码') + '" aria-describedby="basic-addon1">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group has-feedback">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12 text-center">');
+    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-primary" id="btn_UpdatePwdOK">');
+    tmpHtmlStrArr.push(_getLabel('修改密码'));
+    tmpHtmlStrArr.push('                                </button>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
     tmpHtmlStrArr.push('                </div>');
     tmpHtmlStrArr.push('            </div>');
-    tmpHtmlStrArr.push('            <div class="modal-footer">');
-    tmpHtmlStrArr.push('                <button type="button" class="btn btn-default" id="btn_SignInCancel" data-dismiss="modal">');
-    tmpHtmlStrArr.push(_getLabel('取消'));
-    tmpHtmlStrArr.push('                </button>');
-    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary" id="btn_SignInOK">');
-    tmpHtmlStrArr.push(_getLabel('登录'));
-    tmpHtmlStrArr.push('                </button>');
-    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary" id="btn_GotoSignUp">');
-    tmpHtmlStrArr.push(_getLabel('注册'));
-    tmpHtmlStrArr.push('                </button>');
-    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary hidden" id="btn_SignUpOK">');
-    tmpHtmlStrArr.push(_getLabel('注册'));
-    tmpHtmlStrArr.push('                </button>');
-    tmpHtmlStrArr.push('                <button type="button" class="btn btn-primary hidden" id="btn_GotoSignIn">');
-    tmpHtmlStrArr.push(_getLabel('登录'));
-    tmpHtmlStrArr.push('                </button>');
-
+    tmpHtmlStrArr.push('            <div class="modal-footer bg-grey" style="border:none;">');
+    tmpHtmlStrArr.push('                <div class="container">');
+    tmpHtmlStrArr.push('                    <div class="row">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                            <p class="text-signin-dialog-title padding-bottom0">' + _getLabel('还没有通行证?') + '</p>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                            <a id="linkBtn_SignUp" href="#"><p class="text-signin-dialog-regist-link">' + _getLabel('立即申请') + '</p></a>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </div>');
+    tmpHtmlStrArr.push('                </div>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('    </div>');
     tmpHtmlStrArr.push('</div>');
+
     $('body').append($(tmpHtmlStrArr.join('')));
 }
 
@@ -153,11 +198,6 @@ function initHeaderEvent() {
             window.location.href = "index.html?cid=" + _gCID;
         });
 
-    //$("#linkBtn_About").on('click',
-    //    function () {
-    //        window.location.href = "index.html";
-    //    });
-
     $("#linkBtn_Product").on('click',
         function () {
             window.location.href = "product.html?cid=" + _gCID;
@@ -166,29 +206,50 @@ function initHeaderEvent() {
         function () {
             window.location.href = "aboutus.html?cid=" + _gCID;
         });
-    
+
     $("#linkBtn_Search").on('click', headerSearch);
+
+    $("#linkBtn_ForgetPwd").on('click', function () {
+        $('.sign-in-form').css('display', 'none');
+        $('.sign-in-forget-pwd-form').css('display', 'block');
+    });
+
     $("#btn_SignInOK").on('click', signIn);
-    $("#btn_GotoSignUp").on('click', gotoSignUp);
+    $("#linkBtn_SignUp").on('click', openSignUp);
+    $('#btn_UpdatePwdOK').on('click', updatePassword);
+    $("#img_SignIn_CheckCode").on('click', function () {
+        $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+    });
+
+    /*
     $("#btn_SignUpOK").on('click', signUp);
     $("#btn_GotoSignIn").on('click', gotoSignIn);
-    $('#linkBtn_ForgetPwd').on('click', forgetPassword);
-
     $('#btn_SignInCancel').on('click',
         function () {
             $("#signinAlert").alert('close');
         });
+   */
 
-    $("#img_SignIn_CAPTCHA").on('click',
-        function () {
-            $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
-        });
+    var tmpField = $(".js-password-control");
+    var tmpBtn = $("#btn_Show_Hide_Pwd");
+    $(".js-password-btn").on('click', function () {
+        if (tmpField.attr("type") == 'text') {
+            tmpField.attr("type", "password");
+            tmpBtn.addClass('glyphicon-eye-close');
+            tmpBtn.removeClass('glyphicon-eye-open');
+        } else {
+            tmpField.attr("type", "text");
+            tmpBtn.addClass('glyphicon-eye-open');
+            tmpBtn.removeClass('glyphicon-eye-close');
+        }
+    });
 
     $('#mWindow_SignIn').on('show.bs.modal', reinitSignInFileds);
-    $('#mWindow_SignIn').on('hide.bs.modal',
-        function () {
-            $("#signinAlert").alert('close');
-        });
+    $('#mWindow_SignIn').on('hide.bs.modal', function () {
+        $("#signinAlert").alert('close');
+        $('.sign-in-form').css('display', 'block');
+        $('.sign-in-forget-pwd-form').css('display', 'none');
+    });
 }
 
 function signUp() {
@@ -288,29 +349,13 @@ function signIn() {
     });
 }
 
-function gotoSignUp() {
-    $("#signinAlert").alert('close');
-    $("#mwTitle_SignIn").text(_getLabel('创建一个新用户'));
-    toggleSignInFields();
+function openSignUp() {
+    //$("#signinAlert").alert('close');
+    //$("#mwTitle_SignIn").text(_getLabel('创建一个新用户'));
+    //toggleSignInFields();
 }
 
-function gotoSignIn() {
-    $("#signinAlert").alert('close');
-    $("#mwTitle_SignIn").text(_getLabel('用户登录'));
-    toggleSignInFields();
-}
-
-function toggleSignInFields() {
-    $("#txt_SignIn_Password_Container").toggleClass("col-sm-10");
-    $("#linkBtn_ForgetPwd_Container").toggleClass("hidden");
-    $("#txt_SignUp_Confirm_Container").toggleClass("hidden");
-    $("#btn_SignInOK").toggleClass("hidden");
-    $("#btn_GotoSignUp").toggleClass("hidden");
-    $("#btn_SignUpOK").toggleClass("hidden");
-    $("#btn_GotoSignIn").toggleClass("hidden");
-}
-
-function forgetPassword() {
+function updatePassword() {
 
 }
 
@@ -366,16 +411,12 @@ function createUserInfoItem() {
 }
 
 function reinitSignInFileds() {
-    $("#txt_SignIn_Password_Container").addClass("col-sm-10");
-    $("#linkBtn_ForgetPwd_Container").removeClass("hidden");
-    $("#txt_SignUp_Confirm_Container").addClass("hidden");
-    $("#btn_SignInOK").removeClass("hidden");
-    $("#btn_GotoSignUp").removeClass("hidden");
-    $("#btn_SignUpOK").addClass("hidden");
-    $("#btn_GotoSignIn").addClass("hidden");
     $("#txt_SignIn_UserName").val('');
     $("#txt_SignIn_Password").val('');
-    $("#txt_SignIn_CAPTCHA").val('');
+    $("#txt_ForgetPWD_PhoneNumber").val('');
+    $("#txt_ForgetPWD_CheckCode").val('');
+    $("#txt_ForgetPWD_NewPwd").val('');
+    $("#txt_ForgetPWD_ConfirmPwd").val('');
     $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
 }
 

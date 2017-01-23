@@ -912,6 +912,44 @@ header button .navbar-toggle {
     display: none;
 }
 
+.text-signin-dialog-title {
+    color: rgb(102,102,102);
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+    padding-bottom: 60px;
+}
+
+.text-signin-dialog-regist-link {
+    color: rgb(102,183,255);
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.button-forgetpwd-getcheckcode {
+    position: absolute;
+    top: 2px;
+    left: 452px;
+    height: 30px;
+    width: 100px;
+    background-color: rgb(247,247,247);
+    color: rgb(230,230,230);
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.form-control-feedback{
+    right:15px;
+}
+
 @media screen and (min-width: 1960px) {
     body {
         width: 1960px;
@@ -990,4 +1028,16 @@ header button .navbar-toggle {
 }
 
 @media (max-width: 400px) {
+}
+
+@media (max-width: 375px) {
+    .button-forgetpwd-getcheckcode {
+        left: 207px;
+    }
+}
+
+@media (max-width: 414px) {
+    .button-forgetpwd-getcheckcode {
+        left: 246px;
+    }
 }
