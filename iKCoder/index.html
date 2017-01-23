@@ -316,5 +316,52 @@
             initFooter();
         });
     </script>
+    <div class="modal fade" id="mWindow_CheckPhoneNumber" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border:none;"></div>
+                <div class="modal-body">
+                    <div class="container border-form-modal-dialog">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <h4 class="text-center">验证手机</h4>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <p class="text-center">请输入您收到的6位数字手机验证码</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="name" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txt_CheckPhoneNumber_CheckCode" placeholder="' + _getLabel('6位数字验证码') + '" />
+                                        <span class="input-group-addon">59秒后重发</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 padding-top30 padding-bottom30 text-center">
+                                    <button type="submit" class="btn btn-default">进入艾酷</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none;"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

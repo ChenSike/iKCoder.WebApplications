@@ -1,8 +1,23 @@
 ﻿'use strict';
 
 var _gLabelMap = {};
-var _gHostName = 'http://ikcoder.iok.la:24525/';
+var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
+var _gURLMapping = {
+    account: {
+        reg: '/Account/SET_Reg.aspx',
+        sign: '/Account/GET_Sign.aspx',
+        signsstatus: '/Account/GET_SignStatus.aspx',
+        checkcode: '/data/get_checkcodenua.aspx'
+    }
+};
+
 var _gCID = null;
+
+/*
+'ikcoder/data/get_UrlMap.aspx?showall'
+<item group="account" key="reg" value="/Account/SET_Reg.aspx" queryparams="symbol|password|codevalue}codename"/>
+<item group="account" key="sign" value="/Account/GET_Sign.aspx" queryparams="symbol|password"/>
+<item group="account" key="signsstatus" value="Account/GET_SignStatus.aspx"/>*/
 
 function _loadLabels() {
 
@@ -14,14 +29,14 @@ function _getLabel(key) {
 
 function _getRequestURL(page, params) {
     var url = _gHostName + page;
-    url += '?';
+    url += '?cid=' + _gCID;
     if (params) {
         for (var key in params) {
-            url += key + '=' + params[key] + '&';
+            url += '&' + key + '=' + params[key];
         }
     }
 
-    url += 'rnd=' + Date.now();
+    url += '&rnd=' + Date.now();
     return url;
 }
 

@@ -1,7 +1,5 @@
 ﻿'use strict';
 
-var _checkCodePage = 'ikcoder/data/get_checkcodenua.aspx';
-var _signUpPage = 'iKCoder/Account/SET_Reg.aspx';
 var _checkSigned = '';
 var _checkCodeParams = {
     length: 8,
@@ -43,10 +41,16 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
     tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search">');
-    tmpHtmlStrArr.push('                        <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
-    tmpHtmlStrArr.push('                        <a href="#" class="dropdown-toggle header-search-field-icon" id="linkBtn_Search" data-toggle="dropdown">');
-    tmpHtmlStrArr.push('                            <span class="glyphicon glyphicon-search"></span>');
-    tmpHtmlStrArr.push('                        </a>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
+    tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
+    tmpHtmlStrArr.push('                                        <span class="glyphicon glyphicon-search"></span>');
+    tmpHtmlStrArr.push('                                    </a>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
     tmpHtmlStrArr.push('                <li>');
     tmpHtmlStrArr.push('            </ul>');
@@ -86,11 +90,11 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignIn_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon">');
-    tmpHtmlStrArr.push('                                        <img class="cursor-hand" id="img_SignIn_CheckCode" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
-    tmpHtmlStrArr.push('                                    </span>');
+    tmpHtmlStrArr.push('                                    <div class="input-group-addon" style="width:auto; padding:0px;">');
+    tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignIn_CheckCode" src="' + _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                                    </div>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
@@ -209,17 +213,17 @@ function BuildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon">');
-    tmpHtmlStrArr.push('                                        <img class="cursor-hand" id="img_SignUp_CheckCode" src="' + _getRequestURL(_checkCodePage, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:auto; padding:0px;">');
+    tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignUp_CheckCode" src="' + _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK" data-dismiss="modal">' + _getLabel('登录') + ' </button>');
+    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignUpOK">' + _getLabel('注册艾酷通行证') + ' </button>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
@@ -289,11 +293,11 @@ function initHeaderEvent() {
     $("#linkBtn_SignUp").on('click', openSignUp);
     $('#btn_UpdatePwdOK').on('click', updatePassword);
     $("#img_SignIn_CheckCode").on('click', function () {
-        $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+        $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
     });
 
-    /*
     $("#btn_SignUpOK").on('click', signUp);
+    /*
     $("#btn_GotoSignIn").on('click', gotoSignIn);
     $('#btn_SignInCancel').on('click',
         function () {
@@ -336,58 +340,56 @@ function initHeaderEvent() {
 
     $('#mWindow_SignUp').on('show.bs.modal', reinitSignUpFileds);
     $('#mWindow_SignUp').on('hide.bs.modal', function () {
-        $("#signupAlert").alert('close');        
+        $("#signupAlert").alert('close');
     });
 }
 
 function signUp() {
-    $("#signinAlert").alert('close');
-    if ($("#txt_SignIn_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
-        return;
-    } else if (!_checkPhoneNumber($("#txt_SignIn_UserName").val().trim())) {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
+    $("#signupAlert").alert('close');
+    if ($("#txt_SignUp_UserName").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入姓名!');
         return;
     }
 
-    if ($("#txt_SignIn_Password").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入密码!');
+    if ($("#txt_SignUp_PhoneNumber").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入手机号码!');
+        return;
+    } else if (!_checkPhoneNumber($("#txt_SignUp_PhoneNumber").val().trim())) {
+        showAlertMessage('mWindow_SignUp', 'signupAlert', '不正确的手机号码!');
         return;
     }
 
-    if ($("#txt_SignUp_Confirm").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请确认密码!');
-        return;
-    } else if ($("#txt_SignUp_Confirm").val().trim() != $("#txt_SignIn_Password").val().trim()) {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '两次输入的密码不一致!');
+    if ($("#txt_SignUp_Pwd").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入密码!');
         return;
     }
 
-    if ($("#txt_SignIn_CAPTCHA").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signinAlert', '请输入验证码!');
+    if ($("#txt_SignUp_CheckCode").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入验证码!');
         return;
     }
 
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_signUpPage),
+        url: _getRequestURL(_gURLMapping.account.reg),
         data: '<root>' +
-            '<symbol>' + $("#txt_SignIn_UserName").val() + '</symbol>' +
-            '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
+            '<symbol>' + $("#txt_SignUp_PhoneNumber").val() + '</symbol>' +
+            '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
             '<codename>signincode</codename>' +
-            '<codevalue>' + $("#txt_SignIn_CAPTCHA").val() + '</codevalue>' +
+            '<codevalue>' + $("#txt_SignUp_CheckCode").val() + '</codevalue>' +
             '</root>',
         success: function (data, status) {
-            $("#signinAlert").alert('close');
-            $('#mWindow_SignIn').modal('hide');
+            $("#signupAlert").alert('close');
+            $('#mWindow_SignUp').modal('hide');
+            $('#mWindow_CheckPhoneNumber').modal('show');
         },
         dataType: 'xml',
         xhrFields: {
             withCredentials: true
         },
         error: function () {
-            $("#signinAlert").alert('close');
-            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '注册失败, 请联系客服!');
+            $("#signupAlert").alert('close');
+            showAlertMessage('mWindow_SignUp', 'signupAlert', '注册失败, 请联系客服!');
         }
     });
 }
@@ -414,7 +416,7 @@ function signIn() {
 
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_signUpPage),
+        url: _getRequestURL(_gURLMapping.account.sign),
         data: '<root>' +
             '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
@@ -463,7 +465,7 @@ function updateUserInfor(signed) {
     } else {
         $.ajax({
             type: 'POST',
-            url: _getRequestURL(_checkSigned),
+            url: _getRequestURL(_gURLMapping.account.signsstatus),
             data: '<root></root>',
             success: function (data, status) {
                 updateUserInfor(true);
@@ -504,7 +506,7 @@ function reinitSignInFileds() {
     $("#txt_ForgetPWD_CheckCode").val('');
     $("#txt_ForgetPWD_NewPwd").val('');
     $("#txt_ForgetPWD_ConfirmPwd").val('');
-    $("#img_SignIn_CAPTCHA").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+    $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
 }
 
 function reinitSignUpFileds() {
@@ -512,7 +514,7 @@ function reinitSignUpFileds() {
     $("#txt_SignUp_PhoneNumber").val('');
     $("#txt_SignUp_Pwd").val('');
     $("#txt_SignUp_CheckCode").val('');
-    $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_checkCodePage, _checkCodeParams));
+    $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
 }
 
 function showAlertMessage(containerId, alertId, message) {
