@@ -111,7 +111,7 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                                <a id="linkBtn_ForgetPwd" href="#"><p class="text-signin-dialog-title padding-bottom0">' + _getLabel('忘记密码') + '</p></a>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                            <div class="col-sm-2 col-sm-offset-4">');
-    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK" data-dismiss="modal">');
+    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK">');
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                                </button>');
     tmpHtmlStrArr.push('                            </div>');
@@ -297,37 +297,31 @@ function initHeaderEvent() {
     });
 
     $("#btn_SignUpOK").on('click', signUp);
-    /*
-    $("#btn_GotoSignIn").on('click', gotoSignIn);
-    $('#btn_SignInCancel').on('click',
-        function () {
-            $("#signinAlert").alert('close');
-        });
-   */
+    $("#img_SignUp_CheckCode").on('click', function () {
+        $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
+    });
 
-    var tmpBtn = $("#btn_Show_Hide_Pwd");
     $(".js-password-btn").on('click', function () {
-        if (tmpField.attr("type") == 'text') {
+        if ($(".js-password-control").attr("type") == 'text') {
             $(".js-password-control").attr("type", "password");
-            tmpBtn.addClass('glyphicon-eye-close');
-            tmpBtn.removeClass('glyphicon-eye-open');
+            $("#btn_Show_Hide_Pwd").addClass('glyphicon-eye-close');
+            $("#btn_Show_Hide_Pwd").removeClass('glyphicon-eye-open');
         } else {
             $(".js-password-control").attr("type", "text");
-            tmpBtn.addClass('glyphicon-eye-open');
-            tmpBtn.removeClass('glyphicon-eye-close');
+            $("#btn_Show_Hide_Pwd").addClass('glyphicon-eye-open');
+            $("#btn_Show_Hide_Pwd").removeClass('glyphicon-eye-close');
         }
     });
 
-    var tmpBtn = $("#btn_SignUp_Show_Hide_Pwd");
     $(".js-password-signup-btn").on('click', function () {
         if ($(".js-password-signup-control").attr("type") == 'text') {
             $(".js-password-signup-control").attr("type", "password");
-            tmpBtn.addClass('glyphicon-eye-close');
-            tmpBtn.removeClass('glyphicon-eye-open');
+            $("#btn_SignUp_Show_Hide_Pwd").addClass('glyphicon-eye-close');
+            $("#btn_SignUp_Show_Hide_Pwd").removeClass('glyphicon-eye-open');
         } else {
             $(".js-password-signup-control").attr("type", "text");
-            tmpBtn.addClass('glyphicon-eye-open');
-            tmpBtn.removeClass('glyphicon-eye-close');
+            $("#btn_SignUp_Show_Hide_Pwd").addClass('glyphicon-eye-open');
+            $("#btn_SignUp_Show_Hide_Pwd").removeClass('glyphicon-eye-close');
         }
     });
 
@@ -397,20 +391,20 @@ function signUp() {
 function signIn() {
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入手机号码!');
         return;
     } else if (!_checkPhoneNumber($("#txt_SignIn_UserName").val().trim())) {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '不正确的手机号码!');
         return;
     }
 
     if ($("#txt_SignIn_Password").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入密码!');
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入密码!');
         return;
     }
 
-    if ($("#txt_SignIn_CAPTCHA").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入验证码!');
+    if ($("#txt_SignIn_CheckCode").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入验证码!');
         return;
     }
 
@@ -421,7 +415,7 @@ function signIn() {
             '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
             '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CAPTCHA").val() + '</codename>' +
+            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
             '</root>',
         success: function (data, status) {
             $("#signinAlert").alert('close');
@@ -434,7 +428,7 @@ function signIn() {
         },
         error: function () {
             $("#signinAlert").alert('close');
-            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
+            showAlertMessage('mWindow_SignIn', 'signinAlert', '无法登录, 请联系客服!');
         }
     });
 }
