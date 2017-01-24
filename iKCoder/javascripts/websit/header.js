@@ -379,7 +379,7 @@ function initSignInWindowEvent() {
     });
 };
 
-function initSignInWindowEvent() {
+function initSignUpWindowEvent() {
     $("#linkBtn_IKCoder_Agreement").on('click', openAgreement);
     $("#btn_SignUpOK").on('click', signUp);
     $("#img_SignUp_CheckCode").on('click', function () {
@@ -417,7 +417,7 @@ function initSignInWindowEvent() {
 function initHeaderEvent() {
     initNavBarEvent();
     initSignInWindowEvent();
-    initSignInWindowEvent();
+    initSignUpWindowEvent();
 };
 
 function signUp() {
