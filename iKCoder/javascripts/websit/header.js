@@ -133,7 +133,10 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group">');
     tmpHtmlStrArr.push('                                    <input class="form-control js-password-control" id="txt_ForgetPWD_NewPwd" name="forget_pwd_new_pwd" type="password" placeholder="' + _getLabel('新密码(不少于6位)') + '" aria-describedby="basic-addon1">  ');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-btn"><i class="glyphicon glyphicon-eye-close" id="btn_Show_Hide_Pwd"></i></span>');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-btn">');
+    tmpHtmlStrArr.push('                                        <i class="label-pwd-intension" id="lb_FPwd_Pwd_Intension"></i>');
+    tmpHtmlStrArr.push('                                        <i class="glyphicon glyphicon-eye-close" id="btn_Show_Hide_Pwd"></i>');
+    tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
@@ -203,7 +206,10 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group">');
     tmpHtmlStrArr.push('                                    <input class="form-control js-password-signup-control" id="txt_SignUp_Pwd" name="signup_pwd_new_pwd" type="password" placeholder="' + _getLabel('密码(不少于6位)') + '" aria-describedby="basic-addon1">');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-signup-btn"><i class="glyphicon glyphicon-eye-close" id="btn_SignUp_Show_Hide_Pwd"></i></span>');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-signup-btn">');
+    tmpHtmlStrArr.push('                                        <i class="label-pwd-intension" id="lb_SignUp_Pwd_Intension"></i>');
+    tmpHtmlStrArr.push('                                        <i class="glyphicon glyphicon-eye-close" id="btn_SignUp_Show_Hide_Pwd"></i>');
+    tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
@@ -367,6 +373,10 @@ function initSignInWindowEvent() {
     $("#btn_SignInOK").on('click', signIn);
     $("#linkBtn_SignUp").on('click', openSignUp);
 
+    $("#txt_ForgetPWD_NewPwd").on('blur', function () {
+        checkPwdIntension($("#txt_ForgetPWD_NewPwd"), $('#lb_FPwd_Pwd_Intension'));
+    });
+
     var fpParames = {
         buttonId: 'btn_ForgetPWD_CountDown',
         labelId: 'lb_ForgetPWD_CountDown',
@@ -403,6 +413,10 @@ function initSignUpWindowEvent() {
         $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
     });
 
+    $("#txt_SignUp_Pwd").on('blur', function () {
+        checkPwdIntension($("#txt_SignUp_Pwd"), $('#lb_SignUp_Pwd_Intension'));
+    });
+
     $(".js-password-signup-btn").on('click', function () {
         if ($(".js-password-signup-control").attr("type") == 'text') {
             $(".js-password-signup-control").attr("type", "password");
@@ -437,6 +451,20 @@ function initHeaderEvent() {
     initSignUpWindowEvent();
 };
 
+function checkPwdIntension(txtField, lbField) {
+    var checkVal = _checkPassword(txtField.val().trim());
+    if (checkVal == 1) {
+        lbField.text('弱');
+        lbField.css('color', 'rgb(255,0,0)');
+    } else if (checkVal == 2) {
+        lbField.text('中');
+        lbField.css('color', 'rgb(255,215,0)');
+    } else if (checkVal == 3) {
+        lbField.text('强');
+        lbField.css('color', 'rgb(50,205,50)');
+    }
+};
+
 function signUp() {
     //$('#mWindow_CheckPhoneNumber').modal('show');
     //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
@@ -463,9 +491,6 @@ function signUp() {
         if (checkVal < 0) {
             showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '密码不符合要求，请重新输入!');
             return;
-        } else {
-            if (checkVal == 1) {
-            }
         }
     }
 
@@ -498,7 +523,7 @@ function signUp() {
         },
         dataType: 'text',
         xhrFields: {
-            //withCredentials: true
+            withCredentials: true
         },
         error: function () {
             $("#signupAlert").alert('close');
@@ -744,6 +769,7 @@ function reinitSignInFileds() {
     $("#txt_ForgetPWD_CheckCode").val('');
     $("#txt_ForgetPWD_NewPwd").val('');
     $("#txt_ForgetPWD_ConfirmPwd").val('');
+    $("#lb_FPwd_Pwd_Intension").text('');
     $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
 };
 
@@ -751,6 +777,7 @@ function reinitSignUpFileds() {
     $("#txt_SignUp_UserName").val('');
     $("#txt_SignUp_PhoneNumber").val('');
     $("#txt_SignUp_Pwd").val('');
+    $("#lb_SignUp_Pwd_Intension").text('');
     $("#txt_SignUp_CheckCode").val('');
     $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
 };

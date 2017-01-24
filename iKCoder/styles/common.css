@@ -978,6 +978,11 @@ header button .navbar-toggle {
     cursor: pointer;
 }
 
+.label-pwd-intension {
+    padding-right: 5px;
+    font-weight: bold;
+}
+
 @media screen and (min-width: 1960px) {
     body {
         width: 1960px;
