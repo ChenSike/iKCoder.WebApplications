@@ -458,6 +458,15 @@ function signUp() {
     if ($("#txt_SignUp_Pwd").val().trim() == "") {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
         return;
+    } else {
+        var checkVal = _checkPassword($("#txt_SignUp_Pwd").val().trim());
+        if (checkVal < 0) {
+            showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '密码不符合要求，请重新输入!');
+            return;
+        } else {
+            if (checkVal == 1) {
+            }
+        }
     }
 
     if ($("#txt_SignUp_CheckCode").val().trim() == "") {
@@ -487,9 +496,9 @@ function signUp() {
             $('#mWindow_CheckPhoneNumber').modal('show');
             $('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
         },
-        dataType: 'xml',
+        dataType: 'text',
         xhrFields: {
-            withCredentials: true
+            //withCredentials: true
         },
         error: function () {
             $("#signupAlert").alert('close');

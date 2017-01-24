@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <button id="testbtn" onclick="post()">test</button>
+    <script type="text/javascript">
+        function post() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://ikcoder.iok.la:24525/ikcoder/Account/SET_Reg.aspx?cid=1485268550383&rnd=1485269160948',
+                data: '<root>' +
+                    '<symbol>13111111111</symbol>' +
+                    '<password>111111</password>' +
+                    '<codename>signincode</codename>' +
+                    '<codevalue>12345678</codevalue>' +
+                    '</root>',
+                success: function (data, status) {
+                    alert('success');
+                },
+                dataType: 'text',
+                xhrFields: {
+                    //withCredentials: true
+                },
+                error: function () {
+                    alert('fail');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

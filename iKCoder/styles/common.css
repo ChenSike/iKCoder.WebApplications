@@ -954,14 +954,18 @@ header button .navbar-toggle {
     border: 1px solid rgb(230,230,230);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 
 .check-code-image {
     height: 30px;
+    padding-right: 1px;
+    border-radius: 5px;
 }
 
-.m-window-buttton{
+.m-window-buttton {
     background-color: rgb(139,195,74);
     color: rgb(255,255,255);
     text-align: center;

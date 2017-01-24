@@ -63,6 +63,18 @@ function _checkPhoneNumber(phone) {
     return true;
 }
 
+function _checkPassword(pwd) {
+    if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){6}$/.test(pwd)) {
+        return 3;
+    } else if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){6}$/.test(pwd)) {
+        return 2;
+    } else if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&*]+){6}$/.test(pwd)) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
 function _getCSSRule(ruleName) {
     for (var i = 0; i < document.styleSheets.length; i++) {
         var sheet = document.styleSheets[i];
@@ -257,5 +269,5 @@ function _startIntroJs() {
         }
     }
 
-    _initURLMapping();
+    //_initURLMapping();
 })();
