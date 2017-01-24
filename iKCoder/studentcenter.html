@@ -19,7 +19,7 @@
 </head>
 <body>
     <header></header>
-    <div class="container margin-top-20 bg-white">
+    <div class="container margin-top-20 bg-white" id="sector_Top_Carousel">
         <div class="row" style="margin: 0px -30px;">
             <div class="col-sm-12">
                 <div id="carousel_Top" class="carousel slide">
@@ -38,13 +38,13 @@
             </div>
         </div>
     </div>
-    <div class="container margin-top-20 bg-white">
+    <div class="container margin-top-20 bg-white" id="sector_HonorWall">
         <div class="row">
             <div class="col-sm-12 padding-top50 padding-bottom30">
                 <h3 class="section-title" id="title_HonorWall"></h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row" data-step="1" data-intro="荣誉墙展示了你所获得的各种成就, 每当一个成就达成, 对应的勋章就将发亮哦" data-position='top'>
             <div class="col-sm-12 padding-bottom30">
                 <div class="honor-wall-wrap" id="wrap_HonorWall">
                     <table class="list-container">
@@ -68,10 +68,10 @@
             </div>
         </div>
     </div>
-    <div class="container margin-top-20 bg-efefef">
+    <div class="container margin-top-20 bg-efefef" id="sector_User_Info">
         <div class="row">
             <div class="col-sm-5 padding-top10 padding-bottom10">
-                <div class="container user-info-container">
+                <div class="container user-info-container" data-step="2" data-intro="你的等级和基本信息在这里显示" data-position='top'>
                     <div class="row user-info-content-top">
                         <div class="col-sm-4 col-xs-4">
                             <img id="icon_UserInfo_Head" src="" />
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="col-sm-7 padding-top10">
-                <div class="container user-course-container padding-top30">
+                <div class="container user-course-container padding-top30" data-step="3" data-intro="学习报告提供了你的各种学习资料和排名信息" data-position='top'>
                     <div class="row padding-bottom10">
                         <div class="col-sm-6">
                             <div class="container user-course-content-top border-right">
@@ -205,7 +205,7 @@
             </div>
         </div>
     </div>
-    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef">
+    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef" id="sector_Learning_Course">
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h3 class="section-title">学习中的课程</h3>
@@ -213,7 +213,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="container learning-course-wrap">
+                <div class="container learning-course-wrap" data-step="4" data-intro="当前正在进行的课程在这里显示" data-position='top'>
                     <table class="list-container">
                         <tr>
                             <td style="width:30px;">
@@ -235,7 +235,7 @@
             </div>
         </div>
     </div>
-    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef">
+    <div class="container margin-top-20 padding-top50 padding-bottom20 bg-efefef" id="sector_Course_Classify">
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h3 class="section-title">推荐课程</h3>
@@ -243,7 +243,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 padding-H2020">
-                <div class="border-edede5 bg-white">
+                <div class="border-edede5 bg-white" data-step="5" data-intro="一系列推荐课程也等着你来探索哦" data-position='top'>
                     <ul class="nav nav-tabs bg-f4f4f4" id="container_Course_Classify_TabHeader"></ul>
                     <div id="container_Course_Classify_TabContent" class="tab-content">
                     </div>
@@ -251,14 +251,14 @@
             </div>
         </div>
     </div>
-    <div class="container margin-top-20 padding-top50 padding-bottom50 bg-efefef">
+    <div class="container margin-top-20 padding-top50 padding-bottom50 bg-efefef" id="sector_App_Lab">
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h3 class="section-title">信心满满, 想试试自己编写完整的App吗? 试试艾酷App实验室吧!</h3>
             </div>
         </div>
         <div class="row padding-H2020">
-            <div class="col-sm-6 col-lg-7  padding-top20">
+            <div class="col-sm-6 col-lg-7  padding-top20" data-step="6" data-intro="App实验室可以让你编写自己的App与家人分享" data-position='top'>
                 <img src="images/background/applab.png" />
             </div>
             <div class="col-sm-6 col-lg-5 padding-top20">
@@ -286,6 +286,7 @@
             initHeader();
             initFooter();
             initPage();
+            _startIntroJs();
         });
     </script>
 </body>

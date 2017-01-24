@@ -13,11 +13,6 @@ var _gURLMapping = {
 
 var _gCID = null;
 
-/*
-'ikcoder/data/get_UrlMap.aspx?showall'
-<item group="account" key="reg" value="/Account/SET_Reg.aspx" queryparams="symbol|password|codevalue}codename"/>
-<item group="account" key="sign" value="/Account/GET_Sign.aspx" queryparams="symbol|password"/>
-<item group="account" key="signsstatus" value="Account/GET_SignStatus.aspx"/>*/
 function _initURLMapping() {
     $.ajax({
         type: 'GET',
@@ -191,6 +186,52 @@ function drawPolygon(context, n, x, y, r, a, c, fillStyle, strokeStyle) {
 
     context.restore();
     return vertex;
+}
+
+function _startIntroJs() {
+    var flag = true;
+    $('head').find('link').each(function (index, ele) {
+        if ($(ele).attr('href').indexOf('introjs.css') >= 0) {
+            flag = false;
+        }
+    });
+
+    if (flag) {
+        $('head').append('<link rel="stylesheet" href="intro.js-2.4.0/introjs.css">');
+        $.getScript("intro.js-2.4.0/intro.js", function () {
+            introJs().setOption('showButtons', true).start();
+        });
+    }
+
+    //$.ajax({
+    //    type: 'GET',
+    //    url: _getRequestURL(_gURLMapping.account.signsstatus),
+    //    data: '<root></root>',
+    //    success: function (data, status) {
+    //        /*
+    //        data: <root><username></username><firstsignin>1</firstsignin></root>
+    //        */
+    //        if ($(data).find('firstsignin').text() == "1") {
+    //            var flag = true;
+    //            $('head').find('link').each(function (index, ele) {
+    //                if ($(ele).attr('href').indexOf('introjs.css') >= 0) {
+    //                    flag = false;
+    //                }
+    //            });
+
+    //            if (flag) {
+    //                $('head').append('<link rel="stylesheet" href="intro.js-2.4.0/introjs.css">');
+    //                $.getScript("intro.js-2.4.0/intro.js", function () {
+    //                    introJs().setOption('showButtons', true).start();
+    //                });
+    //            }
+    //        }
+    //    },
+    //    dataType: 'xml',
+    //    xhrFields: {
+    //        withCredentials: true
+    //    }
+    //});
 }
 
 (function initCID() {
