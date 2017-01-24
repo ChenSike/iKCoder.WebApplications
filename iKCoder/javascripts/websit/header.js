@@ -246,7 +246,7 @@ function buildSignUpWindowHTML() {
 function buildCheckPhoneWindowHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="modal fade" id="mWindow_CheckPhoneNumber" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
-    tmpHtmlStrArr.push('    <div class="modal-dialog">');
+    tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_CheckPhone_Dialog">');
     tmpHtmlStrArr.push('        <div class="modal-content">');
     tmpHtmlStrArr.push('            <div class="modal-header" style="border:none; padding:0px;"></div>');
     tmpHtmlStrArr.push('            <div class="modal-body">');
@@ -355,7 +355,7 @@ function initSignInWindowEvent() {
         labelId: 'lb_ForgetPWD_CountDown',
         textId: 'txt_CheckPhoneNumber_Number',
         alertId: 'signinAlert',
-        windowId: 'mWindow_SignIn'
+        containerId: 'mWindow_SignIn_Dialog'
     };
     $('#btn_ForgetPWD_CountDown').on('click', fpParames, sendNoteCode);
     $(".js-password-btn").on('click', function () {
@@ -408,7 +408,7 @@ function initSignUpWindowEvent() {
         labelId: 'lb_CheckPhoneNumber_CountDown',
         textId: 'txt_ForgetPWD_PhoneNumber',
         alertId: 'checkPhoneAlert',
-        windowId: 'mWindow_CheckPhoneNumber'
+        containerId: 'mWindow_CheckPhone_Dialog'
     };
     $('#btn_CheckPhoneNumber_CountDown').on('click', cpnParames, sendNoteCode);
     $('#btn_CheckPhoneOK').on('click', passportEnter);
@@ -426,25 +426,25 @@ function signUp() {
     //return;
     $("#signupAlert").alert('close');
     if ($("#txt_SignUp_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入姓名!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入姓名!');
         return;
     }
 
     if ($("#txt_SignUp_PhoneNumber").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入手机号码!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入手机号码!');
         return;
     } else if (!_checkPhoneNumber($("#txt_SignUp_PhoneNumber").val().trim())) {
-        showAlertMessage('mWindow_SignUp', 'signupAlert', '不正确的手机号码!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '不正确的手机号码!');
         return;
     }
 
     if ($("#txt_SignUp_Pwd").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入密码!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
         return;
     }
 
     if ($("#txt_SignUp_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入验证码!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入验证码!');
         return;
     }
 
@@ -476,7 +476,7 @@ function signUp() {
         },
         error: function () {
             $("#signupAlert").alert('close');
-            showAlertMessage('mWindow_SignUp', 'signupAlert', '注册失败, 请联系客服!');
+            showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '注册失败, 请联系客服!');
         }
     });
 };
@@ -484,20 +484,20 @@ function signUp() {
 function signIn() {
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入手机号码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
         return;
     } else if (!_checkPhoneNumber($("#txt_SignIn_UserName").val().trim())) {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '不正确的手机号码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
         return;
     }
 
     if ($("#txt_SignIn_Password").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入密码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入密码!');
         return;
     }
 
     if ($("#txt_SignIn_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入验证码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入验证码!');
         return;
     }
 
@@ -521,7 +521,7 @@ function signIn() {
         },
         error: function () {
             $("#signinAlert").alert('close');
-            showAlertMessage('mWindow_SignIn', 'signinAlert', '无法登录, 请联系客服!');
+            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
         }
     });
 };
@@ -538,28 +538,28 @@ function openAgreement() {
 function updatePassword() {
     $("#signinAlert").alert('close');
     if ($("#txt_ForgetPWD_PhoneNumber").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入手机号码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
         return;
     } else if (!_checkPhoneNumber($("#txt_ForgetPWD_PhoneNumber").val().trim())) {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '不正确的手机号码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '不正确的手机号码!');
         return;
     }
 
     if ($("#txt_ForgetPWD_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入验证码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入验证码!');
         return;
     }
 
     if ($("#txt_ForgetPWD_NewPwd").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入新密码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入新密码!');
         return;
     }
 
     if ($("#txt_ForgetPWD_ConfirmPwd").val().trim() == "") {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '请确认新密码!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请确认新密码!');
         return;
     } else if ($("#txt_ForgetPWD_ConfirmPwd").val().trim() != $("#txt_ForgetPWD_NewPwd").val().trim()) {
-        showAlertMessage('mWindow_SignIn', 'signinAlert', '两次输入的密码不一致!');
+        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '两次输入的密码不一致!');
         return;
     }
 
@@ -583,7 +583,7 @@ function updatePassword() {
         },
         error: function () {
             $("#signinAlert").alert('close');
-            showAlertMessage('mWindow_SignIn', 'signinAlert', '无法登录, 请联系客服!');
+            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
         }
     });
 };
@@ -610,7 +610,7 @@ function sendNoteCode() {
             },
             error: function () {
                 $("#" + data.alertId).alert('close');
-                showAlertMessage(data.windowId, data.alertId, '发送验证码失败, 请重新尝试!');
+                showAlertMessage(data.containerId, data.alertId, '发送验证码失败, 请重新尝试!');
             }
         });
     }
@@ -631,7 +631,7 @@ function updateCountDown(data) {
 
 function passportEnter() {
     if ($("#txt_CheckPhoneNumber_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_CheckPhoneNumber', 'checkPhoneAlert', '请输入获取到的验证码!');
+        showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '请输入获取到的验证码!');
         return;
     }
 
@@ -655,7 +655,7 @@ function passportEnter() {
         },
         error: function () {
             $("#checkPhoneAlert").alert('close');
-            showAlertMessage('mWindow_CheckPhoneNumber', 'checkPhoneAlert', '无法进入, 请联系客服!');
+            showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '无法进入, 请联系客服!');
         }
     });
 };
@@ -707,7 +707,7 @@ function createUserInfoItem() {
     );
 
     $("#linkBtn_UserInfo").on('click', function () {
-        window.location.href = "studentcenter.html";
+        window.location.href = "studentcenter.html?cid=" + _gCID;
     });
 };
 

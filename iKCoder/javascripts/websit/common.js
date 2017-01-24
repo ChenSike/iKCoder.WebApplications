@@ -18,6 +18,26 @@ var _gCID = null;
 <item group="account" key="reg" value="/Account/SET_Reg.aspx" queryparams="symbol|password|codevalue}codename"/>
 <item group="account" key="sign" value="/Account/GET_Sign.aspx" queryparams="symbol|password"/>
 <item group="account" key="signsstatus" value="Account/GET_SignStatus.aspx"/>*/
+function _initURLMapping() {
+    $.ajax({
+        type: 'GET',
+        url: _gHostName + '/data/get_UrlMap.aspx?showall=1&cid=' + _gCID,
+        success: function (xml, status) {
+            for (var key in _gURLMapping) {
+                $(xml).find("item[group='" + key + "']").each(function (index, ele) {
+                    _gURLMapping[key][$(ele).attr('key')] = $(ele).attr('value');
+                });
+            }
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            alert('Fail to load URL Mapping.');
+        }
+    });
+}
 
 function _loadLabels() {
 
@@ -195,4 +215,6 @@ function drawPolygon(context, n, x, y, r, a, c, fillStyle, strokeStyle) {
             _gCID = window.top._gCID;
         }
     }
+
+    _initURLMapping();
 })();
