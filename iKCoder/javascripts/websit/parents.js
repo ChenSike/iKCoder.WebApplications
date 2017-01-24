@@ -537,49 +537,54 @@ function drawPotentialEvaluate(datas) {
 }
 
 function initTopWall() {
-    var data = [];
-    data.push({
-        id: 1,
-        name: 'Tom',
-        img: 'child_1.png'
-    });
+    var data = { id: 1, name: 'Tom', img: 'child_1.png' };
+    $('#img_Top_Child_Img').attr('src', 'images/children/' + data.img);
+    $('#lb_Top_Child_Name').text(data.name);
+    loadChildReport({ data: { id: data.id } });
 
-    data.push({
-        id: 2,
-        name: 'Jerry',
-        img: 'child_2.png'
-    });
+    //var data = [];
+    //data.push({
+    //    id: 1,
+    //    name: 'Tom',
+    //    img: 'child_1.png'
+    //});
 
-    var containerWidth = _childItemWidth * (data.length + 1);
-    var parentWidth = $($('#container_ChildrenList').parent()).width();
-    if (parentWidth > containerWidth) {
-        $('#container_ChildrenList').width('100%');;
-    } else {
-        $('#container_ChildrenList').width(containerWidth);
-    }
+    //data.push({
+    //    id: 2,
+    //    name: 'Jerry',
+    //    img: 'child_2.png'
+    //});
 
-    var firstItem = null;
-    var firstId = '';
-    for (var i = 0; i < data.length; i++) {
-        var tmpItem = $(buildChildItemHTML(data[i]));
-        //$('#container_ChildrenList').append(tmpItem);
-        $('#btn_ChildrenList_Add').before(tmpItem);
-        tmpItem.on('click', { id: data[i].id }, loadChildReport);
-        if (i == 0) {
-            firstItem = tmpItem;
-            firstId = data[i].id;
-        }
-    }
+    //var containerWidth = _childItemWidth * (data.length + 1);
+    //var parentWidth = $($('#container_ChildrenList').parent()).width();
+    //if (parentWidth > containerWidth) {
+    //    $('#container_ChildrenList').width('100%');;
+    //} else {
+    //    $('#container_ChildrenList').width(containerWidth);
+    //}
 
-    var funData = { id: "container_ChildrenList", step: _childItemWidth };
-    $('#arrow_Children_List_Left').on('click', funData, listMovePrev);
-    $('#arrow_Children_List_Right').on('click', funData, listMoveNext);
-    $('#btn_ChildrenList_Add').on('click', showAddSubAccountWindow);
-    if (firstItem) {
-        firstItem.addClass('active');
-    }
+    //var firstItem = null;
+    //var firstId = '';
+    //for (var i = 0; i < data.length; i++) {
+    //    var tmpItem = $(buildChildItemHTML(data[i]));
+    //    //$('#container_ChildrenList').append(tmpItem);
+    //    $('#btn_ChildrenList_Add').before(tmpItem);
+    //    tmpItem.on('click', { id: data[i].id }, loadChildReport);
+    //    if (i == 0) {
+    //        firstItem = tmpItem;
+    //        firstId = data[i].id;
+    //    }
+    //}
 
-    loadChildReport({ data: { id: firstId } });
+    //var funData = { id: "container_ChildrenList", step: _childItemWidth };
+    //$('#arrow_Children_List_Left').on('click', funData, listMovePrev);
+    //$('#arrow_Children_List_Right').on('click', funData, listMoveNext);
+    //$('#btn_ChildrenList_Add').on('click', showAddSubAccountWindow);
+    //if (firstItem) {
+    //    firstItem.addClass('active');
+    //}
+
+    //loadChildReport({ data: { id: firstId } });
 };
 
 function initEvents() {
@@ -608,7 +613,7 @@ function loadChildReport() {
 
     var userId = arguments[0].data.id;
     var data = {
-        id:1,
+        id: 1,
         date: '2017-1-1',
         rank: 80,
         name: 'Tom',

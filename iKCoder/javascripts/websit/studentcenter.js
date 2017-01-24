@@ -371,8 +371,8 @@ function initCourseClassifyList() {
     });
     var dataCmp = { id: 'Computer', title: '计算机基础', data: tmpData };
     var dataMath = { id: 'Math', title: '数学', data: tmpData };
-    var dataPhy = { id: 'Physics', title: '绘图', data: tmpData };
-    var dataPaint = { id: 'Paint', title: '物理', data: tmpData };
+    var dataPhy = { id: 'Physics', title: '物理', data: tmpData };
+    var dataPaint = { id: 'Paint', title: '绘图', data: tmpData };
     var dataLang = { id: 'Language', title: '语言学', data: tmpData };
     var data = [];
     data.push(dataCmp);

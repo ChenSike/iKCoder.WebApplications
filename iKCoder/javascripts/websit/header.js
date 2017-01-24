@@ -24,10 +24,10 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Home">' + _getLabel('首页') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + _getLabel('线上体验课') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + _getLabel('家长') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + _getLabel('教育工作者') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Student">' + _getLabel('学习') + '</a></li>');
+    tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + _getLabel('报告') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item dropdown">');
-    tmpHtmlStrArr.push('                    <a href="#" class="dropdown-toggle" id="linkBtn_About" data-toggle="dropdown">' + _getLabel('关于艾酷') + '<b class="caret"></b></a>');
+    tmpHtmlStrArr.push('                    <a href="#" class="dropdown-toggle" id="linkBtn_About" data-toggle="dropdown">' + _getLabel('关于') + '<b class="caret"></b></a>');
     tmpHtmlStrArr.push('                    <ul class="dropdown-menu">');
     tmpHtmlStrArr.push('                        <li class="nav-item"><a href="#" id="linkBtn_Product" style="font-weight:100;">' + _getLabel('艾酷教育平台') + '</a></li>');
     tmpHtmlStrArr.push('                        <li class="nav-item"><a href="#" id="linkBtn_AboutUs" style="font-weight:100;">' + _getLabel('关于我们') + '</a></li>');
@@ -320,9 +320,26 @@ function initNavBarEvent() {
             window.location.href = "parents.html?cid=" + _gCID;
         });
 
-    $("#linkBtn_Education").on('click',
+    $("#linkBtn_Student").on('click',
         function () {
-            window.location.href = "index.html?cid=" + _gCID;
+            window.location.href = "studentcenter.html?cid=" + _gCID;
+            /*
+            $.ajax({
+                type: 'POST',
+                url: _getRequestURL(_gURLMapping.account.signsstatus),
+                data: '<root></root>',
+                success: function (data, status) {                    
+                    window.location.href = "studentcenter.html?cid=" + _gCID;
+                },
+                dataType: 'xml',
+                xhrFields: {
+                    withCredentials: true
+                },
+                error: function () {
+                    updateUserInfor(false);
+                }
+            });
+            */
         });
 
     $("#linkBtn_Product").on('click',
