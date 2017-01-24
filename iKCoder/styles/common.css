@@ -917,7 +917,7 @@ header button .navbar-toggle {
     font-size: 16px;
     text-align: center;
     line-height: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
 }
 
 .text-signin-dialog-regist-link {
@@ -957,8 +957,21 @@ header button .navbar-toggle {
     border-radius: 5px;
 }
 
-.check-code-image{
-    height:28px;
+.check-code-image {
+    height: 30px;
+}
+
+.m-window-buttton{
+    background-color: rgb(139,195,74);
+    color: rgb(255,255,255);
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+#btn_CheckPhoneNumber_CountDown {
+    cursor: pointer;
 }
 
 @media screen and (min-width: 1960px) {

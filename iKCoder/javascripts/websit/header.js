@@ -8,7 +8,7 @@ var _checkCodeParams = {
     height: 30
 };
 
-function BuildHeaderHTML() {
+function buildHeaderHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<nav class="navbar navbar-default padding-top10 padding-bottom10" role="navigation">');
     tmpHtmlStrArr.push('    <div class="container-fluid">');
@@ -26,11 +26,11 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_OnlineCourse">' + _getLabel('线上体验课') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Parents">' + _getLabel('家长') + '</a></li>');
     tmpHtmlStrArr.push('                <li class="nav-item"><a href="#" id="linkBtn_Education">' + _getLabel('教育工作者') + '</a></li>');
-    tmpHtmlStrArr.push('                <li class="dropdown">');
+    tmpHtmlStrArr.push('                <li class="nav-item dropdown">');
     tmpHtmlStrArr.push('                    <a href="#" class="dropdown-toggle" id="linkBtn_About" data-toggle="dropdown">' + _getLabel('关于艾酷') + '<b class="caret"></b></a>');
     tmpHtmlStrArr.push('                    <ul class="dropdown-menu">');
-    tmpHtmlStrArr.push('                        <li><a href="#" id="linkBtn_Product">' + _getLabel('艾酷教育平台') + '</a></li>');
-    tmpHtmlStrArr.push('                        <li><a href="#" id="linkBtn_AboutUs">' + _getLabel('关于我们') + '</a></li>');
+    tmpHtmlStrArr.push('                        <li class="nav-item"><a href="#" id="linkBtn_Product" style="font-weight:100;">' + _getLabel('艾酷教育平台') + '</a></li>');
+    tmpHtmlStrArr.push('                        <li class="nav-item"><a href="#" id="linkBtn_AboutUs" style="font-weight:100;">' + _getLabel('关于我们') + '</a></li>');
     tmpHtmlStrArr.push('                    </ul>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
@@ -58,9 +58,9 @@ function BuildHeaderHTML() {
     tmpHtmlStrArr.push('    </div>');
     tmpHtmlStrArr.push('</nav>');
     $('header').append($(tmpHtmlStrArr.join('')));
-}
+};
 
-function BuildSignInWindowHTML() {
+function buildSignInWindowHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
     tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignIn_Dialog">');
@@ -92,7 +92,7 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignIn_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <div class="input-group-addon" style="width:auto; padding:0px;">');
+    tmpHtmlStrArr.push('                                    <div class="input-group-addon" style="width:130px; padding:0px;">');
     tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignIn_CheckCode" src="' + _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                                    </div>');
     tmpHtmlStrArr.push('                                </div>');
@@ -102,7 +102,7 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-3">');
     tmpHtmlStrArr.push('                                <div class="checkbox">');
     tmpHtmlStrArr.push('                                    <label>');
-    tmpHtmlStrArr.push('                                        <input type="checkbox" id="chk_SignIn_RememberMe">');
+    tmpHtmlStrArr.push('                                        <input type="checkbox" id="chk_SignIn_RememberMe" style="margin-top: 6px;">');
     tmpHtmlStrArr.push(_getLabel('记住我'));
     tmpHtmlStrArr.push('                                    </label>');
     tmpHtmlStrArr.push('                                </div>');
@@ -110,10 +110,8 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-3">');
     tmpHtmlStrArr.push('                                <a id="linkBtn_ForgetPwd" href="#"><p class="text-signin-dialog-title padding-bottom0">' + _getLabel('忘记密码') + '</p></a>');
     tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                            <div class="col-sm-2 col-sm-offset-4">');
-    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignInOK">');
-    tmpHtmlStrArr.push(_getLabel('登录'));
-    tmpHtmlStrArr.push('                                </button>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3 col-sm-offset-3">');
+    tmpHtmlStrArr.push('                                <div class="m-window-buttton" id="btn_SignInOK">' + _getLabel('登录') + '</div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
@@ -127,7 +125,7 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_ForgetPWD_CheckCode" placeholder="' + _getLabel('6位数验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-btn">' + _getLabel('获取验证码') + '</span>');
+    tmpHtmlStrArr.push('                                    <div class="input-group-addon" id="btn_ForgetPWD_CountDown">' + _getLabel('获取验证码') + '</div>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
@@ -145,10 +143,8 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group has-feedback">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-12 text-center">');
-    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-primary" id="btn_UpdatePwdOK">');
-    tmpHtmlStrArr.push(_getLabel('修改密码'));
-    tmpHtmlStrArr.push('                                </button>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-4 col-sm-offset-4 text-center">');
+    tmpHtmlStrArr.push('                                <div class="m-window-buttton" id="btn_UpdatePwdOK">' + _getLabel('修改密码') + '</div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
@@ -171,9 +167,9 @@ function BuildSignInWindowHTML() {
     tmpHtmlStrArr.push('</div>');
 
     $('body').append($(tmpHtmlStrArr.join('')));
-}
+};
 
-function BuildSignUpWindowHTML() {
+function buildSignUpWindowHTML() {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="modal fade " id="mWindow_SignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
     tmpHtmlStrArr.push('    <div class="modal-dialog" id="mWindow_SignUp_Dialog">');
@@ -215,7 +211,7 @@ function BuildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:auto; padding:0px;">');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:130px; padding:0px;">');
     tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignUp_CheckCode" src="' + _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams) + '" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
@@ -223,18 +219,21 @@ function BuildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <button type="button" class="btn btn-default" id="btn_SignUpOK">' + _getLabel('注册艾酷通行证') + ' </button>');
+    tmpHtmlStrArr.push('                                <div class="m-window-buttton" id="btn_SignUpOK">' + _getLabel('注册艾酷通行证') + '</div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <p>' + _getLabel('点击注册按钮, 即代表您同意《艾酷用户协议》') + ' </p>');
+    tmpHtmlStrArr.push('                                <p class="text-center">');
+    tmpHtmlStrArr.push(_getLabel('点击注册按钮, 即代表您同意'));
+    tmpHtmlStrArr.push('                                    <a href="#" id="linkBtn_IKCoder_Agreement"> ' + _getLabel('《艾酷用户协议》') + '</a>');
+    tmpHtmlStrArr.push('                                </p>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </form>');
     tmpHtmlStrArr.push('                </div>');
     tmpHtmlStrArr.push('            </div>');
-    tmpHtmlStrArr.push('            <div class="modal-footer bg-white" style="border:none;">');
+    tmpHtmlStrArr.push('            <div class="modal-footer bg-white" style="border:none; padding:0px;">');
     tmpHtmlStrArr.push('                <img src="images/background/footersub.png" />');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');
@@ -242,17 +241,70 @@ function BuildSignUpWindowHTML() {
     tmpHtmlStrArr.push('</div>');
 
     $('body').append($(tmpHtmlStrArr.join('')));
-}
+};
+
+function buildCheckPhoneWindowHTML() {
+    var tmpHtmlStrArr = [];
+    tmpHtmlStrArr.push('<div class="modal fade" id="mWindow_CheckPhoneNumber" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+    tmpHtmlStrArr.push('    <div class="modal-dialog">');
+    tmpHtmlStrArr.push('        <div class="modal-content">');
+    tmpHtmlStrArr.push('            <div class="modal-header" style="border:none; padding:0px;"></div>');
+    tmpHtmlStrArr.push('            <div class="modal-body">');
+    tmpHtmlStrArr.push('                <div class="container border-form-modal-dialog">');
+    tmpHtmlStrArr.push('                    <form role="form">');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <h4 class="text-center">' + _getLabel('验证手机') + '</h4>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <p class="text-center">' + _getLabel('请输入您收到的6位数字手机验证码') + '</p>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12" style="padding-bottom: 15px;">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_CheckPhoneNumber_Number" disabled placeholder="">');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_CheckPhoneNumber_CheckCode" placeholder="' + _getLabel('6位数字验证码') + '" />');
+    tmpHtmlStrArr.push('                                    <div class="input-group-addon" id="btn_CheckPhoneNumber_CountDown">' + _getLabel('获取验证码') + '</div>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-4 col-sm-offset-4 padding-top30 padding-bottom30 text-center">');
+    tmpHtmlStrArr.push('                                <div class="m-window-buttton" id="btn_CheckPhoneOK">' + _getLabel('进入艾酷') + '</div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                    </form>');
+    tmpHtmlStrArr.push('                </div>');
+    tmpHtmlStrArr.push('            </div>');
+    tmpHtmlStrArr.push('            <div class="modal-footer" style="border:none; padding:0px;"></div>');
+    tmpHtmlStrArr.push('        </div>');
+    tmpHtmlStrArr.push('    </div>');
+    tmpHtmlStrArr.push('</div>');
+    $('body').append($(tmpHtmlStrArr.join('')));
+};
 
 function initHeader() {
-    BuildHeaderHTML();
-    BuildSignInWindowHTML();
-    BuildSignUpWindowHTML();
+    buildHeaderHTML();
+    buildSignInWindowHTML();
+    buildSignUpWindowHTML();
+    buildCheckPhoneWindowHTML();
     initHeaderEvent();
     updateUserInfor();
-}
+};
 
-function initHeaderEvent() {
+function initNavBarEvent() {
     $("#linkBtn_Home").on('click',
         function () {
             window.location.href = "index.html?cid=" + _gCID;
@@ -283,6 +335,12 @@ function initHeaderEvent() {
         });
 
     $("#linkBtn_Search").on('click', headerSearch);
+};
+
+function initSignInWindowEvent() {
+    $("#img_SignIn_CheckCode").on('click', function () {
+        $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
+    });
 
     $("#linkBtn_ForgetPwd").on('click', function () {
         $('.sign-in-form').css('display', 'none');
@@ -291,16 +349,15 @@ function initHeaderEvent() {
 
     $("#btn_SignInOK").on('click', signIn);
     $("#linkBtn_SignUp").on('click', openSignUp);
-    $('#btn_UpdatePwdOK').on('click', updatePassword);
-    $("#img_SignIn_CheckCode").on('click', function () {
-        $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
-    });
 
-    $("#btn_SignUpOK").on('click', signUp);
-    $("#img_SignUp_CheckCode").on('click', function () {
-        $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
-    });
-
+    var fpParames = {
+        buttonId: 'btn_ForgetPWD_CountDown',
+        labelId: 'lb_ForgetPWD_CountDown',
+        textId: 'txt_CheckPhoneNumber_Number',
+        alertId: 'signinAlert',
+        windowId: 'mWindow_SignIn'
+    };
+    $('#btn_ForgetPWD_CountDown').on('click', fpParames, sendNoteCode);
     $(".js-password-btn").on('click', function () {
         if ($(".js-password-control").attr("type") == 'text') {
             $(".js-password-control").attr("type", "password");
@@ -311,6 +368,22 @@ function initHeaderEvent() {
             $("#btn_Show_Hide_Pwd").addClass('glyphicon-eye-open');
             $("#btn_Show_Hide_Pwd").removeClass('glyphicon-eye-close');
         }
+    });
+
+    $('#btn_UpdatePwdOK').on('click', updatePassword);
+    $('#mWindow_SignIn').on('show.bs.modal', reinitSignInFileds);
+    $('#mWindow_SignIn').on('hide.bs.modal', function () {
+        $("#signinAlert").alert('close');
+        $('.sign-in-form').css('display', 'block');
+        $('.sign-in-forget-pwd-form').css('display', 'none');
+    });
+};
+
+function initSignInWindowEvent() {
+    $("#linkBtn_IKCoder_Agreement").on('click', openAgreement);
+    $("#btn_SignUpOK").on('click', signUp);
+    $("#img_SignUp_CheckCode").on('click', function () {
+        $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
     });
 
     $(".js-password-signup-btn").on('click', function () {
@@ -325,20 +398,32 @@ function initHeaderEvent() {
         }
     });
 
-    $('#mWindow_SignIn').on('show.bs.modal', reinitSignInFileds);
-    $('#mWindow_SignIn').on('hide.bs.modal', function () {
-        $("#signinAlert").alert('close');
-        $('.sign-in-form').css('display', 'block');
-        $('.sign-in-forget-pwd-form').css('display', 'none');
-    });
-
     $('#mWindow_SignUp').on('show.bs.modal', reinitSignUpFileds);
     $('#mWindow_SignUp').on('hide.bs.modal', function () {
         $("#signupAlert").alert('close');
     });
-}
+
+    var cpnParames = {
+        buttonId: 'btn_CheckPhoneNumber_CountDown',
+        labelId: 'lb_CheckPhoneNumber_CountDown',
+        textId: 'txt_ForgetPWD_PhoneNumber',
+        alertId: 'checkPhoneAlert',
+        windowId: 'mWindow_CheckPhoneNumber'
+    };
+    $('#btn_CheckPhoneNumber_CountDown').on('click', cpnParames, sendNoteCode);
+    $('#btn_CheckPhoneOK').on('click', passportEnter);
+};
+
+function initHeaderEvent() {
+    initNavBarEvent();
+    initSignInWindowEvent();
+    initSignInWindowEvent();
+};
 
 function signUp() {
+    //$('#mWindow_CheckPhoneNumber').modal('show');
+    //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
+    //return;
     $("#signupAlert").alert('close');
     if ($("#txt_SignUp_UserName").val().trim() == "") {
         showAlertMessage('mWindow_SignUp', 'signupAlert', '请输入姓名!');
@@ -383,6 +468,7 @@ function signUp() {
             $("#signupAlert").alert('close');
             $('#mWindow_SignUp').modal('hide');
             $('#mWindow_CheckPhoneNumber').modal('show');
+            $('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
         },
         dataType: 'xml',
         xhrFields: {
@@ -393,7 +479,7 @@ function signUp() {
             showAlertMessage('mWindow_SignUp', 'signupAlert', '注册失败, 请联系客服!');
         }
     });
-}
+};
 
 function signIn() {
     $("#signinAlert").alert('close');
@@ -438,16 +524,141 @@ function signIn() {
             showAlertMessage('mWindow_SignIn', 'signinAlert', '无法登录, 请联系客服!');
         }
     });
-}
+};
 
 function openSignUp() {
     $('#mWindow_SignIn').modal('hide');
     $('#mWindow_SignUp').modal('show');
-}
+};
+
+function openAgreement() {
+
+};
 
 function updatePassword() {
+    $("#signinAlert").alert('close');
+    if ($("#txt_ForgetPWD_PhoneNumber").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入手机号码!');
+        return;
+    } else if (!_checkPhoneNumber($("#txt_ForgetPWD_PhoneNumber").val().trim())) {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '不正确的手机号码!');
+        return;
+    }
 
-}
+    if ($("#txt_ForgetPWD_CheckCode").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入验证码!');
+        return;
+    }
+
+    if ($("#txt_ForgetPWD_NewPwd").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请输入新密码!');
+        return;
+    }
+
+    if ($("#txt_ForgetPWD_ConfirmPwd").val().trim() == "") {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '请确认新密码!');
+        return;
+    } else if ($("#txt_ForgetPWD_ConfirmPwd").val().trim() != $("#txt_ForgetPWD_NewPwd").val().trim()) {
+        showAlertMessage('mWindow_SignIn', 'signinAlert', '两次输入的密码不一致!');
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.account.sign),
+        data: '<root>' +
+            '<username>' + $("#txt_ForgetPWD_PhoneNumber").val() + '</username>' +
+            '<password>' + $("#txt_ForgetPWD_NewPwd").val() + '</password>' +
+            '<codename>signincode</codename>' +
+            '<codename>' + $("#txt_ForgetPWD_CheckCode").val() + '</codename>' +
+            '</root>',
+        success: function (data, status) {
+            $("#signinAlert").alert('close');
+            $('.sign-in-form').css('display', 'block');
+            $('.sign-in-forget-pwd-form').css('display', 'none');
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            $("#signinAlert").alert('close');
+            showAlertMessage('mWindow_SignIn', 'signinAlert', '无法登录, 请联系客服!');
+        }
+    });
+};
+
+var intervalCode = {};
+function sendNoteCode() {
+    var data = arguments[0].data;
+    if (!intervalCode[data.buttonId] || intervalCode[data.buttonId] == 0) {
+        $('#' + data.buttonId).empty();
+        $('#' + data.buttonId).append('<strong id="' + data.labelId + '">60</strong>' + _getLabel('秒后重发'));
+        intervalCode[data.buttonId] = window.setInterval(function () {
+            updateCountDown(data);
+        }, 1000);
+        $.ajax({
+            type: 'POST',
+            url: _getRequestURL(_gURLMapping.account.sign),
+            data: '<root><username>' + $("#" + data.textId).val() + '</username></root>',
+            success: function (data, status) {
+                $("#" + data.alertId).alert('close');
+            },
+            dataType: 'xml',
+            xhrFields: {
+                withCredentials: true
+            },
+            error: function () {
+                $("#" + data.alertId).alert('close');
+                showAlertMessage(data.windowId, data.alertId, '发送验证码失败, 请重新尝试!');
+            }
+        });
+    }
+};
+
+function updateCountDown(data) {
+    var value = parseInt($('#' + data.labelId).text());
+    if (value == 0) {
+        $('#' + data.buttonId).empty();
+        $('#' + data.buttonId).text(_getLabel('获取验证码'));
+        window.clearInterval(intervalCode[data.buttonId]);
+        intervalCode[data.buttonId] = 0;
+    } else {
+        value -= 1;
+        $('#' + data.labelId).text(value + '');
+    }
+};
+
+function passportEnter() {
+    if ($("#txt_CheckPhoneNumber_CheckCode").val().trim() == "") {
+        showAlertMessage('mWindow_CheckPhoneNumber', 'checkPhoneAlert', '请输入获取到的验证码!');
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.account.sign),
+        data: '<root>' +
+            '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
+            '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
+            '<codename>signincode</codename>' +
+            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
+            '</root>',
+        success: function (data, status) {
+            $("#checkPhoneAlert").alert('close');
+            $('#mWindow_CheckPhoneNumber').modal('hide');
+            updateUserInfor(true);
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            $("#checkPhoneAlert").alert('close');
+            showAlertMessage('mWindow_CheckPhoneNumber', 'checkPhoneAlert', '无法进入, 请联系客服!');
+        }
+    });
+};
 
 function updateUserInfor(signed) {
     if (typeof signed != 'undefined') {
@@ -480,7 +691,7 @@ function updateUserInfor(signed) {
             }
         });
     }
-}
+};
 
 function createUserInfoItem() {
     $('#nav_Search_Item').before(
@@ -498,7 +709,7 @@ function createUserInfoItem() {
     $("#linkBtn_UserInfo").on('click', function () {
         window.location.href = "studentcenter.html";
     });
-}
+};
 
 function reinitSignInFileds() {
     $("#txt_SignIn_UserName").val('');
@@ -508,7 +719,7 @@ function reinitSignInFileds() {
     $("#txt_ForgetPWD_NewPwd").val('');
     $("#txt_ForgetPWD_ConfirmPwd").val('');
     $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
-}
+};
 
 function reinitSignUpFileds() {
     $("#txt_SignUp_UserName").val('');
@@ -516,7 +727,7 @@ function reinitSignUpFileds() {
     $("#txt_SignUp_Pwd").val('');
     $("#txt_SignUp_CheckCode").val('');
     $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
-}
+};
 
 function showAlertMessage(containerId, alertId, message) {
     $('#' + containerId).prepend(
@@ -527,8 +738,8 @@ function showAlertMessage(containerId, alertId, message) {
             '</div>'
         )
     );
-}
+};
 
 function headerSearch() {
 
-}
+};
