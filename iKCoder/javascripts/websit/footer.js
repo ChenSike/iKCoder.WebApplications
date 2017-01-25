@@ -24,11 +24,10 @@ function BuildFooterHTML() {
     tmpHtmlStrArr.push('                    <span style="font-weight:bold">iKCoder.Co (ShenZhen)</span>');
     tmpHtmlStrArr.push('                </p>');
     tmpHtmlStrArr.push('                <div class="socials">');
-    //tmpHtmlStrArr.push('                    <a href="#" title="Facebook"><i class="ion ion-social-facebook"></i></a>');weibo.png
-    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('微信') + '"><img src="images/icon/wechat.png"/></a>');
-    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('新浪微博') + '"><img src="images/icon/weibo.png"/></a>');
-    //tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('推特') + '"><i class="ion ion-social-twitter"></i></a>');
-    //tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('谷歌+') + '"><i class="ion ion-social-google"></i></a>');
+    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('微信') + '"><i class="fa fa-weixin fa-lg"></i></a>');
+    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('新浪微博') + '"><i class="fa fa-weibo fa-lg"></i></a>');
+    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('QQ') + '"><i class="fa fa-qq fa-lg"></i></a>');
+    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('人人') + '"><i class="fa fa-renren fa-lg"></i></a>');
     tmpHtmlStrArr.push('                </div>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');

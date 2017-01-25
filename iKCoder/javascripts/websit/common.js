@@ -80,6 +80,14 @@ function _getRequestURL(page, params) {
     return url;
 }
 
+function _checkUserName(name) {
+    if (!(/^[a-zA-Z]{1}[0-9a-zA-Z_]{3,}$/.test(phone))) {
+        return false;
+    }
+
+    return true;
+}
+
 function _checkPhoneNumber(phone) {
     if (!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) {
         return false;

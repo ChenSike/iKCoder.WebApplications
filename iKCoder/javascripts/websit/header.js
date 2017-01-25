@@ -35,7 +35,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li class="nav-item" id="nav_SignIn_Item">');
     tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_SignIn" data-toggle="modal" data-target="#mWindow_SignIn">');
-    tmpHtmlStrArr.push('                        <span class="glyphicon glyphicon-user"></span>');
+    tmpHtmlStrArr.push('                        <i class="fa fa-user fa-lg">&nbsp;</i></span>');
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
@@ -46,7 +46,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                                <div class="input-group">');
     tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
     tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
-    tmpHtmlStrArr.push('                                        <span class="glyphicon glyphicon-search"></span>');
+    tmpHtmlStrArr.push('                                        <span class="fa fa-search"></span>');
     tmpHtmlStrArr.push('                                    </a>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
