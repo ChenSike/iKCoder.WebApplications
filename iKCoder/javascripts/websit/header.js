@@ -715,7 +715,7 @@ function updateUserInfor(signed) {
     if (typeof signed != 'undefined') {
         if (signed) {
             $('li#nav_SignIn_Item').toggleClass('hidden');
-            if ($("li##nav_UserInfo_Item").length <= 0) {
+            if ($("li#nav_UserInfo_Item").length <= 0) {
                 createUserInfoItem();
             } else {
                 $('li#nav_UserInfo_Item').toggleClass('hidden');

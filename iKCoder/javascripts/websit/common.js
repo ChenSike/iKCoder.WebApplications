@@ -302,6 +302,6 @@ function _startIntroJs() {
         }
     }
 
-    //_registerRemoteServer();
+    _registerRemoteServer();
     //_initURLMapping();
 })();
