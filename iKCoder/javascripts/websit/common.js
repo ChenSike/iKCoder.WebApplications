@@ -1,8 +1,12 @@
 ﻿'use strict';
 
+var _gRegisterServer = false;
 var _gLabelMap = {};
 var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
 var _gURLMapping = {
+    server: {
+        reg: '/Sys/SYS_RegServer.aspx'
+    },
     account: {
         reg: '/Account/SET_Reg.aspx',
         sign: '/Account/GET_Sign.aspx',
@@ -33,6 +37,27 @@ function _initURLMapping() {
         }
     });
 }
+
+function _registerRemoteServer() {
+    if (!_gRegisterServer) {
+        $.ajax({
+            type: 'GET',
+            url: _getRequestURL(_gURLMapping.server.reg, { domain: window.location.origin }),
+            success: function (xml, status) {
+                alert('111');
+                _gRegisterServer = true;
+            },
+            dataType: 'string',
+            xhrFields: {
+                withCredentials: true
+            },
+            error: function () {
+                alert('Fail to regist remote server.');
+                _gRegisterServer = false;
+            }
+        });
+    }
+};
 
 function _loadLabels() {
 
@@ -269,5 +294,6 @@ function _startIntroJs() {
         }
     }
 
+    //_registerRemoteServer();
     //_initURLMapping();
 })();
