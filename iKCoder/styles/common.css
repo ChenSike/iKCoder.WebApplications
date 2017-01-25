@@ -889,6 +889,7 @@ button.close {
 
 .text-size-25 {
     font-size: 25px;
+    line-height: 28px;
 }
 
 .cursor-hand {
@@ -983,6 +984,10 @@ header button .navbar-toggle {
     font-weight: bold;
 }
 
+.qr-code-label {
+    text-align: center;
+}
+
 @media screen and (min-width: 1960px) {
     body {
         width: 1960px;
@@ -1060,6 +1065,12 @@ header button .navbar-toggle {
 @media (max-width: 480px) {
 }
 
+@media (max-width: 414px) {
+    .button-forgetpwd-getcheckcode {
+        left: 246px;
+    }
+}
+
 @media (max-width: 400px) {
 }
 
@@ -1067,10 +1078,8 @@ header button .navbar-toggle {
     .button-forgetpwd-getcheckcode {
         left: 207px;
     }
-}
 
-@media (max-width: 414px) {
-    .button-forgetpwd-getcheckcode {
-        left: 246px;
+    .qr-code-label {
+        font-size:13px;
     }
 }

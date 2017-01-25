@@ -504,6 +504,10 @@ p.app-lab-centent {
     p.app-lab-centent {
         font-size: 15px;
     }
+
+    .user-info-detail-title{
+        font-size:20px;
+    }
 }
 
 @media (max-width: 640px) {

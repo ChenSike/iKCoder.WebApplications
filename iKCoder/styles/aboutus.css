@@ -5,10 +5,10 @@
 }
 
 .text-sector-top {
-    position: relative;
-    top: -420px;
-    left: 980px;
-    font: bolder 36px '微软雅黑';
+    position: absolute;
+    top: 330px;
+    left: 1000px;
+    font: bolder 50px '微软雅黑';
 }
 
 .text-18 {
@@ -56,4 +56,79 @@
     font-size: 16px;
     line-height: 22px;
     padding-bottom: 30px;
+}
+
+.padding-sector-top-title {
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+
+@media screen and (min-width: 1960px) {
+}
+
+@media screen and (min-width: 1959px) and (min-height:1079px) {
+}
+
+@media screen and (max-width:1366px) {
+    .text-sector-top {
+        top: 200px;
+        left: 600px;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .text-sector-top {
+        top: 200px;
+        left: 500px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+}
+
+@media screen and (min-width: 992px) and (max-width:1199px) {
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+}
+
+@media screen and (max-width:768px) {
+    .padding-sector-top-title {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .text-sector-top {
+        top: 120px;
+        left: 300px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 540px) {
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-width: 414px) {
+    .text-sector-top {
+        top: 70px;
+        left: 180px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 375px) {
+    .text-sector-top {
+        top: 60px;
+        left: 150px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 414px) {
 }

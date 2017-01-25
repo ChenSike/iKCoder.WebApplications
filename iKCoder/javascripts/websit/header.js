@@ -40,7 +40,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
     tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
-    tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search">');
+    tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search" style="border: none;">');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group">');
@@ -99,7 +99,7 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3 col-xs-6">');
     tmpHtmlStrArr.push('                                <div class="checkbox">');
     tmpHtmlStrArr.push('                                    <label>');
     tmpHtmlStrArr.push('                                        <input type="checkbox" id="chk_SignIn_RememberMe" style="margin-top: 6px;">');
@@ -107,10 +107,10 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                                    </label>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                            <div class="col-sm-3">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3 col-xs-6">');
     tmpHtmlStrArr.push('                                <a id="linkBtn_ForgetPwd" href="#"><p class="text-signin-dialog-title padding-bottom0">' + _getLabel('忘记密码') + '</p></a>');
     tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                            <div class="col-sm-3 col-sm-offset-3">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-3  col-xs-12 col-sm-offset-3">');
     tmpHtmlStrArr.push('                                <div class="m-window-buttton" id="btn_SignInOK">' + _getLabel('登录') + '</div>');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
@@ -184,10 +184,10 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('            <div class="modal-body">');
     tmpHtmlStrArr.push('                <div class="container bg-white">');
     tmpHtmlStrArr.push('                    <div class="row padding-bottom30">');
-    tmpHtmlStrArr.push('                        <div class="col-sm-2 col-sm-offset-3">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-2 col-xs-4 col-sm-offset-3">');
     tmpHtmlStrArr.push('                            <img src="images/label/Addicon.png" />');
     tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                        <div class="col-sm-4">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-4 col-xs-7">');
     tmpHtmlStrArr.push('                            <h4 style="line-height:60px;">' + _getLabel('艾酷通行证') + '</h4>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </div>');
@@ -231,7 +231,7 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <p class="text-center">');
-    tmpHtmlStrArr.push(_getLabel('点击注册按钮, 即代表您同意'));
+    tmpHtmlStrArr.push(_getLabel('点击注册, 即代表您同意'));
     tmpHtmlStrArr.push('                                    <a href="#" id="linkBtn_IKCoder_Agreement"> ' + _getLabel('《艾酷用户协议》') + '</a>');
     tmpHtmlStrArr.push('                                </p>');
     tmpHtmlStrArr.push('                            </div>');

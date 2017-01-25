@@ -516,16 +516,80 @@ table.list-container {
             transition: color .2s ease, background .2s ease, padding .2s ease, border .2s ease, outline .2s ease, opacity .2s ease-in-out;
         }
 
-@media screen and (min-width: 1920px) {
+.bottom-container {
+    padding-top: 95px;
+}
+
+@media screen and (min-width: 1920px) and (max-height: 1080px) {
     .padding-v-dynamic {
-        padding-top: 300px;
-        padding-bottom: 200px;
+        padding-top: 350px;
+        padding-bottom: 290px;
     }
 }
 
 /*standby application*/
 
 @media screen and (min-width: 1200px) {
+}
+
+@media screen and (max-width:1366px) {
+    .text-report-achieve-number {
+        font-size: 110px;
+        line-height: 130px;
+    }
+
+    .report-focus-child-img-wrap {
+        top: 112px;
+        left: 34px;
+    }
+
+    .bottom-container {
+        margin-top: 150px;
+    }
+}
+
+@media screen and (max-width:1365px) {
+    .report-overview-rank-wrap {
+        display: none;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .text-report-achieve-number {
+        font-size: 90px;
+        line-height: 120px;
+    }
+
+    .bottom-container {
+        margin-top: 190px;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .padding-top200 {
+        padding-top: 50px;
+    }
+
+    .report-focus-child-img-wrap {
+        top: 119px;
+        left: 156px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .text-report-achieve-number {
+        font-size: 65px;
+        line-height: 100px;
+    }
+
+    .text-report-content-data.bigger {
+        line-height: 40px;
+    }
+
+    .report-focus-child-img-wrap {
+        top: 118px;
+        left: 72px;
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width:1199px) {
@@ -537,14 +601,197 @@ table.list-container {
 @media screen and (max-width:767px) {
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
 }
 
-@media (max-width: 540px) {
+@media screen and (max-width: 540px) {
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
 }
 
-@media (max-width: 400px) {
+@media screen and (max-width: 414px) {
+    .text-top-title-part-1 {
+        font-size: 30px;
+        line-height: 30px;
+    }
+
+    .text-top-title-part-2 {
+        font-size: 36px;
+        line-height: 36px;
+        padding-bottom: 50px;
+    }
+
+    .text-report-date {
+        text-align: center;
+    }
+
+    .text-report-sector-title {
+        text-align: center;
+    }
+
+    .text-report-overview-beyond {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .report-overview-child-img-container {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    #sector_Report_Overview .text-report-content.text-center {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .text-report-achieve-number {
+        font-size: 65px;
+        line-height: 100px;
+    }
+
+    .padding-top140 {
+        padding-top: 40px;
+    }
+
+    #sector_Report_Time .text-report-content {
+        line-height: 30px;
+        font-size: 18px;
+    }
+
+    .bottom-container {
+        padding-top: 0px;
+    }
+
+    .report-focus-child-img-wrap {
+        top: 12px;
+        left: 20px;
+        width: 76px;
+        height: 80px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+}
+
+@media screen and (max-width: 375px) {
+    .report-focus-child-img-wrap {
+        width: 67px;
+        height: 70px;
+    }
+
+    .report-focus-child-img-point {
+        width: 15px;
+        height: 15px;
+        top: -9px;
+        left: -1px;
+    }
+}
+
+/*for top panel fit single page*/
+@media screen and (max-height: 1366px) and (max-width:1024px) {
+    .padding-v-dynamic {
+        padding-top: 350px;
+        padding-bottom: 320px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 55px;
+        line-height: 55px;
+    }
+
+    .text-top-title-part-2 {
+        padding-bottom: 160px;
+        padding-top: 100px;
+    }
+}
+
+@media screen and (max-height: 1024px) {
+    .padding-v-dynamic {
+        padding-top: 200px;
+        padding-bottom: 190px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 55px;
+        line-height: 55px;
+    }
+
+    .text-top-title-part-2 {
+        padding-bottom: 100px;
+        padding-top: 50px;
+    }
+}
+
+@media screen and (max-height: 1024px) and (min-width:769px) and (max-width:1366px) {
+    .padding-v-dynamic {
+        padding-top: 220px;
+        padding-bottom: 215px;
+    }
+}
+
+@media screen and (max-height: 768px) {
+    .padding-v-dynamic {
+        padding-top: 150px;
+        padding-bottom: 125px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .text-top-title-part-2 {
+        padding-bottom: 80px;
+        padding-top: 20px;
+        font-size: 50px;
+        line-height: 50px;
+    }
+}
+
+@media screen and (max-height: 736px) {
+    .padding-v-dynamic {
+        padding-top: 150px;
+        padding-bottom: 170px;
+    }
+}
+
+@media screen and (max-height: 667px) {
+    .padding-v-dynamic {
+        padding-top: 100px;
+        padding-bottom: 120px;
+    }
+}
+
+@media screen and (max-height: 414px) {
+    .padding-v-dynamic {
+        padding-top: 20px;
+        padding-bottom: 15px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 36px;
+        line-height: 36px;
+    }
+
+    .text-top-title-part-2 {
+        font-size: 40px;
+        line-height: 40px;
+        padding-bottom: 0px;
+    }
+}
+
+@media screen and (max-height: 414px) {
+    .padding-v-dynamic {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 32px;
+        line-height: 32px;
+    }
 }

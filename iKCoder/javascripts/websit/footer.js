@@ -6,11 +6,11 @@ function BuildFooterHTML() {
     tmpHtmlStrArr.push('        <div class="container">');
     tmpHtmlStrArr.push('            <div>');
     tmpHtmlStrArr.push('                <p class="footer-hypelink">');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_About">' + _getLabel('关于艾酷') + '</a>');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_About">' + _getLabel('关于我们') + '</a>');
     tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_Product" style="padding-left:20px;">' + _getLabel('艾酷教育平台') + '</a>');
     tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_OnlineCourse" style="padding-left:20px;">' + _getLabel('线上体验课') + '</a>');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_Parents" style="padding-left:20px;">' + _getLabel('家长') + '</a>');
-    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_Education" style="padding-left:20px;">' + _getLabel('教育工作者') + '</a>');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_Student" style="padding-left:20px;">' + _getLabel('学习') + '</a>');
+    tmpHtmlStrArr.push('                    <a href="#" id="linkBtn_Foot_Parents" style="padding-left:20px;">' + _getLabel('报告') + '</a>');
     tmpHtmlStrArr.push('                </p>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');
@@ -27,8 +27,8 @@ function BuildFooterHTML() {
     //tmpHtmlStrArr.push('                    <a href="#" title="Facebook"><i class="ion ion-social-facebook"></i></a>');weibo.png
     tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('微信') + '"><img src="images/icon/wechat.png"/></a>');
     tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('新浪微博') + '"><img src="images/icon/weibo.png"/></a>');
-    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('推特') + '"><i class="ion ion-social-twitter"></i></a>');
-    tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('谷歌+') + '"><i class="ion ion-social-google"></i></a>');
+    //tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('推特') + '"><i class="ion ion-social-twitter"></i></a>');
+    //tmpHtmlStrArr.push('                    <a href="#" title="' + _getLabel('谷歌+') + '"><i class="ion ion-social-google"></i></a>');
     tmpHtmlStrArr.push('                </div>');
     tmpHtmlStrArr.push('            </div>');
     tmpHtmlStrArr.push('        </div>');
@@ -55,8 +55,8 @@ function initFooterEvent() {
         window.location.href = "parents.html";
     });
 
-    $("#linkBtn_Foot_Education").on('click', function () {
-        window.location.href = "index.html";
+    $("#linkBtn_Foot_Student").on('click', function () {
+        window.location.href = "studentcenter.html";
     });
 
     $("#linkBtn_Foot_Product").on('click', function () {

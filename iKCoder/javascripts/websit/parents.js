@@ -51,15 +51,15 @@ function buildOverViewRankGraphItem(symbol, count) {
 };
 
 function buildAchieveItemHTML(data, offsetFlag) {
-    var offset = (offsetFlag ? ' col-sm-offset-1' : '');
+    var offset = (offsetFlag ? ' col-lg-offset-1' : '');
     var tmpHTMLArr = [];
-    tmpHTMLArr.push('    <div class="col-sm-5' + offset + '">');
+    tmpHTMLArr.push('    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 col-sm-offset-0 col-md-offset-0 ' + offset + '">');
     tmpHTMLArr.push('        <div class="container">');
     tmpHTMLArr.push('            <div class="row">');
-    tmpHTMLArr.push('                <div class="col-sm-5">');
+    tmpHTMLArr.push('                <div class="col-xs-3 col-sm-4">');
     tmpHTMLArr.push('                    <p class="text-report-achieve-number">' + data.id + '</p>');
     tmpHTMLArr.push('                </div>');
-    tmpHTMLArr.push('                <div class="col-sm-7 padding-top20">');
+    tmpHTMLArr.push('                <div class="col-xs-9 col-sm-8 padding-top20">');
     tmpHTMLArr.push('                    <p class="text-report-subsector-title">' + data.title + '</p>');
     tmpHTMLArr.push('                    <p class="text-report-content">' + data.content + '</p>');
     tmpHTMLArr.push('                </div>');
@@ -90,16 +90,12 @@ function buildAchieveHTML(datas) {
 
 function buildAbilityCompCourseHTML(datas) {
     var tmpHTMLArr = [];
+    tmpHTMLArr.push('<div class="row">');
     for (var i = 0; i < datas.length; i++) {
-        if (i % 3 == 0) {
-            tmpHTMLArr.push('<div class="row">');
-        }
-
-        tmpHTMLArr.push('<div class="col-sm-4"><p class="text-report-content"><strong>[' + datas[i].id + ']</strong> ' + datas[i].name + '</p></div>');
-        if (i % 3 == 2) {
-            tmpHTMLArr.push('</div>');
-        }
+        tmpHTMLArr.push('<div class="col-xs-12 col-sm-6  col-md-6 col-lg-6 col-xl-4"><p class="text-report-content"><strong>[' + datas[i].id + ']</strong> ' + datas[i].name + '</p></div>');
     }
+
+    tmpHTMLArr.push('</div>');
 
     $('#container_Report_Ability_CompleteCourse').empty();
     $('#container_Report_Ability_CompleteCourse').append($(tmpHTMLArr.join('')));
