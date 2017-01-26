@@ -307,7 +307,7 @@ function initHeader() {
     buildSignUpWindowHTML();
     buildCheckPhoneWindowHTML();
     initHeaderEvent();
-    updateUserInfor();
+    updateUserInfor(false);
 };
 
 function initNavBarEvent() {
@@ -568,7 +568,7 @@ function signIn() {
         success: function (data, status) {
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
-            updateUserInfor(true);
+            updateUserInfor(true, data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -702,7 +702,7 @@ function passportEnter() {
         success: function (data, status) {
             $("#checkPhoneAlert").alert('close');
             $('#mWindow_CheckPhoneNumber').modal('hide');
-            updateUserInfor(true);
+            updateUserInfor(true, data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -715,12 +715,12 @@ function passportEnter() {
     });
 };
 
-function updateUserInfor(signed) {
+function updateUserInfor(signed, data) {
     if (typeof signed != 'undefined') {
         if (signed) {
             $('li#nav_SignIn_Item').toggleClass('hidden');
             if ($("li#nav_UserInfo_Item").length <= 0) {
-                createUserInfoItem();
+                createUserInfoItem(data);
             } else {
                 $('li#nav_UserInfo_Item').toggleClass('hidden');
             }
@@ -748,7 +748,7 @@ function updateUserInfor(signed) {
     }
 };
 
-function createUserInfoItem() {
+function createUserInfoItem(data) {
     $('#nav_Search_Item').before(
         $(
             '<li class="nav-item" id="nav_UserInfo_Item">' +

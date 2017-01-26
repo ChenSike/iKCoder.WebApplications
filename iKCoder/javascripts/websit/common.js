@@ -42,12 +42,13 @@ function _registerRemoteServer() {
     if (!_gRegisterServer) {
         $.ajax({
             type: 'GET',
+            data:'<root></root>',
             url: _getRequestURL(_gURLMapping.server.reg, { domain: window.location.origin }),
             success: function (xml, status) {
-                alert('111');
+                //alert('111');
                 _gRegisterServer = true;
             },
-            dataType: 'string',
+            dataType: 'xml',
             xhrFields: {
                 withCredentials: true
             },
