@@ -2,6 +2,10 @@
     background-color: rgb(31,34,39);
 }
 
+.navbar-default .navbar-nav > li > a {
+    color: rgb(255,255,255);
+}
+
 .padding-top140 {
     padding-top: 140px;
 }
