@@ -524,6 +524,13 @@ table.list-container {
     padding-top: 95px;
 }
 
+@media screen and (min-width: 2559px) and (min-height: 1439px) {
+    .report-focus-child-img-wrap {
+        top: 230px;
+        left: 210px;
+    }
+}
+
 @media screen and (min-width: 1920px) and (max-height: 1080px) {
     .padding-v-dynamic {
         padding-top: 350px;
