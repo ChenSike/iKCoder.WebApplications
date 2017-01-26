@@ -3,7 +3,7 @@
 var courseItemWidth = 222;
 var courseItemSpace = 20;
 var honerItemWidth = 140;
-var honerItemSpace = 0;
+var honerItemSpace = 30;
 
 function buildCarouselItemHTML(dataItem, index) {
     var active = '';
@@ -14,7 +14,7 @@ function buildCarouselItemHTML(dataItem, index) {
     var symbol = index + 1;
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="item' + active + '">');
-    tmpHtmlStrArr.push('    <div class="container" style="background-color:rgb(' + dataItem.bgColor + ');">');
+    tmpHtmlStrArr.push('    <div class="container padding-H6565" style="background-color:rgb(' + dataItem.bgColor + ');">');
     tmpHtmlStrArr.push('        <div class="row padding-H5050">');
     tmpHtmlStrArr.push('            <div class="col-sm-6">');
     tmpHtmlStrArr.push('                <div class="container padding-top50">');

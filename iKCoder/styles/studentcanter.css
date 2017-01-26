@@ -9,6 +9,11 @@
         border-color: rgb(255,255,255);
     }
 
+.container-distance {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .carousel-indicators .active {
     margin-right: 5px;
 }
@@ -52,6 +57,7 @@
     height: 180px;
     width: 140px;
     display: inline-block;
+    margin-right: 30px;
 }
 
 .honor-item-title {
@@ -284,7 +290,7 @@ span.user-course-datapoint {
 
 .user-course-container .border-right {
     border-right: 2px solid rgb(237,237,227);
-    display:inline-block;
+    display: inline-block;
 }
 
 .canvas-container {
@@ -444,7 +450,7 @@ p.app-lab-centent {
     padding-left: 20px;
 }
 
-.margin-top-10{
+.margin-top-10 {
     margin-top: -10px;
 }
 
@@ -505,8 +511,8 @@ p.app-lab-centent {
         font-size: 15px;
     }
 
-    .user-info-detail-title{
-        font-size:20px;
+    .user-info-detail-title {
+        font-size: 20px;
     }
 }
 

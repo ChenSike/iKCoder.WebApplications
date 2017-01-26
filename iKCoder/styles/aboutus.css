@@ -11,6 +11,11 @@
     font: bolder 50px '微软雅黑';
 }
 
+.text-15 {
+    font-size: 15px;
+    line-height: 20px;
+}
+
 .text-18 {
     font-size: 18px;
     line-height: 20px;

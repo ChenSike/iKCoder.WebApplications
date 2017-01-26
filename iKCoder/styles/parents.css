@@ -204,7 +204,7 @@ table.list-container {
 }
 
 .text-report-content {
-    font-size: 20px;
+    font-size: 15px;
     /*font-weight: bold;*/
     color: rgb(0,0,0);
 }
@@ -462,8 +462,8 @@ table.list-container {
 
 .report-focus-child-img-wrap {
     position: absolute;
-    top: 23px;
-    left: 40px;
+    top: 118px;
+    left: 85px;
     width: 115px;
     height: 135px;
     background: rgb(159,224,245) no-repeat -8px;
@@ -692,6 +692,23 @@ table.list-container {
 }
 
 /*for top panel fit single page*/
+@media screen and (min-height: 1439px) {
+    .padding-v-dynamic {
+        padding-top: 477px;
+        padding-bottom: 400px;
+    }
+
+    .text-top-title-part-1 {
+        font-size: 80px;
+        line-height: 100px;
+    }
+
+    .text-top-title-part-2 {
+        font-size: 120px;
+        line-height: 160px;
+    }
+}
+
 @media screen and (max-height: 1366px) and (max-width:1024px) {
     .padding-v-dynamic {
         padding-top: 350px;

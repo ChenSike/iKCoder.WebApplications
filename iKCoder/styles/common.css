@@ -32,6 +32,10 @@ body {
     background: rgb(230,230,230) no-repeat center;
 }
 
+.bg-all-242 {
+    background: rgb(242,242,242) no-repeat center;
+}
+
 .bg-img {
     position: relative;
     background-color: rgb(36,36,36);
@@ -846,6 +850,11 @@ button.close {
     padding-right: 50px;
 }
 
+.padding-H6565 {
+    padding-left: 65px;
+    padding-right: 65px;
+}
+
 .padding-left50 {
     padding-left: 50px;
 }
@@ -988,7 +997,22 @@ header button .navbar-toggle {
     text-align: center;
 }
 
-@media screen and (min-width: 1960px) {
+.width-perc-70 {
+    max-width: 70%;
+}
+
+.vertical-align-middel {
+    transform: translateY(50%);
+}
+
+@media screen and (min-width: 2559px) {
+    body {
+        width: 2560px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 1960px)  and (min-width: 1960px){
     body {
         width: 1960px;
         margin: auto;
@@ -1000,13 +1024,32 @@ header button .navbar-toggle {
     }
 }
 
-@media screen and (min-width: 1959px) and (min-height:1079px) {
+@media screen and (max-width: 1959px) and (min-height:1079px) {
     .modal-dialog {
         margin-top: 20%;
     }
 }
 
+@media screen and (min-width: 1600px) {
+    .padding-1600-h50 {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
 @media screen and (min-width: 1200px) {
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1599px) {
+    .vertical-align-middel {
+        transform: translateY(40%);
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .vertical-align-middel {
+        transform: translateY(0%);
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width:1199px) {
@@ -1080,6 +1123,6 @@ header button .navbar-toggle {
     }
 
     .qr-code-label {
-        font-size:13px;
+        font-size: 13px;
     }
 }
