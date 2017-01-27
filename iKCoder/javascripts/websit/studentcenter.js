@@ -24,7 +24,7 @@ function buildCarouselItemHTML(dataItem, index) {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </div>');
     tmpHtmlStrArr.push('                    <div class="row padding-bottom30">');
-    tmpHtmlStrArr.push('                        <div class="col-sm-12 text-white text-size-25">');
+    tmpHtmlStrArr.push('                        <div class="col-sm-12 text-white text-size-20">');
     tmpHtmlStrArr.push('                            <p>' + dataItem.content + '</p>');
     tmpHtmlStrArr.push('                            <p>知识点: ' + dataItem.keys + '</p>');
     tmpHtmlStrArr.push('                            <p>难度: ' + dataItem.diff + '</p>');
