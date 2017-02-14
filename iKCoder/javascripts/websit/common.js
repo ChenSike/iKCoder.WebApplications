@@ -98,14 +98,19 @@ function _checkPhoneNumber(phone) {
 }
 
 function _checkPassword(pwd) {
-    if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){6}$/.test(pwd)) {
-        return 3;
-    } else if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){6}$/.test(pwd)) {
-        return 2;
-    } else if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&*]+){6}$/.test(pwd)) {
-        return 1;
+    pwd=pwd.trim();
+    if (pwd.length < 8 || pwd.length > 16) {
+        return -2;
     } else {
-        return -1;
+        if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\d!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){8}$/.test(pwd)) {
+            return 3;
+        } else if (/^((?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+){8}$/.test(pwd)) {
+            return 2;
+        } else if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&*]+){8}$/.test(pwd)) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
 

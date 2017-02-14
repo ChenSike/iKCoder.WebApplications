@@ -2,9 +2,9 @@
 
 var _checkSigned = '';
 var _checkCodeParams = {
-    length: 8,
+    length: 4,
     name: 'signincode',
-    width: 130,
+    width: 70,
     height: 30
 };
 
@@ -92,7 +92,7 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
     tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignIn_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <div class="input-group-addon" style="width:130px; padding:0px;">');
+    tmpHtmlStrArr.push('                                    <div class="input-group-addon" style="width:70px; padding:0px;">');
     tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignIn_CheckCode" src="" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                                    </div>');
     tmpHtmlStrArr.push('                                </div>');
@@ -194,21 +194,15 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                    <form class="form-horizontal" role="form">');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_UserName" placeholder="' + _getLabel('姓名') + '" />');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_PhoneNumber" placeholder="' + _getLabel('请输入用于登录的手机号码') + '" />');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_PhoneNumber" placeholder="' + _getLabel('手机号码(仅支持中国大陆)') + '" />');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <div class="input-group">');
-    tmpHtmlStrArr.push('                                    <input class="form-control js-password-signup-control" id="txt_SignUp_Pwd" name="signup_pwd_new_pwd" type="password" placeholder="' + _getLabel('密码(不少于6位)') + '" aria-describedby="basic-addon1">');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-signup-btn">');
-    tmpHtmlStrArr.push('                                        <i class="label-pwd-intension" id="lb_SignUp_Pwd_Intension"></i>');
-    tmpHtmlStrArr.push('                                        <i class="glyphicon glyphicon-eye-close" id="btn_SignUp_Show_Hide_Pwd"></i>');
+    tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_CheckCode" placeholder="' + _getLabel('图片识别码') + '" />');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:70px; padding:0px;">');
+    tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignUp_CheckCode" src="" title="' + _getLabel('点击刷新验证码') + '">');
     tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
@@ -216,9 +210,25 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <div class="input-group" style="width:100%;">');
-    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_CheckCode" placeholder="' + _getLabel('验证码') + '" />');
-    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:130px; padding:0px;">');
-    tmpHtmlStrArr.push('                                        <img class="cursor-hand check-code-image" id="img_SignUp_CheckCode" src="" title="' + _getLabel('点击刷新验证码') + '">');
+    tmpHtmlStrArr.push('                                    <input type="text" class="form-control" id="txt_SignUp_NoteCode" placeholder="' + _getLabel('输入短信中的验证码') + '" />');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon" style="width:100px; padding:0px;margin-right:1px;">');
+    tmpHtmlStrArr.push('                                        <div class="m-window-buttton" id="btn_SignUp_NoteCode">' + _getLabel('发送验证码') + '</div>');
+    tmpHtmlStrArr.push('                                    </span>');
+    tmpHtmlStrArr.push('                                </div>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignUp_UserName" placeholder="' + _getLabel('起一个具有辨识度的用户名') + '" />');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                        </div>');
+    tmpHtmlStrArr.push('                        <div class="form-group">');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <div class="input-group">');
+    tmpHtmlStrArr.push('                                    <input class="form-control js-password-signup-control" id="txt_SignUp_Pwd" name="signup_pwd_new_pwd" type="password" placeholder="' + _getLabel('输入8-16位密码，需包含字母及数字') + '" aria-describedby="basic-addon1">');
+    tmpHtmlStrArr.push('                                    <span class="input-group-addon js-password-signup-btn">');
+    tmpHtmlStrArr.push('                                        <i class="label-pwd-intension" id="lb_SignUp_Pwd_Intension"></i>');
+    tmpHtmlStrArr.push('                                        <i class="glyphicon glyphicon-eye-close" id="btn_SignUp_Show_Hide_Pwd"></i>');
     tmpHtmlStrArr.push('                                    </span>');
     tmpHtmlStrArr.push('                                </div>');
     tmpHtmlStrArr.push('                            </div>');
@@ -231,7 +241,13 @@ function buildSignUpWindowHTML() {
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
     tmpHtmlStrArr.push('                                <p class="text-center">');
-    tmpHtmlStrArr.push(_getLabel('点击注册, 即代表您同意'));
+    tmpHtmlStrArr.push(_getLabel('已有艾酷通行证?'));
+    tmpHtmlStrArr.push('                                    <a href="#" id="linkBtn_Goto_Login"> ' + _getLabel('登录') + '</a>');
+    tmpHtmlStrArr.push('                                </p>');
+    tmpHtmlStrArr.push('                            </div>');
+    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    tmpHtmlStrArr.push('                                <p class="text-center">');
+    tmpHtmlStrArr.push(_getLabel('同意'));
     tmpHtmlStrArr.push('                                    <a href="#" id="linkBtn_IKCoder_Agreement"> ' + _getLabel('《艾酷用户协议》') + '</a>');
     tmpHtmlStrArr.push('                                </p>');
     tmpHtmlStrArr.push('                            </div>');
@@ -408,6 +424,7 @@ function initSignInWindowEvent() {
 
 function initSignUpWindowEvent() {
     $("#linkBtn_IKCoder_Agreement").on('click', openAgreement);
+    $("#linkBtn_Goto_Login").on('click', openSignIn);
     $("#btn_SignUpOK").on('click', signUp);
     $("#img_SignUp_CheckCode").on('click', function () {
         $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
@@ -435,14 +452,13 @@ function initSignUpWindowEvent() {
     });
 
     var cpnParames = {
-        buttonId: 'btn_CheckPhoneNumber_CountDown',
-        labelId: 'lb_CheckPhoneNumber_CountDown',
-        textId: 'txt_ForgetPWD_PhoneNumber',
-        alertId: 'checkPhoneAlert',
-        containerId: 'mWindow_CheckPhone_Dialog'
+        buttonId: 'btn_SignUp_NoteCode',
+        labelId: 'lb_SignUp_NoteCode_CountDown',
+        textId: 'txt_SignUp_PhoneNumber',
+        alertId: 'signupAlert',
+        containerId: 'mWindow_SignUp_Dialog'
     };
-    $('#btn_CheckPhoneNumber_CountDown').on('click', cpnParames, sendNoteCode);
-    $('#btn_CheckPhoneOK').on('click', passportEnter);
+    $('#btn_SignUp_NoteCode').on('click', cpnParames, sendNoteCode);
 };
 
 function initHeaderEvent() {
@@ -470,19 +486,29 @@ function signUp() {
     //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
     //return;
     $("#signupAlert").alert('close');
-    if ($("#txt_SignUp_UserName").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入姓名!');
-        return;
-    }
-
     if ($("#txt_SignUp_PhoneNumber").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入手机号码!');
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入用于登录的手机号码!');
         return;
     } else if (!_checkPhoneNumber($("#txt_SignUp_PhoneNumber").val().trim())) {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '不正确的手机号码!');
         return;
     }
 
+    if ($("#txt_SignUp_CheckCode").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入图片识别码!');
+        return;
+    }
+
+    if ($("#txt_SignUp_NoteCode").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入短信验证码!');
+        return;
+    }
+
+    if ($("#txt_SignUp_UserName").val().trim() == "") {
+        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入用户名!');
+        return;
+    }
+    
     if ($("#txt_SignUp_Pwd").val().trim() == "") {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
         return;
@@ -492,11 +518,6 @@ function signUp() {
             showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '密码不符合要求，请重新输入!');
             return;
         }
-    }
-
-    if ($("#txt_SignUp_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入验证码!');
-        return;
     }
 
     var params = {
@@ -514,6 +535,7 @@ function signUp() {
             '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
             '<codename>signincode</codename>' +
             '<codevalue>' + $("#txt_SignUp_CheckCode").val() + '</codevalue>' +
+            '<notecode>' + $("#txt_SignUp_NoteCode").val() + '</notecode>' +
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
@@ -522,8 +544,9 @@ function signUp() {
             }
             $("#signupAlert").alert('close');
             $('#mWindow_SignUp').modal('hide');
-            $('#mWindow_CheckPhoneNumber').modal('show');
-            $('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
+            //$('#mWindow_CheckPhoneNumber').modal('show');
+            //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
+            updateUserInfor(true, data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -580,6 +603,11 @@ function signIn() {
         }
     });
 };
+
+function openSignIn() {
+    $('#mWindow_SignIn').modal('show');
+    $('#mWindow_SignUp').modal('hide');
+}
 
 function openSignUp() {
     $('#mWindow_SignIn').modal('hide');

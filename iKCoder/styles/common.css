@@ -964,8 +964,6 @@ header button .navbar-toggle {
     border: 1px solid rgb(230,230,230);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 
@@ -973,6 +971,13 @@ header button .navbar-toggle {
     height: 30px;
     padding-right: 1px;
     border-radius: 5px;
+}
+
+#btn_SignUp_MsgCode {
+    margin-right: 1px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .m-window-buttton {
@@ -1012,21 +1017,21 @@ header button .navbar-toggle {
     }
 }
 
-@media screen and (max-width: 1960px)  and (min-width: 1960px){
+@media screen and (max-width: 1960px) and (min-width: 1960px) {
     body {
         width: 1960px;
         margin: auto;
     }
 
     .modal-dialog {
-        width: 960px;
-        margin: 30px auto;
+        /*width: 960px;
+        margin: 30px auto;*/
     }
 }
 
 @media screen and (max-width: 1959px) and (min-height:1079px) {
     .modal-dialog {
-        margin-top: 20%;
+        /*margin-top: 20%;*/
     }
 }
 
