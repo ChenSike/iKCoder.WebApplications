@@ -232,7 +232,7 @@ Blockly.Css.CONTENT = [
     'fill: #fff;',
     //'font-family: sans-serif;',
     //'font-size: 11pt;',
-    'font-family: 微软雅黑;',
+    'font-family: Simsun;',
     'font-size: 14px;',
   '}',
 

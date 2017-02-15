@@ -152,6 +152,7 @@ var Scene = {
         }
     },
     screenObjPool: ScreenObjPool,
+    config: { roadCount: 9, carCount: 9 },
     resource: { car: [], block: [], player: [], saint: null, soldier: null, road: null },
     SCORE: 0,
     laneCfg: [],
@@ -638,6 +639,14 @@ var Scene = {
         if (!success) {
             this.playerCfg.resource = [this.resource.player[0]];
         }
+    },
+
+    setConfig_RoadCount: function (count) {
+        this.config.roadCount = count;
+    },
+
+    setConfig_CarCount: function (count) {
+        this.config.carCount = count;
     },
 
     setRandomLane: function (randomFlag) {

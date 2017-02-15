@@ -1,4 +1,41 @@
-'use strict';
+﻿'use strict';
+
+Blockly.Blocks['race_roads'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("车道数量 [常量] : ")
+            .appendField(new Blockly.FieldNumber('9', 1, 9, 1), "race_roads_count");
+        this.setInputsInline(true);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setEditable(false);
+        this.setDeletable(false);
+    }
+};
+
+Blockly.JavaScript['race_roads'] = function (block) {
+    var value = block.getFieldValue('race_roads_count');
+    return 'Scene.setConfig_RoadCount(' + value + ');\n';
+};
+
+Blockly.Blocks['race_cars'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("汽车数量 [变量] : ")
+            .appendField(new Blockly.FieldNumber('9', 1, 9, 1), "race_cars_count");
+        this.setInputsInline(true);
+        this.setTooltip('');
+        this.setHelpUrl('');
+        this.setEditable(true);
+        this.setDeletable(false);
+    }
+};
+
+Blockly.JavaScript['race_roads'] = function (block) {
+    var value = block.getFieldValue('race_cars_count');
+    return 'Scene.setConfig_CarCount(' + value + ');\n';
+};
+
 
 Blockly.Blocks['race_player'] = {
     init: function () {
@@ -86,10 +123,10 @@ Blockly.Blocks['race_resource'] = {
     },
 
     updateImage_: function (option) {
-        if (option.indexOf("block")==0) {            
+        if (option.indexOf("block") == 0) {
             this.inputList[0].fieldRow[2].setConstraints(40, 40, 40);
             this.inputList[0].fieldRow[4].setConstraints(40, 40, 40);
-        } else {            
+        } else {
             this.inputList[0].fieldRow[2].setConstraints(80, 120, 1);
             this.inputList[0].fieldRow[4].setValue(120, 200, 1);
         }
@@ -146,18 +183,18 @@ Blockly.Blocks['race_lane_setting'] = {
 Blockly.JavaScript['race_lane_setting'] = function (block) {
     var code = "Scene.initLane();\n";
     var flag = false;
-    var endStr =  "]);\n";
+    var endStr = "]);\n";
     for (var i = 1; i < 10; i++) {
         var statements_lane = Blockly.JavaScript.statementToCode(block, 'race_lane_setting_' + i);
         statements_lane = statements_lane.split("|");
-        if(statements_lane.length > 2){
+        if (statements_lane.length > 2) {
             endStr = "]\n);\n";
-        }else{
+        } else {
             endStr = "]);\n";
         }
         statements_lane = statements_lane.join(",");
         statements_lane = statements_lane.substr(0, statements_lane.length - 1).replace(/},{/g, "},\n{");
-        statements_lane = "Scene.setLaneConfig(" + i + ", [" + statements_lane +endStr;
+        statements_lane = "Scene.setLaneConfig(" + i + ", [" + statements_lane + endStr;
         code += statements_lane;
     }
 
