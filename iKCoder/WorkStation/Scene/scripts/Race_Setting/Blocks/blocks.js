@@ -4,7 +4,8 @@ Blockly.Blocks['race_roads'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("车道数量 [常量] : ")
-            .appendField(new Blockly.FieldNumber('9', 1, 9, 1), "race_roads_count");
+            .appendField(new Blockly.FieldNumber('8', 1, 8, 1), "race_roads_count");
+        this.setColour(20);
         this.setInputsInline(true);
         this.setTooltip('');
         this.setHelpUrl('');
@@ -22,7 +23,8 @@ Blockly.Blocks['race_cars'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("汽车数量 [变量] : ")
-            .appendField(new Blockly.FieldNumber('9', 1, 9, 1), "race_cars_count");
+            .appendField(new Blockly.FieldNumber('0', 0, 8, 1), "race_cars_count");
+        this.setColour(230);
         this.setInputsInline(true);
         this.setTooltip('');
         this.setHelpUrl('');
@@ -31,7 +33,7 @@ Blockly.Blocks['race_cars'] = {
     }
 };
 
-Blockly.JavaScript['race_roads'] = function (block) {
+Blockly.JavaScript['race_cars'] = function (block) {
     var value = block.getFieldValue('race_cars_count');
     return 'Scene.setConfig_CarCount(' + value + ');\n';
 };

@@ -75,7 +75,7 @@ WorkScene.init = function () {
 
     window.addEventListener('resize', onresize, false);
     //var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("xml/blocks.xml")));
-    var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"> <block type="race_resource"></block></xml>');
+    var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
     WorkScene.workspace = Blockly.inject('content_blocks',
         {
             scrollbars: true,
@@ -119,6 +119,7 @@ WorkScene.init = function () {
     // var defaultXml = XMLToString(LoadXMLFile("xml/default.xml"));
     var defaultXml = '<xml>' +
                             '   <block type="race_roads" deletable="false" x="20" y="20"/>' +
+                            '   <block type="race_cars" deletable="false" x="20" y="60"/>' +
                             '</xml>';
 
 
@@ -146,11 +147,11 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
 
-    Scene.init('game_container');
+    Scene.init('game_container', false);
+    Scene.loadResource();
     Scene.startRun();
     Scene.initLane();
     Scene.initPlayer();
-    Scene.loadResource();
 };
 
 WorkScene.startGame = function () {

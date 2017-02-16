@@ -1,5 +1,49 @@
 'use strict';
 
+var Game = { default: null, scale: 1, current: {} };
+Game.default = {
+    roadCount: 8,
+    carCount: 8,
+    playerCount: 1,
+    canvasSize: { w: 500, h: 580 },
+    backgroundSize: { w: 500, h: 580 },
+    itemSize: { w: 40, h: 85 },
+    space: { l: 25, r: 25, t: 10, b: 10, line: 5, cs:1},
+    min: { w: 150, h: null },
+    speed: { n: 80, min: 80, max: 180 }
+};
+
+/*
+{
+    roadCount: 8,
+    carCount: 8,
+    playerCount: 1,
+    canvasSize: { w: 500, h: 580 },
+    speed: { n: 80, min: 80, max: 180 }
+}
+*/
+function SetGameConfig(cfgObj) {
+    var ws = cfgObj.canvasSize.w / Game.default.canvasSize.w;
+    var hs = cfgObj.canvasSize.h / Game.default.canvasSize.h;
+    Game.scale = ws;
+    Game.current.canvasSize = { w: cfgObj.canvasSize.w, h: cfgObj.canvasSize.h };
+    Game.current.backgroundSize = { w: cfgObj.canvasSize.w, h: Game.default.backgroundSize.h * hs };
+    Game.current.itemSize = { w: Game.default.itemSize.w * Game.scale, h: Game.default.itemSize.h * Game.scale };
+    Game.current.roadCount = cfgObj.roadCount;
+    Game.current.carCount = cfgObj.carCount;
+    Game.current.playerCount = cfgObj.playerCount;
+    Game.current.speed = Game.default.speed;
+    Game.current.speed.n = (cfgObj.speed.n ? cfgObj.speed.n : Game.default.speed.n);
+    Game.current.speed.min = (cfgObj.speed.min ? cfgObj.speed.min : Game.default.speed.min);
+    Game.current.speed.max = (cfgObj.speed.max ? cfgObj.speed.max : Game.default.speed.max);
+    Game.current.space = Game.default.space;
+    Game.current.space.l = Game.default.space.l * Game.scale;
+    Game.current.space.r = Game.default.space.r * Game.scale;
+    var tmpS = Game.current.backgroundSize.w - Game.current.space.l - Game.current.space.r - Game.current.space.line * (Game.current.roadCount - 1);
+    tmpS = tmpS / Game.current.roadCount;
+    Game.current.space.cs = Math.floor((tmpS - Game.current.itemSize.w) / 2);
+}
+
 var Vector = function (x, y) {
     this.x = x;
     this.y = y;
@@ -148,11 +192,11 @@ var CollistionMap = function () {
 };
 
 var Car = function (v, style, resource, speed, laneCfg) {
-    this.width = 40;
-    this.height = 60;
+    this.width = Game.current.itemSize.w;
+    this.height = Game.current.itemSize.h;
     this.laneConfig = null;
     this.resource = resource;
-    this.speed = speed ? speed : { min: 80, max: 180 };
+    this.speed = speed ? speed : { min: Game.current.speed.min, max: Game.current.speed.max };
     if (laneCfg) {
         this.laneConfig = laneCfg;
         this.resource = laneCfg.resource;
@@ -163,13 +207,13 @@ var Car = function (v, style, resource, speed, laneCfg) {
     if (this.resource[0].type == "player") {
         this.speed = { min: 0, max: 0 };
     } else {
-        this.speed = this.resource[0].speed ? this.resource[0].speed : { min: 80, max: 180 };
+        this.speed = this.resource[0].speed ? this.resource[0].speed : { min: Game.current.speed.min, max: Game.current.speed.max };
     }
 
-    this.width = this.img.width;
-    this.height = this.img.height;
+    //this.width = this.img.width;
+    //this.height = this.img.height;
     this.speedVector = new Vector(0, Math.ceil(Util.random(this.speed.min, this.speed.max)));
-    RectEntityObject.call(this, v, this.width - 6, this.height - 6, {});
+    RectEntityObject.call(this, v, this.width, this.height, {});
 
     this._update = function () {
         var oldPos = this.position.clone();
@@ -183,18 +227,17 @@ var Car = function (v, style, resource, speed, laneCfg) {
                 this.position = oldPos;
             }
         }
-
-        if (this.position.y > 580) {
-            this.position.y = Util.random(-290, 0);
+        if (this.position.y > Game.current.canvasSize.h) {
+            this.position.y = Util.random(-Game.current.canvasSize.h, 0);
             this.speedVector = new Vector(0, Math.ceil(Util.random(this.speed.min, this.speed.max)));
             if (this.laneConfig) {
                 if (this.resource.length > 1) {
                     var currentRes = this.resource[Math.ceil(Util.random(0, this.resource.length - 1))];
                     this.img = currentRes.obj;
                     if (currentRes.type == "block") {
-                        this.speed = { min: 80, max: 80 };
+                        this.speed = { min: Game.current.speed.min, max: Game.current.speed.min };
                     } else {
-                        this.speed = currentRes.speed ? currentRes.speed : { min: 80, max: 180 };
+                        this.speed = currentRes.speed ? currentRes.speed : { min: Game.current.speed.min, max: Game.current.speed.max };
                     }
                 }
             }
@@ -205,7 +248,7 @@ var Car = function (v, style, resource, speed, laneCfg) {
         //if (this.position.y < 280) {
         //context.drawImage(this.img, this.position.x - 3, this.position.y - 3);
         //context.drawImage(this.img, this.position.x - 3, this.position.y - 3, this.img.width * 0.78, this.img.height * 0.78);
-        context.drawImage(this.img, this.position.x, this.position.y, this.img.width * 0.78, this.img.height * 0.78);
+        context.drawImage(this.img, this.position.x + Game.current.space.cs, this.position.y, this.width , this.height);
         // if (this.index) {
         //    context["fillStyle"] ="#900";
         //    context["font"] ="bold 16px Verdana";
@@ -241,7 +284,7 @@ var Magic = function (v, img, animType, split, speed) {
         this.currFrame %= this.frames;
 
         this.position.x += (Scene.nowTime - Scene.startTime) * this.speed.x / 1000;
-        if (this.position.x > 640) {
+        if (this.position.x > Game.current.canvasSize.w) {
             this.position.x = 0;
         }
     };

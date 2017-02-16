@@ -135,13 +135,15 @@ var Scene = {
     canvasId: 'game_canvas',
     canvas: 'game_canvas',
     context: null,
-    runStatus: true,
+    runStatus: false,
+    runable: true,
     INPUT: {
         KEY: {
             UP: 38,
             DOWN: 40,
             LEFT: 37,
-            RIGHT: 39
+            RIGHT: 39,
+            ENTER: 13
         },
 
         KEY_LOCK: {
@@ -152,14 +154,31 @@ var Scene = {
         }
     },
     screenObjPool: ScreenObjPool,
-    config: { roadCount: 9, carCount: 9 },
+    config: {
+        roadCount: 8,
+        carCount: 8,
+        playerCount: 1,
+        canvasSize: { w: 500, h: 580 },
+        speed: { n: 80, min: 80, max: 180 }
+    },
     resource: { car: [], block: [], player: [], saint: null, soldier: null, road: null },
-    SCORE: 0,
     laneCfg: [],
     playerCfg: { index: 0, change: 4, resource: [defaultResources.player[0]] },
     randomLane: false,
+    SCORE: 0,
+    eventsPool: {
+        keydown: [],
+        keyup: [],
+        //click: [],
+        keypress: [],
+        //mousemove: [],
+        //mouseover: [],
+        //mouseout: [],
+        collide: [],
+        hit: []
+    },
 
-    init: function (containerId) {
+    init: function (containerId, runable) {
         //for (var attr in config) {
         //    this[attr] = config[attr];
         //}        
@@ -173,76 +192,24 @@ var Scene = {
         //this.canvas.style.height = height + "px";
         //this.canvas.style.width = width + "px";
         this.container = $("#" + containerId);
-        var height = this.container.css("height");
-        var width = this.container.css("width");
+        var height = this.container.height();
+        var width = this.container.width();
+        this.config.canvasSize.w = parseInt(width);
+        this.config.canvasSize.h = parseInt(height);
         this.container.append($('<canvas id="' + this.canvasId + '" height="' + height + '" width="' + width + '">aaaaaaaa</canvas>'))
         this.canvas = document.getElementById(this.canvasId);
         this.canvas.style.backgroundColor = "#999";
         this.context = this.canvas.getContext('2d');
         //this.context.scale(0.78, 1.2);
         this.canvasPos = Util.getPosInDoc(this.canvas);
-        this.initEvent();
-    },
-
-    collisionPool: (function () {
-        var objectsIds = [];
-        var objects = {};
-        return {
-            add: function () { },
-            remove: function (obj) {
-                delete objects[obj.guid];
-                for (var i = 0, len = objectsIds.length; i < len; i++) {
-                    if (objectsIds[i] === obj.guid) {
-                        this.objectsIds.splice(i, 1);
-                    }
-                }
-            },
-            foreach: function (callback) {
-                for (var i = 0, len = objectsIds.length; i < len; i++) {
-                    callback.call(objects[objectsIds[i]], index);
-                }
-            }
-        };
-    })(),
-
-    eventsPool: {
-        keydown: [],
-        keyup: [],
-        click: [],
-        keypress: [],
-        mousemove: [],
-        mouseover: [],
-        mouseout: [],
-        collide: [],
-        hit: []
-    },
-
-    emptyEventsPool: function () {
-        this.eventsPool = {
-            keydown: [],
-            keyup: [],
-            click: [],
-            keypress: [],
-            mousemove: [],
-            mouseover: [],
-            mouseout: [],
-            collide: [],
-            hit: []
+        SetGameConfig(this.config);
+        this.runable = (runable === false ? false : true);
+        this.loadResource();
+        this.renderRoad();
+        if (this.runable) {
+            this.initEvent();
+            this.pause(true);
         }
-    },
-
-    addEventListener: function (target, eventType, callback) {
-        var event = {
-            target: target,
-            callback: callback,
-            init: false
-        };
-
-        if (eventType == 'mouseover' || eventType == 'mouseout') {
-            event.target.mouseover = false;
-        }
-
-        this.eventsPool[eventType].push(event);
     },
 
     initEvent: function () {
@@ -250,12 +217,13 @@ var Scene = {
         var KEY = this.INPUT.KEY;
         var LOCK = this.INPUT.KEY_LOCK;
         document.onkeydown = function (e) {
+            /*
             switch (e.which) {
                 case KEY.UP:
                     if (!LOCK.UP) {
-
                     }
             }
+            */
 
             for (var i = 0, len = Scene.eventsPool.keydown.length; i < len; i++) {
                 var event = Scene.eventsPool.keydown[i];
@@ -270,6 +238,16 @@ var Scene = {
             }
         };
 
+        document.onkeypress = function (e) {
+            if (e.which == KEY.ENTER) {
+                for (var i = 0, len = Scene.eventsPool.keypress.length; i < len; i++) {
+                    var event = Scene.eventsPool.keypress[i];
+                    event.callback.call(event.target, e);
+                }
+            }
+        };
+
+        /*
         document.onclick = function (e) {
             var scroll = Util.getScroll();
             e.relX = e.clientX - self.canvasPos.left + scroll.left;
@@ -282,7 +260,9 @@ var Scene = {
                 }
             }
         };
+        */
 
+        /*
         this.canvas.addEventListener('mousemove', function (e) {
             var scroll = Util.getScroll();
             e.relX = e.clientX - self.canvasPos.left + scroll.left;
@@ -324,31 +304,7 @@ var Scene = {
             }
 
         }, false);
-    },
-
-    checkHit: function (target) {
-        for (var i = 0, len = Scene.eventsPool.hit.length; i < len; i++) {
-            var event = Scene.eventsPool.hit[i];
-            if (event.target.guid === target.guid) {
-                continue;
-            }
-
-            if (event.target.checkHit(target)) {
-                event.callback.call(event.target, { relatedTarget: target });
-            }
-        }
-    },
-
-    startRun: function () {
-        this.startTime = new Date().getTime();
-        var self = this;
-        window.requestAnimationFrame(function () {
-            self.renderFrame();
-        });
-    },
-
-    stopRun: function () {
-        this.runStatus = false;
+        */
     },
 
     loadResource: function () {
@@ -384,7 +340,8 @@ var Scene = {
                 forgroundRect.width = 100 * this.loadedCount / this.totalCount;
                 if (this.loadedCount == this.totalCount) {
                     Scene.screenObjPool.remove(this);
-                    Scene.showWelcome();
+                    Scene.referesh();
+                    //Scene.showWelcome();
                 }
             }
         };
@@ -401,15 +358,144 @@ var Scene = {
             item.obj = img;
         }
 
-        for (var key in this.resource) {
-            if (typeof this.resource[key].shift == "function") {
-                for (var i = 0; i < this.resource[key].length; i++) {
-                    loadIMG(this.resource[key][i]);
+        try {
+            for (var key in this.resource) {
+                if (typeof this.resource[key].shift == "function") {
+                    for (var i = 0; i < this.resource[key].length; i++) {
+                        loadIMG(this.resource[key][i]);
+                    }
+                } else {
+                    loadIMG(this.resource[key]);
                 }
-            } else {
-                loadIMG(this.resource[key]);
+            }
+
+            //this.screenObjPool.remove(loadScreen);
+        }
+        catch (ex) {
+        }
+    },
+
+    renderRoad: function () {
+        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w, Game.current.canvasSize.h);
+        this.screenObjPool.add(road);
+        var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
+        var sX = Game.current.space.l;
+        for (var i = 0; i < Game.current.roadCount - 1; i++) {
+            sX += Math.floor(tmpSpace - Game.current.space.line / 2);
+            var newVector = new Vector(sX, 0);
+            var newRect = new RectEntityObject(newVector, Game.current.space.line, Game.current.canvasSize.h, { fill: '#FFFFFF' });
+            this.screenObjPool.add(newRect);
+        }
+    },
+
+    pause: function (forcePause) {
+        if (this.runStatus || forcePause === true) {
+            var pauseTxt = this.getTextEntityObject('Pause, Press Enter To Start.', { x: 80, y: 260 }, '#333', 24);
+            this.screenObjPool.add(pauseTxt);
+            var self = this;
+            this.addEventListener(pauseTxt, 'keypress', function (e) {
+                self.runStatus = true;
+                self.screenObjPool.remove(pauseTxt);
+                self.referesh();
+                self.startGame();
+            });
+        }
+    },
+
+    referesh: function () {
+        this.context.clearRect(0, 0, Game.current.canvasSize.w, Game.current.canvasSize.h);
+        Scene.screenObjPool.foreach(this.context);
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    collisionPool: (function () {
+        var objectsIds = [];
+        var objects = {};
+        return {
+            add: function () { },
+            remove: function (obj) {
+                delete objects[obj.guid];
+                for (var i = 0, len = objectsIds.length; i < len; i++) {
+                    if (objectsIds[i] === obj.guid) {
+                        this.objectsIds.splice(i, 1);
+                    }
+                }
+            },
+            foreach: function (callback) {
+                for (var i = 0, len = objectsIds.length; i < len; i++) {
+                    callback.call(objects[objectsIds[i]], index);
+                }
+            }
+        };
+    })(),
+
+    emptyEventsPool: function () {
+        this.eventsPool = {
+            keydown: [],
+            keyup: [],
+            click: [],
+            keypress: [],
+            mousemove: [],
+            mouseover: [],
+            mouseout: [],
+            collide: [],
+            hit: []
+        }
+    },
+
+    addEventListener: function (target, eventType, callback) {
+        var event = {
+            target: target,
+            callback: callback,
+            init: false
+        };
+
+        if (eventType == 'mouseover' || eventType == 'mouseout') {
+            event.target.mouseover = false;
+        }
+
+        this.eventsPool[eventType].push(event);
+    },
+
+    checkHit: function (target) {
+        for (var i = 0, len = Scene.eventsPool.hit.length; i < len; i++) {
+            var event = Scene.eventsPool.hit[i];
+            if (event.target.guid === target.guid) {
+                continue;
+            }
+
+            if (event.target.checkHit(target)) {
+                event.callback.call(event.target, { relatedTarget: target });
             }
         }
+    },
+
+    startRun: function () {
+        this.startTime = new Date().getTime();
+        var self = this;
+        window.requestAnimationFrame(function () {
+            self.renderFrame();
+        });
+    },
+
+    stopRun: function () {
+        this.runStatus = false;
     },
 
     renderFrame: function () {
@@ -423,11 +509,6 @@ var Scene = {
             window.requestAnimationFrame(function () {
                 self.renderFrame();
             });
-    },
-
-    renderRoad: function () {
-        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), 500, 580);
-        this.screenObjPool.add(road);
     },
 
     getTextEntityObject: function (text, position, color, size) {
@@ -493,9 +574,7 @@ var Scene = {
     startGame: function () {
         this.SCORE = 0;
         this.screenObjPool.empty();
-        this.renderRoad();
         this.renderLane();
-
         var leftC = new CollisionEntityObject(new Vector(0, 0), 25, 580);
         var rightC = new CollisionEntityObject(new Vector(475, 0), 25, 580);
         var topC = new CollisionEntityObject(new Vector(0, 0), 500, 20);
@@ -715,15 +794,6 @@ var Scene = {
             DOWN: false
         }
         this.startRun();
-        this.showWelcome();
-    },
-
-    pause: function () {
-        if (this.runStatus) {
-            this.runStatus = false;
-        } else {
-            this.runStatus = true;
-            this.renderFrame();
-        }
+        //this.showWelcome();
     }
 };
