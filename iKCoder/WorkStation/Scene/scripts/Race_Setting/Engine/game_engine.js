@@ -192,6 +192,7 @@ var CollistionMap = function () {
 };
 
 var Car = function (v, style, resource, speed, laneCfg) {
+    this.itemType = 'CAR';
     this.width = Game.current.itemSize.w;
     this.height = Game.current.itemSize.h;
     this.laneConfig = null;
