@@ -206,6 +206,8 @@ WorkScene.outputCode = function () {
     var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     content.value = code;
+    eval(code);
+    Scene.renderCar();
 };
 
 WorkScene.resetScene = function () {

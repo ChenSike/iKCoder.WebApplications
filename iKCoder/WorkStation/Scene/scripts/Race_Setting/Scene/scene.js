@@ -412,13 +412,13 @@ var Scene = {
             var obj = objects[objectsIds[i]]
             if (obj.itemType && obj.itemType == 'CAR') {
                 delete objects[objectsIds[i]];
-                this.objectsIds.splice(i, 1);
+                objectsIds.splice(i, 1);
             }
         }
 
         this.referesh();
-        this.renderLane();
-
+        this.renderLane(Game.current.carCount);
+        this.referesh();
     },
 
 
@@ -574,10 +574,13 @@ var Scene = {
         }
     },
 
-    renderLane: function () {
-        for (var i = 0; i < 8; i++) {
-            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, 8) : i];
-            var newCar = new Car(new Vector(i * 50 + 25, Util.random(-580, -80)), Util.randomColor(), null, false, lanCfg);
+    renderLane: function (carCount) {
+        var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
+        var tmpY = Game.current.canvasSize.h - Game.current.space.b - Game.current.itemSize.h - 50;//Util.random(-580, -80);
+        for (var i = 0; i < carCount; i++) {
+            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, carCount) : i];
+            var tmpX = Game.current.space.l + tmpSpace * i + Game.current.space.cs;
+            var newCar = new Car(new Vector(tmpX, tmpY), Util.randomColor(), null, false, lanCfg);
             newCar.hitable = true;
             this.screenObjPool.add(newCar);
         }
@@ -738,6 +741,7 @@ var Scene = {
 
     setConfig_CarCount: function (count) {
         this.config.carCount = count;
+        Game.current.carCount = count;
     },
 
     setRandomLane: function (randomFlag) {
