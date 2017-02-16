@@ -406,7 +406,20 @@ var Scene = {
         Scene.screenObjPool.foreach(this.context);
     },
 
+    renderCar: function () {
+        var objects = this.screenObjPool.objects, objectsIds = this.screenObjPool.objectsIds;
+        for (var i = 0, len = objectsIds.length; i < len; i++) {
+            var obj = objects[objectsIds[i]]
+            if (obj.itemType && obj.itemType == 'CAR') {
+                delete objects[objectsIds[i]];
+                this.objectsIds.splice(i, 1);
+            }
+        }
 
+        this.referesh();
+        this.renderLane();
+
+    },
 
 
 
@@ -562,8 +575,8 @@ var Scene = {
     },
 
     renderLane: function () {
-        for (var i = 0; i < 9; i++) {
-            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, 9) : i];
+        for (var i = 0; i < 8; i++) {
+            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, 8) : i];
             var newCar = new Car(new Vector(i * 50 + 25, Util.random(-580, -80)), Util.randomColor(), null, false, lanCfg);
             newCar.hitable = true;
             this.screenObjPool.add(newCar);
