@@ -379,10 +379,9 @@ var Scene = {
         var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w, Game.current.canvasSize.h);
         this.screenObjPool.add(road);
         var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
-        var sX = Game.current.space.l;
         for (var i = 0; i < Game.current.roadCount - 1; i++) {
-            sX += Math.floor(tmpSpace - Game.current.space.line / 2);
-            var newVector = new Vector(sX, 0);
+            var tmpX = Game.current.space.l + Math.floor(tmpSpace * (i + 1) - Game.current.space.line / 2);
+            var newVector = new Vector(tmpX, 0);
             var newRect = new RectEntityObject(newVector, Game.current.space.line, Game.current.canvasSize.h, { fill: '#FFFFFF' });
             this.screenObjPool.add(newRect);
         }
