@@ -1,16 +1,20 @@
 'use strict';
 
-var Game = { default: null, scale: 1, current: {} };
-Game.default = {
-    roadCount: 8,
-    carCount: 8,
-    playerCount: 1,
-    canvasSize: { w: 500, h: 580 },
-    backgroundSize: { w: 500, h: 580 },
-    itemSize: { w: 40, h: 85 },
-    space: { l: 25, r: 25, t: 10, b: 10, line: 5, cs:1},
-    min: { w: 150, h: null },
-    speed: { n: 80, min: 80, max: 180 }
+var Game = {
+    default: {
+        roadCount: 8,
+        carCount: 8,
+        playerCount: 1,
+        canvasSize: { w: 500, h: 580 },
+        backgroundSize: { w: 500, h: 580 },
+        itemSize: { w: 40, h: 85 },
+        space: { l: 25, r: 25, t: 10, b: 10, line: 5, cs: 1 },
+        min: { w: 150, h: null },
+        speed: { n: 80, min: 80, max: 180 },
+        playerCfg: { position: 4 }
+    },
+    scale: 1,
+    current: {}
 };
 
 /*
@@ -23,6 +27,7 @@ Game.default = {
 }
 */
 function SetGameConfig(cfgObj) {
+    Game.current = jQuery.extend(true, {}, Game.default);
     var ws = cfgObj.canvasSize.w / Game.default.canvasSize.w;
     var hs = cfgObj.canvasSize.h / Game.default.canvasSize.h;
     Game.scale = ws;
@@ -32,11 +37,9 @@ function SetGameConfig(cfgObj) {
     Game.current.roadCount = cfgObj.roadCount;
     Game.current.carCount = cfgObj.carCount;
     Game.current.playerCount = cfgObj.playerCount;
-    Game.current.speed = Game.default.speed;
     Game.current.speed.n = (cfgObj.speed.n ? cfgObj.speed.n : Game.default.speed.n);
     Game.current.speed.min = (cfgObj.speed.min ? cfgObj.speed.min : Game.default.speed.min);
     Game.current.speed.max = (cfgObj.speed.max ? cfgObj.speed.max : Game.default.speed.max);
-    Game.current.space = Game.default.space;
     Game.current.space.l = Game.default.space.l * Game.scale;
     Game.current.space.r = Game.default.space.r * Game.scale;
     var tmpS = Game.current.backgroundSize.w - Game.current.space.l - Game.current.space.r - Game.current.space.line * (Game.current.roadCount - 1);
@@ -83,7 +86,8 @@ var Rect = function (v, width, height) {
     }
 };
 
-var EntityObject = function () {
+var EntityObject = function (type) {
+    this.itemType = (type ? type : "");
     this.guid = EntityObject.guid++;
     this.clickable = false;
     this.hitable = false;
@@ -130,9 +134,9 @@ var TextEntityObject = function (content, v, styles, width, height) {
     }
 }
 
-var RectEntityObject = function (v, width, height, styles) {
+var RectEntityObject = function (v, width, height, styles, type) {
     Rect.call(this, v, width, height);
-    EntityObject.call(this);
+    EntityObject.call(this, (type ? type : ""));
 
     this._draw = function (context) {
         if (!styles) {
@@ -192,7 +196,6 @@ var CollistionMap = function () {
 };
 
 var Car = function (v, style, resource, speed, laneCfg) {
-    this.itemType = 'CAR';
     this.width = Game.current.itemSize.w;
     this.height = Game.current.itemSize.h;
     this.laneConfig = null;
@@ -214,7 +217,7 @@ var Car = function (v, style, resource, speed, laneCfg) {
     //this.width = this.img.width;
     //this.height = this.img.height;
     this.speedVector = new Vector(0, Math.ceil(Util.random(this.speed.min, this.speed.max)));
-    RectEntityObject.call(this, v, this.width, this.height, {});
+    RectEntityObject.call(this, v, this.width, this.height, {}, 'CAR');
 
     this._update = function () {
         var oldPos = this.position.clone();
@@ -249,7 +252,7 @@ var Car = function (v, style, resource, speed, laneCfg) {
         //if (this.position.y < 280) {
         //context.drawImage(this.img, this.position.x - 3, this.position.y - 3);
         //context.drawImage(this.img, this.position.x - 3, this.position.y - 3, this.img.width * 0.78, this.img.height * 0.78);
-        context.drawImage(this.img, this.position.x + Game.current.space.cs, this.position.y, this.width , this.height);
+        context.drawImage(this.img, this.position.x + Game.current.space.cs, this.position.y, this.width, this.height);
         // if (this.index) {
         //    context["fillStyle"] ="#900";
         //    context["font"] ="bold 16px Verdana";

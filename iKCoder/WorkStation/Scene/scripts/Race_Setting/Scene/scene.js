@@ -136,7 +136,7 @@ var Scene = {
     canvas: 'game_canvas',
     context: null,
     runStatus: false,
-    runable: true,
+    isSstaticModal: false,
     INPUT: {
         KEY: {
             UP: 38,
@@ -154,7 +154,7 @@ var Scene = {
         }
     },
     screenObjPool: ScreenObjPool,
-    config: {
+    defaultCfg: {
         roadCount: 8,
         carCount: 8,
         playerCount: 1,
@@ -162,6 +162,7 @@ var Scene = {
         speed: { n: 80, min: 80, max: 180 }
     },
     resource: { car: [], block: [], player: [], saint: null, soldier: null, road: null },
+    resourceReady: false,
     laneCfg: [],
     playerCfg: { index: 0, change: 4, resource: [defaultResources.player[0]] },
     randomLane: false,
@@ -177,8 +178,9 @@ var Scene = {
         collide: [],
         hit: []
     },
+    animationHabdle: "",
 
-    init: function (containerId, runable) {
+    init: function (containerId, isSstaticModal) {
         //for (var attr in config) {
         //    this[attr] = config[attr];
         //}        
@@ -194,20 +196,24 @@ var Scene = {
         this.container = $("#" + containerId);
         var height = this.container.height();
         var width = this.container.width();
-        this.config.canvasSize.w = parseInt(width);
-        this.config.canvasSize.h = parseInt(height);
-        this.container.append($('<canvas id="' + this.canvasId + '" height="' + height + '" width="' + width + '">aaaaaaaa</canvas>'))
+        this.defaultCfg.canvasSize.w = parseInt(width);
+        this.defaultCfg.canvasSize.h = parseInt(height);
+        this.container.append($('<canvas id="' + this.canvasId + '" height="' + height + '" width="' + width + '"></canvas>'))
         this.canvas = document.getElementById(this.canvasId);
         this.canvas.style.backgroundColor = "#999";
         this.context = this.canvas.getContext('2d');
         //this.context.scale(0.78, 1.2);
         this.canvasPos = Util.getPosInDoc(this.canvas);
-        SetGameConfig(this.config);
-        this.runable = (runable === false ? false : true);
+        SetGameConfig(this.defaultCfg);
+        this.isSstaticModal = (isSstaticModal === true ? true : false);
         this.loadResource();
+        this.initLaneCfg();
         this.renderRoad();
-        if (this.runable) {
+        if (!this.isSstaticModal) {
             this.initEvent();
+            this.initPlayerCfg();
+            this.startGame();
+            this.startAnimation();
             this.pause(true);
         }
     },
@@ -217,24 +223,20 @@ var Scene = {
         var KEY = this.INPUT.KEY;
         var LOCK = this.INPUT.KEY_LOCK;
         document.onkeydown = function (e) {
-            /*
-            switch (e.which) {
-                case KEY.UP:
-                    if (!LOCK.UP) {
-                    }
-            }
-            */
-
-            for (var i = 0, len = Scene.eventsPool.keydown.length; i < len; i++) {
-                var event = Scene.eventsPool.keydown[i];
-                event.callback.call(event.target, e);
+            if (self.runStatus) {
+                for (var i = 0, len = Scene.eventsPool.keydown.length; i < len; i++) {
+                    var event = Scene.eventsPool.keydown[i];
+                    event.callback.call(event.target, e);
+                }
             }
         };
 
         document.onkeyup = function (e) {
-            for (var i = 0, len = Scene.eventsPool.keyup.length; i < len; i++) {
-                var event = Scene.eventsPool.keyup[i];
-                event.callback.call(event.target, e);
+            if (self.runStatus) {
+                for (var i = 0, len = Scene.eventsPool.keyup.length; i < len; i++) {
+                    var event = Scene.eventsPool.keyup[i];
+                    event.callback.call(event.target, e);
+                }
             }
         };
 
@@ -307,6 +309,38 @@ var Scene = {
         */
     },
 
+    emptyEventsPool: function () {
+        this.eventsPool = {
+            keydown: [],
+            keyup: [],
+            click: [],
+            keypress: [],
+            mousemove: [],
+            mouseover: [],
+            mouseout: [],
+            collide: [],
+            hit: []
+        }
+    },
+
+    addEventListener: function (target, eventType, callback) {
+        var event = {
+            target: target,
+            callback: callback,
+            init: false
+        };
+
+        if (eventType == 'mouseover' || eventType == 'mouseout') {
+            event.target.mouseover = false;
+        }
+
+        this.eventsPool[eventType].push(event);
+    },
+
+    removeEventListener: function (eventType) {
+        this.eventsPool[eventType] = [];
+    },
+
     loadResource: function () {
         this.resource = { car: [], block: [], player: [], saint: null, soldier: null, road: null };
         var totalCount = 0;
@@ -322,6 +356,7 @@ var Scene = {
             }
         }
 
+        var self = this;
         var LoadScreen = function (tCount) {
             this.loadedCount = 0;
             this.totalCount = tCount;
@@ -339,8 +374,9 @@ var Scene = {
                 this.loadedCount++;
                 forgroundRect.width = 100 * this.loadedCount / this.totalCount;
                 if (this.loadedCount == this.totalCount) {
-                    Scene.screenObjPool.remove(this);
-                    Scene.referesh();
+                    self.screenObjPool.remove(this);
+                    self.referesh();
+                    self.resourceReady = true;
                     //Scene.showWelcome();
                 }
             }
@@ -375,29 +411,98 @@ var Scene = {
         }
     },
 
+    initPlayerCfg: function () {
+        this.playerCfg.resource = [defaultResources.player[0]];
+    },
+
+    initLaneCfg: function () {
+        this.laneCfg = [];
+        for (var i = 0; i < 8; i++) {
+            var item = {
+                index: i,
+                position: i,
+                resource: [defaultResources.car[i]]
+            }
+
+            this.laneCfg.push(item);
+        }
+    },
+
+    getTextEntityObject: function (text, position, color, size) {
+        var vector = new Vector(position.x, position.y);
+        var style = { fillStyle: color, font: 'bold ' + size + 'px Verdana', 'textBaseline': 'top' };
+        var obj = new TextEntityObject(text, vector, style, 100, 35);
+        return obj;
+    },
+
+    pause: function (forcePause) {
+        if (this.runStatus || forcePause === true) {
+            this.runStatus = false;
+            var tmpX = (Game.current.canvasSize.w - 380) / 2;
+            var tmpY = (Game.current.canvasSize.h - 60) / 2;
+            var pauseTxt = this.getTextEntityObject('Pause, Press Enter To Start.', { x: tmpX, y: tmpY }, '#333', 24);
+            this.screenObjPool.add(pauseTxt);
+            //window.cancelAnimationFrame(this.animationHabdle);
+            var self = this;
+            this.addEventListener(pauseTxt, 'keypress', function (e) {
+                self.runStatus = true;
+                self.removeEventListener('keypress');
+                self.addEventListener(pauseTxt, 'keypress', function (e) {
+                    self.pause();
+                });
+                self.screenObjPool.remove(pauseTxt);
+                self.referesh();
+                self.startAnimation();
+            });
+        }
+    },
+
+    endGame: function () {
+        this.runStatus = false;
+        var tmpX = (Game.current.canvasSize.w - 430) / 2;
+        var tmpY = (Game.current.canvasSize.h - 200) / 2;
+        var end = this.getTextEntityObject('GAME OVER', { x: tmpX, y: tmpY }, '#900', 64);
+        tmpX = (Game.current.canvasSize.w - 160) / 2;
+        tmpY += 70;
+        var score = this.getTextEntityObject('Score ' + this.SCORE, { x: tmpX, y: tmpY }, '#000', 32);
+        tmpX = (Game.current.canvasSize.w - 280) / 2;
+        tmpY += 40;
+        var pauseTxt = this.getTextEntityObject('Press Enter To Start.', { x: tmpX, y: tmpY }, '#333', 24);
+        this.screenObjPool.add(end);
+        this.screenObjPool.add(score);
+        this.screenObjPool.add(pauseTxt);
+        var self = this;
+        this.addEventListener(pauseTxt, 'keypress', function (e) {
+            self.runStatus = true;
+            self.screenObjPool.remove(end);
+            self.screenObjPool.remove(score);
+            self.screenObjPool.remove(pauseTxt);
+            self.startGame();
+            self.startAnimation();
+        });
+    },
+
     renderRoad: function () {
-        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w, Game.current.canvasSize.h);
+        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w, Game.current.canvasSize.h, 'ROAD');
         this.screenObjPool.add(road);
         var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
         for (var i = 0; i < Game.current.roadCount - 1; i++) {
             var tmpX = Game.current.space.l + Math.floor(tmpSpace * (i + 1) - Game.current.space.line / 2);
             var newVector = new Vector(tmpX, 0);
-            var newRect = new RectEntityObject(newVector, Game.current.space.line, Game.current.canvasSize.h, { fill: '#FFFFFF' });
+            var newRect = new RectEntityObject(newVector, Game.current.space.line, Game.current.canvasSize.h, { fill: '#FFFFFF' }, 'LINE');
             this.screenObjPool.add(newRect);
         }
     },
 
-    pause: function (forcePause) {
-        if (this.runStatus || forcePause === true) {
-            var pauseTxt = this.getTextEntityObject('Pause, Press Enter To Start.', { x: 80, y: 260 }, '#333', 24);
-            this.screenObjPool.add(pauseTxt);
-            var self = this;
-            this.addEventListener(pauseTxt, 'keypress', function (e) {
-                self.runStatus = true;
-                self.screenObjPool.remove(pauseTxt);
-                self.referesh();
-                self.startGame();
-            });
+    renderLane: function () {
+        var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
+        var tmpY = Game.current.canvasSize.h - Game.current.space.b - Game.current.itemSize.h - 50;//Util.random(-580, -80);
+        for (var i = 0; i < Game.current.carCount; i++) {
+            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, Game.current.carCount) : i];
+            var tmpX = Game.current.space.l + tmpSpace * i + Game.current.space.cs;
+            var newCar = new Car(new Vector(tmpX, tmpY), Util.randomColor(), null, false, lanCfg);
+            newCar.hitable = true;
+            this.screenObjPool.add(newCar);
         }
     },
 
@@ -406,35 +511,42 @@ var Scene = {
         Scene.screenObjPool.foreach(this.context);
     },
 
-    renderCar: function () {
-        var objects = this.screenObjPool.objects, objectsIds = this.screenObjPool.objectsIds;
-        for (var i = 0, len = objectsIds.length; i < len; i++) {
-            var obj = objects[objectsIds[i]]
-            if (obj.itemType && obj.itemType == 'CAR') {
-                delete objects[objectsIds[i]];
-                objectsIds.splice(i, 1);
+    changeConfig: function (key, value) {
+        if (typeof value != "undefined" && value != null) {
+            if (typeof value == "object") {
+                for (var subKey in value) {
+                    Game.current[key][subKey] = value[subKey];
+                }
+            } else {
+                Game.current[key] = value;
             }
         }
-
-        this.referesh();
-        this.renderLane(Game.current.carCount);
-        this.referesh();
     },
 
+    UpdateConfig: function () {
+        if (this.isSstaticModal && this.resourceReady) {
+            this.screenObjPool.empty();
+            this.emptyEventsPool();
+            this.initLaneCfg();
+            KEY_LOCK = {
+                LEFT: false,
+                RIGHT: false,
+                UP: false,
+                DOWN: false
+            }
 
+            this.referesh();
+            this.renderRoad();
+            this.renderLane();
+            if (!this.isSstaticModal) {
+                this.initPlayerCfg();
+                this.initEvent();
+                this.pause(true);
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
+            this.referesh();
+        }
+    },
 
     collisionPool: (function () {
         var objectsIds = [];
@@ -457,34 +569,6 @@ var Scene = {
         };
     })(),
 
-    emptyEventsPool: function () {
-        this.eventsPool = {
-            keydown: [],
-            keyup: [],
-            click: [],
-            keypress: [],
-            mousemove: [],
-            mouseover: [],
-            mouseout: [],
-            collide: [],
-            hit: []
-        }
-    },
-
-    addEventListener: function (target, eventType, callback) {
-        var event = {
-            target: target,
-            callback: callback,
-            init: false
-        };
-
-        if (eventType == 'mouseover' || eventType == 'mouseout') {
-            event.target.mouseover = false;
-        }
-
-        this.eventsPool[eventType].push(event);
-    },
-
     checkHit: function (target) {
         for (var i = 0, len = Scene.eventsPool.hit.length; i < len; i++) {
             var event = Scene.eventsPool.hit[i];
@@ -498,111 +582,55 @@ var Scene = {
         }
     },
 
-    startRun: function () {
+    startAnimation: function () {
         this.startTime = new Date().getTime();
         var self = this;
-        window.requestAnimationFrame(function () {
+        this.animationHabdle = window.requestAnimationFrame(function () {
             self.renderFrame();
         });
     },
 
-    stopRun: function () {
-        this.runStatus = false;
-    },
-
     renderFrame: function () {
-        var self = this;
         this.nowTime = new Date().getTime();
-        this.context.clearRect(0, 0, 500, 580);
+        this.context.clearRect(0, 0, Game.current.canvasSize.w, Game.current.canvasSize.h);
         this.diffTime = this.nowTime - this.startTime;
         Scene.screenObjPool.foreach(this.context);
         this.startTime = this.nowTime;
-        if (self.runStatus)
-            window.requestAnimationFrame(function () {
+        if (this.runStatus) {
+            var self = this;
+            this.animationHabdle = window.requestAnimationFrame(function () {
                 self.renderFrame();
             });
-    },
-
-    getTextEntityObject: function (text, position, color, size) {
-        var vector = new Vector(position.x, position.y);
-        var style = { fillStyle: color, font: 'bold ' + size + 'px Verdana', 'textBaseline': 'top' };
-        var obj = new TextEntityObject(text, vector, style, 100, 35);
-        return obj;
-    },
-
-    showWelcome: function () {
-        var logo = this.getTextEntityObject('CAR RACE', { x: 80, y: 200 }, '#900', 64);
-        var welcome = this.getTextEntityObject('Click To Start', { x: 187, y: 360 }, '#333', 24);
-        var magic = new Magic(new Vector(140, 210), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
-        var magic2 = new Magic(new Vector(140, 310), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
-        this.screenObjPool.add(logo);
-        this.screenObjPool.add(welcome);
-        this.screenObjPool.add(magic);
-        this.screenObjPool.add(magic2);
-
-        this.addEventListener(welcome, 'mouseover', function (e) {
-            welcome.setStyle({ fillStyle: '#999' });
-        });
-
-        this.addEventListener(welcome, 'mouseout', function (e) {
-            welcome.setStyle({ fillStyle: '#333' });
-        });
-
-        var self = this;
-        this.addEventListener(welcome, 'click', function (e) {
-            self.screenObjPool.remove(logo);
-            self.screenObjPool.remove(welcome);
-            self.screenObjPool.remove(magic);
-            self.screenObjPool.remove(magic2);
-            self.startGame();
-        });
-    },
-
-    initPlayer: function () {
-        this.playerCfg.resource = [defaultResources.player[0]];
-    },
-
-    initLane: function () {
-        this.laneCfg = [];
-        for (var i = 0; i < 9; i++) {
-            var item = {
-                index: i,
-                resource: [defaultResources.car[i]]
-            }
-
-            this.laneCfg.push(item);
         }
     },
 
-    renderLane: function (carCount) {
-        var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
-        var tmpY = Game.current.canvasSize.h - Game.current.space.b - Game.current.itemSize.h - 50;//Util.random(-580, -80);
-        for (var i = 0; i < carCount; i++) {
-            var lanCfg = this.laneCfg[this.randomLane ? Util.random(0, carCount) : i];
-            var tmpX = Game.current.space.l + tmpSpace * i + Game.current.space.cs;
-            var newCar = new Car(new Vector(tmpX, tmpY), Util.randomColor(), null, false, lanCfg);
-            newCar.hitable = true;
-            this.screenObjPool.add(newCar);
-        }
-    },
-
-    startGame: function () {
-        this.SCORE = 0;
-        this.screenObjPool.empty();
-        this.renderLane();
-        var leftC = new CollisionEntityObject(new Vector(0, 0), 25, 580);
-        var rightC = new CollisionEntityObject(new Vector(475, 0), 25, 580);
-        var topC = new CollisionEntityObject(new Vector(0, 0), 500, 20);
-        var bottomC = new CollisionEntityObject(new Vector(0, 580), 500, 10);
+    getCollisionMap: function () {
+        var canvasSize = Game.current.canvasSize;
+        var spaceObj = Game.current.space;
+        var leftC = new CollisionEntityObject(new Vector(0, 0), spaceObj.l, canvasSize.h);
+        var rightC = new CollisionEntityObject(new Vector(canvasSize.w - spaceObj.l - spaceObj.r, 0), spaceObj.r, canvasSize.h);
+        var topC = new CollisionEntityObject(new Vector(0, 0), canvasSize.w, spaceObj.t);
+        var bottomC = new CollisionEntityObject(new Vector(0, canvasSize.h), canvasSize.w, spaceObj.b);
         var cMap = new CollistionMap();
         cMap.add(leftC);
         cMap.add(rightC);
         cMap.add(topC);
         cMap.add(bottomC);
+        return cMap;
+    },
 
+    startGame: function () {
+        this.SCORE = 0;
+        this.screenObjPool.empty();
+        this.emptyEventsPool();
+        this.renderRoad();
+        this.renderLane();
         var self = this;
-        var player = new Car(new Vector(225, 490), Util.randomColor(), this.playerCfg.resource, { min: 0, max: 0 }, this.playerCfg);
-        player.setCollisionMap(cMap);
+        var tmpLaneWidth = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
+        var tmpX = Game.current.space.l + tmpLaneWidth * (Game.current.playerCfg.position - 1) + Game.current.space.cs;
+        var tmpY = Game.current.canvasSize.h - Game.current.space.b - Game.current.itemSize.h - 20;
+        var player = new Car(new Vector(tmpX, tmpY), Util.randomColor(), this.playerCfg.resource, { min: 0, max: 0 }, this.playerCfg);
+        player.setCollisionMap(this.getCollisionMap());
         var speedChange = this.playerCfg.change * 50;
         this.addEventListener(player, 'keyup', function (e) {
             var KEY = self.INPUT.KEY;
@@ -664,6 +692,10 @@ var Scene = {
             }
         });
 
+        this.addEventListener(player, 'keypress', function (e) {
+            self.pause();
+        });
+
         this.addEventListener(player, 'hit', function (e) {
             self.screenObjPool.empty();
             self.emptyEventsPool();
@@ -675,44 +707,21 @@ var Scene = {
             }
             self.endGame(score.score);
         });
-        this.screenObjPool.add(player);
 
+        this.screenObjPool.add(player);
         var scorePre = this.getTextEntityObject('Score: ', { x: 50, y: 5 }, '#fff', 32);
         this.screenObjPool.add(scorePre);
         var score = new GameScore(0, new Vector(160, 5));
         this.screenObjPool.add(score);
     },
 
-    endGame: function () {
-        var end = this.getTextEntityObject('GAME OVER', { x: 50, y: 200 }, '#900', 64);
-        var score = this.getTextEntityObject('Score ' + this.SCORE, { x: 170, y: 290 }, '#000', 32);
-        var restart = this.getTextEntityObject('Click To Restart', { x: 147, y: 360 }, '#333', 24);
-        var magic = new Magic(new Vector(0, 210), this.resource.saint.obj, Magic.ANIM_TYPE.VERTICAL, 56, new Vector(20, 0));
-        var magic2 = new Magic(new Vector(0, 310), this.resource.soldier.obj, Magic.ANIM_TYPE.VERTICAL, 48, new Vector(20, 0));
-        this.screenObjPool.add(end);
-        this.screenObjPool.add(score);
-        this.screenObjPool.add(restart);
-        this.screenObjPool.add(magic);
-        this.screenObjPool.add(magic2);
 
-        this.addEventListener(restart, 'mouseover', function (e) {
-            restart.setStyle({ fillStyle: '#999' });
-        });
 
-        this.addEventListener(restart, 'mouseout', function (e) {
-            restart.setStyle({ fillStyle: '#333' });
-        });
 
-        var self = this;
-        this.addEventListener(restart, 'click', function (e) {
-            self.screenObjPool.remove(end);
-            self.screenObjPool.remove(restart);
-            self.screenObjPool.remove(score);
-            self.screenObjPool.remove(magic);
-            self.screenObjPool.remove(magic2);
-            self.startGame();
-        });
-    },
+
+
+
+
 
     setConfig_Road: function (src) {
         this.resource.road = defaultResources.road;
@@ -736,11 +745,9 @@ var Scene = {
     },
 
     setConfig_RoadCount: function (count) {
-        this.config.roadCount = count;
     },
 
     setConfig_CarCount: function (count) {
-        this.config.carCount = count;
         Game.current.carCount = count;
     },
 
@@ -799,17 +806,4 @@ var Scene = {
 
         //this.laneCfg.push(cfg);
     },
-
-    loadCustomeCfg: function () {
-        this.screenObjPool.empty();
-        this.emptyEventsPool();
-        KEY_LOCK = {
-            LEFT: false,
-            RIGHT: false,
-            UP: false,
-            DOWN: false
-        }
-        this.startRun();
-        //this.showWelcome();
-    }
 };

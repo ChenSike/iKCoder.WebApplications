@@ -118,10 +118,9 @@ WorkScene.init = function () {
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
     // var defaultXml = XMLToString(LoadXMLFile("xml/default.xml"));
     var defaultXml = '<xml>' +
-                            '   <block type="race_roads" deletable="false" x="20" y="20"/>' +
+                            '   <block type="race_roads" id="aaaaa" deletable="false" x="20" y="20"/>' +
                             '   <block type="race_cars" deletable="false" x="20" y="60"/>' +
                             '</xml>';
-
 
     WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
@@ -146,20 +145,7 @@ WorkScene.init = function () {
     onresize();
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
-
     Scene.init('game_container', false);
-    Scene.loadResource();
-    Scene.startRun();
-    Scene.initLane();
-    Scene.initPlayer();
-};
-
-WorkScene.startGame = function () {
-    Scene.startGame();
-};
-
-WorkScene.endGame = function () {
-    Scene.endGame();
 };
 
 WorkScene.runJS = function () {
@@ -174,7 +160,7 @@ WorkScene.runJS = function () {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     try {
         eval(code);
-        Scene.loadCustomeCfg();
+        Scene.UpdateConfig();
     } catch (e) {
         alert('badCode: %1'.replace('%1', e));
     }
@@ -202,12 +188,16 @@ WorkScene.renderContent = function () {
     }
 };
 
+WorkScene.changeSceneCfg = function (key, value) {
+    Scene.changeConfig(key, value);
+}
+
 WorkScene.outputCode = function () {
     var content = document.getElementById('codeContentTxt');
     var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
     content.value = code;
     eval(code);
-    Scene.renderCar();
+    Scene.UpdateConfig();
 };
 
 WorkScene.resetScene = function () {
@@ -227,4 +217,12 @@ WorkScene.resetScene = function () {
 
 WorkScene.pauseScene = function () {
     Scene.pause();
-}; 
+};
+
+WorkScene.startGame = function () {
+    Scene.startGame();
+};
+
+WorkScene.endGame = function () {
+    Scene.endGame();
+};

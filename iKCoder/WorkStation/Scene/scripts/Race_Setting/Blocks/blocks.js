@@ -1,5 +1,11 @@
 ﻿'use strict';
 
+/*
+roadCount
+carCount
+playerCfg
+*/
+
 Blockly.Blocks['race_roads'] = {
     init: function () {
         this.appendDummyInput()
@@ -16,14 +22,14 @@ Blockly.Blocks['race_roads'] = {
 
 Blockly.JavaScript['race_roads'] = function (block) {
     var value = block.getFieldValue('race_roads_count');
-    return 'Scene.setConfig_RoadCount(' + value + ');\n';
+    return "WorkScene.changeSceneCfg('roadCount'," + value + ");\n";
 };
 
 Blockly.Blocks['race_cars'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("汽车数量 [变量] : ")
-            .appendField(new Blockly.FieldNumber('0', 0, 8, 1), "race_cars_count");
+            .appendField(new Blockly.FieldDropdown([["0", "0"], ["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5], ["6", 6], ["7", 7], ["8", 8]]), "race_cars_count");
         this.setColour(230);
         this.setInputsInline(true);
         this.setTooltip('');
@@ -35,9 +41,8 @@ Blockly.Blocks['race_cars'] = {
 
 Blockly.JavaScript['race_cars'] = function (block) {
     var value = block.getFieldValue('race_cars_count');
-    return 'Scene.setConfig_CarCount(' + value + ');\n';
+    return "WorkScene.changeSceneCfg('carCount'," + value + ");\n";
 };
-
 
 Blockly.Blocks['race_player'] = {
     init: function () {
@@ -76,7 +81,8 @@ Blockly.Blocks['race_player'] = {
 Blockly.JavaScript['race_player'] = function (block) {
     var change = block.getFieldValue('race_player_speedchange');
     var image = block.getFieldValue('race_player_image');
-    return 'Scene.setConfig_Player(' + change + ', "' + image + '");\n';
+    var code = "{img: " + image + ", speedChange:" + change + "}";
+    return "WorkScene.changeSceneCfg('playerCfg'," + code + ");\n";
 };
 
 Blockly.Blocks['race_resource'] = {
@@ -142,6 +148,7 @@ Blockly.JavaScript['race_resource'] = function (block) {
     var max = block.getFieldValue('race_resource_speed_max');
     var src = block.getFieldValue('race_resource_image_src');
     var code = "{src:'" + src + "', speed:{min:" + min + ",max:" + max + "}}|";
+    //return "WorkScene.changeSceneCfg('laneCfg'," + code + ");\n";
     return code;
 };
 
@@ -173,20 +180,17 @@ Blockly.Blocks['race_lane_setting'] = {
         this.appendStatementInput("race_lane_setting_8")
             .setCheck(null)
             .appendField("Lane 8");
-        this.appendStatementInput("race_lane_setting_9")
-            .setCheck(null)
-            .appendField("Lane 9");
         this.setColour(20);
         this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
+        this.setHelpUrl('');
     }
 };
 
 Blockly.JavaScript['race_lane_setting'] = function (block) {
-    var code = "Scene.initLane();\n";
+    var code = "Scene.initLaneCfg();\n";
     var flag = false;
     var endStr = "]);\n";
-    for (var i = 1; i < 10; i++) {
+    for (var i = 1; i < 9; i++) {
         var statements_lane = Blockly.JavaScript.statementToCode(block, 'race_lane_setting_' + i);
         statements_lane = statements_lane.split("|");
         if (statements_lane.length > 2) {
