@@ -56,6 +56,7 @@ function bindEvents() {
     $("#tutorialDownBtn").click(tutorialNextRow);
     $("#editCodeBtn").click(editCode);
     $("#restoreCodeBtn").click(restoreCode);
+    $(".link-button-block-example").click(selectExampleBlock);
 }
 
 function shareScene() {
@@ -177,5 +178,33 @@ function editCode() {
 function restoreCode() {
     WorkScene.outputCode();
 };
+
+var _blockExample = null;
+var _highlightCount = 0;
+function selectExampleBlock() {
+    var blocks = WorkScene.workspace.topBlocks_;
+    var targetBtn = $(arguments[0].target);
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].id == targetBtn.attr("data-target")) {
+            _blockExample = blocks[i];
+            _highlightCount = 0;
+            selectBlockExample();           
+            break;
+        }
+    }
+}
+
+function selectBlockExample() {
+    if (_highlightCount < 4) {
+        _blockExample.addSelect();
+        setTimeout('unselectBlockExample();', 500);
+    }
+}
+
+function unselectBlockExample() {
+    _highlightCount++;
+    _blockExample.removeSelect();
+    setTimeout('selectBlockExample();', 500);
+}
 
 window.addEventListener('load', onLoad);

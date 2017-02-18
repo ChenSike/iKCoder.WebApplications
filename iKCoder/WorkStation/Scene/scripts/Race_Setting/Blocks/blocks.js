@@ -22,7 +22,7 @@ Blockly.Blocks['race_roads'] = {
 
 Blockly.JavaScript['race_roads'] = function (block) {
     var value = block.getFieldValue('race_roads_count');
-    return "WorkScene.changeSceneCfg('roadCount'," + value + ");\n";
+    return "WorkScene.changeSceneCfg({ roadCount:" + value + "});\n";
 };
 
 Blockly.Blocks['race_cars'] = {
@@ -41,7 +41,7 @@ Blockly.Blocks['race_cars'] = {
 
 Blockly.JavaScript['race_cars'] = function (block) {
     var value = block.getFieldValue('race_cars_count');
-    return "WorkScene.changeSceneCfg('carCount'," + value + ");\n";
+    return "WorkScene.changeSceneCfg({ carCount:" + value + "});\n";
 };
 
 Blockly.Blocks['race_player'] = {
@@ -82,7 +82,7 @@ Blockly.JavaScript['race_player'] = function (block) {
     var change = block.getFieldValue('race_player_speedchange');
     var image = block.getFieldValue('race_player_image');
     var code = "{img: " + image + ", speedChange:" + change + "}";
-    return "WorkScene.changeSceneCfg('playerCfg'," + code + ");\n";
+    return "WorkScene.changeSceneCfg({ playerCfg:" + code + "});\n";
 };
 
 Blockly.Blocks['race_resource'] = {

@@ -136,7 +136,8 @@ var Scene = {
     canvas: 'game_canvas',
     context: null,
     runStatus: false,
-    isSstaticModal: false,
+    //0: static; 1: game; 2: dynamic but have not control
+    runModal: 1,
     INPUT: {
         KEY: {
             UP: 38,
@@ -180,7 +181,7 @@ var Scene = {
     },
     animationHabdle: "",
 
-    init: function (containerId, isSstaticModal) {
+    init: function (containerId, runModal) {
         //for (var attr in config) {
         //    this[attr] = config[attr];
         //}        
@@ -205,11 +206,14 @@ var Scene = {
         //this.context.scale(0.78, 1.2);
         this.canvasPos = Util.getPosInDoc(this.canvas);
         SetGameConfig(this.defaultCfg);
-        this.isSstaticModal = (isSstaticModal === true ? true : false);
+        if (typeof runModal == "number" && runModal >= 0 && runModal <= 2) {
+            this.runModal = runModal;
+        }
+
         this.loadResource();
         this.initLaneCfg();
         this.renderRoad();
-        if (!this.isSstaticModal) {
+        if (runModal != 0) {
             this.initEvent();
             this.initPlayerCfg();
             this.startGame();
@@ -511,20 +515,14 @@ var Scene = {
         Scene.screenObjPool.foreach(this.context);
     },
 
-    changeConfig: function (key, value) {
-        if (typeof value != "undefined" && value != null) {
-            if (typeof value == "object") {
-                for (var subKey in value) {
-                    Game.current[key][subKey] = value[subKey];
-                }
-            } else {
-                Game.current[key] = value;
-            }
+    changeConfig: function (cfgObj) {
+        if (typeof cfgObj != "undefined" && cfgObj != null) {
+            Game.current = $.extend(true, Game.current, cfgObj);
         }
     },
 
     UpdateConfig: function () {
-        if (this.isSstaticModal && this.resourceReady) {
+        if (this.runModal == 0 && this.resourceReady) {
             this.screenObjPool.empty();
             this.emptyEventsPool();
             this.initLaneCfg();
@@ -538,7 +536,7 @@ var Scene = {
             this.referesh();
             this.renderRoad();
             this.renderLane();
-            if (!this.isSstaticModal) {
+            if (this.runModal != 0) {
                 this.initPlayerCfg();
                 this.initEvent();
                 this.pause(true);

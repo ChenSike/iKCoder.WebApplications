@@ -41,13 +41,8 @@ function Extend(target, settings, params) {
     return target;
 };
 
-function CloneObject(source) {
-    var newObj = {};
-    for (var key in source) {
-        newObj[key] = source[key];
-    }
-
-    return newObj;
+function CloneObject(source) {   
+    return $.extend(true, {}, source);
 };
 
 function ChangeStyleSheet(selector, newStyle) {

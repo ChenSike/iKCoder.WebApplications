@@ -118,8 +118,8 @@ WorkScene.init = function () {
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
     // var defaultXml = XMLToString(LoadXMLFile("xml/default.xml"));
     var defaultXml = '<xml>' +
-                            '   <block type="race_roads" id="aaaaa" deletable="false" x="20" y="20"/>' +
-                            '   <block type="race_cars" deletable="false" x="20" y="60"/>' +
+                            '   <block type="race_roads" id="race_roads_block_example" deletable="false" x="20" y="20"/>' +
+                            '   <block type="race_cars" id="race_cars_block_example" deletable="false" x="20" y="60"/>' +
                             '</xml>';
 
     WorkScene.loadBlocks(defaultXml);
@@ -145,7 +145,7 @@ WorkScene.init = function () {
     onresize();
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
-    Scene.init('game_container', true);
+    Scene.init('game_container', 0);
 };
 
 WorkScene.runJS = function () {
@@ -188,8 +188,8 @@ WorkScene.renderContent = function () {
     }
 };
 
-WorkScene.changeSceneCfg = function (key, value) {
-    Scene.changeConfig(key, value);
+WorkScene.changeSceneCfg = function (cfgObj) {
+    Scene.changeConfig(cfgObj);
 }
 
 WorkScene.outputCode = function () {
@@ -201,18 +201,7 @@ WorkScene.outputCode = function () {
 };
 
 WorkScene.resetScene = function () {
-    window.location.reload();
-    //if(Scene.canvas){
-    //    var sceneContainer = document.getElementById('canvas_content');
-    //    sceneContainer.removeChild(sceneContainer.childNodes[0]);
-    //}
-
-    //var configs = {};
-    //configs.lifeCount = 3;
-    //configs.pacSpeed = 1;
-    //configs.enemySpeed = 0;
-    //configs.activeEnemyCount = 2;
-    //Scene.Init('canvas_content', configs);
+    Scene.pause();
 };
 
 WorkScene.pauseScene = function () {

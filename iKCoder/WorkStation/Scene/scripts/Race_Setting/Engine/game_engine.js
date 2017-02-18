@@ -27,7 +27,7 @@ var Game = {
 }
 */
 function SetGameConfig(cfgObj) {
-    Game.current = jQuery.extend(true, {}, Game.default);
+    Game.current = $.extend(true, {}, Game.default);
     var ws = cfgObj.canvasSize.w / Game.default.canvasSize.w;
     var hs = cfgObj.canvasSize.h / Game.default.canvasSize.h;
     Game.scale = ws;
