@@ -1,2 +1,81 @@
-﻿body {
+﻿header {
+    /*height: 60px;*/
+    background-color: rgb(41,49,67);
+}
+
+.head-stage-background {
+    width: 80%;
+    height: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    position: relative;
+    display: inline-block;
+    background-image: url(../images/background//stageprogress.png);
+}
+
+.head-stage-label {
+    width: 15%;
+    height: 30px;
+    top: -35px;
+    position: relative;
+    display: inline-block;
+    text-align: -webkit-center;
+}
+
+    .head-stage-label div {
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+    }
+
+    .head-stage-label .complete-item {
+        background: url(../images/label/stepdone.png);
+        background-color: rgb(26,164,216);
+    }
+
+    .head-stage-label.show-stage-index {
+        height: 34px;
+        top: -45px;
+    }
+
+    .head-stage-label .current-item {
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(255,255,255);
+        background-color: rgb(233,139,58);
+        border-radius: 17px;
+    }
+
+    .head-stage-label .future-item {
+        background-color: rgb(203,204,203);
+    }
+
+.head-stage-index {
+    line-height: 30px;
+}
+
+.head-stage-space {
+    width: 30px;
+    height: 10px;
+    top: 10px;
+    left: 0px;
+    background-color: rgb(26,164,216);
+    position: absolute;
+    display: inline-block;
+}
+
+footer {
+    /*height: 60px;*/
+    background-color: rgb(41,49,67);
+}
+
+.footer {
+    height: 70px;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    padding-top:10px;
 }

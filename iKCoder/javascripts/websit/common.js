@@ -53,7 +53,7 @@ function _registerRemoteServer() {
                 withCredentials: true
             },
             error: function () {
-                alert('Fail to regist remote server.');
+                //alert('Fail to regist remote server.');
                 _gRegisterServer = false;
             }
         });

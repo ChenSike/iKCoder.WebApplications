@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/workplatform.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
@@ -16,19 +17,66 @@
     <script src="javascripts/websit/workplatform.js"></script>
 </head>
 <body>
-    <header></header>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-md-offset-2" style="text-align:center;">
+                    <div class="container">
+                        <div class="row" style="padding-top:15px;">
+                            <div class="col-xs-6 col-sm-2" style="text-align:right;">
+                                <span style="color:rgb(203,204,203); line-height:30px;">坦克大战</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-10" style="height: 30px;">
+                                <div class="head-stage-background"><div class="head-stage-space"></div></div>
+                                <div class="head-stage-label"><div class="complete-item"></div></div>
+                                <div class="head-stage-label show-stage-index"><div class="current-item">2</div></div>
+                                <div class="head-stage-label"><div class="future-item"></div></div>
+                                <div class="head-stage-label"><div class="future-item"></div></div>
+                                <div class="head-stage-label"><div class="future-item"></div></div>
+                                <div class="head-stage-label"><div class="future-item"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="container">
+                        <div class="row" style="padding-top:7px; padding-bottom:8px;">
+                            <div class="col-xs-4 col-xs-offset-2">
+                                <img src="images/children/child_1.png" class="img-rounded" width="45" height="45" style="background-color:rgb(255,255,255);">
+                            </div>
+                            <div class="col-xs-6">
+                                <span style="color:rgb(203,204,203); line-height:40px;">Tom</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="height:100%;">
+                a
             </div>
         </div>
     </div>
-    <footer id="footer"></footer>
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <img src="images/logowhite.png" width="150" height="50">
+                </div>
+                <div class="col-sm-4 col-sm-offset-2">
+                    <span style="color:rgb(203,204,203); line-height:40px;">Tom</span>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script type="text/javascript">
         $(document).ready(function () {
-            _loadLabels();
-            initHeader();
-            initFooter();
+            //_loadLabels();
+            //initHeader();
+            //initFooter();
         });
     </script>
 </body>
