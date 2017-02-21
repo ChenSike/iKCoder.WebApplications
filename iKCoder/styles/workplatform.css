@@ -1,4 +1,16 @@
-﻿header {
+﻿html {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
     /*height: 60px;*/
     background-color: rgb(41,49,67);
 }
@@ -26,6 +38,8 @@
         width: 30px;
         height: 30px;
         border-radius: 15px;
+        -moz-border-radius: 15px;
+        -webkit-border-radius: 15px;
     }
 
     .head-stage-label .complete-item {
@@ -47,6 +61,8 @@
         color: rgb(255,255,255);
         background-color: rgb(233,139,58);
         border-radius: 17px;
+        -moz-border-radius: 17px;
+        -webkit-border-radius: 17px;
     }
 
     .head-stage-label .future-item {
@@ -58,10 +74,10 @@
 }
 
 .head-stage-space {
-    width: 30px;
+    width: 15%;
     height: 10px;
     top: 10px;
-    left: 0px;
+    left: 2%;
     background-color: rgb(26,164,216);
     position: absolute;
     display: inline-block;
@@ -69,13 +85,203 @@
 
 footer {
     /*height: 60px;*/
-    background-color: rgb(41,49,67);
+    background-color: rgb(28,34,46);
 }
 
 .footer {
-    height: 70px;
+    height: 60px;
     bottom: 0px;
     position: fixed;
     width: 100%;
-    padding-top:10px;
+}
+
+.footer-tool-item {
+    line-height: 58px;
+    width: 65px;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .footer-tool-item.selected {
+        line-height: 58px;
+        border: none;
+        border-top: solid 2px rgb(97,208,121);
+        color: rgb(97,208,121);
+    }
+
+    .footer-tool-item:hover {
+        color: rgb(203,204,203);
+    }
+
+.main-container {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+table {
+    width: 100%;
+    height: 100%;
+    column-span: none;
+    border: none;
+}
+
+td {
+    padding: 0px;
+}
+
+.siderbar-wrap {
+    position: absolute;
+    top: 60px;
+    height: calc(100% - 60px - 60px);
+    height: -moz-calc(100% - 60px - 60px);
+    height: -webkit-calc(100% - 60px - 60px);
+    right: 0px;
+    width: 425px;
+}
+
+.siderbar-expand {
+    width: 20px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 3px;
+    position: relative;
+    top: calc(50% - 25px);
+    top: -moz-calc(50% - 25px);
+    top: -webkit-calc(50% - 25px);
+    background-color: rgb(41,49,67);
+    cursor: pointer;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+}
+
+.siderbar-drag {
+    position: relative;
+    height: 100%;
+    width: 5px;
+    top: -50px;
+    left: 20px;
+    background-image: url(../images/background/siderbardrag.png);
+}
+
+    .siderbar-drag.expanded {
+        cursor: col-resize;
+    }
+
+.siderbar-drag-proxy {
+    position: absolute;
+    height: 100%;
+    width: 5px;
+    background-color: rgb(203,204,203);
+    display: none;
+    visibility: hidden;
+    cursor: col-resize;
+    z-index: 9999;
+}
+
+.sidebar-content-wrap {
+    height: 100%;
+    width: calc(100% - 25px);
+    width: -moz-calc(100% - 25px);
+    width: -webkit-calc(100% - 25px);
+    min-width: 400px;
+    position: absolute;
+    top: 0px;
+    left: 25px;
+}
+
+.siderbar-content {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgb(41,49,67);
+}
+
+.course-help-title {
+    margin-left: 15px;
+    color: rgb(255,255,255);
+    font-family: 微软雅黑;
+    font-size: 14px;
+}
+
+.course-help-container {
+    margin-left: 15px;
+    position: relative;
+    max-width: 465px;
+    min-width: 300px;
+}
+
+.course-help-hits {
+    height: 30px;
+    width: 30px;
+    background-color: rgb(139,195,74);
+    color: rgb(255,255,255);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .course-help-hits:hover {
+        border: 2px solid rgb(255,255,255);
+        cursor: pointer;
+        line-height: 26px;
+    }
+
+.course-help-image {
+    width: 100%;
+    max-width: 465px;
+    min-width: 300px;
+}
+
+.course-help-footer {
+    background-color: rgb(0,0,0);
+    color: rgb(255,255,255);
+    line-height: 35px;
+    height: 40px;
+    font-family: 微软雅黑;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 10px;
+    max-width: 465px;
+    min-width: 300px;
+}
+
+.stage-notes-wrap {
+    height: 95px;
+    background-color: rgb(223,228,231);
+}
+
+.row.blockly-wrap {
+    height: calc(100%-95px);
+    height: -moz-calc(100% - 95px);
+    height: -webkit-calc(100% - 95px);
+}
+
+    .row.blockly-wrap .col-sm-12 {
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+    }
+
+.blockly-content-wrap {
+    width: calc(100%-5px);
+    width: -moz-calc(100% - 5px);
+    width: -webkit-calc(100% - 5px);
+    height: calc(100%-20px);
+    height: -moz-calc(100% - 20px);
+    height: -webkit-calc(100% - 20px);
+    padding: 0px;
+    border: solid 1px rgb(209,207,204);
+    border-bottom-width:2px;
 }
