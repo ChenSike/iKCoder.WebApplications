@@ -36,7 +36,29 @@ function initEvents() {
     $('.footer-tool-item').on('click', function (e) {
         $('.footer-tool-item').removeClass('selected');
         $(e.currentTarget).addClass('selected');
+        if ($(e.currentTarget).attr('id') == 'btn_Footer_CodeMode') {
+            showCodePanel(e);
+        }
     });
+
+    $('.footer-tool-item').on('mouseover ', function (e) {
+        var tipObj = $('.modle-tip');
+        var targetObj = $(e.target);
+        tipObj.css('display', "block");
+        var tmpLeft = targetObj.offset().left + (targetObj.width() - tipObj.width() - 20) / 2;
+        tipObj.css('left', tmpLeft + "px");
+        tipObj.text(targetObj.attr("data-tip"));
+    });
+
+    $('.footer-tool-item').on(' mouseout ', function (e) {
+        $('.modle-tip').css('display', "none");
+    });
+
+    $('.code-panel-header-close').on('click', function (e) {
+        $('#panel_CodeMode').css('display', 'none');
+    });
+
+    $('#panel_CodeMode').draggable({ containment: "body", scroll: false }).resizable();
 }
 
 function siderBarExpand() {
@@ -72,7 +94,7 @@ function initDatas() {
             id: "1",
             name: "坦克大战",
             stage_count: 6,
-            current_stage: 2,
+            current_stage: 4,
             note: ""
         },
         tips: [
@@ -88,5 +110,111 @@ function initDatas() {
             },
             lib: ""
         }
+    }
+
+    return data;
+}
+
+function buildStageHTML(data) {
+    var container = $('#Course_Stage_Container');
+    var isFuture = false;
+    var labelClass = "";
+    var itemClass = "";
+    var innerTxt = "";
+    var itemWidth = Math.floor(100 / data.stage_count);
+    for (var i = 0; i < data.stage_count; i++) {
+        labelClass = "";
+        itemClass = "future-item";
+        innerTxt = "";
+        if (!isFuture) {
+            if (i < data.current_stage - 1) {
+                itemClass = "complete-item";
+            } else if (i == data.current_stage - 1) {
+                labelClass = "show-stage-index";
+                itemClass = "current-item";
+                innerTxt = data.current_stage;
+            }
+        }
+
+        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '">' + innerTxt + '</div></div>');
+        tmpItem.css('width', itemWidth + "%");
+        container.append(tmpItem);
+    }
+
+    $('.head-course-name').text(data.name);
+    var tmpWidth = itemWidth * (data.stage_count - 1);
+    $('.head-stage-background').css('width', tmpWidth + "%");
+    tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
+    $('.head-stage-space').css('width', tmpWidth + "%");
+}
+
+function initPage() {
+    var data = initDatas();
+    buildStageHTML(data.course);
+    initEvents();
+}
+
+var _codePanelInit = false;
+function showCodePanel(e) {
+    var codePanel = $('#panel_CodeMode');
+    if (codePanel.css('display') == 'none') {
+        codePanel.css('display', 'block');
+    } else if (codePanel.css('display') == 'none') {
+        codePanel.css('display', 'none');
+    }
+
+    adjustCodePanelSize(codePanel);
+    adjustCodePanelPosition(codePanel, e);
+}
+
+function adjustCodePanelSize(codePanel) {
+    var minLeft = 20;
+    var minTop = 20;
+    var maxWidth = $('body').width() - minLeft * 2;
+    var maxHeight = $('body').height() - $('header').height() - $('footer').height() - minTop * 2;
+    var minWidth = 400;
+    var minHeight = 300;
+    if (!_codePanelInit) {
+        codePanel.height(minHeight);
+        codePanel.width(minWidth);
+    } else {
+        if (codePanel.height() > maxHeight) {
+            codePanel.height(maxHeight);
+        } else if (codePanel.height() < minHeight) {
+            codePanel.height(minHeight);
+        }
+
+        if (codePanel.width() > maxWidth) {
+            codePanel.width(maxWidth);
+        } else if (codePanel.width() < minWidth) {
+            codePanel.width(minWidth);
+        }
+    }
+}
+
+function adjustCodePanelPosition(codePanel, e) {
+    var targetOffset = $(e.currentTarget).offset();
+    var sourceOffset = codePanel.offset();
+    var minLeft = 20;
+    var minTop = 20;
+    var maxLeft = $('body').width() - codePanel.width() - 20;
+    var maxTop = $('body').height() - codePanel.height() - 20;
+    if (!_codePanelInit) {
+        codePanel.css('top', (targetOffset.top - 20 - codePanel.height()) + "px");
+        codePanel.css('left', (targetOffset.left - codePanel.width() / 4) + "px");
+        _codePanelInit = true;
+    } else {
+        if (sourceOffset.top < minTop) {
+            codePanel.css('top', minTop + "px");
+        } else if (sourceOffset.top > maxTop) {
+            codePanel.css('top', maxTop + "px");
+        }
+
+        if (sourceOffset.left < minLeft) {
+            codePanel.css('left', minLeft + "px");
+        } else if (sourceOffset.left > maxLeft) {
+            codePanel.css('left', maxLeft + "px");
+        }
+
     }
 }
