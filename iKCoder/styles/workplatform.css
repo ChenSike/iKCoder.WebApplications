@@ -334,12 +334,9 @@ footer {
     position: relative;
     top: 1px;
     left: calc(100% - 20px);
-    background-image: url(../images/label/close.png);
-    background-repeat: no-repeat;
-    background-size: 18px 18px;
-    background-origin: content-box;
-    -webkit-background-origin: content-box;
-    background-clip: content-box;
-    -webkit-background-clip: content-box;
     cursor: pointer;
+}
+
+.ui-icon, .ui-widget-content .ui-icon {
+    background-image: url(../images/icon/ui-icons_ffffff_256x240.png);
 }
