@@ -5,12 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="styles/jquery-ui.min.css">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/ionicons.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/workplatform.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
@@ -28,18 +30,13 @@
                                     <div class="container">
                                         <div class="row" style="padding-top:15px;">
                                             <div class="col-xs-6 col-sm-2" style="text-align:right;">
-                                                <span style="color:rgb(203,204,203); line-height:30px;">坦克大战</span>
+                                                <span class="head-course-name"></span>
                                             </div>
-                                            <div class="col-xs-6 col-sm-10" style="height: 30px;">
+                                            <div class="col-xs-6 col-sm-10" id="Course_Stage_Container" style="height: 30px;">
                                                 <div class="head-stage-background">
                                                     <div class="head-stage-space"></div>
                                                 </div>
-                                                <div class="head-stage-label"><div class="complete-item"></div></div>
-                                                <div class="head-stage-label show-stage-index"><div class="current-item">2</div></div>
-                                                <div class="head-stage-label"><div class="future-item"></div></div>
-                                                <div class="head-stage-label"><div class="future-item"></div></div>
-                                                <div class="head-stage-label"><div class="future-item"></div></div>
-                                                <div class="head-stage-label"><div class="future-item"></div></div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +66,7 @@
                                 <div class="container" style="height:100%;">
                                     <div class="row">
                                         <div class="col-sm-2">
-                                            
+
                                         </div>
                                         <div class="col-sm-2">
 
@@ -100,7 +97,7 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-xs-4">
-                                                <div class="footer-tool-item selected">
+                                                <div class="footer-tool-item selected" data-tip="创作模式">
                                                     <span class="fa-stack">
                                                         <i class="fa fa-puzzle-piece fa-stack-2x"></i>
                                                         <i class="fa fa-hand-pointer-o fa-stack-1x fa-inverse"></i>
@@ -108,7 +105,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-4">
-                                                <div class="footer-tool-item">
+                                                <div class="footer-tool-item" data-tip="查看知识点">
                                                     <span class="fa-stack">
                                                         <i class="fa fa-square-o fa-stack-2x"></i>
                                                         <i class="fa fa-reorder fa-stack-1x"></i>
@@ -116,7 +113,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-4">
-                                                <div class="footer-tool-item">
+                                                <div class="footer-tool-item" id="btn_Footer_CodeMode" data-tip="代码模式">
                                                     <span class="fa-stack">
                                                         <i class="fa fa-code fa-stack-2x"></i>
                                                     </span>
@@ -152,7 +149,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="min-height:220px; max-height:300px;">
+                        <td style="height: 300px;">
                             <div class="container">
                                 <div class="row" style="margin-left:0px;">
                                     <div class="col-sm-10">
@@ -172,11 +169,27 @@
         </div>
     </div>
     <div class="siderbar-drag-proxy"></div>
+    <div class="modle-tip">创作模式</div>
+    <div class="code-panel" id="panel_CodeMode">
+        <table>
+            <tr>
+                <td style="height:20px;">
+                    <div class="code-panel-header">
+                        <div class="code-panel-header-close"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="code-panel-content"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
             _loadLabels();
-            initDatas();
-            initEvents();
+            initPage();
         });
     </script>
 </body>
