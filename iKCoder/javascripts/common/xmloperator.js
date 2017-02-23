@@ -4,14 +4,12 @@
         xmlDom = new ActiveXObject("Microsoft.XMLDOM");
         xmlDom.async = "false";
         xmlDom.load(fileName);
-    }
-    else if (document.implementation && document.implementation.createDocument) {
+    } else if (document.implementation && document.implementation.createDocument) {
         var xmlhttp = new window.XMLHttpRequest();
         xmlhttp.open("GET", fileName, false);
         xmlhttp.send(null);
         xmlDom = xmlhttp.responseXML;
-    }
-    else {
+    } else {
         xmlDom = null;
     }
     return xmlDom;

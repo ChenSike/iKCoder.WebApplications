@@ -19,6 +19,7 @@ function initEvents() {
             $(".siderbar-wrap").css("left", $("body").width() - tmpWidth + "px");
             $(".siderbar-drag-proxy").css("display", "none");
             $(".siderbar-drag-proxy").css("visibility", "hidden");
+            adjustWorkSpaceTitle();
         }
     });
 
@@ -78,6 +79,7 @@ function siderBarExpand() {
     tmpObj.animate({ left: tmpLeft + 'px' }, 'slow');
     $('#icon_SiderBar_Expand').toggleClass('fa-angle-double-left').toggleClass('fa-angle-double-right');
     $('.siderbar-drag').toggleClass('expanded');
+    adjustWorkSpaceTitle();
 }
 
 function siderBarDrag(e) {
@@ -99,20 +101,19 @@ function initDatas() {
             name: "坦克大战",
             stage_count: 6,
             current_stage: 4,
-            note: ""
+            note: '现在坦克战队已经可以在你的控制下移动了, 接下来为坦克增加"射击"能力吧. 请增加键盘事件, 使"空格"键按下时, 坦克可以发射炮弹'
         },
         tips: [
             { type: "", id: "" },
             { type: "", id: "" }
         ],
         blockly: {
-            toolbox: {
-
-            },
-            default: {
-
-            },
-            lib: ""
+            xml: "http://localhost/iKCoder/WorkStation/Scene/XML/testblocks.xml",
+            lib: [
+                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
+                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",
+                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Scene/scene.js",
+            ]
         }
     }
 
@@ -150,12 +151,27 @@ function buildStageHTML(data) {
     $('.head-stage-background').css('width', tmpWidth + "%");
     tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
     $('.head-stage-space').css('width', tmpWidth + "%");
+    $('.course-stage-note').text(data.note);
 }
 
 function initPage() {
     var data = initDatas();
     buildStageHTML(data.course);
+    updateUserInfo(data.user);
     initEvents();
+    adjustWorkSpaceTitle();
+    $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,777)", });
+    LaodSceneLib(data.blockly);
+    var playBtn = $('.workspace-tool-item.glyphicon.glyphicon-play');
+    var shareBtn = $('.workspace-tool-item.glyphicon.glyphicon-share-alt');
+    var fullScreenBtn = $('.workspace-tool-item.glyphicon.glyphicon-fullscreen');
+    var refereshBtn = $('.workspace-tool-item.glyphicon.glyphicon-repeat');
+    bindEventsToScene(playBtn, shareBtn, fullScreenBtn, refereshBtn);
+}
+
+function updateUserInfo(data) {
+    $('.header-user-name-text').text(data.name);
+    $('.header-user-name-text').text(data.name);
 }
 
 var _codePanelInit = false;
@@ -223,3 +239,129 @@ function adjustCodePanelPosition(codePanel, e) {
 
     }
 }
+
+function adjustWorkSpaceTitle() {
+    var titleWrap = $('.workspace-title-2');
+    if ($('.siderbar-wrap').hasClass('expanded')) {
+        titleWrap.parent
+        titleWrap.css('width', 'calc(100% - ' + ($('.siderbar-wrap').width() - 15) + 'px)');
+    } else {
+        titleWrap.css('width', 'calc(100% - 15px)');
+    }
+}
+
+(function ($) {
+    var AutoRowsNumbers = function (element, config) {
+        this.$element = $(element);
+        this.$group = $('<div/>', { 'class': "textarea-group" });
+        this.$ol = $('<div/>', { 'class': 'textarea-rows' });
+        this.$wrap = $('<div/>', { 'class': 'textarea-wrap' });
+        this.$group.css({
+            //"width": this.$element.outerWidth(true) + 'px',
+            "width": '100%',
+            "height": '100%',
+            "display": config.display,
+            "background-color": 'transparent'
+        });
+        this.$ol.css({
+            "color": 'rgb(106,103,101)',
+            "width": config.width,
+            //"height": this.$element.height(),
+            "height": '100%',
+            "font-size": this.$element.css("font-size"),
+            "line-height": this.$element.css("line-height"),
+            "position": "absolute",
+            "overflow": "hidden",
+            "margin": 0,
+            "padding": 0,
+            "padding-top": '5px',
+            "text-align": "right",
+            "font-family": this.$element.css("font-family")
+        });
+        this.$wrap.css({
+            "padding": ((this.$element.outerHeight() - this.$element.height()) / 2) + 'px 0',
+            "background-color": 'transparent',
+            //"background-color": config.bgColor,
+            "position": "absolute",
+            "box-sizing": "border-box",
+            "margin": 0,
+            "width": config.width,
+            //"height": this.$element.height() + 'px'
+            "height": '100%'
+        });
+        this.$element.css({
+            "white-space": "pre",
+            "resize": "none",
+            "margin": 0,
+            "box-sizing": "border-box",
+            "padding-left": (parseInt(config.width) - parseInt(this.$element.css("border-left-width")) + parseInt(this.$element.css("padding-left"))) + 'px',
+            "padding-right": '10px',
+            //"width": (this.$element.width() - parseInt(config.width)) + 'px'
+            "width": '100%',
+            "height": '100%',
+            "background-color": 'transparent'
+        });
+    }
+
+    AutoRowsNumbers.prototype = {
+        constructor: AutoRowsNumbers,
+
+        init: function () {
+            var that = this;
+            that.$element.wrap(that.$group);
+            that.$ol.insertBefore(that.$element);
+            this.$ol.wrap(that.$wrap)
+            that.$element.on('keydown', { that: that }, that.inputText);
+            that.$element.on('scroll', { that: that }, that.syncScroll);
+            that.inputText({ data: { that: that } });
+        },
+
+        inputText: function (event) {
+            var that = event.data.that;
+
+            setTimeout(function () {
+                var value = that.$element.val();
+                value.match(/\n/g) ? that.updateLine(value.match(/\n/g).length + 1) : that.updateLine(1);
+                that.syncScroll({ data: { that: that } });
+            }, 0);
+        },
+
+        updateLine: function (count) {
+            var that = this;
+            that.$element;
+            that.$ol.html('');
+
+            for (var i = 1; i <= count; i++) {
+                that.$ol.append("<div>" + i + "</div>");
+            }
+        },
+
+        syncScroll: function (event) {
+            var that = event.data.that;
+            that.$ol.children().eq(0).css("margin-top", -(that.$element.scrollTop()) + "px");
+        }
+    }
+
+    $.fn.setTextareaCount = function (option) {
+        var config = {};
+        var option = arguments[0] ? arguments[0] : {};
+        config.color = option.color ? option.color : "#FFF";
+        config.width = option.width ? option.width : "30px";
+        config.bgColor = option.bgColor ? option.bgColor : "#999";
+        config.display = option.display ? option.display : "block";
+
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data('autoRowsNumbers');
+            if (!data) {
+                $this.data('autoRowsNumbers', (data = new AutoRowsNumbers($this, config)));
+            }
+
+            if (typeof option === 'string') {
+                return false;
+            } else {
+                data.init();
+            }
+        });
+    }
+})(jQuery);

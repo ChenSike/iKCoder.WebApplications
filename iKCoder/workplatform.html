@@ -14,8 +14,15 @@
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/storage.js"></script>
+    <script src="javascripts/blockly_uncompressed.js"></script>
+    <script src="javascripts/blocks_uncompressed.js"></script>
+    <script src="javascripts/javascript_uncompressed.js"></script>
+    <script src="msg/messages.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
+    <script src="javascripts/websit/scenecommon.js"></script>
+    <script src="javascripts/websit/blocklycommon.js"></script>
     <script src="javascripts/websit/workplatform.js"></script>
 </head>
 <body>
@@ -36,7 +43,6 @@
                                                 <div class="head-stage-background">
                                                     <div class="head-stage-space"></div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -45,10 +51,10 @@
                                     <div class="container">
                                         <div class="row" style="padding-top:7px; padding-bottom:8px;">
                                             <div class="col-xs-4 col-xs-offset-2">
-                                                <img src="images/children/child_1.png" class="img-rounded" width="45" height="45" style="background-color:rgb(255,255,255);">
+                                                <img class="img-rounded header-user-image" src="images/children/child_1.png" width="45" height="45">
                                             </div>
                                             <div class="col-xs-6">
-                                                <span style="color:rgb(203,204,203); line-height:40px;">Tom</span>
+                                                <span class="header-user-name-text"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -60,16 +66,16 @@
             </tr>
             <tr>
                 <td>
-                    <div class="container" style="height:100%;">
+                    <div class="container height-p100" style="border-left:solid 1px rgb(245,245,245);">
                         <div class="row">
                             <div class="col-sm-12 stage-notes-wrap">
-                                <div class="container" style="height:100%;">
-                                    <div class="row">
-                                        <div class="col-sm-2">
-
+                                <div class="container height-p100">
+                                    <div class="row height-p100">
+                                        <div class="col-sm-1" style="padding: 0px; padding-top: 20px; width:70px;">
+                                            <img src="images/label/topicon.png" />
                                         </div>
-                                        <div class="col-sm-2">
-
+                                        <div class="col-sm-9 height-p100" style="text-align:left;padding-left: 0px;">
+                                            <p class="course-stage-note"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +84,31 @@
                         <div class="row blockly-wrap">
                             <div class="col-sm-12">
                                 <div class="blockly-content-wrap">
-
+                                    <table class="height-p100">
+                                        <tr class="workspace-title-tr">
+                                            <td class="title-wrap-td wrap-td-1">
+                                                <span class="workspace-title-text">模块</span>
+                                            </td>
+                                            <td class="title-wrap-td wrap-td-2">
+                                                <div class="workspace-title-2">
+                                                    <span class="workspace-title-text">工作区域</span>
+                                                    <div class="workspace-title-tools">
+                                                        <i class="workspace-tool-item glyphicon glyphicon-play" aria-hidden="true"></i>
+                                                        <i class="workspace-tool-item glyphicon glyphicon-share-alt" aria-hidden="true"></i>
+                                                        <i class="workspace-tool-item glyphicon glyphicon-fullscreen" aria-hidden="true"></i>
+                                                        <i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="blockly-workspace-wrap" id="wrap_WorkSpace">
+                                                    <div id="content_WorkSpace"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -139,10 +169,10 @@
                 <table>
                     <tr>
                         <td>
-                            <div class="container">
-                                <div class="row" style="margin-left:0px;">
-                                    <div class="col-sm-12" style="min-height:150px;">
-                                        <canvas id="scene_canvas"></canvas>
+                            <div class="container height-p100">
+                                <div class="row height-p100" style="margin-left:0px;">
+                                    <div class="col-sm-12 height-p100" style="padding:0px; padding-right:15px;">
+                                        <div id="game_container"></div>
                                     </div>
                                 </div>
                             </div>
@@ -171,20 +201,12 @@
     <div class="siderbar-drag-proxy"></div>
     <div class="modle-tip">创作模式</div>
     <div class="code-panel" id="panel_CodeMode">
-        <table>
-            <tr>
-                <td style="height:20px;">
-                    <div class="code-panel-header">
-                        <div class="code-panel-header-close"><span class="glyphicon glyphicon-remove-circle"></span></div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="code-panel-content"></div>
-                </td>
-            </tr>
-        </table>
+        <div class="code-panel-header">
+            <div class="code-panel-header-close"><span class="glyphicon glyphicon-remove-circle"></span></div>
+        </div>
+        <div class="code-panel-content">
+            <textarea type="text" class="code-text-content" id="txt_Code_Content" spellcheck="false"></textarea>
+        </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

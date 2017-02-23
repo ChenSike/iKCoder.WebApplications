@@ -13,12 +13,14 @@
             border: solid 1px blue;
         }
     </style>
+    <script src="../javascripts/common/xmloperator.js"></script>
 </head>
 <body>
     <div class="container">
-        <canvas id="graph" width="3000" height="200"></canvas>
+        <canvas id="graph" width="1200" height="850"></canvas>
     </div>
     <script type="text/javascript">
+
         var drawCount = 0;
         function draw(data, ctx, idx) {
             if (typeof data[0] != "string") {
@@ -28,17 +30,27 @@
             } else {
                 ctx.beginPath();
                 ctx.strokeStyle = data[0];
-                ctx.moveTo(data[1], idx);
+                ctx.moveTo(data[1]-1, idx);
                 ctx.lineTo(data[2], idx);
                 ctx.stroke();
                 drawCount++;
             }
         }
 
+        function drawXML(data, ctx) {
+            ctx.beginPath();
+            ctx.strokeStyle = data[1];
+            ctx.moveTo(parseInt(data[2]), data[0]);
+            ctx.lineTo(parseInt(data[3])+1, data[0]);
+            ctx.stroke();
+            drawCount++;
+        }
+
         function run() {
             var canvas = document.getElementById("graph");
             var ctx = canvas.getContext("2d");
             ctx.translate(10, 10);
+            //ctx.scale(2, 2);
             var datas = [
                 ['rgb(0,0,255)', 30, 80],
                 ['rgb(0,0,255)', 30, 80],
@@ -166,20 +178,36 @@
                 [['rgb(0,0,0)', 0, 20], ['rgb(0,0,0)', 90, 110]]
             ];
             drawCount = 0;
-            var times = Date.now().valueOf();
-            for (var j = 0; j < 100; j++) {
-                for (var i = 0; i < datas.length; i++) {
-                    draw(datas[i], ctx, i);
-                }
-                ctx.translate(200, 0);
+            var dataXML = LoadXMLFile('image.xml');
+            var items = dataXML.getElementsByTagName('item');
+            var tmpArr = [];
+            for (var i = 0; i < items.length; i++) {
+                var y = items[i].attributes.getNamedItem('y').value;
+                var c = items[i].attributes.getNamedItem('c').value;
+                var sx = items[i].attributes.getNamedItem('sx').value;
+                var ex = items[i].attributes.getNamedItem('ex').value;
+                var newItem = [y, c, sx, ex];
+                tmpArr.push(newItem);
             }
+
+            var times = Date.now().valueOf();
+            //for (var j = 0; j < 100; j++) {
+            //    for (var i = 0; i < datas.length; i++) {
+            //        draw(datas[i], ctx, i);
+            //    }
+            //    ctx.translate(200, 0);
+            //}
+
+            for (var i = 0; i < tmpArr.length; i++) {
+                drawXML(tmpArr[i], ctx);
+            }
+
             var timee = Date.now().valueOf();
             alert("loop 100 用时：" + (timee - times) + "ms, 画线" + drawCount + "次");
 
         }
 
         run();
-
     </script>
 </body>
 </html>

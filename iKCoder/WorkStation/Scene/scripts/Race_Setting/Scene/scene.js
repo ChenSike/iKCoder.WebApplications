@@ -9,37 +9,37 @@ var KEY_LOCK = {
 };
 var defaultResources = {
     car: [
-        { 'name': 'car1', src: 'images/race/car1.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car2', src: 'images/race/car2.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car3', src: 'images/race/car3.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car4', src: 'images/race/car4.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car5', src: 'images/race/car5.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car6', src: 'images/race/car6.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car7', src: 'images/race/car7.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car8', src: 'images/race/car8.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
-        { 'name': 'car9', src: 'images/race/car9.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } }
+        { 'name': 'car1', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car1.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car2', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car2.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car3', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car3.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car4', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car4.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car5', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car5.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car6', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car6.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car7', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car7.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car8', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car8.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } },
+        { 'name': 'car9', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car9.png', type: 'images', obj: null, type: 'car', speed: { min: 80, max: 180 } }
     ],
     block: [
-        { 'name': 'block1', src: 'images/race/block1.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block2', src: 'images/race/block2.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block3', src: 'images/race/block3.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block4', src: 'images/race/block4.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block5', src: 'images/race/block5.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block6', src: 'images/race/block6.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block7', src: 'images/race/block7.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block8', src: 'images/race/block8.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
-        { 'name': 'block9', src: 'images/race/block9.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } }
+        { 'name': 'block1', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block1.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block2', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block2.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block3', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block3.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block4', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block4.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block5', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block5.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block6', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block6.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block7', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block7.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block8', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block8.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } },
+        { 'name': 'block9', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/block9.png', type: 'images', obj: null, type: 'block', speed: { min: 80, max: 80 } }
     ],
     player: [
-        { 'name': 'car_p1', src: 'images/race/car_p1.png', type: 'images', obj: null, type: 'player' },
-        { 'name': 'car_p2', src: 'images/race/car_p2.png', type: 'images', obj: null, type: 'player' },
-        { 'name': 'car_p3', src: 'images/race/car_p3.png', type: 'images', obj: null, type: 'player' },
-        { 'name': 'car_p4', src: 'images/race/car_p4.png', type: 'images', obj: null, type: 'player' },
-        { 'name': 'car_p5', src: 'images/race/car_p5.png', type: 'images', obj: null, type: 'player' }
+        { 'name': 'car_p1', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car_p1.png', type: 'images', obj: null, type: 'player' },
+        { 'name': 'car_p2', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car_p2.png', type: 'images', obj: null, type: 'player' },
+        { 'name': 'car_p3', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car_p3.png', type: 'images', obj: null, type: 'player' },
+        { 'name': 'car_p4', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car_p4.png', type: 'images', obj: null, type: 'player' },
+        { 'name': 'car_p5', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/car_p5.png', type: 'images', obj: null, type: 'player' }
     ],
-    saint: { 'name': 'saint', src: 'images/race/saint.png', type: 'images', obj: null },
-    soldier: { 'name': 'soldier', src: 'images/race/soldier.png', type: 'images', obj: null },
-    road: { 'name': 'road', src: 'images/race/road.png', type: 'images', obj: null }
+    saint: { 'name': 'saint', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/saint.png', type: 'images', obj: null },
+    soldier: { 'name': 'soldier', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/soldier.png', type: 'images', obj: null },
+    road: { 'name': 'road', src: 'http://localhost/iKCoder/WorkStation/Scene/images/race/road.png', type: 'images', obj: null }
 };
 
 var Util = {
