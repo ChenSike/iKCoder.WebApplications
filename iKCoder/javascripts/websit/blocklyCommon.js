@@ -74,8 +74,8 @@ WorkScene.init = function () {
     };
 
     window.addEventListener('resize', onresize, false);
-    //var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("xml/blocks.xml")));
-    var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
+    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("http://localhost/iKCoder/WorkStation/Scene/xml/testblocks.xml")));
+    //var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
     WorkScene.workspace = Blockly.inject('content_WorkSpace',
         {
             scrollbars: true,
@@ -86,7 +86,7 @@ WorkScene.init = function () {
             customCfg: {
                 background_path: {
                     spacing: 10,
-                    color: '#666666',
+                    color: 'rgb(245,245,245)',
                     path: {
                         color: 'rgb(245,245,245)',
                         path: ''
@@ -94,10 +94,10 @@ WorkScene.init = function () {
                 },
                 toolbox_collapse: {
                     border: {
-                        stroke: 'rgb(0,163,217)',
+                        stroke: 'rgb(209,207,204)',
                         width: 1
                     },
-                    fill: 'rgb(221, 221, 221)',
+                    fill: 'rgb(223, 228, 231)',
                     opacity: 1,
                     radius: 0
                 }
@@ -110,13 +110,14 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    // var defaultXml = XMLToString(LoadXMLFile("xml/default.xml"));
-    var defaultXml = '<xml>' +
-                            '   <block type="race_roads" id="race_roads_block_example" deletable="false" x="20" y="20"/>' +
-                            '   <block type="race_cars" id="race_cars_block_example" deletable="false" x="20" y="60"/>' +
-                            '</xml>';
+    //var defaultXml = XMLToString(LoadXMLFile("http://localhost/iKCoder/WorkStation/Scene/xml/testblocks.xml"));
+    //var defaultXml = '<xml>' +
+    //                        '   <block type="race_roads" id="race_roads_block_example" deletable="false" x="20" y="20"/>' +
+    //                        '   <block type="race_cars" id="race_cars_block_example" deletable="false" x="20" y="60"/>' +
+    //                        '</xml>';
 
-    WorkScene.loadBlocks(defaultXml);
+    //WorkScene.loadBlocks(blocksXMLDoc);
+    WorkScene.loadBlocks();
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
     if ('BlocklyStorage' in window) {
@@ -132,7 +133,7 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
     CheckSceneObject();
-    Scene.init('game_container', 0);
+    //Scene.init('game_container', 0);
 };
 
 WorkScene.runJS = function () {
@@ -180,7 +181,7 @@ WorkScene.changeSceneCfg = function (cfgObj) {
 }
 
 WorkScene.outputCode = function () {
-    try{
+    try {
         var content = $('#txt_Code_Content');
         var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
         content.text(code);
@@ -210,8 +211,8 @@ WorkScene.endGame = function () {
 };
 
 function CheckSceneObject() {
-    if (!Scene) {
-        Scene = {};
+    if (typeof Scene == "undefined" || Scene == null) {
+        window.Scene = {};
     }
 
     if (!Scene.init) {

@@ -148,13 +148,13 @@ footer {
 }
 
 .siderbar-wrap {
-    position: absolute;
-    top: 60px;
+    width: 425px;
     height: calc(100% - 60px - 60px);
     height: -moz-calc(100% - 60px - 60px);
     height: -webkit-calc(100% - 60px - 60px);
+    position: absolute;
+    top: 60px;
     right: 0px;
-    width: 425px;
 }
 
 .siderbar-expand {
@@ -166,6 +166,7 @@ footer {
     top: calc(50% - 25px);
     top: -moz-calc(50% - 25px);
     top: -webkit-calc(50% - 25px);
+    left: -25px;
     background-color: rgb(41,49,67);
     cursor: pointer;
     border-bottom-left-radius: 5px;
@@ -181,7 +182,8 @@ footer {
     height: 100%;
     width: 5px;
     top: -50px;
-    left: 20px;
+    /*left: 20px;*/
+    left: -5px;
     background-image: url(../images/background/siderbardrag.png);
 }
 
@@ -202,13 +204,14 @@ footer {
 
 .sidebar-content-wrap {
     height: 100%;
-    width: calc(100% - 25px);
+    /*width: calc(100% - 25px);
     width: -moz-calc(100% - 25px);
-    width: -webkit-calc(100% - 25px);
+    width: -webkit-calc(100% - 25px);*/
+    width: 100%;
     min-width: 400px;
     position: absolute;
     top: 0px;
-    left: 25px;
+    /*left: 25px;*/
 }
 
 .siderbar-content {

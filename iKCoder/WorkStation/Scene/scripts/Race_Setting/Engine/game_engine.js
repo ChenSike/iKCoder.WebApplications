@@ -156,12 +156,24 @@ var RectEntityObject = function (v, width, height, styles, type) {
     }
 };
 
-var ImageEntityObject = function (img, v, width, height) {
-    EntityObject.call(this);
+var ImageEntityObject = function (img, v, width, height, type) {
+    var tType = (!type ? "" : type);
+    EntityObject.call(this, tType);
     Rect.call(this, v, width, height);
 
     this._draw = function (context) {
+        var ws = Game.current.canvasSize.w / Game.default.canvasSize.w;
+        var hs = Game.current.canvasSize.h / Game.default.canvasSize.h;
+
+        if (tType == "ROAD") {
+            context.scale(ws, hs);
+        }
+
         context.drawImage(img, this.position.x, this.position.y);
+
+        if (tType == "ROAD") {
+            context.scale(1 / ws, 1 / hs);
+        }
     };
 };
 

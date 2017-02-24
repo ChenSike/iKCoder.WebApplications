@@ -64,14 +64,19 @@ function initEvents() {
     });
 
     $('#panel_CodeMode').draggable({ containment: "body", scroll: false }).resizable();
+
+    $(".link-button-block-example").click(hightlightExampleBlock);
 }
 
 function siderBarExpand() {
     var tmpObj = $(".siderbar-wrap");
     var tmpLeft = $('body').width();
-    if (tmpObj.hasClass('expanded')) {
-        tmpLeft -= 25;
-    } else {
+    //if (tmpObj.hasClass('expanded')) {
+    //    tmpLeft -= 25;
+    //} else {
+    //    tmpLeft -= tmpObj.width();
+    //}
+    if (!tmpObj.hasClass('expanded')) {
         tmpLeft -= tmpObj.width();
     }
 
@@ -94,25 +99,27 @@ function initDatas() {
         user: {
             id: "1",
             name: "Tom",
-            img: ""
+            img: "child_1.png"
         },
         course: {
             id: "1",
             name: "坦克大战",
             stage_count: 6,
             current_stage: 4,
-            note: '现在坦克战队已经可以在你的控制下移动了, 接下来为坦克增加"射击"能力吧. 请增加键盘事件, 使"空格"键按下时, 坦克可以发射炮弹'
+            note: [
+                {
+                    text: '现在坦克战队已经可以在你的控制下移动了, 接下来为坦克增加"射击"能力吧. 请增加键盘事件, 使"空格"键按下时, 坦克可以发射炮弹',
+                    key: "常量",
+                    id: "race_roads_block_example"
+                }
+            ]
         },
-        tips: [
-            { type: "", id: "" },
-            { type: "", id: "" }
-        ],
         blockly: {
             xml: "http://localhost/iKCoder/WorkStation/Scene/XML/testblocks.xml",
             lib: [
-                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
-                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",
-                "http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Scene/scene.js",
+                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
+                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",
+                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Scene/scene.js",
             ]
         }
     }
@@ -151,7 +158,18 @@ function buildStageHTML(data) {
     $('.head-stage-background').css('width', tmpWidth + "%");
     tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
     $('.head-stage-space').css('width', tmpWidth + "%");
-    $('.course-stage-note').text(data.note);
+    for (var i = 0; i < data.note.length; i++) {
+        var tmpStrArr = [];
+        tmpStrArr.push((i + 1) + ". ");
+        tmpStrArr.push('<strong>');
+        tmpStrArr.push('   <a href="#" class="link-button-block-example" data-target="' + data.note[i].id + '" title="点击查看对应的块">');
+        tmpStrArr.push(data.note[i].key);
+        tmpStrArr.push(': </a>');
+        tmpStrArr.push('</strong>');
+        tmpStrArr.push(data.note[i].text);
+        tmpStrArr.push('</br>');
+        $('.course-stage-note').html(tmpStrArr.join(''));
+    }
 }
 
 function initPage() {
@@ -170,6 +188,7 @@ function initPage() {
 }
 
 function updateUserInfo(data) {
+    $('.img-rounded.header-user-image').attr('src', 'images/children/' + data.img);
     $('.header-user-name-text').text(data.name);
     $('.header-user-name-text').text(data.name);
 }
@@ -248,6 +267,34 @@ function adjustWorkSpaceTitle() {
     } else {
         titleWrap.css('width', 'calc(100% - 15px)');
     }
+}
+
+var _blockExample = null;
+var _highlightCount = 0;
+function hightlightExampleBlock() {
+    var blocks = WorkScene.workspace.topBlocks_;
+    var targetBtn = $(arguments[0].target);
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].id == targetBtn.attr("data-target")) {
+            _blockExample = blocks[i];
+            _highlightCount = 0;
+            selectBlockExample();
+            break;
+        }
+    }
+}
+
+function selectBlockExample() {
+    if (_highlightCount < 4) {
+        _blockExample.addSelect();
+        setTimeout('unselectBlockExample();', 500);
+    }
+}
+
+function unselectBlockExample() {
+    _highlightCount++;
+    _blockExample.removeSelect();
+    setTimeout('selectBlockExample();', 500);
 }
 
 (function ($) {

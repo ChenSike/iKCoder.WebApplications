@@ -487,7 +487,7 @@ var Scene = {
     },
 
     renderRoad: function () {
-        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w, Game.current.canvasSize.h, 'ROAD');
+        var road = new ImageEntityObject(this.resource.road.obj, new Vector(0, 0), Game.current.canvasSize.w * Game.scale, Game.current.canvasSize.h, 'ROAD');
         this.screenObjPool.add(road);
         var tmpSpace = (Game.current.canvasSize.w - Game.current.space.l - Game.current.space.r) / Game.current.roadCount;
         for (var i = 0; i < Game.current.roadCount - 1; i++) {

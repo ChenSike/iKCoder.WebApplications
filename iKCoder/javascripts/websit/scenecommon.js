@@ -16,6 +16,7 @@ function LaodSceneLib(data) {
             });
         });
     } else {
+        WorkScene.init();
         return;
     }
 }
