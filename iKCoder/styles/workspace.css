@@ -1,0 +1,58 @@
+﻿[role=treeitem] {
+    background: rgb(245,245,245);
+    cursor: pointer;
+    width: 85%;
+    height: 34px;
+    margin-top: 13px;
+    margin-left: 4%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-shadow: 0 2px 6px 0 rgba(0,0,0,.5), 2px 0 0 0 rgba(0,0,0,.15) inset, inset 0 -1px 1px 0 rgba(0,0,0,.3);
+    -moz-box-shadow: 0 2px 6px 0 rgba(0,0,0,.5),2px 0 0 0 rgba(0,0,0,.15) inset,inset 0 -1px 1px 0 rgba(0,0,0,.3);
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.5), 2px 0 0 0 rgba(0,0,0,.15) inset, inset 0 -1px 1px 0 rgba(0,0,0,.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.blocklyToolboxDiv [role=treeitem] {
+    border-left: 10px solid;
+    /*border-color: rgb(90,150,255);*/
+}
+
+.blocklyTreeRow {
+    overflow: hidden;
+}
+
+.blocklyTreeRow:not(.blocklyTreeSelected):hover {
+    background-color: transparent;
+}
+
+.blocklyTreeLabel {
+    font-family: 微软雅黑;
+}
+
+.blocklyTreeSelected{
+   background-color:transparent;
+}
+
+/*category_Logic
+category_Loops
+category_Math
+category_Text
+category_Lists
+category_Colour
+category_Variables
+category_Functions
+blockLibCategory*/
