@@ -1,5 +1,5 @@
 <xml id="workspacefactory_toolbox" class="toolbox">
-  <category name="Logic" colour="210" id="category_Logic">
+  <category name="逻辑" colour="210" id="category_Logic">
     <block type="controls_if"/>
     <block type="logic_compare"/>
     <block type="logic_operation"/>
@@ -8,7 +8,7 @@
     <block type="logic_null"/>
     <block type="logic_ternary"/>
   </category>
-  <category name="Loops" colour="120" id="category_Loops">
+  <category name="循环" colour="120" id="category_Loops">
     <block type="controls_repeat_ext">
       <value name="TIMES">
         <shadow type="math_number">
@@ -37,7 +37,7 @@
     <block type="controls_forEach"/>
     <block type="controls_flow_statements"/>
   </category>
-  <category name="Math" colour="230" id="category_Math">
+  <category name="数学" colour="230" id="category_Math">
     <block type="math_number"/>
     <block type="math_arithmetic">
       <value name="A">
@@ -124,7 +124,7 @@
     </block>
     <block type="math_random_float"/>
   </category>
-  <category name="Text" colour="160" id="category_Text">
+  <category name="文本" colour="160" id="category_Text">
     <block type="text"/>
     <block type="text_join"/>
     <block type="text_append">
@@ -201,7 +201,7 @@
       </value>
     </block>
   </category>
-  <category name="Lists" colour="260" id="category_Lists">
+  <category name="列表" colour="260" id="category_Lists">
     <block type="lists_create_with">
       <mutation items="0"/>
     </block>
@@ -252,7 +252,7 @@
     </block>
     <block type="lists_sort"/>
   </category>
-  <category name="Colour" colour="20"  id="category_Colour">
+  <category name="颜色" colour="20"  id="category_Colour">
     <block type="colour_picker"/>
     <block type="colour_random"/>
     <block type="colour_rgb">
@@ -290,6 +290,6 @@
       </value>
     </block>
   </category>
-  <category name="Variables" colour="330" custom="VARIABLE"  id="category_Variables"/>
-  <category name="Functions" colour="290" custom="PROCEDURE"  id="category_Functions"/>
+  <category name="变量" colour="330" custom="VARIABLE"  id="category_Variables"/>
+  <category name="函数" colour="290" custom="PROCEDURE"  id="category_Functions"/>
 </xml>
