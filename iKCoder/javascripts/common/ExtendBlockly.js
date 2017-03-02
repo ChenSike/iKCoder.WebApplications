@@ -1,5 +1,353 @@
 ﻿'use strict';
 
+Blockly.Block.prototype.stroke_ = '#000000';
+
+Blockly.Block.prototype.getStroke = function () {
+    return this.stroke_;
+};
+
+Blockly.Block.prototype.setStroke = function (stroke) {
+    var hue = parseFloat(stroke);
+    if (!isNaN(hue)) {
+        this.stroke_ = Blockly.hueToRgb(hue);
+    } else if (goog.isString(stroke) && stroke.match(/^#[0-9a-fA-F]{6}$/)) {
+        this.stroke_ = stroke;
+    } else {
+        throw 'Invalid stroke: ' + stroke;
+    }
+};
+
+Blockly.Xml.blockToDom = function (block, opt_noId) {
+    var element = goog.dom.createDom(block.isShadow() ? 'shadow' : 'block');
+    element.setAttribute('type', block.type);
+    if (!opt_noId) {
+        element.setAttribute('id', block.id);
+    }
+
+    if (block.mutationToDom) {
+        var mutation = block.mutationToDom();
+        if (mutation && (mutation.hasChildNodes() || mutation.hasAttributes())) {
+            element.appendChild(mutation);
+        }
+    }
+
+    function fieldToDom(field) {
+        if (field.name && field.EDITABLE) {
+            var container = goog.dom.createDom('field', null, field.getValue());
+            container.setAttribute('name', field.name);
+            element.appendChild(container);
+        }
+    }
+
+    for (var i = 0, input; input = block.inputList[i]; i++) {
+        for (var j = 0, field; field = input.fieldRow[j]; j++) {
+            fieldToDom(field);
+        }
+    }
+
+    var commentText = block.getCommentText();
+    if (commentText) {
+        var commentElement = goog.dom.createDom('comment', null, commentText);
+        if (typeof block.comment == 'object') {
+            commentElement.setAttribute('pinned', block.comment.isVisible());
+            var hw = block.comment.getBubbleSize();
+            commentElement.setAttribute('h', hw.height);
+            commentElement.setAttribute('w', hw.width);
+        }
+
+        element.appendChild(commentElement);
+    }
+
+    if (block.data) {
+        var dataElement = goog.dom.createDom('data', null, block.data);
+        element.appendChild(dataElement);
+    }
+
+    for (var i = 0, input; input = block.inputList[i]; i++) {
+        var container;
+        var empty = true;
+        if (input.type == Blockly.DUMMY_INPUT) {
+            continue;
+        } else {
+            var childBlock = input.connection.targetBlock();
+            if (input.type == Blockly.INPUT_VALUE) {
+                container = goog.dom.createDom('value');
+            } else if (input.type == Blockly.NEXT_STATEMENT) {
+                container = goog.dom.createDom('statement');
+            }
+
+            var shadow = input.connection.getShadowDom();
+            if (shadow && (!childBlock || !childBlock.isShadow())) {
+                container.appendChild(Blockly.Xml.cloneShadow_(shadow));
+            }
+
+            if (childBlock) {
+                container.appendChild(Blockly.Xml.blockToDom(childBlock, opt_noId));
+                empty = false;
+            }
+        }
+
+        container.setAttribute('name', input.name);
+        if (!empty) {
+            element.appendChild(container);
+        }
+    }
+
+    if (block.inputsInlineDefault != block.inputsInline) {
+        element.setAttribute('inline', block.inputsInline);
+    }
+
+    if (block.isCollapsed()) {
+        element.setAttribute('collapsed', true);
+    }
+
+    if (block.disabled) {
+        element.setAttribute('disabled', true);
+    }
+
+    if (!block.isDeletable() && !block.isShadow()) {
+        element.setAttribute('deletable', false);
+    }
+
+    if (!block.isMovable() && !block.isShadow()) {
+        element.setAttribute('movable', false);
+    }
+
+    if (!block.isEditable()) {
+        element.setAttribute('editable', false);
+    }
+
+    var nextBlock = block.getNextBlock();
+    if (nextBlock) {
+        var container = goog.dom.createDom('next', null,
+            Blockly.Xml.blockToDom(nextBlock, opt_noId));
+        element.appendChild(container);
+    }
+
+    var shadow = block.nextConnection && block.nextConnection.getShadowDom();
+    if (shadow && (!nextBlock || !nextBlock.isShadow())) {
+        container.appendChild(Blockly.Xml.cloneShadow_(shadow));
+    }
+
+    element.setAttribute('colour', block.getColour());
+    element.setAttribute('stroke', block.getStroke());
+    return element;
+};
+
+Blockly.Xml.domToBlockHeadless_ = function (xmlBlock, workspace) {
+    var block = null;
+    var prototypeName = xmlBlock.getAttribute('type');
+    goog.asserts.assert(prototypeName, 'Block type unspecified: %s', xmlBlock.outerHTML);
+    var id = xmlBlock.getAttribute('id');
+    block = workspace.newBlock(prototypeName, id);
+    var currentColor = xmlBlock.getAttribute('colour');
+    if (currentColor) {
+        block.setColour(currentColor);
+    }
+
+    var currentStroke = xmlBlock.getAttribute('stroke');
+    if (currentStroke) {
+        block.setStroke(currentStroke);
+    }
+
+    var blockChild = null;
+    for (var i = 0, xmlChild; xmlChild = xmlBlock.childNodes[i]; i++) {
+        if (xmlChild.nodeType == 3) {
+            continue;
+        }
+
+        var input;
+        var childBlockNode = null;
+        var childShadowNode = null;
+        for (var j = 0, grandchildNode; grandchildNode = xmlChild.childNodes[j];
+             j++) {
+            if (grandchildNode.nodeType == 1) {
+                if (grandchildNode.nodeName.toLowerCase() == 'block') {
+                    childBlockNode = grandchildNode;
+                } else if (grandchildNode.nodeName.toLowerCase() == 'shadow') {
+                    childShadowNode = grandchildNode;
+                }
+            }
+        }
+
+        if (!childBlockNode && childShadowNode) {
+            childBlockNode = childShadowNode;
+        }
+
+        var name = xmlChild.getAttribute('name');
+        switch (xmlChild.nodeName.toLowerCase()) {
+            case 'mutation':
+                if (block.domToMutation) {
+                    block.domToMutation(xmlChild);
+                    if (block.initSvg) {
+                        block.initSvg();
+                    }
+                }
+                break;
+            case 'comment':
+                block.setCommentText(xmlChild.textContent);
+                var visible = xmlChild.getAttribute('pinned');
+                if (visible && !block.isInFlyout) {
+                    setTimeout(function () {
+                        if (block.comment && block.comment.setVisible) {
+                            block.comment.setVisible(visible == 'true');
+                        }
+                    }, 1);
+                }
+
+                var bubbleW = parseInt(xmlChild.getAttribute('w'), 10);
+                var bubbleH = parseInt(xmlChild.getAttribute('h'), 10);
+                if (!isNaN(bubbleW) && !isNaN(bubbleH) &&
+                    block.comment && block.comment.setVisible) {
+                    block.comment.setBubbleSize(bubbleW, bubbleH);
+                }
+
+                break;
+            case 'data':
+                block.data = xmlChild.textContent;
+                break;
+            case 'title':
+            case 'field':
+                var field = block.getField(name);
+                if (!field) {
+                    console.warn('Ignoring non-existent field ' + name + ' in block ' +
+                                 prototypeName);
+                    break;
+                }
+
+                field.setValue(xmlChild.textContent);
+                break;
+            case 'value':
+            case 'statement':
+                input = block.getInput(name);
+                if (!input) {
+                    console.warn('Ignoring non-existent input ' + name + ' in block ' +
+                                 prototypeName);
+                    break;
+                }
+
+                if (childShadowNode) {
+                    input.connection.setShadowDom(childShadowNode);
+                }
+
+                if (childBlockNode) {
+                    blockChild = Blockly.Xml.domToBlockHeadless_(childBlockNode,
+                        workspace);
+                    if (blockChild.outputConnection) {
+                        input.connection.connect(blockChild.outputConnection);
+                    } else if (blockChild.previousConnection) {
+                        input.connection.connect(blockChild.previousConnection);
+                    } else {
+                        goog.asserts.fail(
+                            'Child block does not have output or previous statement.');
+                    }
+                }
+
+                break;
+            case 'next':
+                if (childShadowNode && block.nextConnection) {
+                    block.nextConnection.setShadowDom(childShadowNode);
+                }
+
+                if (childBlockNode) {
+                    goog.asserts.assert(block.nextConnection,
+                        'Next statement does not exist.');
+                    // If there is more than one XML 'next' tag.
+                    goog.asserts.assert(!block.nextConnection.isConnected(),
+                        'Next statement is already connected.');
+                    blockChild = Blockly.Xml.domToBlockHeadless_(childBlockNode,
+                        workspace);
+                    goog.asserts.assert(blockChild.previousConnection,
+                        'Next block does not have previous statement.');
+                    block.nextConnection.connect(blockChild.previousConnection);
+                }
+
+                break;
+            default:
+                console.warn('Ignoring unknown tag: ' + xmlChild.nodeName);
+        }
+    }
+
+    var inline = xmlBlock.getAttribute('inline');
+    if (inline) {
+        block.setInputsInline(inline == 'true');
+    }
+
+    var disabled = xmlBlock.getAttribute('disabled');
+    if (disabled) {
+        block.setDisabled(disabled == 'true');
+    }
+
+    var deletable = xmlBlock.getAttribute('deletable');
+    if (deletable) {
+        block.setDeletable(deletable == 'true');
+    }
+
+    var movable = xmlBlock.getAttribute('movable');
+    if (movable) {
+        block.setMovable(movable == 'true');
+    }
+
+    var editable = xmlBlock.getAttribute('editable');
+    if (editable) {
+        block.setEditable(editable == 'true');
+    }
+
+    var collapsed = xmlBlock.getAttribute('collapsed');
+    if (collapsed) {
+        block.setCollapsed(collapsed == 'true');
+    }
+
+    if (xmlBlock.nodeName.toLowerCase() == 'shadow') {
+        // Ensure all children are also shadows.
+        var children = block.getChildren();
+        for (var i = 0, child; child = children[i]; i++) {
+            goog.asserts.assert(child.isShadow(),
+                                'Shadow block not allowed non-shadow child.');
+        }
+        block.setShadow(true);
+    }
+
+    return block;
+};
+
+Blockly.BlockSvg.prototype.updateColour = function () {
+    if (this.disabled) {
+        return;
+    }
+
+    var hexColour = this.getColour();
+    var hexStroke = this.getStroke();
+    var rgb = goog.color.hexToRgb(hexColour);
+    var rgbStroke = goog.color.hexToRgb(hexStroke);
+    if (this.isShadow()) {
+        rgb = goog.color.lighten(rgb, 0.6);
+        hexColour = goog.color.rgbArrayToHex(rgb);
+        this.svgPathLight_.style.display = 'none';
+        this.svgPathDark_.setAttribute('fill', hexColour);
+    } else {
+        this.svgPathLight_.style.display = '';
+        //var hexLight = goog.color.rgbArrayToHex(goog.color.lighten(rgb, 0.3));
+        var hexDark = goog.color.rgbArrayToHex(goog.color.darken(rgb, 0.2));
+        //this.svgPathLight_.setAttribute('stroke', hexLight);
+        this.svgPathLight_.setAttribute('stroke', hexStroke);
+        this.svgPathDark_.setAttribute('fill', hexDark);
+    }
+
+    this.svgPath_.setAttribute('fill', hexColour);
+    this.svgPath_.setAttribute('stroke', hexStroke);
+    var icons = this.getIcons();
+    for (var i = 0; i < icons.length; i++) {
+        icons[i].updateColour();
+    }
+
+    for (var x = 0, input; input = this.inputList[x]; x++) {
+        for (var y = 0, field; field = input.fieldRow[y]; y++) {
+            field.setText(null);
+        }
+    }
+}
+
 Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
     var tree = opt_tree || this.tree_;
     var children = tree.getChildren();
@@ -68,6 +416,18 @@ Blockly.BlockSvg.TOP_LEFT_CORNER = 'c0 -0.783,0.635 -1.417, 1.417 -1.417';
 Blockly.BlockSvg.NOTCH_WIDTH = 31.594;
 Blockly.BlockSvg.NOTCH_PATH_LEFT = 'l4.419,7.655 h8.839 l4.419,-7.655';
 Blockly.BlockSvg.NOTCH_PATH_RIGHT = 'l-4.419,7.655 h-8.839 l-4.419,-7.655';
+Blockly.BlockSvg.INNER_TOP_LEFT_CORNER =
+    Blockly.BlockSvg.NOTCH_PATH_RIGHT + ' h -' +
+    (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) +
+    ' a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' +
+    Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 -' +
+    Blockly.BlockSvg.CORNER_RADIUS + ',' +
+    Blockly.BlockSvg.CORNER_RADIUS;
+Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER =
+    'a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' +
+    Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 ' +
+    Blockly.BlockSvg.CORNER_RADIUS + ',' +
+    Blockly.BlockSvg.CORNER_RADIUS;
 
 Blockly.BlockSvg.prototype.renderDrawTop_ = function (steps, highlightSteps, rightEdge) {
     if (this.squareTopLeftCorner_) {
@@ -111,8 +471,8 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
         if (y == 0) {
             cursorX += this.RTL ? -iconWidth : iconWidth;
         }
-        highlightSteps.push('M', (inputRows.rightEdge - 0.5) + ',' +
-            (cursorY + 0.5));
+
+        highlightSteps.push('M', (inputRows.rightEdge - 0.5) + ',' + (cursorY + 0.5));
         if (this.isCollapsed()) {
             // Jagged right edge.
             var input = row[0];
@@ -203,7 +563,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             this.width = Math.max(this.width, cursorX);
             steps.push('H', cursorX);
             highlightSteps.push('H', cursorX - 0.5);
-            steps.push('v', row.height);
+            //steps.push('v', row.height);
+            //steps.push('c' + row.height + ' 0,' + row.height + ' ' + row.height + ',0 ' + row.height);
+            steps.push('a ' + (row.height / 2) + ',' + (row.height / 2) + ', 180, 1, 1, 0, ' + row.height);
             if (this.RTL) {
                 highlightSteps.push('v', row.height - 1);
             }
@@ -341,7 +703,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
 
     if (!inputRows.length) {
         cursorY = Blockly.BlockSvg.MIN_BLOCK_Y;
-        steps.push('V', cursorY);
+        //steps.push('V', cursorY);
+        steps.push('c8.211 0,14.868 6.657,14.868 14.868');
+        steps.push('c0 8.211,-6.657 14.868,-14.868 14.868');
         if (this.RTL) {
             highlightSteps.push('V', cursorY - 1);
         }

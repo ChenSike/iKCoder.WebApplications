@@ -1,6 +1,6 @@
 <xml id="workspacefactory_toolbox" class="toolbox">
   <category name="逻辑" colour="210" id="category_Logic">
-    <block type="controls_if"/>
+    <block type="controls_if" colour="65" stroke="#ff0000"/>
     <block type="logic_compare"/>
     <block type="logic_operation"/>
     <block type="logic_negate"/>
