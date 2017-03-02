@@ -42,7 +42,7 @@ function _registerRemoteServer() {
     if (!_gRegisterServer) {
         $.ajax({
             type: 'GET',
-            data:'<root></root>',
+            data: '<root></root>',
             url: _getRequestURL(_gURLMapping.server.reg, { domain: window.location.origin }),
             success: function (xml, status) {
                 //alert('111');
@@ -98,7 +98,7 @@ function _checkPhoneNumber(phone) {
 }
 
 function _checkPassword(pwd) {
-    pwd=pwd.trim();
+    pwd = pwd.trim();
     if (pwd.length < 8 || pwd.length > 16) {
         return -2;
     } else {
@@ -249,8 +249,17 @@ function _startIntroJs() {
 
     if (flag) {
         $('head').append('<link rel="stylesheet" href="intro.js-2.4.0/introjs.css">');
+        $('head').append('<link rel="stylesheet" href="intro.js-2.4.0/themes/introjs-modern.css">');
         $.getScript("intro.js-2.4.0/intro.js", function () {
-            introJs().setOption('showButtons', true).start();
+            introJs().setOptions({
+                'showButtons': true,
+                "nextLabel": "下一步",
+                "prevLabel": "上一步",
+                "skipLabel": "跳过",
+                "doneLabel": "完成",
+                "exitOnEsc": true,
+                "keyboardNavigation": true
+            }).start();
         });
     }
 

@@ -128,6 +128,7 @@ footer {
     width: 65px;
     text-align: center;
     cursor: pointer;
+    color: rgb(255,255,255);
 }
 
     .footer-tool-item.selected {
@@ -138,7 +139,8 @@ footer {
     }
 
     .footer-tool-item:hover {
-        color: rgb(203,204,203);
+        border-top: solid 2px rgb(110,158,245);
+        color: rgb(110,158,245);
     }
 
 .main-container {
