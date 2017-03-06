@@ -780,10 +780,14 @@ Blockly.Icon.prototype.renderIcon = function (cursorX) {
 Blockly.RenderedConnection.prototype.highlight = function () {
     var steps;
     if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
-        steps = 'm 0,0 ' + Blockly.BlockSvg.TAB_PATH_DOWN + ' v 5';
+        if (this.check_ && this.check_.length == 1 && this.check_[0] == "Boolean") {
+            steps = 'm 0,0 l-10.7,12.5 10.7, 12.5';
+        } else {
+            steps = 'm 0,0 a12.5,12.5,0,1,0,0,25';
+        }
     } else {
         //steps = 'm -20,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
-        steps = 'm -23,-4 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
+        steps = 'm -23,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
     }
 
     var xy = this.sourceBlock_.getRelativeToSurfaceXY();
