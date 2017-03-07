@@ -769,15 +769,20 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             steps.push(' h -' + (Blockly.BlockSvg.NOTCH_WIDTH - 18 - Blockly.BlockSvg.CORNER_RADIUS));
             steps.push(' a ' + Blockly.BlockSvg.CORNER_RADIUS + ',' + Blockly.BlockSvg.CORNER_RADIUS + ' 0 0,0 -' + Blockly.BlockSvg.CORNER_RADIUS + ',' + Blockly.BlockSvg.CORNER_RADIUS);
             //steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
-            if (row[0].connection.targetBlock() && this.checkNextConnection(row[0].connection.targetBlock())) {
-                steps.push('v', row.height - 2* Blockly.BlockSvg.CORNER_RADIUS -7);
-                steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
-                //cursorY -= 7;
-            } else {
-                steps.push('v', row.height - Blockly.BlockSvg.CORNER_RADIUS);
+            //if (input.connection.targetBlock() && this.checkNextConnection(input.connection.targetBlock())) {
+            //    steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS - 7);
+            //    steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
+            //    //cursorY -= 7;
+            //} else {
+            //    steps.push('v', row.height - Blockly.BlockSvg.CORNER_RADIUS);
+            //}
+            var tmpV = row.height - Blockly.BlockSvg.CORNER_RADIUS - 7;
+            if (tmpV < Blockly.BlockSvg.MIN_BLOCK_Y - Blockly.BlockSvg.CORNER_RADIUS) {
+                tmpV = Blockly.BlockSvg.MIN_BLOCK_Y - Blockly.BlockSvg.CORNER_RADIUS
             }
+            steps.push('v', tmpV);
 
-            steps.push('h', 10);
+            steps.push('h', Blockly.BlockSvg.NOTCH_WIDTH - 18);
             steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
             steps.push('h', Blockly.BlockSvg.SEP_SPACE_X * 2);
 
@@ -796,7 +801,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             if (y == inputRows.length - 1 || inputRows[y + 1].type == Blockly.NEXT_STATEMENT) {
                 var tmpD = Blockly.BlockSvg.SEP_SPACE_Y + 7;
                 steps.push('a' + (tmpD / 2) + ',' + (tmpD / 2) + ',0,1,1,0,' + tmpD);
-                cursorY += Blockly.BlockSvg.SEP_SPACE_Y + 7;
+                cursorY += Blockly.BlockSvg.SEP_SPACE_Y;
             }
         }
         cursorY += row.height;
