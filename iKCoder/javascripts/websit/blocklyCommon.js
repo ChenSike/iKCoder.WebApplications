@@ -92,6 +92,7 @@ WorkScene.init = function () {
                         path: ''
                     }
                 },
+                background_color: 'rgb(245,245,245)',
                 toolbox_collapse: {
                     border: {
                         stroke: 'rgb(209,207,204)',

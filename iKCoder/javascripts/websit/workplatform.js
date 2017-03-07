@@ -185,6 +185,7 @@ function initPage() {
     var fullScreenBtn = $('.workspace-tool-item.glyphicon.glyphicon-fullscreen');
     var refereshBtn = $('.workspace-tool-item.glyphicon.glyphicon-repeat');
     bindEventsToScene(playBtn, shareBtn, fullScreenBtn, refereshBtn);
+    siderBarExpand();
 }
 
 function updateUserInfo(data) {

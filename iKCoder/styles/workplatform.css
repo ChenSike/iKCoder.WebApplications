@@ -157,6 +157,7 @@ footer {
     position: absolute;
     top: 60px;
     right: 0px;
+    z-index: 1000;
 }
 
 .siderbar-expand {
