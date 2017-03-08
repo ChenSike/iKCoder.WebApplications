@@ -457,7 +457,7 @@ Blockly.RenderedConnection.prototype.highlight = function () {
             var tmpR = tmpUnit / 2;
         }
     } else {
-        steps = 'm -22,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
+        steps = 'm -23,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
     }
 
     var xy = this.sourceBlock_.getRelativeToSurfaceXY();
@@ -477,12 +477,6 @@ Blockly.RenderedConnection.prototype.highlight = function () {
 Blockly.RenderedConnection.prototype.tighten_ = function () {
     var dx = this.targetConnection.x_ - this.x_;
     var dy = this.targetConnection.y_ - this.y_;
-    //console.log(this.targetConnection.x_);
-    //console.log(this.x_);
-    //console.log(this.targetConnection.y_);
-    //console.log(this.y_);
-    //console.log(dx);
-    //console.log(dy);
     if (dx != 0 || dy != 0) {
         var block = this.targetBlock();
         var svgRoot = block.getSvgRoot();
@@ -491,10 +485,6 @@ Blockly.RenderedConnection.prototype.tighten_ = function () {
         }
         var xy = Blockly.utils.getRelativeXY(svgRoot);
         block.getSvgRoot().setAttribute('transform', 'translate(' + (xy.x - dx) + ',' + (xy.y - dy) + ')');
-        //console.log(xy.x);
-        //console.log(xy.x - dx);
-        //console.log(xy.y);
-        //console.log(xy.y - dy);
         block.moveConnections_(-dx, -dy);
     }
 };
