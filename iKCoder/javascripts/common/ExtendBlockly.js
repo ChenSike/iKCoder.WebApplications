@@ -346,6 +346,30 @@ Blockly.BlockSvg.prototype.getHeightWidth = function () {
         // Add a bit of margin under blocks with no bottom tab.
         //height += 2;
     }
+
+    if (!this.getInputsInline() && this.inputList.length > 0) {
+        var hasBoolean = false;
+        var hasAny = false;
+        var tmpConn = null;
+        for (var i = 0; i < this.inputList.length; i++) {
+            tmpConn = this.inputList[i].connection
+            if (tmpConn && tmpConn.check_) {
+                if (tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
+                    hasBoolean = true;
+                } else {
+                    hasAny = true;
+                }
+                break;
+            }
+        }
+
+        if (hasAny) {
+            width += height / 2 / 17.5 * 15;
+        } else if (hasBoolean) {
+            width += height / 2;
+        }
+    }
+
     return { height: height, width: width };
 };
 
