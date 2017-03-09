@@ -577,13 +577,16 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                         }
 
                         var tmpR = tmpUnit / 2;
+                        if (tmpR == 27.5) {
+                            tmpR = 28;
+                        }
                         inlineSteps.push('m', -(tmpR + Blockly.BlockSvg.SEP_SPACE_X) + ',0');
                         //inlineSteps.push('l0,5 0,-5');
                         inlineSteps.push('h', -(input.renderWidth - tmpR * 2));
                         //inlineSteps.push('l0,5 0-5');
-                        inlineSteps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,' + tmpUnit);
+                        inlineSteps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,' + tmpR * 2);
                         inlineSteps.push('h' + (input.renderWidth - tmpR * 2));
-                        inlineSteps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,-' + tmpUnit);
+                        inlineSteps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,-' + tmpR * 2);
                     }
 
                     //inlineSteps.push('v', input.renderHeight - Blockly.BlockSvg.TAB_HEIGHT);
@@ -625,7 +628,10 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                 steps.push('l' + tmpX + ',' + tmpY + ' -' + tmpX + ', ' + tmpY);
             } else {
                 var tmpR = (row.height) / 2;
-                steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (row.height));
+                if (tmpR == 27.5) {
+                    tmpR = 28;
+                }
+                steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (tmpR * 2));
             }
         } else if (row.type == Blockly.INPUT_VALUE) {
             var input = row[0];
@@ -650,7 +656,10 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             } else {
                 var tmpR = (row.height) / 2;
                 //steps.push('h' + tmpR);
-                steps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,' + (row.height));
+                if (tmpR == 27.5) {
+                    tmpR = 28;
+                }
+                steps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,' + (tmpR * 2));
             }
 
             //var v = row.height - Blockly.BlockSvg.TAB_HEIGHT;
@@ -686,7 +695,10 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                 steps.push('l' + tmpX + ',' + tmpY + ' -' + tmpX + ', ' + tmpY);
             } else {
                 var tmpR = (row.height) / 2;
-                steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (row.height));
+                if (tmpR == 27.5) {
+                    tmpR = 28;
+                }
+                steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (tmpR * 2));
             }
         } else if (row.type == Blockly.NEXT_STATEMENT) {
             var input = row[0];
@@ -819,7 +831,10 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function (steps, highlightSteps) {
             }
 
             var tmpX = tmpUnit / 2;
-            steps.push('a' + tmpX + ',' + tmpX + ',0,1,1,0,-' + tmpUnit);
+            if (tmpX == 27.5) {
+                tmpX = 28;
+            }
+            steps.push('a' + tmpX + ',' + tmpX + ',0,1,1,0,-' + tmpX*2);
         }
 
         this.outputConnection.setOffsetInBlock(0 - tmpX, 0);
