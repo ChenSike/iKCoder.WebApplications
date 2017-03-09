@@ -347,30 +347,59 @@ Blockly.BlockSvg.prototype.getHeightWidth = function () {
         //height += 2;
     }
 
-    if (!this.getInputsInline() && this.inputList.length > 0) {
-        var hasBoolean = false;
-        var hasAny = false;
-        var tmpConn = null;
-        for (var i = 0; i < this.inputList.length; i++) {
-            tmpConn = this.inputList[i].connection
-            if (tmpConn && tmpConn.check_) {
-                if (tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
-                    hasBoolean = true;
-                } else {
-                    hasAny = true;
-                }
-                break;
-            }
-        }
-
-        if (hasAny) {
-            width += height / 2 / 17.5 * 15;
-        } else if (hasBoolean) {
-            width += height / 2;
-        }
+    var lastInputType = this.checkLastInputType(this);
+    if (lastInputType == "B") {
+        width += height / 2 / 17.5 * 15;
+    } else if (lastInputType == "A") {
+        width += height / 2;
     }
 
     return { height: height, width: width };
+};
+
+Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
+    var endType = '';
+    if (!block.previousConnection && !block.nextConnection && !block.getInputsInline() && block.inputList.length > 0) {
+        var tmpConn = null;
+        var tmpTargetBlock = null;
+        var tmpMaxWidth = 0;
+        for (var i = 0; i < block.inputList.length; i++) {
+            tmpConn = block.inputList[i].connection;
+            if (tmpConn) {
+                if (tmpConn.targetBlock()) {
+                    var tmpCurrentWidth = tmpConn.targetBlock().getHeightWidth().width;
+                    if (Math.max(tmpMaxWidth, tmpCurrentWidth) == tmpCurrentWidth) {
+                        tmpTargetBlock = tmpConn.targetBlock();
+                    }
+                } else {
+                    if (tmpConn.check_ && tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
+                        endType = "B";
+                    } else {
+                        endType = "A";
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        if (endType == "" && tmpTargetBlock) {
+            endType = this.checkLastInputType(tmpTargetBlock);
+        } else if (endType == "") {
+            for (var i = 0; i < block.inputList.length; i++) {
+                tmpConn = block.inputList[i].connection;
+                if (tmpConn) {
+                    if (tmpConn.check_ && tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
+                        endType = "B";
+                    } else {
+                        endType = "A";
+                    }
+                }
+            }
+        }
+    }
+
+    return endType;
 };
 
 Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
@@ -508,7 +537,16 @@ Blockly.RenderedConnection.prototype.tighten_ = function () {
             throw 'block is not rendered.';
         }
         var xy = Blockly.utils.getRelativeXY(svgRoot);
-        block.getSvgRoot().setAttribute('transform', 'translate(' + (xy.x - dx) + ',' + (xy.y - dy) + ')');
-        block.moveConnections_(-dx, -dy);
+        var tmpX = dx;
+        if (this.type != Blockly.NEXT_STATEMENT) {
+            if (block.checkBooleanConnection(block)) {
+                tmpX += block.height / 2 / 17.5 * 15;
+            } else {
+                tmpX += block.height / 2;
+            }
+        }
+
+        block.getSvgRoot().setAttribute('transform', 'translate(' + (xy.x - tmpX) + ',' + (xy.y - dy) + ')');
+        block.moveConnections_(-tmpX, -dy);
     }
 };

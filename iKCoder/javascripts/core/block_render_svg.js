@@ -558,6 +558,7 @@ Blockly.BlockSvg.prototype.renderMoveConnections_ = function () {
     }
     if (this.outputConnection) {
         this.outputConnection.moveToOffset(blockTL);
+        
     }
 
     for (var i = 0; i < this.inputList.length; i++) {
