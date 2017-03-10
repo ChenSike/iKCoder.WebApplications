@@ -1,5 +1,16 @@
 'use strict';
 
+Blockly.Blocks['TestForSVG'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("");
+        this.setInputsInline(true);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
 var WorkScene = {};
 WorkScene.workspace = null;
 WorkScene.SCORE = 0;

@@ -460,3 +460,7 @@ textarea {
     textarea:focus {
         box-shadow: none;
     }
+
+.blocklyTypeIcon {
+    transform-origin: top;
+}

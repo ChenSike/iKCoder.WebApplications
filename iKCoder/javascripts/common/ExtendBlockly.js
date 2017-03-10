@@ -2,6 +2,10 @@
 
 Blockly.Block.prototype.stroke_ = '#000000';
 
+Blockly.Block.prototype.eventIcon_ = "";
+
+Blockly.Block.prototype.categoryIcon_ = "";
+
 Blockly.Block.prototype.getStroke = function () {
     return this.stroke_;
 };
@@ -15,6 +19,22 @@ Blockly.Block.prototype.setStroke = function (stroke) {
     } else {
         throw 'Invalid stroke: ' + stroke;
     }
+};
+
+Blockly.Block.prototype.getEventIcon = function () {
+    return this.eventIcon_;
+};
+
+Blockly.Block.prototype.setEventIcon = function (eventIcon) {
+    this.eventIcon_ = eventIcon;
+};
+
+Blockly.Block.prototype.getCategoryIcon = function () {
+    return this.categoryIcon_;
+};
+
+Blockly.Block.prototype.setCategoryIcon = function (categoryIcon) {
+    this.categoryIcon_ = categoryIcon;
 };
 
 Blockly.Xml.blockToDom = function (block, opt_noId) {
@@ -118,6 +138,8 @@ Blockly.Xml.blockToDom = function (block, opt_noId) {
 
     element.setAttribute('colour', block.getColour());
     element.setAttribute('stroke', block.getStroke());
+    element.setAttribute('eventicon', block.getEventIcon());
+    element.setAttribute('categoryicon', block.getCategoryIcon());
     return element;
 };
 
@@ -127,6 +149,8 @@ Blockly.Xml.domToBlockHeadless_ = function (xmlBlock, workspace) {
     goog.asserts.assert(prototypeName, 'Block type unspecified: %s', xmlBlock.outerHTML);
     var id = xmlBlock.getAttribute('id');
     block = workspace.newBlock(prototypeName, id);
+    block.setEventIcon(xmlBlock.getAttribute('eventicon'));
+    block.setCategoryIcon(xmlBlock.getAttribute('categoryicon'));
     var currentColor = xmlBlock.getAttribute('colour');
     if (currentColor) {
         block.setColour(currentColor);
@@ -382,7 +406,7 @@ Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
 
         if (allConnected && block.inputList.length > 1) {
             for (var i = 0; i < block.inputList.length; i++) {
-                endType = this.getConnectionCheckType(block.inputList[i].connection);                
+                endType = this.getConnectionCheckType(block.inputList[i].connection);
             }
         } else {
             if (endType == "") {
@@ -390,7 +414,7 @@ Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
                     endType = this.checkLastInputType(tmpTargetBlock);
                 } else {
                     for (var i = 0; i < block.inputList.length; i++) {
-                        endType =  this.getConnectionCheckType(block.inputList[i].connection);
+                        endType = this.getConnectionCheckType(block.inputList[i].connection);
                     }
                 }
             }
