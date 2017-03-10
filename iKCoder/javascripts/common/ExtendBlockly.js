@@ -363,6 +363,7 @@ Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
         var tmpConn = null;
         var tmpTargetBlock = null;
         var tmpMaxWidth = 0;
+        var allConnected = true;
         for (var i = 0; i < block.inputList.length; i++) {
             tmpConn = block.inputList[i].connection;
             if (tmpConn) {
@@ -372,27 +373,24 @@ Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
                         tmpTargetBlock = tmpConn.targetBlock();
                     }
                 } else {
-                    if (tmpConn.check_ && tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
-                        endType = "B";
-                    } else {
-                        endType = "A";
-                    }
-
+                    endType = this.getConnectionCheckType(tmpConn);
+                    allConnected = false;
                     break;
                 }
             }
         }
 
-        if (endType == "" && tmpTargetBlock) {
-            endType = this.checkLastInputType(tmpTargetBlock);
-        } else if (endType == "") {
+        if (allConnected && block.inputList.length > 1) {
             for (var i = 0; i < block.inputList.length; i++) {
-                tmpConn = block.inputList[i].connection;
-                if (tmpConn) {
-                    if (tmpConn.check_ && tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
-                        endType = "B";
-                    } else {
-                        endType = "A";
+                endType = this.getConnectionCheckType(block.inputList[i].connection);                
+            }
+        } else {
+            if (endType == "") {
+                if (tmpTargetBlock) {
+                    endType = this.checkLastInputType(tmpTargetBlock);
+                } else {
+                    for (var i = 0; i < block.inputList.length; i++) {
+                        endType =  this.getConnectionCheckType(block.inputList[i].connection);
                     }
                 }
             }
@@ -400,6 +398,19 @@ Blockly.BlockSvg.prototype.checkLastInputType = function (block) {
     }
 
     return endType;
+};
+
+Blockly.BlockSvg.prototype.getConnectionCheckType = function (tmpConn) {
+    var checkType = '';
+    if (tmpConn) {
+        if (tmpConn.check_ && tmpConn.check_.length == 1 && tmpConn.check_[0] == "Boolean") {
+            checkType = "B";
+        } else {
+            checkType = "A";
+        }
+    }
+
+    return checkType;
 };
 
 Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
@@ -491,23 +502,33 @@ Blockly.Icon.prototype.renderIcon = function (cursorX) {
 Blockly.RenderedConnection.prototype.highlight = function () {
     var steps;
     if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
+        var currHeight = 25;
+        for (var i = 0; i < this.sourceBlock_.inputList.length; i++) {
+            var tmpInputConn = this.sourceBlock_.inputList[i].connection;
+            if (tmpInputConn.x_ == this.x_ && tmpInputConn.y_ == this.y_) {
+                currHeight = this.sourceBlock_.inputList[i].renderHeight;
+                break;
+            }
+        }
+
         if (this.check_ && this.check_.length == 1 && this.check_[0] == "Boolean") {
             //steps = 'm 0,0 l-10.7,12.5 10.7, 12.5';            
-            var tmpY = (this.sourceBlock_.height - Blockly.BlockSvg.SEP_SPACE_Y * 2) / 2;
+            var tmpY = currHeight / 2;
             var tmpX = tmpY / 17.5 * 15;
-            //tmpX = 
             steps = 'm 0,0';
-            steps += 'l-10.7,12.5 10.7, 12.5';
+            steps += 'l-' + tmpX + ',' + tmpY + ' ' + tmpX + ', ' + tmpY;
         } else {
-            steps = 'm 0,0 a12.5,12.5,0,1,0,0,25';
-            var tmpUnit = (this.sourceBlock_.height - Blockly.BlockSvg.SEP_SPACE_Y * 2) / 2;
+            var tmpUnit = currHeight;
             if (this.sourceBlock_.getInputsInline()) {
-                //if (input.renderHeight < Blockly.BlockSvg.MIN_BLOCK_Y) {
-                //    tmpUnit = input.renderHeight + 1;
-                //}
+                if (tmpUnit < Blockly.BlockSvg.MIN_BLOCK_Y) {
+                    tmpUnit += 1;
+                }
             }
 
             var tmpR = tmpUnit / 2;
+            //steps = 'm 0,0 a12.5,12.5,0,1,0,0,25';
+            steps = 'm 0,0';
+            steps += 'a' + tmpR + ',' + tmpR + ',0,1,0,0,' + tmpR * 2;
         }
     } else {
         steps = 'm -23,0 h 5 ' + Blockly.BlockSvg.NOTCH_PATH_LEFT + ' h 5';
@@ -539,7 +560,7 @@ Blockly.RenderedConnection.prototype.tighten_ = function () {
         var xy = Blockly.utils.getRelativeXY(svgRoot);
         var tmpX = dx;
         if (this.type != Blockly.NEXT_STATEMENT) {
-            if (block.checkBooleanConnection(block)) {
+            if (block.checkBooleanConnection(block, true)) {
                 tmpX += block.height / 2 / 17.5 * 15;
             } else {
                 tmpX += block.height / 2;

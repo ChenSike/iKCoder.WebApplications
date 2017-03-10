@@ -45,7 +45,7 @@ Blockly.BlockSvg.INLINE_PADDING_Y = 5;
  * Minimum height of a block.
  * @const
  */
-Blockly.BlockSvg.MIN_BLOCK_Y = 25;
+Blockly.BlockSvg.MIN_BLOCK_Y = 26;
 /**
  * Height of horizontal puzzle tab.
  * @const
@@ -577,9 +577,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                         }
 
                         var tmpR = tmpUnit / 2;
-                        if (tmpR == 27.5) {
-                            tmpR = 28;
-                        }
+                        //if (tmpR == 27.5) {
+                        //    tmpR = 28;
+                        //}
                         inlineSteps.push('m', -(tmpR + Blockly.BlockSvg.SEP_SPACE_X) + ',0');
                         //inlineSteps.push('l0,5 0,-5');
                         inlineSteps.push('h', -(input.renderWidth - tmpR * 2));
@@ -628,9 +628,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                 steps.push('l' + tmpX + ',' + tmpY + ' -' + tmpX + ', ' + tmpY);
             } else {
                 var tmpR = (row.height) / 2;
-                if (tmpR == 27.5) {
-                    tmpR = 28;
-                }
+                //if (tmpR == 27.5) {
+                //    tmpR = 28;
+                //}
                 steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (tmpR * 2));
             }
         } else if (row.type == Blockly.INPUT_VALUE) {
@@ -656,9 +656,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             } else {
                 var tmpR = (row.height) / 2;
                 //steps.push('h' + tmpR);
-                if (tmpR == 27.5) {
-                    tmpR = 28;
-                }
+                //if (tmpR == 27.5) {
+                //    tmpR = 28;
+                //}
                 steps.push('a' + tmpR + ',' + tmpR + ',0,1,0,0,' + (tmpR * 2));
             }
 
@@ -695,9 +695,9 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                 steps.push('l' + tmpX + ',' + tmpY + ' -' + tmpX + ', ' + tmpY);
             } else {
                 var tmpR = (row.height) / 2;
-                if (tmpR == 27.5) {
-                    tmpR = 28;
-                }
+                //if (tmpR == 27.5) {
+                //    tmpR = 28;
+                //}
                 steps.push('a' + tmpR + ',' + tmpR + ',0,1,1,0,' + (tmpR * 2));
             }
         } else if (row.type == Blockly.NEXT_STATEMENT) {
@@ -831,9 +831,9 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function (steps, highlightSteps) {
             }
 
             var tmpX = tmpUnit / 2;
-            if (tmpX == 27.5) {
-                tmpX = 28;
-            }
+            //if (tmpX == 27.5) {
+            //    tmpX = 28;
+            //}
             steps.push('a' + tmpX + ',' + tmpX + ',0,1,1,0,-' + tmpX*2);
         }
 
