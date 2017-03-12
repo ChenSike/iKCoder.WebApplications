@@ -38,7 +38,11 @@ Blockly.Block.prototype.getCategoryIcon = function () {
 };
 
 Blockly.Block.prototype.setCategoryIcon = function (categoryIcon) {
-    this.categoryIcon_ = categoryIcon;
+    if (typeof categoryIcon == 'string' && categoryIcon.toLowerCase() != 'null') {
+        this.categoryIcon_ = categoryIcon;
+    } else {
+        this.categoryIcon_ = "";
+    }
 };
 
 Blockly.Xml.blockToDom = function (block, opt_noId) {
