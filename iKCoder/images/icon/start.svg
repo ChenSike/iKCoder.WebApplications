@@ -1,0 +1,21 @@
+<svg width="36px" height="36px" viewBox="331 249 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7 (28169) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18,36 C27.9411255,36 36,27.9411255 36,18 C36,8.0588745 27.9411255,0 18,0 C8.0588745,0 0,8.0588745 0,18 C0,27.9411255 8.0588745,36 18,36 Z"
+              id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="36"
+              height="36" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Group-4" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+       transform="translate(331.000000, 249.000000)">
+        <use id="Oval-71-Copy-7" stroke="#5C7DEC" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF"
+             xlink:href="#path-1"></use>
+        <path d="M17.3793935,12.6030504 C18.5178185,10.7044779 20.3571458,10.6937638 21.5019953,12.6030504 L27.5051402,22.6146062 C28.6435653,24.5131787 27.7692562,26.0522758 25.5653977,26.0522758 L13.3159911,26.0522758 C11.1062758,26.0522758 10.2313991,24.5238928 11.3762486,22.6146062 L17.3793935,12.6030504 Z"
+              id="Triangle-6-Copy-2" fill="#5B97FF"
+              transform="translate(19.438731, 18.613688) rotate(-270.000000) translate(-19.438731, -18.613688) "></path>
+    </g>
+</svg>
