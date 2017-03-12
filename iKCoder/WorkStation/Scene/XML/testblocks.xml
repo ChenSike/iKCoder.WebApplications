@@ -1,5 +1,5 @@
 <xml id="workspacefactory_toolbox" class="toolbox">
-  <category name="逻辑" colour="210" id="category_Logic">
+  <category name="事件" colour="210" id="category_Logic">
     <block type="TestForSVG" categoryicon="start.svg" eventicon="start.svg" colour="#5B97FF"  stroke="#5C7DEC"/></category>
   <category name="逻辑" colour="210" id="category_Logic">
     <block type="controls_if" colour="65" stroke="#ff0000"/>

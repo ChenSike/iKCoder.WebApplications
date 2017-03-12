@@ -26,7 +26,11 @@ Blockly.Block.prototype.getEventIcon = function () {
 };
 
 Blockly.Block.prototype.setEventIcon = function (eventIcon) {
-    this.eventIcon_ = eventIcon;
+    if (typeof eventIcon == 'string' && eventIcon.toLowerCase() != 'null') {
+        this.eventIcon_ = eventIcon;
+    } else {
+        this.eventIcon_ = "";
+    }
 };
 
 Blockly.Block.prototype.getCategoryIcon = function () {
