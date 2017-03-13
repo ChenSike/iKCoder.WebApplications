@@ -552,10 +552,31 @@ Blockly.Mutator.prototype.drawIcon_ = function (group) {
          group);
 };
 
+Blockly.Comment.prototype.drawIcon_ = function (group) {
+    // Circle.
+    Blockly.utils.createSvgElement('circle',
+        { 'class': 'blocklyIconShape', 'r': '8', 'cx': '5', 'cy': '5' },
+         group);
+    // Can't use a real '?' text character since different browsers and operating
+    // systems render it differently.
+    // Body of question mark.
+    Blockly.utils.createSvgElement('path',
+        {
+            'class': 'blocklyIconSymbol',
+            'd': 'm3.8,7h2c0.003,-0.617 0.271,-0.962 0.633,-1.266 2.875,-2.405 0.607,-5.534 -3.765,-3.874v1.7c3.12,-1.657 3.698,0.118 2.336,1.25 -1.201,0.998 -1.201,1.528 -1.204,2.19z'
+        },
+         group);
+    // Dot of question mark.
+    Blockly.utils.createSvgElement('rect',
+        {
+            'class': 'blocklyIconSymbol',
+            'x': '3.8', 'y': '7.78', 'height': '2', 'width': '2'
+        },
+         group);
+};
+
 Blockly.RenderedConnection.prototype.highlight = function () {
     var steps;
-
-
     if (this.sourceBlock_.type == "controls_if") {
         var a = 0;
     }
@@ -564,7 +585,7 @@ Blockly.RenderedConnection.prototype.highlight = function () {
         var currHeight = 25;
         for (var i = 0; i < this.sourceBlock_.inputList.length; i++) {
             var tmpInputConn = this.sourceBlock_.inputList[i].connection;
-            if (tmpInputConn.x_ == this.x_ && tmpInputConn.y_ == this.y_) {
+            if (tmpInputConn && tmpInputConn.x_ == this.x_ && tmpInputConn.y_ == this.y_) {
                 currHeight = this.sourceBlock_.inputList[i].renderHeight;
                 break;
             }
@@ -631,5 +652,82 @@ Blockly.RenderedConnection.prototype.tighten_ = function () {
 
         block.getSvgRoot().setAttribute('transform', 'translate(' + (xy.x - tmpX) + ',' + (xy.y - dy) + ')');
         block.moveConnections_(-tmpX, -dy);
+    }
+};
+
+Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
+    this.workspace_.scale = this.targetWorkspace_.scale;
+    var margin = this.MARGIN;
+    var cursorX = this.RTL ? margin : margin + Blockly.BlockSvg.TAB_WIDTH;
+    var cursorY = margin;
+    if (this.horizontalLayout_ && this.RTL) {
+        contents = contents.reverse();
+    }
+
+    for (var i = 0, item; item = contents[i]; i++) {
+        if (item.type == 'block') {
+            var block = item.block;
+            var allBlocks = block.getDescendants();
+            for (var j = 0, child; child = allBlocks[j]; j++) {
+                // Mark blocks as being inside a flyout.  This is used to detect and
+                // prevent the closure of the flyout if the user right-clicks on such a
+                // block.
+                child.isInFlyout = true;
+            }
+            block.render();
+            var root = block.getSvgRoot();
+            var blockHW = block.getHeightWidth();
+            var tab = block.outputConnection ? Blockly.BlockSvg.TAB_WIDTH : 0;
+            if (this.horizontalLayout_) {
+                cursorX += tab;
+            }
+
+            var tmpX = cursorX;
+            var tmpY = cursorY;
+            if (block.svgGroup_.getBBox().x != 0) {
+                tmpX -= block.svgGroup_.getBBox().x;
+            }
+
+            if (block.svgGroup_.getBBox().y != 0) {
+                tmpY -= block.svgGroup_.getBBox().y;
+            }
+
+            block.moveBy((this.horizontalLayout_ && this.RTL) ? tmpX + blockHW.width - tab : tmpX, tmpY);
+            //if (block.svgGroup_.getBBox().x != 16) {
+            //    var tmpX = block.svgGroup_.getBBox().x - 16;
+            //    block.moveBy(tmpX, cursorY);
+            //}
+
+            if (this.horizontalLayout_) {
+                cursorX += (blockHW.width + gaps[i] - tab);
+            } else {
+                cursorY += blockHW.height + gaps[i];
+            }
+
+
+            // Create an invisible rectangle under the block to act as a button.  Just
+            // using the block as a button is poor, since blocks have holes in them.
+            var rect = Blockly.utils.createSvgElement('rect', { 'fill-opacity': 0 }, null);
+            rect.tooltip = block;
+            Blockly.Tooltip.bindMouseEvents(rect);
+            // Add the rectangles under the blocks, so that the blocks' tooltips work.
+            this.workspace_.getCanvas().insertBefore(rect, block.getSvgRoot());
+            block.flyoutRect_ = rect;
+            this.backgroundButtons_[i] = rect;
+
+            this.addBlockListeners_(root, block, rect);
+        } else if (item.type == 'button') {
+            var button = item.button;
+            var buttonSvg = button.createDom();
+            button.moveTo(cursorX, cursorY);
+            button.show();
+            Blockly.bindEventWithChecks_(buttonSvg, 'mouseup', button, button.onMouseUp);
+            this.buttons_.push(button);
+            if (this.horizontalLayout_) {
+                cursorX += (button.width + gaps[i]);
+            } else {
+                cursorY += button.height + gaps[i];
+            }
+        }
     }
 };

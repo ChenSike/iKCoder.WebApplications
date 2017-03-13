@@ -656,7 +656,7 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
                     fieldX += fieldRightX / 2;
                 }
             }
-            this.renderFields_(input.fieldRow, fieldX, fieldY, true);
+            var tmpCursorX = this.renderFields_(input.fieldRow, fieldX, fieldY, true);
             //steps.push(Blockly.BlockSvg.TAB_PATH_DOWN);
             var tmpY = row.height / 2;
             var tmpX = row.height / 2;
@@ -671,7 +671,11 @@ Blockly.BlockSvg.prototype.renderDrawRight_ = function (steps, highlightSteps, i
             if (y == 0) {
                 steps.push('h' + maxRowHeight);
             } else {
-                steps.push('h' + (maxRowHeight - Blockly.BlockSvg.SEP_SPACE_X * 2));
+                if (input.align == Blockly.ALIGN_RIGHT) {
+                    steps.push('H' + (tmpCursorX + maxRowHeight + 10));
+                } else {
+                    steps.push('h' + (maxRowHeight - Blockly.BlockSvg.SEP_SPACE_X * 2));
+                }
             }
 
             if (isBooleanConn) {
