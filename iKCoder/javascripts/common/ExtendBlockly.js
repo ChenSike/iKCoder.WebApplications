@@ -520,8 +520,7 @@ Blockly.Icon.prototype.renderIcon = function (cursorX) {
     if (this.block_.RTL) {
         cursorX -= width;
     }
-    this.iconGroup_.setAttribute('transform',
-        'translate(' + cursorX + ',' + TOP_MARGIN + ')');
+    this.iconGroup_.setAttribute('transform', 'translate(' + cursorX + ',' + TOP_MARGIN + ')');
     this.computeIconLocation();
     if (this.block_.RTL) {
         cursorX -= Blockly.BlockSvg.SEP_SPACE_X;
@@ -531,8 +530,36 @@ Blockly.Icon.prototype.renderIcon = function (cursorX) {
     return cursorX;
 };
 
+Blockly.Mutator.prototype.drawIcon_ = function (group) {
+    // Square with rounded corners.
+    Blockly.utils.createSvgElement('rect',
+        {
+            'class': 'blocklyIconShape',
+            'rx': '4', 'ry': '4',
+            'height': '10', 'width': '10'
+        },
+         group);
+    // Gear teeth.
+    Blockly.utils.createSvgElement('path',
+        {
+            'class': 'blocklyIconSymbol',
+            'd': 'm1.203,4.296 0,1.368 -0.92,0.677 -0.11,0.41 0.9,1.559 0.41,0.11 1.043,-0.457 1.187,0.683 0.127,1.134 0.3,0.3 1.8,0 0.3,-0.299 0.127,-1.138 1.185,-0.682 1.046,0.458 0.409,-0.11 0.9,-1.559 -0.11,-0.41 -0.92,-0.677 0,-1.366 0.92,-0.677 0.11,-0.41 -0.9,-1.559 -0.409,-0.109 -1.046,0.458 -1.185,-0.682 -0.127,-1.138 -0.3,-0.299 -1.8,0 -0.3,0.3 -0.126,1.135 -1.187,0.682 -1.043,-0.457 -0.41,0.11 -0.899,1.559 0.108,0.409z'
+        },
+         group);
+    // Axle hole.
+    Blockly.utils.createSvgElement('circle',
+        { 'class': 'blocklyIconShape', 'r': '2.7', 'cx': '5', 'cy': '5' },
+         group);
+};
+
 Blockly.RenderedConnection.prototype.highlight = function () {
     var steps;
+
+
+    if (this.sourceBlock_.type == "controls_if") {
+        var a = 0;
+    }
+
     if (this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE) {
         var currHeight = 25;
         for (var i = 0; i < this.sourceBlock_.inputList.length; i++) {
@@ -583,6 +610,9 @@ Blockly.RenderedConnection.prototype.highlight = function () {
 Blockly.RenderedConnection.prototype.tighten_ = function () {
     var dx = this.targetConnection.x_ - this.x_;
     var dy = this.targetConnection.y_ - this.y_;
+    if (this.sourceBlock_.type == "controls_if") {
+        var a = 0;
+    }
     if (dx != 0 || dy != 0) {
         var block = this.targetBlock();
         var svgRoot = block.getSvgRoot();

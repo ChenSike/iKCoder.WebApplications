@@ -178,29 +178,29 @@
                 [['rgb(0,0,0)', 0, 20], ['rgb(0,0,0)', 90, 110]]
             ];
             drawCount = 0;
-            var dataXML = LoadXMLFile('image.xml');
-            var items = dataXML.getElementsByTagName('item');
-            var tmpArr = [];
-            for (var i = 0; i < items.length; i++) {
-                var y = items[i].attributes.getNamedItem('y').value;
-                var c = items[i].attributes.getNamedItem('c').value;
-                var sx = items[i].attributes.getNamedItem('sx').value;
-                var ex = items[i].attributes.getNamedItem('ex').value;
-                var newItem = [y, c, sx, ex];
-                tmpArr.push(newItem);
-            }
-
-            var times = Date.now().valueOf();
-            //for (var j = 0; j < 100; j++) {
-            //    for (var i = 0; i < datas.length; i++) {
-            //        draw(datas[i], ctx, i);
-            //    }
-            //    ctx.translate(200, 0);
+            //var dataXML = LoadXMLFile('image.xml');
+            //var items = dataXML.getElementsByTagName('item');
+            //var tmpArr = [];
+            //for (var i = 0; i < items.length; i++) {
+            //    var y = items[i].attributes.getNamedItem('y').value;
+            //    var c = items[i].attributes.getNamedItem('c').value;
+            //    var sx = items[i].attributes.getNamedItem('sx').value;
+            //    var ex = items[i].attributes.getNamedItem('ex').value;
+            //    var newItem = [y, c, sx, ex];
+            //    tmpArr.push(newItem);
             //}
 
-            for (var i = 0; i < tmpArr.length; i++) {
-                drawXML(tmpArr[i], ctx);
+            var times = Date.now().valueOf();
+            for (var j = 0; j < 100; j++) {
+                for (var i = 0; i < datas.length; i++) {
+                    draw(datas[i], ctx, i);
+                }
+                ctx.translate(200, 0);
             }
+
+            //for (var i = 0; i < tmpArr.length; i++) {
+            //    drawXML(tmpArr[i], ctx);
+            //}
 
             var timee = Date.now().valueOf();
             alert("loop 100 用时：" + (timee - times) + "ms, 画线" + drawCount + "次");
