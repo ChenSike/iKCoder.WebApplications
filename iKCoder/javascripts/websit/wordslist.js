@@ -41,7 +41,7 @@ function initPage() {
     var htmlStringArr = [];
     htmlStringArr.push('<div class="row">');
     for (var i = 0; i < data.length; i++) {
-        htmlStringArr.push('<div class="col-xs-4">');
+        htmlStringArr.push('<div class="col-xs-3">');
         htmlStringArr.push('    <div class="container padding-bottom50">');
         htmlStringArr.push('        <div class="row">');
         htmlStringArr.push('            <div class="col-xs-12 word-word">');
@@ -50,12 +50,7 @@ function initPage() {
         htmlStringArr.push('        </div>');
         htmlStringArr.push('        <div class="row word-soundmark">');
         for (var j = 0; j < data[i].soundmark.length; j++) {
-            if (j % 2 == 1) {
-                htmlStringArr.push('            <div class="col-xs-4 col-xs-offset-1">');
-            } else {
-                htmlStringArr.push('            <div class="col-xs-4">');
-            }
-
+            htmlStringArr.push('            <div class="col-xs-6">');
             htmlStringArr.push(data[i].soundmark[j][0]);
             htmlStringArr.push('            </div>');
             htmlStringArr.push('            <div class="col-xs-1">');
@@ -65,10 +60,10 @@ function initPage() {
 
         htmlStringArr.push('        </div>');
         htmlStringArr.push('        <div class="row word-soundmark">');
-        htmlStringArr.push('            <div class="col-xs-6">');
+        htmlStringArr.push('            <div class="col-xs-5">');
         htmlStringArr.push(data[i].star);
         htmlStringArr.push('            </div>');
-        htmlStringArr.push('            <div class="col-xs-5  col-xs-offset-1">');
+        htmlStringArr.push('            <div class="col-xs-7">');
         htmlStringArr.push(data[i].note);
         htmlStringArr.push('            </div>');
         htmlStringArr.push('        </div>');
