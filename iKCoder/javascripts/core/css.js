@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license
  * Visual Blocks Editor
  *
@@ -184,7 +184,7 @@ Blockly.Css.CONTENT = [
     'box-shadow: 4px 4px 20px 1px rgba(0,0,0,.15);',
     'color: #000;',
     'display: none;',
-    'font-family: sans-serif;',
+    'font-family: 微软雅黑;',
     'font-size: 9pt;',
     'opacity: 0.9;',
     'padding: 2px;',
@@ -253,7 +253,7 @@ Blockly.Css.CONTENT = [
     'fill: #fff;',
     //'font-family: sans-serif;',
     //'font-size: 11pt;',
-    'font-family: ΢���ź�;',
+    'font-family: 微软雅黑;',
     'font-size: 14px;',
   '}',
 
@@ -364,7 +364,7 @@ Blockly.Css.CONTENT = [
   '.blocklyHtmlInput {',
     'border: none;',
     'border-radius: 4px;',
-    'font-family: sans-serif;',
+    'font-family: 微软雅黑;',
     'height: 100%;',
     'margin: 0;',
     'outline: none;',
@@ -566,7 +566,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyTreeLabel {',
     'cursor: default;',
-    'font-family: sans-serif;',
+    'font-family: 微软雅黑;',
     'font-size: 16px;',
     'padding: 0 3px;',
     'vertical-align: middle;',

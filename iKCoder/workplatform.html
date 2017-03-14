@@ -15,17 +15,18 @@
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/common/storage.js"></script>
-    <script src="javascripts/blockly_compressed.js"></script>
-    <script src="javascripts/blocks_compressed.js"></script>
-    <script src="javascripts/javascript_compressed.js"></script>
+    <script src="javascripts/blockly_uncompressed.js"></script>
+    <script src="javascripts/blocks_uncompressed.js"></script>
+    <script src="javascripts/javascript_uncompressed.js"></script>
     <script src="msg/messages.js"></script>
+    <script src="msg/js/zh-hans.js"></script>
     <script src="javascripts/common/ExtendBlockly.js"></script>
     <script src="javascripts/common/ExtendBlockRenderSvg.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/scenecommon.js"></script>
     <script src="javascripts/websit/blocklycommon.js"></script>
-    <script src="javascripts/websit/workplatform.js"></script>    
+    <script src="javascripts/websit/workplatform.js"></script>
     <!--<script src="WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js"></script>
     <script src="WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js"></script>
     <script src="WorkStation/Scene/scripts/Race_Setting/Scene/scene.js"></script>-->
@@ -54,11 +55,11 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="container">
-                                        <div class="row" style="padding-top:7px; padding-bottom:8px;">
-                                            <div class="col-xs-4 col-xs-offset-2">
+                                        <div class="row" style="padding-top:7px; padding-bottom:8px; text-align:right;text-align:-webkit-right;">
+                                            <div class="col-xs-4 col-xs-offset-5">
                                                 <img class="img-rounded header-user-image" src="" width="45" height="45">
                                             </div>
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-2" style="text-align:left;">
                                                 <span class="header-user-name-text"></span>
                                             </div>
                                         </div>
@@ -98,10 +99,18 @@
                                                 <div class="workspace-title-2">
                                                     <span class="workspace-title-text">工作区域</span>
                                                     <div class="workspace-title-tools">
-                                                        <i class="workspace-tool-item glyphicon glyphicon-play" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-share-alt" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-fullscreen" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true"></i>
+                                                        <table style="width:auto;">
+                                                            <tr>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-play" aria-hidden="true" title="运行"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-share-alt" aria-hidden="true" title="分享"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-fullscreen" aria-hidden="true" title="全屏"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true" title="重置"></i></td>
+                                                            </tr>
+                                                        </table>
+
+
+
+
                                                     </div>
                                                 </div>
                                             </td>

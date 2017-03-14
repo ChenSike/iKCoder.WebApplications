@@ -731,3 +731,128 @@ Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
         }
     }
 };
+
+Blockly.Toolbox.prototype.syncTrees_ = function (treeIn, treeOut, pathToMedia) {
+    var openNode = null;
+    var lastElement = null;
+    for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
+        if (!childIn.tagName) {
+            continue;
+        }
+        switch (childIn.tagName.toUpperCase()) {
+            case 'CATEGORY':
+                var childOut = this.tree_.createNode(childIn.getAttribute('name'));
+                childOut["category_id"] = childIn.getAttribute('id') ? childIn.getAttribute('id') : '';
+                childOut["category_icon_position"] = childIn.getAttribute('iconposition') ? childIn.getAttribute('iconposition') : '';
+                childOut.blocks = [];
+                treeOut.add(childOut);
+                var custom = childIn.getAttribute('custom');
+                if (custom) {
+                    childOut.blocks = custom;
+                } else {
+                    var newOpenNode = this.syncTrees_(childIn, childOut, pathToMedia);
+                    if (newOpenNode) {
+                        openNode = newOpenNode;
+                    }
+                }
+                var colour = childIn.getAttribute('colour');
+                if (goog.isString(colour)) {
+                    if (colour.match(/^#[0-9a-fA-F]{6}$/)) {
+                        childOut.hexColour = colour;
+                    } else {
+                        childOut.hexColour = Blockly.hueToRgb(colour);
+                    }
+
+                    this.hasColours_ = true;
+                } else {
+                    childOut.hexColour = '';
+                }
+                if (childIn.getAttribute('expanded') == 'true') {
+                    if (childOut.blocks.length) {
+                        openNode = childOut;
+                    }
+                    childOut.setExpanded(true);
+                } else {
+                    childOut.setExpanded(false);
+                }
+                lastElement = childIn;
+                break;
+            case 'SEP':
+                if (lastElement) {
+                    if (lastElement.tagName.toUpperCase() == 'CATEGORY') {
+                        treeOut.add(new Blockly.Toolbox.TreeSeparator(this.treeSeparatorConfig_));
+                    } else {
+                        var newGap = parseFloat(childIn.getAttribute('gap'));
+                        if (!isNaN(newGap) && lastElement) {
+                            lastElement.setAttribute('gap', newGap);
+                        }
+                    }
+                }
+                break;
+            case 'BLOCK':
+            case 'SHADOW':
+            case 'LABEL':
+            case 'BUTTON':
+                treeOut.blocks.push(childIn);
+                lastElement = childIn;
+                break;
+        }
+    }
+    return openNode;
+};
+
+goog.ui.tree.BaseNode.prototype.toSafeHtml = function () {
+    var tree = this.getTree();
+    var hideLines = !tree.getShowLines() || tree == this.getParent() && !tree.getShowRootLines();
+    var childClass = hideLines ? this.config_.cssChildrenNoLines : this.config_.cssChildren;
+    var nonEmptyAndExpanded = this.getExpanded() && this.hasChildren();
+    var attributes = { 'class': childClass, 'style': this.getLineStyle() };
+    var content = [];
+    if (nonEmptyAndExpanded) {
+        this.forEachChild(function (child) { content.push(child.toSafeHtml()); });
+    }
+
+    var children = goog.html.SafeHtml.create('div', attributes, content);
+    var tmpClass = this.config_.cssItem;
+    tmpClass += ' blocklyToolboxItem_' + this.category_id;
+    this.createCategoryTreeItemIconClass(tmpClass);
+    return goog.html.SafeHtml.create('div', { 'class': tmpClass, 'id': this.getId() }, [this.getRowSafeHtml(), children]);
+};
+
+goog.ui.tree.BaseNode.prototype.createCategoryTreeItemIconClass = function (className) {
+    var text = ['.' + className.trim() + ' div span.blocklyTreeIcon.blocklyTreeIconNone{'];
+    if (this.category_id && this.category_icon_position) {
+        var positionArr = this.category_icon_position.split(';');
+        text.push('background-position:' + positionArr[0] + ';\n}');
+        text.push('.' + className.trim() + ':hover div span.blocklyTreeIcon.blocklyTreeIconNone{');
+        text.push('background-position:' + positionArr[1] + ';\n}');
+    } else {
+        text.push('background:none;');
+        text.push('width:16px;');
+        text.push('height:16px;');
+        text.push('margin:auto;\n}');
+    }
+
+    text.push('.' + className.trim() + ':hover{');
+    text.push('color:#FFFFFF;');
+    text.push('background-color:' + this.hexColour + ';\n}');
+    var cssTextNode = document.createTextNode(text.join('\n'));
+    var cssNode = document.createElement('style');
+    cssNode.appendChild(cssTextNode);
+    document.head.insertBefore(cssNode, document.head.firstChild);
+}
+
+Blockly.WorkspaceSvg.prototype.preloadAudio_ = function () {
+    try {
+        for (var name in this.SOUNDS_) {
+            var sound = this.SOUNDS_[name];
+            sound.volume = .01;
+            sound.play();
+            sound.pause();
+            if (goog.userAgent.IPAD || goog.userAgent.IPHONE) {
+                break;
+            }
+        }
+    } catch (ex) {
+    }
+};

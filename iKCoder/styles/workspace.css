@@ -28,7 +28,7 @@
 
 .blocklyToolboxDiv [role=treeitem] {
     border-left: 10px solid;
-    /*border-color: rgb(90,150,255);*/
+    cursor:pointer;    
 }
 
 .blocklyTreeRow {
@@ -41,6 +41,7 @@
 
 .blocklyTreeLabel {
     font-family: 微软雅黑;
+    cursor:pointer;
 }
 
 .blocklyTreeSelected {
@@ -53,7 +54,19 @@
     display: block;
 }
 
-/*category_Logic
+.blocklyTypeIcon {
+    transform-origin: top;
+}
+
+.blocklyTreeIcon.blocklyTreeIconNone{
+    background-image:url(../images/icon/blocklyicons.svg);
+    background-repeat:no-repeat;
+    width: 26px;
+    height: 16px;
+    margin: 0 3px;
+}
+
+/*
 category_Loops
 category_Math
 category_Text

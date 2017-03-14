@@ -81,10 +81,10 @@ function siderBarExpand() {
     }
 
     tmpObj.toggleClass('expanded');
-    tmpObj.animate({ left: tmpLeft + 'px' }, 'slow');
+    tmpObj.animate({ left: tmpLeft + 'px' }, 'slow', adjustWorkSpaceTitle);
     $('#icon_SiderBar_Expand').toggleClass('fa-angle-double-left').toggleClass('fa-angle-double-right');
     $('.siderbar-drag').toggleClass('expanded');
-    adjustWorkSpaceTitle();
+    //adjustWorkSpaceTitle();
 }
 
 function siderBarDrag(e) {
@@ -264,7 +264,7 @@ function adjustWorkSpaceTitle() {
     var titleWrap = $('.workspace-title-2');
     if ($('.siderbar-wrap').hasClass('expanded')) {
         titleWrap.parent
-        titleWrap.css('width', 'calc(100% - ' + ($('.siderbar-wrap').width() - 15) + 'px)');
+        titleWrap.css('width', 'calc(100% - ' + ($('.siderbar-wrap').width() + 15) + 'px)');
     } else {
         titleWrap.css('width', 'calc(100% - 15px)');
     }
