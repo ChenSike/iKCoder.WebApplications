@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @license
  * Visual Blocks Editor
  *
@@ -247,14 +247,12 @@ Blockly.Css.CONTENT = [
   '.blocklyDisabled>.blocklyPathDark {',
     'display: none;',
   '}',
-  //ikcoder: block text
+
   '.blocklyText {',
     'cursor: default;',
     'fill: #fff;',
-    //'font-family: sans-serif;',
-    //'font-size: 11pt;',
-    'font-family: Î¢ÈíÑÅºÚ;',
-    'font-size: 14px;',
+    'font-family: sans-serif;',
+    'font-size: 11pt;',
   '}',
 
   '.blocklyNonEditableText>text {',
@@ -382,10 +380,10 @@ Blockly.Css.CONTENT = [
     'stroke: #ddd;',
     'stroke-width: 1;',
   '}',
-  //ikcoder: toolbox collapser
+
   '.blocklyFlyoutBackground {',
     'fill: #ddd;',
-    'fill-opacity: .6;',
+    'fill-opacity: .8;',
   '}',
 
   '.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {',

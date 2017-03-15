@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/wordslist.css">
+    <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/xmloperator.js"></script>
+    <script src="javascripts/websit/common.js"></script>
+    <script src="javascripts/websit/header.js"></script>
+    <script src="javascripts/websit/footer.js"></script>
+    <script src="javascripts/websit/wordslist.js"></script>
+</head>
+<body>
+    <header class="bg-031034039"></header>
+    <div class="container padding-top30  padding-bottom50 margin-top-20" style="background-color:rgb(249,248,228);">
+        <div class="row">
+            <div class="col-md-2">
+                <form class="form-horizontal" role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <select id="select_SortType" class="form-control">
+                                    <option>按首字母顺序</option>
+                                    <option>学习时间由新到旧</option>
+                                    <option>学习时间由旧到新</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container padding-top50" id="container_Words" style="background-color:rgb(249,248,228);">
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container padding-top80 text-black padding-1600-h50 bg-all-242">
+        <div class="row panel-bg-3">
+            <div class="col-xs-10 col-sm-10 col-md-6  col-lg-7 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 ">
+                            <h2>
+                                孩子们的成就，分享给全世界
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row padding-top20">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <p>
+                                从网站到微信，亦或App Store, 孩子们的成就，值得全世界看到。
+                            </p>
+                            <p>
+                                每一天，我们都看到许多激动人心的作品。
+                            </p>
+                            <p>
+                                试试和您的亲朋好友，分享孩子进步的喜悦。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row padding-top20">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-3">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <img src="images/label/qr_wechat.png" class="width-perc-70">
+                                            </div>
+                                        </div>
+                                        <div class="row text-center">
+                                            <div class="col-md-12">
+                                                <h5 class="qr-code-label"> 微信公众号</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5 col-sm-5 col-md-5  col-lg-3 col-lg-offset-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <img src="images/label/qr_wechat.png" class="width-perc-70">
+                                            </div>
+                                        </div>
+                                        <div class="row text-center">
+                                            <div class="col-md-12">
+                                                <h5 class="qr-code-label"> App Store下载</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-md-offset-1 col-sm-offset-3 col-xs-offset-1">
+                <div class="row">
+                    <div class="col-md-11">
+                        <img src="images/background/share.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer"></footer>
+    <div class="modal fade" id="window_Add_New_SubAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p style="line-height:10px;margin:0px;">&nbsp;</p>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div class="title-add-new-subaccount"><h3>添加儿童账户</h3></div>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>
+                                    通过为您的孩子建立独立子账户，您的每一位孩子都将拥有独立的学习空间和个性化课程；我们将为您的每一位孩子创建独立的学习报告以供您查阅。
+                                </p>
+                                <p>请注意您最多为 5 位孩子创建子账户</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-3">
+                                    <button type="button" class="btn btn-default">开始></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <img src="images/background/footersub.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            _loadLabels();
+            initHeader();
+            $("nav").addClass('bg-031034039');
+            initFooter();
+            initPage();
+        });
+    </script>
+</body>
+</html>

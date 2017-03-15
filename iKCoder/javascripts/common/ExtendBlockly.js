@@ -1,5 +1,138 @@
 ﻿'use strict';
 
+goog.ui.tree.BaseNode.prototype.toSafeHtml = function () {
+    var tree = this.getTree();
+    var hideLines = !tree.getShowLines() || tree == this.getParent() && !tree.getShowRootLines();
+    var childClass = hideLines ? this.config_.cssChildrenNoLines : this.config_.cssChildren;
+    var nonEmptyAndExpanded = this.getExpanded() && this.hasChildren();
+    var attributes = { 'class': childClass, 'style': this.getLineStyle() };
+    var content = [];
+    if (nonEmptyAndExpanded) {
+        this.forEachChild(function (child) { content.push(child.toSafeHtml()); });
+    }
+
+    var children = goog.html.SafeHtml.create('div', attributes, content);
+    var tmpClass = this.config_.cssItem;
+    tmpClass += ' blocklyToolboxItem_' + this.category_id;
+    this.createCategoryTreeItemIconClass(tmpClass);
+    return goog.html.SafeHtml.create('div', { 'class': tmpClass, 'id': this.getId() }, [this.getRowSafeHtml(), children]);
+};
+
+goog.ui.tree.BaseNode.prototype.createCategoryTreeItemIconClass = function (className) {
+    var text = ['.' + className.trim() + ' div span.blocklyTreeIcon.blocklyTreeIconNone{'];
+    if (this.category_id && this.category_icon_position) {
+        //var positionArr = this.category_icon_position.split(';');
+        text.push('background-position:' + this.category_icon_position + ';\n}');
+        //text.push('.' + className.trim() + ':hover div span.blocklyTreeIcon.blocklyTreeIconNone{');
+        //text.push('background-position:' + positionArr[1] + ';\n}');
+    } else {
+        text.push('background:none;');
+        text.push('width:16px;');
+        text.push('height:16px;');
+        text.push('margin:auto;\n}');
+    }
+
+
+    text.push('.blocklyToolboxDiv [role=treeitem].' + className.trim() + ':hover{');
+    //text.push('color:#FFFFFF;');
+    text.push('background-color:' + this.hexColour + ';\n}');
+    var cssTextNode = document.createTextNode(text.join('\n'));
+    var cssNode = document.createElement('style');
+    cssNode.appendChild(cssTextNode);
+    document.head.insertBefore(cssNode, document.head.firstChild);
+}
+
+Blockly.createDom_ = function (container, options) {
+    container.setAttribute('dir', 'LTR');
+    goog.ui.Component.setDefaultRightToLeft(options.RTL);
+    Blockly.Css.inject(options.hasCss, options.pathToMedia);
+    var svg = Blockly.utils.createSvgElement('svg', {
+        'xmlns': 'http://www.w3.org/2000/svg',
+        'xmlns:html': 'http://www.w3.org/1999/xhtml',
+        'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+        'version': '1.1',
+        'class': 'blocklySvg'
+    }, container);
+
+    var defs = Blockly.utils.createSvgElement('defs', {}, svg);
+    var rnd = String(Math.random()).substring(2);
+    var embossFilter = Blockly.utils.createSvgElement('filter', { 'id': 'blocklyEmbossFilter' + rnd }, defs);
+    Blockly.utils.createSvgElement('feGaussianBlur', { 'in': 'SourceAlpha', 'stdDeviation': 1, 'result': 'blur' }, embossFilter);
+    var feSpecularLighting = Blockly.utils.createSvgElement(
+        'feSpecularLighting',
+        {
+            'in': 'blur', 'surfaceScale': 1, 'specularConstant': 0.5,
+            'specularExponent': 10, 'lighting-color': 'white', 'result': 'specOut'
+        },
+        embossFilter
+    );
+
+    Blockly.utils.createSvgElement('fePointLight', { 'x': -5000, 'y': -10000, 'z': 20000 }, feSpecularLighting);
+    Blockly.utils.createSvgElement(
+        'feComposite',
+        {
+            'in': 'specOut', 'in2': 'SourceAlpha', 'operator': 'in',
+            'result': 'specOut'
+        },
+        embossFilter
+    );
+
+    Blockly.utils.createSvgElement(
+        'feComposite',
+        {
+            'in': 'SourceGraphic', 'in2': 'specOut', 'operator': 'arithmetic',
+            'k1': 0, 'k2': 1, 'k3': 1, 'k4': 0
+        },
+        embossFilter
+    );
+
+    options.embossFilterId = embossFilter.id;
+    var disabledPattern = Blockly.utils.createSvgElement(
+        'pattern',
+        {
+            'id': 'blocklyDisabledPattern' + rnd,
+            'patternUnits': 'userSpaceOnUse',
+            'width': 10, 'height': 10
+        },
+        defs
+    );
+
+    Blockly.utils.createSvgElement('rect', { 'width': 10, 'height': 10, 'fill': '#aaa' }, disabledPattern);
+    Blockly.utils.createSvgElement('path', { 'd': 'M 0 0 L 10 10 M 10 0 L 0 10', 'stroke': '#cc0' }, disabledPattern);
+    options.disabledPatternId = disabledPattern.id;
+    var tmpPara = { 'id': 'blocklyGridPattern' + rnd, 'patternUnits': 'userSpaceOnUse' };
+    if (options.customCfg && options.customCfg.background_path) {
+        tmpPara = {
+            'id': 'blocklyGridPattern' + rnd,
+            'patternUnits': 'userSpaceOnUse',
+            'width': options.customCfg.background_path.spacing,
+            'height': options.customCfg.background_path.spacing
+        };
+    }
+
+    var gridPattern = Blockly.utils.createSvgElement('pattern', tmpPara, defs);
+    if (options.customCfg) {
+        if (options.customCfg.background_color) {
+            Blockly.utils.createSvgElement('rect', { 'fill': options.customCfg.background_color }, gridPattern);
+        } else if (options.customCfg.background_path) {
+            var tmpRef = options.customCfg.background_path;
+            var spacing = tmpRef.spacing;
+            Blockly.utils.createSvgElement('rect', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color }, gridPattern);
+            Blockly.utils.createSvgElement('path', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color, 'stroke-width': 1, 'stroke': tmpRef.path.color, 'd': tmpRef.path.path }, gridPattern);
+        }
+    } else {
+        if (options.gridOptions['length'] > 0 && options.gridOptions['spacing'] > 0) {
+            Blockly.utils.createSvgElement('line', { 'stroke': options.gridOptions['colour'] }, gridPattern);
+            if (options.gridOptions['length'] > 1) {
+                Blockly.utils.createSvgElement('line', { 'stroke': options.gridOptions['colour'] }, gridPattern);
+            }
+        }
+    }
+
+    options.gridPattern = gridPattern;
+    return svg;
+};
+
 Blockly.Block.prototype.stroke_ = '#000000';
 
 Blockly.Block.prototype.eventIcon_ = "";
@@ -453,11 +586,13 @@ Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
         $(child.getRowElement()).css('border', 'none');
         var element = child.getElement();
         if (element) {
-            if (this.hasColours_) {
-                var border = '10px solid ' + (child.hexColour || '#ddd');
-            } else {
-                var border = 'none';
-            }
+            //if (this.hasColours_) {
+            //    var border = '10px solid ' + (child.hexColour || '#ddd');
+            //} else {
+            //    var border = 'none';
+            //}
+
+            var border = 'none';
             if (this.workspace_.RTL) {
                 element.style.borderRight = border;
             } else {
@@ -466,6 +601,122 @@ Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
         }
         this.addColour_(child);
     }
+};
+
+Blockly.Toolbox.prototype.init = function () {
+    var workspace = this.workspace_;
+    var svg = this.workspace_.getParentSvg();
+    this.HtmlDiv = goog.dom.createDom(goog.dom.TagName.DIV, 'blocklyToolboxDiv');
+    this.HtmlDiv.setAttribute('dir', workspace.RTL ? 'RTL' : 'LTR');
+    svg.parentNode.insertBefore(this.HtmlDiv, svg);
+    Blockly.bindEventWithChecks_(this.HtmlDiv, 'mousedown', this,
+        function (e) {
+            if (Blockly.utils.isRightButton(e) || e.target == this.HtmlDiv) {
+                Blockly.hideChaff(false);
+            } else {
+                Blockly.hideChaff(true);
+            }
+            Blockly.Touch.clearTouchIdentifier();
+        });
+
+    var workspaceOptions = {
+        disabledPatternId: workspace.options.disabledPatternId,
+        parentWorkspace: workspace,
+        RTL: workspace.RTL,
+        oneBasedIndex: workspace.options.oneBasedIndex,
+        horizontalLayout: workspace.horizontalLayout,
+        toolboxPosition: workspace.options.toolboxPosition,
+        customCfg: workspace.options.customCfg
+    };
+
+    this.flyout_ = new Blockly.Flyout(workspaceOptions);
+    goog.dom.insertSiblingAfter(this.flyout_.createDom('svg'), this.workspace_.getParentSvg());
+    this.flyout_.init(workspace);
+    this.config_['cleardotPath'] = workspace.options.pathToMedia + '1x1.gif';
+    this.config_['cssCollapsedFolderIcon'] = 'blocklyTreeIconClosed' + (workspace.RTL ? 'Rtl' : 'Ltr');
+    var tree = new Blockly.Toolbox.TreeControl(this, this.config_);
+    this.tree_ = tree;
+    tree.setShowRootNode(false);
+    tree.setShowLines(false);
+    tree.setShowExpandIcons(false);
+    tree.setSelectedItem(null);
+    var openNode = this.populate_(workspace.options.languageTree);
+    tree.render(this.HtmlDiv);
+    if (openNode) {
+        tree.setSelectedItem(openNode);
+    }
+
+    this.addColour_();
+    this.position();
+};
+
+Blockly.Toolbox.prototype.syncTrees_ = function (treeIn, treeOut, pathToMedia) {
+    var openNode = null;
+    var lastElement = null;
+    for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
+        if (!childIn.tagName) {
+            continue;
+        }
+        switch (childIn.tagName.toUpperCase()) {
+            case 'CATEGORY':
+                var childOut = this.tree_.createNode(childIn.getAttribute('name'));
+                childOut["category_id"] = childIn.getAttribute('id') ? childIn.getAttribute('id') : '';
+                childOut["category_icon_position"] = childIn.getAttribute('iconposition') ? childIn.getAttribute('iconposition') : '';
+                childOut.blocks = [];
+                treeOut.add(childOut);
+                var custom = childIn.getAttribute('custom');
+                if (custom) {
+                    childOut.blocks = custom;
+                } else {
+                    var newOpenNode = this.syncTrees_(childIn, childOut, pathToMedia);
+                    if (newOpenNode) {
+                        openNode = newOpenNode;
+                    }
+                }
+                var colour = childIn.getAttribute('colour');
+                if (goog.isString(colour)) {
+                    if (colour.match(/^#[0-9a-fA-F]{6}$/)) {
+                        childOut.hexColour = colour;
+                    } else {
+                        childOut.hexColour = Blockly.hueToRgb(colour);
+                    }
+
+                    this.hasColours_ = true;
+                } else {
+                    childOut.hexColour = '';
+                }
+                if (childIn.getAttribute('expanded') == 'true') {
+                    if (childOut.blocks.length) {
+                        openNode = childOut;
+                    }
+                    childOut.setExpanded(true);
+                } else {
+                    childOut.setExpanded(false);
+                }
+                lastElement = childIn;
+                break;
+            case 'SEP':
+                if (lastElement) {
+                    if (lastElement.tagName.toUpperCase() == 'CATEGORY') {
+                        treeOut.add(new Blockly.Toolbox.TreeSeparator(this.treeSeparatorConfig_));
+                    } else {
+                        var newGap = parseFloat(childIn.getAttribute('gap'));
+                        if (!isNaN(newGap) && lastElement) {
+                            lastElement.setAttribute('gap', newGap);
+                        }
+                    }
+                }
+                break;
+            case 'BLOCK':
+            case 'SHADOW':
+            case 'LABEL':
+            case 'BUTTON':
+                treeOut.blocks.push(childIn);
+                lastElement = childIn;
+                break;
+        }
+    }
+    return openNode;
 };
 
 Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function (node) {
@@ -655,6 +906,94 @@ Blockly.RenderedConnection.prototype.tighten_ = function () {
     }
 };
 
+Blockly.WorkspaceSvg.prototype.preloadAudio_ = function () {
+    try {
+        for (var name in this.SOUNDS_) {
+            var sound = this.SOUNDS_[name];
+            sound.volume = .01;
+            sound.play();
+            sound.pause();
+            if (goog.userAgent.IPAD || goog.userAgent.IPHONE) {
+                break;
+            }
+        }
+    } catch (ex) {
+    }
+};
+
+Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
+    this.svgGroup_ = Blockly.utils.createSvgElement('g', { 'class': 'blocklyWorkspace' }, null);
+    if (opt_backgroundClass) {
+        this.svgBackground_ = Blockly.utils.createSvgElement('rect', { 'height': '100%', 'width': '100%', 'class': opt_backgroundClass }, this.svgGroup_);
+        if (opt_backgroundClass == 'blocklyMainBackground') {
+            if (this.options.customCfg && this.options.customCfg.background_color) {
+                this.svgBackground_.style.fill = this.options.customCfg.background_color;
+            } else {
+                this.svgBackground_.style.fill = 'url(#' + this.options.gridPattern.id + ')';
+            }
+        }
+    }
+
+    this.svgBlockCanvas_ = Blockly.utils.createSvgElement('g', { 'class': 'blocklyBlockCanvas' }, this.svgGroup_, this);
+    this.svgBubbleCanvas_ = Blockly.utils.createSvgElement('g', { 'class': 'blocklyBubbleCanvas' }, this.svgGroup_, this);
+    var bottom = Blockly.Scrollbar.scrollbarThickness;
+    if (this.options.hasTrashcan) {
+        bottom = this.addTrashcan_(bottom);
+    }
+
+    if (this.options.zoomOptions && this.options.zoomOptions.controls) {
+        bottom = this.addZoomControls_(bottom);
+    }
+
+    if (!this.isFlyout) {
+        Blockly.bindEventWithChecks_(this.svgGroup_, 'mousedown', this, this.onMouseDown_);
+        var thisWorkspace = this;
+        Blockly.bindEvent_(this.svgGroup_, 'touchstart', null, function (e) { Blockly.longStart_(e, thisWorkspace); });
+        if (this.options.zoomOptions && this.options.zoomOptions.wheel) {
+            Blockly.bindEventWithChecks_(this.svgGroup_, 'wheel', this, this.onMouseWheel_);
+        }
+    }
+
+    if (this.options.hasCategories) {
+        this.toolbox_ = new Blockly.Toolbox(this);
+    }
+
+    this.updateGridPattern_();
+    this.recordDeleteAreas();
+    return this.svgGroup_;
+};
+
+Blockly.Flyout.prototype.customCfg = {};
+
+Blockly.Flyout.prototype.createDom = function (tagName) {
+    this.svgGroup_ = Blockly.utils.createSvgElement(tagName, { 'class': 'blocklyFlyout', 'style': 'display: none' }, null);
+    var params = { 'class': 'blocklyFlyoutBackground' };
+    if (this.workspace_.options.customCfg && this.workspace_.options.customCfg.toolbox_collapse) {
+        this.customCfg = this.workspace_.options.customCfg.toolbox_collapse;
+        var tmpStyles = "";
+        if (this.customCfg.fill) {
+            tmpStyles += "fill:" + this.customCfg.fill + ";";
+        }
+
+        if (this.customCfg.opacity) {
+            tmpStyles += "fill-opacity:" + this.customCfg.opacity + ";";
+        }
+
+        params['style'] = tmpStyles;
+    }
+    this.svgBackground_ = Blockly.utils.createSvgElement('path', params, this.svgGroup_);
+    this.svgBackgroundBorder_ = null;
+    params = {};
+    if (this.customCfg.border && this.customCfg.border.stroke && this.customCfg.border.width) {
+        params['stroke'] = this.customCfg.border.stroke;
+        params['stroke-width'] = this.customCfg.border.width;
+        this.svgBackgroundBorder_ = Blockly.utils.createSvgElement('path', params, this.svgGroup_);
+    }
+
+    this.svgGroup_.appendChild(this.workspace_.createDom());
+    return this.svgGroup_;
+};
+
 Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
     this.workspace_.scale = this.targetWorkspace_.scale;
     var margin = this.MARGIN;
@@ -669,9 +1008,6 @@ Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
             var block = item.block;
             var allBlocks = block.getDescendants();
             for (var j = 0, child; child = allBlocks[j]; j++) {
-                // Mark blocks as being inside a flyout.  This is used to detect and
-                // prevent the closure of the flyout if the user right-clicks on such a
-                // block.
                 child.isInFlyout = true;
             }
             block.render();
@@ -693,28 +1029,18 @@ Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
             }
 
             block.moveBy((this.horizontalLayout_ && this.RTL) ? tmpX + blockHW.width - tab : tmpX, tmpY);
-            //if (block.svgGroup_.getBBox().x != 16) {
-            //    var tmpX = block.svgGroup_.getBBox().x - 16;
-            //    block.moveBy(tmpX, cursorY);
-            //}
-
             if (this.horizontalLayout_) {
                 cursorX += (blockHW.width + gaps[i] - tab);
             } else {
                 cursorY += blockHW.height + gaps[i];
             }
 
-
-            // Create an invisible rectangle under the block to act as a button.  Just
-            // using the block as a button is poor, since blocks have holes in them.
             var rect = Blockly.utils.createSvgElement('rect', { 'fill-opacity': 0 }, null);
             rect.tooltip = block;
             Blockly.Tooltip.bindMouseEvents(rect);
-            // Add the rectangles under the blocks, so that the blocks' tooltips work.
             this.workspace_.getCanvas().insertBefore(rect, block.getSvgRoot());
             block.flyoutRect_ = rect;
             this.backgroundButtons_[i] = rect;
-
             this.addBlockListeners_(root, block, rect);
         } else if (item.type == 'button') {
             var button = item.button;
@@ -729,5 +1055,35 @@ Blockly.Flyout.prototype.layout_ = function (contents, gaps) {
                 cursorY += button.height + gaps[i];
             }
         }
+    }
+};
+
+Blockly.Flyout.prototype.setBackgroundPathVertical_ = function (width, height) {
+    var atRight = this.toolboxPosition_ == Blockly.TOOLBOX_AT_RIGHT;
+    var totalWidth = width + this.CORNER_RADIUS;
+    var path = ['M ' + (atRight ? totalWidth : 0) + ',0'];
+    var tmpRadius = this.CORNER_RADIUS;
+    if (typeof this.customCfg.radius == 'number') {
+        this.CORNER_RADIUS = this.customCfg.radius;
+    }
+
+    path.push('h', atRight ? -width : width);
+    path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
+        atRight ? 0 : 1,
+        atRight ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
+        this.CORNER_RADIUS
+    );
+    path.push('v', Math.max(0, height - this.CORNER_RADIUS * 2));
+    path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
+        atRight ? 0 : 1,
+        atRight ? this.CORNER_RADIUS : -this.CORNER_RADIUS,
+        this.CORNER_RADIUS
+    );
+
+    path.push('h', atRight ? width : -width);
+    path.push('z');
+    this.svgBackground_.setAttribute('d', path.join(' '));
+    if (this.svgBackgroundBorder_) {
+        this.svgBackgroundBorder_.setAttribute('d', 'M ' + (atRight ? 0 : this.width_) + ',0 l 0,' + height);
     }
 };

@@ -15,17 +15,18 @@
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/common/storage.js"></script>
-    <script src="javascripts/blockly_uncompressed.js"></script>
-    <script src="javascripts/blocks_uncompressed.js"></script>
-    <script src="javascripts/javascript_uncompressed.js"></script>
+    <script src="javascripts/blockly_compressed.js"></script>
+    <script src="javascripts/blocks_compressed.js"></script>
+    <script src="javascripts/javascript_compressed.js"></script>
     <script src="msg/messages.js"></script>
+    <script src="msg/js/zh-hans.js"></script>
     <script src="javascripts/common/ExtendBlockly.js"></script>
     <script src="javascripts/common/ExtendBlockRenderSvg.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/scenecommon.js"></script>
     <script src="javascripts/websit/blocklycommon.js"></script>
-    <script src="javascripts/websit/workplatform.js"></script>    
+    <script src="javascripts/websit/workplatform.js"></script>
     <!--<script src="WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js"></script>
     <script src="WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js"></script>
     <script src="WorkStation/Scene/scripts/Race_Setting/Scene/scene.js"></script>-->
@@ -54,11 +55,11 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="container">
-                                        <div class="row" style="padding-top:7px; padding-bottom:8px;">
-                                            <div class="col-xs-4 col-xs-offset-2">
+                                        <div class="row" style="padding-top:7px; padding-bottom:8px; text-align:right;text-align:-webkit-right;">
+                                            <div class="col-xs-4 col-xs-offset-5">
                                                 <img class="img-rounded header-user-image" src="" width="45" height="45">
                                             </div>
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-2" style="text-align:left;">
                                                 <span class="header-user-name-text"></span>
                                             </div>
                                         </div>
@@ -92,16 +93,20 @@
                                     <table class="height-p100">
                                         <tr class="workspace-title-tr">
                                             <td class="title-wrap-td wrap-td-1">
-                                                <span class="workspace-title-text">模块</span>
+                                                <div class="workspace-toolbox-icon workspace-title-text">工具箱</div>
                                             </td>
                                             <td class="title-wrap-td wrap-td-2">
                                                 <div class="workspace-title-2">
                                                     <span class="workspace-title-text">工作区域</span>
                                                     <div class="workspace-title-tools">
-                                                        <i class="workspace-tool-item glyphicon glyphicon-play" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-share-alt" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-fullscreen" aria-hidden="true"></i>
-                                                        <i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true"></i>
+                                                        <table style="width:auto;">
+                                                            <tr>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-play" aria-hidden="true" title="运行"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-share-alt" aria-hidden="true" title="分享"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-fullscreen" aria-hidden="true" title="全屏"></i></td>
+                                                                <td><i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true" title="重置"></i></td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </td>
@@ -126,7 +131,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-2 padding-top10">
-                                    <img src="images/logo-new-white.png" width="100" height="35">
+                                    <img id="btn_Footer_Logo" src="images/logo-new-white.png" width="100" height="35">
                                 </div>
                                 <div class="col-sm-3 col-sm-offset-3">
                                     <div class="container">
@@ -137,7 +142,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-3">
-                                                <div class="footer-tool-item" data-tip="查看知识点">
+                                                <div class="footer-tool-item" id="btn_Footer_KnowledgeMode" data-tip="查看知识点">
                                                     <i class="fa fa-book fa-lg"></i>
                                                 </div>
                                             </div>
@@ -147,8 +152,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-3">
-                                                <div class="footer-tool-item" id="btn_Footer_CodeMode" data-tip="代码模式">
-                                                    <i class="fa fa-sort-alpha-asc fa-lg"></i>
+                                                <div class="footer-tool-item" id="btn_Footer_WordMode" data-tip="词汇术语">
+                                                    <i class="fa fa-language fa-lg"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +178,7 @@
                         <td>
                             <div class="container height-p100">
                                 <div class="row height-p100" style="margin-left:0px;">
-                                    <div class="col-sm-12 height-p100" style="padding:0px; padding-right:15px;">
+                                    <div class="col-sm-12 height-p100 siderbar-scene-container" style="padding:0px; padding-right:15px;">
                                         <div id="game_container"></div>
                                     </div>
                                 </div>
@@ -209,6 +214,21 @@
         <div class="code-panel-content">
             <textarea type="text" class="code-text-content" id="txt_Code_Content" spellcheck="false"></textarea>
         </div>
+    </div>
+    <div class="word-panel" id="panel_WordMode">
+        <div class="word-panel-header">
+            <div class="word-panel-header-close"><span class="glyphicon glyphicon-remove-circle"></span></div>
+        </div>
+        <div class="word-panel-content container"></div>
+    </div>
+    <div class="knowledge-panel" id="panel_KnowledgeMode">
+        <div class="knowledge-panel-header">
+            <div class="knowledge-panel-header-close"><span class="glyphicon glyphicon-remove-circle"></span></div>
+        </div>
+        <div class="knowledge-panel-content container"></div>
+    </div>
+    <div class="run-scene-fullscreen">
+        <div class="glyphicon glyphicon-remove-circle run-scene-fullscreen-close-button"></div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

@@ -1,0 +1,30 @@
+﻿.word-word {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(50,34,14);
+    text-align:left;
+}
+
+.word-soundmark {
+    font-size: 12px;
+    color: rgb(156,141,121);
+    text-align:left;
+}
+
+.word-paraphrase {
+    font-size: 12px;
+    color: rgb(50,34,14);
+    text-align:left;
+}
+
+.word-variant-header {
+    font-size: 14px;
+    color: rgb(156,141,121);
+    text-align:left;
+}
+
+.word-variant-content {
+    font-size: 12px;
+    color: rgb(50,34,14);
+    text-align:left;
+}

@@ -95,7 +95,7 @@ header {
     width: 15%;
     height: 10px;
     top: 10px;
-    left: 2%;
+    left: 0px;
     background-color: rgb(26,164,216);
     position: absolute;
     display: inline-block;
@@ -170,6 +170,7 @@ footer {
     top: -moz-calc(50% - 25px);
     top: -webkit-calc(50% - 25px);
     left: -25px;
+    color: rgb(255,255,255);
     background-color: rgb(41,49,67);
     cursor: pointer;
     border-bottom-left-radius: 5px;
@@ -298,6 +299,7 @@ footer {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    z-index: 1000;
 }
 
 .head-course-name {
@@ -316,6 +318,7 @@ footer {
     border: none;
     background-color: rgb(34,34,34);
     display: none;
+    z-index: 800;
 }
 
 .code-panel-header {
@@ -403,8 +406,10 @@ footer {
 
         .workspace-title-tr .title-wrap-td.wrap-td-1 {
             height: 35px;
-            border-right: solid 1px rgb(209,207,204);
+            /*border-right: solid 1px rgb(209,207,204);*/
             width: 260px;
+            text-align: left;
+            padding-left: 15px;
         }
 
 .workspace-title-text {
@@ -417,13 +422,18 @@ footer {
 .workspace-title-2 {
     min-width: 250px;
     position: relative;
+    height: 35px;
+    line-height: 35px;
 }
 
 .workspace-title-tools {
     width: 100%;
-    height: 100%;
-    line-height: 100%;
+    /*height: 100%;
+    line-height: 100%;*/
+    height: 29px;
+    line-height: 29px;
     text-align: right;
+    text-align: -webkit-right;
     color: rgb(255,255,255);
     padding-top: 3px;
     display: block;
@@ -440,6 +450,7 @@ footer {
 
     .workspace-tool-item:hover {
         color: rgb(209,207,204);
+        font-size: 18px;
     }
 
 
@@ -452,15 +463,148 @@ textarea {
     margin-right: 10px;
     line-height: 20px;
     overflow: auto;
-    color: rgb(188,188,188);
+    color: rgb(199,199,199);
     font-size: 14px;
     font-family: "微软雅黑";
 }
 
     textarea:focus {
         box-shadow: none;
+        color: rgb(177,177,177);
     }
 
-.blocklyTypeIcon {
-    transform-origin: top;
+.ui-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.workspace-toolbox-icon {
+    width: 110px;
+    height: 23px;
+    background-image: url(../images/icon/blocklyicons.svg);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    /* display: inline-block; */
+    padding-left: 30px;
+    /* margin-top: 5px; */
+    line-height: 22px;
+}
+
+.word-panel {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    border: 1px solid rgb(00,00,00);
+    background-color: rgb(249,248,228);
+    display: none;
+    z-index: 800;
+}
+
+.word-panel-header {
+    width: 100%;
+    height: 20px;
+    /*cursor: move;*/
+}
+
+.word-panel-header-close {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 1px;
+    left: calc(100% - 26px);
+    cursor: pointer;
+    color: black;
+}
+
+.word-panel-content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 30px);
+}
+
+.word-word {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(50,34,14);
+    text-align: left;
+}
+
+.word-soundmark {
+    font-size: 12px;
+    color: rgb(156,141,121);
+    text-align: left;
+}
+
+.word-paraphrase {
+    font-size: 12px;
+    color: rgb(50,34,14);
+    text-align: left;
+}
+
+.word-variant-header {
+    font-size: 14px;
+    color: rgb(156,141,121);
+    text-align: left;
+}
+
+.word-variant-content {
+    font-size: 12px;
+    color: rgb(50,34,14);
+    text-align: left;
+}
+
+.run-scene-fullscreen {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.run-scene-fullscreen-close-button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    left: calc(100% - 40px);
+}
+
+.knowledge-panel {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    border: 1px solid rgb(00,00,00);
+    background-color: rgb(249,248,228);
+    display: none;
+    z-index: 800;
+}
+
+.knowledge-panel-header {
+    width: 100%;
+    height: 20px;
+    /*cursor: move;*/
+}
+
+.knowledge-panel-header-close {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 1px;
+    left: calc(100% - 26px);
+    cursor: pointer;
+    color: black;
+}
+
+.knowledge-panel-content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 30px);
+}
+
+#btn_Footer_Logo {
+    cursor: pointer;
 }

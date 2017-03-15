@@ -829,7 +829,8 @@ goog.ui.tree.BaseNode.prototype.getRowSafeHtml = function() {
       this.getPixelIndent_() + 'px';
   var attributes = {'class': this.getRowClassName(), 'style': style};
   var content = [
-    this.getExpandIconSafeHtml(), this.getIconSafeHtml(),
+    this.getExpandIconSafeHtml(),
+    this.getIconSafeHtml(),
     this.getLabelSafeHtml()
   ];
   return goog.html.SafeHtml.create('div', attributes, content);

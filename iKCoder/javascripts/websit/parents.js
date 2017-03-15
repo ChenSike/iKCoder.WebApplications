@@ -588,6 +588,7 @@ function initEvents() {
     $('#arrow_Report_CodeTime_Left').on('click', funData, listMovePrev);
     $('#arrow_Report_CodeTime_Right').on('click', funData, listMoveNext);
     $('#btn_Sector_Attention_PDFReport').on('click', openReport);
+    $('#btn_Sector_Ability_EnglishShowAll').on('click', openEnglishWord);
 }
 
 function showAddSubAccountWindow() {
@@ -601,6 +602,11 @@ function addNewChild() {
 function openReport() {
     alert('BUILDING');
 }
+
+function openEnglishWord() {
+    window.open('wordslist.html','blank');
+}
+
 
 function loadChildReport() {
     if (!arguments[0] || !arguments[0].data) {
@@ -627,6 +633,7 @@ function loadChildReport() {
             categoryCount: 5,
             courseCount: 25,
             courseTime: 125,
+            wordCount: 88,
             promoteCategory: ['科学', '技术', '工程', '数学', '语言'],
             completeCourse: [
                 { id: 1, name: '计算机原理' },
@@ -699,6 +706,7 @@ function loadChildReport() {
     $('#lb_Report_Ability_PromoteCategory').text(data.ability.promoteCategory.join('、'));
     buildAbilityCompCourseHTML(data.ability.completeCourse);
     drawAbilityGraph(data.ability.graph);
+    $('#lb_Report_Ability_WordCount').text(data.ability.wordCount);
     $('#lb_Report_Time_Total').text(data.codetime.total);
     $('#lb_Report_Time_Beyond').text(data.codetime.beyond + '%');
     drawTimeMonthGraph(data.codetime.times, data.codetime.month);
