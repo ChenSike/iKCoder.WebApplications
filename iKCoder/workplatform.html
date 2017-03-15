@@ -15,9 +15,9 @@
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="javascripts/common/storage.js"></script>
-    <script src="javascripts/blockly_compressed.js"></script>
-    <script src="javascripts/blocks_compressed.js"></script>
-    <script src="javascripts/javascript_compressed.js"></script>
+    <script src="javascripts/blockly_uncompressed.js"></script>
+    <script src="javascripts/blocks_uncompressed.js"></script>
+    <script src="javascripts/javascript_uncompressed.js"></script>
     <script src="msg/messages.js"></script>
     <script src="msg/js/zh-hans.js"></script>
     <script src="javascripts/common/ExtendBlockly.js"></script>
@@ -93,7 +93,7 @@
                                     <table class="height-p100">
                                         <tr class="workspace-title-tr">
                                             <td class="title-wrap-td wrap-td-1">
-                                                <span class="workspace-title-text">模块</span>
+                                                <div class="workspace-toolbox-icon workspace-title-text">工具箱</div>
                                             </td>
                                             <td class="title-wrap-td wrap-td-2">
                                                 <div class="workspace-title-2">
@@ -107,10 +107,6 @@
                                                                 <td><i class="workspace-tool-item glyphicon glyphicon-repeat" aria-hidden="true" title="重置"></i></td>
                                                             </tr>
                                                         </table>
-
-
-
-
                                                     </div>
                                                 </div>
                                             </td>
@@ -156,8 +152,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-3">
-                                                <div class="footer-tool-item" id="btn_Footer_CodeMode" data-tip="代码模式">
-                                                    <i class="fa fa-sort-alpha-asc fa-lg"></i>
+                                                <div class="footer-tool-item" id="btn_Footer_WordMode" data-tip="词汇术语">
+                                                    <i class="fa fa-language fa-lg"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -217,6 +213,14 @@
         </div>
         <div class="code-panel-content">
             <textarea type="text" class="code-text-content" id="txt_Code_Content" spellcheck="false"></textarea>
+        </div>
+    </div>
+    <div class="word-panel" id="panel_WordMode">
+        <div class="word-panel-header">
+            <div class="word-panel-header-close"><span class="glyphicon glyphicon-remove-circle"></span></div>
+        </div>
+        <div class="word-panel-content container">
+            
         </div>
     </div>
     <script type="text/javascript">

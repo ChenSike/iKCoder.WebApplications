@@ -41,8 +41,8 @@ function initPage() {
     var htmlStringArr = [];
     htmlStringArr.push('<div class="row">');
     for (var i = 0; i < data.length; i++) {
-        htmlStringArr.push('<div class="col-xs-3">');
-        htmlStringArr.push('    <div class="container padding-bottom50">');
+        htmlStringArr.push('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 word-list-item">');
+        htmlStringArr.push('    <div class="container padding-bottom50" style="padding: 0px;">');
         htmlStringArr.push('        <div class="row">');
         htmlStringArr.push('            <div class="col-xs-12 word-word">');
         htmlStringArr.push(data[i].word);
@@ -50,7 +50,7 @@ function initPage() {
         htmlStringArr.push('        </div>');
         htmlStringArr.push('        <div class="row word-soundmark">');
         for (var j = 0; j < data[i].soundmark.length; j++) {
-            htmlStringArr.push('            <div class="col-xs-6">');
+            htmlStringArr.push('            <div class="col-xs-5" style="padding-right: 0px;">');
             htmlStringArr.push(data[i].soundmark[j][0]);
             htmlStringArr.push('            </div>');
             htmlStringArr.push('            <div class="col-xs-1">');
@@ -74,8 +74,8 @@ function initPage() {
             htmlStringArr.push('            </div>');
         }
 
-        htmlStringArr.push('        </div>');
         if (data[i].variant) {
+            htmlStringArr.push('        </div>');
             htmlStringArr.push('        <div class="row">');
             htmlStringArr.push('            <div class="col-xs-12">');
             htmlStringArr.push('变形');
@@ -87,16 +87,24 @@ function initPage() {
                 htmlStringArr.push('            <div class="col-xs-9 word-variant-content">');
                 htmlStringArr.push(data[i].variant[key]);
                 htmlStringArr.push('            </div>');
-
             }
-
-            htmlStringArr.push('        </div>');
         }
+
+        htmlStringArr.push('        </div>');
         htmlStringArr.push('    </div>');
         htmlStringArr.push('</div>');
     }
 
     htmlStringArr.push('</div>');
-
     container.append($(htmlStringArr.join('')));
+
+    var items = $('.word-list-item');
+    var maxHeight = 0;
+    items.each(function (index, element) {
+        maxHeight = Math.max(maxHeight, $(element).height());
+    });
+
+    items.each(function (index, element) {
+        $(element).height(maxHeight);
+    });
 };

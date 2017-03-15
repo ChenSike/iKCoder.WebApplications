@@ -1,5 +1,7 @@
 ﻿'use strict';
 
+var _wordsData = [];
+
 function initEvents() {
     $('#btn_SiderBar_Expand').on('click', function () {
         siderBarExpand();
@@ -39,6 +41,8 @@ function initEvents() {
         $(e.currentTarget).addClass('selected');
         if ($(e.currentTarget).attr('id') == 'btn_Footer_CodeMode') {
             showCodePanel(e);
+        } else if ($(e.currentTarget).attr('id') == 'btn_Footer_WordMode') {
+            showWordPanel(e);
         } else {
             $('#panel_CodeMode').css('display', 'none');
         }
@@ -63,6 +67,12 @@ function initEvents() {
         $('#btn_Footer_CreateMode').addClass('selected');
     });
 
+    $('.word-panel-header-close').on('click', function (e) {
+        $('#panel_WordMode').css('display', 'none');
+        $('.footer-tool-item').removeClass('selected');
+        $('#btn_Footer_CreateMode').addClass('selected');
+    });
+    
     $('#panel_CodeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $(".link-button-block-example").click(hightlightExampleBlock);
@@ -111,6 +121,36 @@ function initDatas() {
                     text: '现在坦克战队已经可以在你的控制下移动了, 接下来为坦克增加"射击"能力吧. 请增加键盘事件, 使"空格"键按下时, 坦克可以发射炮弹',
                     key: "常量",
                     id: "race_roads_block_example"
+                }
+            ],
+            words: [
+                {
+                    word: 'computer',
+                    soundmark: [
+                        ["英 [kəm'pjuːtə]", ''],
+                        ["美 [kəm'pjutɚ]", '']
+                    ],
+                    star: 4,
+                    note: '考研 / CET4 / CET6',
+                    paraphrase: [
+                        'n. 计算机；电脑；电子计算机'
+                    ],
+                    variant: {
+                        '复数': 'computers'
+                    }
+                }, {
+                    word: 'programming',
+                    soundmark: [
+                        ["英 ['prəʊɡræmɪŋ]", ''],
+                        ["美 ['proɡræmɪŋ]", '']
+                    ],
+                    star: 5,
+                    note: '',
+                    paraphrase: [
+                        'n. 设计，规划；编制程序，[计] 程序编制',
+                        '训练(programme的现在分词); 培养; 预调;'
+                    ],
+                    variant: null
                 }
             ]
         },
@@ -174,11 +214,12 @@ function buildStageHTML(data) {
 
 function initPage() {
     var data = initDatas();
+    _wordsData = data.course.words;
     buildStageHTML(data.course);
     updateUserInfo(data.user);
     initEvents();
     adjustWorkSpaceTitle();
-    $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,777)", });
+    $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,177)", });
     LaodSceneLib(data.blockly);
     var playBtn = $('.workspace-tool-item.glyphicon.glyphicon-play');
     var shareBtn = $('.workspace-tool-item.glyphicon.glyphicon-share-alt');
@@ -198,9 +239,10 @@ var _codePanelInit = false;
 function showCodePanel(e) {
     var codePanel = $('#panel_CodeMode');
     if (codePanel.css('display') == 'none') {
+        $('#panel_WordMode').css('display', 'none');
         codePanel.css('display', 'block');
-        adjustCodePanelSize(codePanel);
-        adjustCodePanelPosition(codePanel, e);
+        adjustCodePanelSize(codePanel, _codePanelInit);
+        adjustCodePanelPosition(codePanel, e, _codePanelInit);
     } else {
         codePanel.css('display', 'none');
         $('.footer-tool-item').removeClass('selected');
@@ -208,14 +250,96 @@ function showCodePanel(e) {
     }
 }
 
-function adjustCodePanelSize(codePanel) {
+var _wordPanelInit = false;
+function showWordPanel(e) {
+    var wordPanel = $('#panel_WordMode');
+    if (wordPanel.css('display') == 'none') {
+        $('#panel_CodeMode').css('display', 'none');
+        wordPanel.css('display', 'block');
+        if (!_wordPanelInit) {
+            $('.word-panel-content.container').append(buildWordListHTML());
+        }
+
+        adjustCodePanelSize(wordPanel, _wordPanelInit);
+        adjustCodePanelPosition(wordPanel, e, _wordPanelInit);
+    } else {
+        wordPanel.css('display', 'none');
+        $('.footer-tool-item').removeClass('selected');
+        $('#btn_Footer_CreateMode').addClass('selected');
+    }
+}
+
+function buildWordListHTML() {
+    var data = _wordsData;
+    var htmlStringArr = [];
+    htmlStringArr.push('<div class="row">');
+    for (var i = 0; i < data.length; i++) {
+        htmlStringArr.push('<div class="col-xs-12 workspace-word-list-item">');
+        htmlStringArr.push('    <div class="container padding-bottom50" style="padding: 0px;">');
+        htmlStringArr.push('        <div class="row">');
+        htmlStringArr.push('            <div class="col-xs-12 word-word">');
+        htmlStringArr.push(data[i].word);
+        htmlStringArr.push('            </div>');
+        htmlStringArr.push('        </div>');
+        htmlStringArr.push('        <div class="row word-soundmark">');
+        for (var j = 0; j < data[i].soundmark.length; j++) {
+            htmlStringArr.push('            <div class="col-xs-5" style="padding-right: 0px;">');
+            htmlStringArr.push(data[i].soundmark[j][0]);
+            htmlStringArr.push('            </div>');
+            htmlStringArr.push('            <div class="col-xs-1">');
+            htmlStringArr.push(data[i].soundmark[j][1]);
+            htmlStringArr.push('            </div>');
+        }
+
+        htmlStringArr.push('        </div>');
+        htmlStringArr.push('        <div class="row word-soundmark">');
+        htmlStringArr.push('            <div class="col-xs-5">');
+        htmlStringArr.push(data[i].star);
+        htmlStringArr.push('            </div>');
+        htmlStringArr.push('            <div class="col-xs-7">');
+        htmlStringArr.push(data[i].note);
+        htmlStringArr.push('            </div>');
+        htmlStringArr.push('        </div>');
+        htmlStringArr.push('        <div class="row word-paraphrase">');
+        for (var j = 0; j < data[i].paraphrase.length; j++) {
+            htmlStringArr.push('            <div class="col-xs-12">');
+            htmlStringArr.push(data[i].paraphrase[j]);
+            htmlStringArr.push('            </div>');
+        }
+
+        if (data[i].variant) {
+            htmlStringArr.push('        </div>');
+            htmlStringArr.push('        <div class="row">');
+            htmlStringArr.push('            <div class="col-xs-12">');
+            htmlStringArr.push('变形');
+            htmlStringArr.push('            </div>');
+            for (var key in data[i].variant) {
+                htmlStringArr.push('            <div class="col-xs-3 word-variant-header">');
+                htmlStringArr.push(key + ': ');
+                htmlStringArr.push('            </div>');
+                htmlStringArr.push('            <div class="col-xs-9 word-variant-content">');
+                htmlStringArr.push(data[i].variant[key]);
+                htmlStringArr.push('            </div>');
+            }
+        }
+
+        htmlStringArr.push('        </div>');
+        htmlStringArr.push('    </div>');
+        htmlStringArr.push('</div>');
+    }
+
+    htmlStringArr.push('</div>');
+    return htmlStringArr.join('');
+}
+
+function adjustCodePanelSize(codePanel, panelInited) {
     var minLeft = 20;
     var minTop = 20;
     var maxWidth = $('body').width() - minLeft * 2;
     var maxHeight = $('body').height() - $('header').height() - $('footer').height() - minTop * 2;
     var minWidth = 400;
     var minHeight = 300;
-    if (!_codePanelInit) {
+    if (!panelInited) {
         codePanel.height(minHeight);
         codePanel.width(minWidth);
     } else {
@@ -233,17 +357,17 @@ function adjustCodePanelSize(codePanel) {
     }
 }
 
-function adjustCodePanelPosition(codePanel, e) {
+function adjustCodePanelPosition(codePanel, e, panelInited) {
     var targetOffset = $(e.currentTarget).offset();
     var sourceOffset = codePanel.offset();
     var minLeft = 20;
     var minTop = 20;
     var maxLeft = $('body').width() - codePanel.width() - 20;
     var maxTop = $('body').height() - codePanel.height() - 20;
-    if (!_codePanelInit) {
+    if (!panelInited) {
         codePanel.css('top', (targetOffset.top - 20 - codePanel.height()) + "px");
         codePanel.css('left', (targetOffset.left - codePanel.width() / 4) + "px");
-        _codePanelInit = true;
+        panelInited = true;
     } else {
         if (sourceOffset.top < minTop) {
             codePanel.css('top', minTop + "px");
@@ -256,7 +380,6 @@ function adjustCodePanelPosition(codePanel, e) {
         } else if (sourceOffset.left > maxLeft) {
             codePanel.css('left', maxLeft + "px");
         }
-
     }
 }
 

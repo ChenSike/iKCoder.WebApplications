@@ -1,8 +1,8 @@
 <xml id="workspacefactory_toolbox" class="toolbox">
-  <category name="事件" colour="80" id="category_Event" iconposition="-307px -11px;-340px -11px">
+  <category name="控制" colour="80" id="category_Event" iconposition="0px -45px">
     <block type="TestForSVG" categoryicon="start.svg" eventicon="start.svg" colour="#5B97FF"  stroke="#5C7DEC"/>
   </category>
-  <category name="逻辑" colour="210" id="category_Logic">
+  <category name="动作" colour="210" id="category_Logic" iconposition="0px -90px">
     <block type="controls_if" colour="65" stroke="#ff0000"/>
     <block type="logic_compare"/>
     <block type="logic_operation"/>
@@ -11,7 +11,7 @@
     <block type="logic_null"/>
     <block type="logic_ternary"/>
   </category>
-  <category name="循环" colour="120" id="category_Loops">
+  <category name="事件" colour="120" id="category_Loops" iconposition="0px -136px">
     <block type="controls_repeat_ext" categoryicon="start.svg">
       <value name="TIMES">
         <shadow type="math_number">
@@ -40,7 +40,7 @@
     <block type="controls_forEach"/>
     <block type="controls_flow_statements"/>
   </category>
-  <category name="数学" colour="230" id="category_Math">
+  <category name="数据" colour="230" id="category_Math" iconposition="0px -181px">
     <block type="math_number"/>
     <block type="math_arithmetic">
       <value name="A">
@@ -127,7 +127,7 @@
     </block>
     <block type="math_random_float"/>
   </category>
-  <category name="文本" colour="160" id="category_Text">
+  <category name="计算" colour="160" id="category_Text" iconposition="0px -232px">
     <block type="text"/>
     <block type="text_join"/>
     <block type="text_append">
@@ -204,7 +204,7 @@
       </value>
     </block>
   </category>
-  <category name="列表" colour="260" id="category_Lists">
+  <category name="绘制" colour="260" id="category_Lists" iconposition="0px -278px">
     <block type="lists_create_with">
       <mutation items="0"/>
     </block>
@@ -255,7 +255,7 @@
     </block>
     <block type="lists_sort"/>
   </category>
-  <category name="颜色" colour="20"  id="category_Colour">
+  <category name="角色" colour="20"  id="category_Colour" iconposition="0px -323px">
     <block type="colour_picker"/>
     <block type="colour_random"/>
     <block type="colour_rgb">
@@ -293,6 +293,8 @@
       </value>
     </block>
   </category>
-  <category name="变量" colour="330" custom="VARIABLE"  id="category_Variables"/>
-  <category name="函数" colour="290" custom="PROCEDURE"  id="category_Functions"/>
+  <category name="函数" colour="290" custom="PROCEDURE"  id="category_Functions" iconposition="0px -368px"/>
+  <category name="侦测" colour="330" custom="VARIABLE"  id="category_Variables" iconposition="0px -414px"/>
+  <category name="物理" colour="50"  id="category_Physics" iconposition="0px -459px"/>
+  <category name="声音" colour="140" id="category_Sound" iconposition="0px -504px"/>
 </xml>

@@ -453,11 +453,13 @@ Blockly.Toolbox.prototype.addColour_ = function (opt_tree) {
         $(child.getRowElement()).css('border', 'none');
         var element = child.getElement();
         if (element) {
-            if (this.hasColours_) {
-                var border = '10px solid ' + (child.hexColour || '#ddd');
-            } else {
-                var border = 'none';
-            }
+            //if (this.hasColours_) {
+            //    var border = '10px solid ' + (child.hexColour || '#ddd');
+            //} else {
+            //    var border = 'none';
+            //}
+
+            var border = 'none';
             if (this.workspace_.RTL) {
                 element.style.borderRight = border;
             } else {
@@ -822,10 +824,10 @@ goog.ui.tree.BaseNode.prototype.toSafeHtml = function () {
 goog.ui.tree.BaseNode.prototype.createCategoryTreeItemIconClass = function (className) {
     var text = ['.' + className.trim() + ' div span.blocklyTreeIcon.blocklyTreeIconNone{'];
     if (this.category_id && this.category_icon_position) {
-        var positionArr = this.category_icon_position.split(';');
-        text.push('background-position:' + positionArr[0] + ';\n}');
-        text.push('.' + className.trim() + ':hover div span.blocklyTreeIcon.blocklyTreeIconNone{');
-        text.push('background-position:' + positionArr[1] + ';\n}');
+        //var positionArr = this.category_icon_position.split(';');
+        text.push('background-position:' + this.category_icon_position + ';\n}');
+        //text.push('.' + className.trim() + ':hover div span.blocklyTreeIcon.blocklyTreeIconNone{');
+        //text.push('background-position:' + positionArr[1] + ';\n}');
     } else {
         text.push('background:none;');
         text.push('width:16px;');
@@ -833,8 +835,9 @@ goog.ui.tree.BaseNode.prototype.createCategoryTreeItemIconClass = function (clas
         text.push('margin:auto;\n}');
     }
 
-    text.push('.' + className.trim() + ':hover{');
-    text.push('color:#FFFFFF;');
+    
+    text.push('.blocklyToolboxDiv [role=treeitem].' + className.trim() + ':hover{');
+    //text.push('color:#FFFFFF;');
     text.push('background-color:' + this.hexColour + ';\n}');
     var cssTextNode = document.createTextNode(text.join('\n'));
     var cssNode = document.createElement('style');

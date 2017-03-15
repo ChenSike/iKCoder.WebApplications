@@ -473,11 +473,12 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-    'background-color: #ddd;',
+    'background-color: rgb(41,49,65);',
     'overflow-x: visible;',
     'overflow-y: auto;',
     'position: absolute;',
     'z-index: 70;', /* so blocks go under toolbox when dragging */
+    'border-right: 3px solid rgb(238,176,48);',
   '}',
 
   '.blocklyTreeRoot {',
@@ -489,8 +490,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRow {',
-    'height: 22px;',
-    'line-height: 22px;',
+    'height: 25px;',
+    'line-height: 25px;',
     'margin-bottom: 3px;',
     'padding-right: 8px;',
     'white-space: nowrap;',
