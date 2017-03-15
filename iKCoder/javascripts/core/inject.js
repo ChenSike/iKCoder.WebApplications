@@ -170,26 +170,9 @@ Blockly.createDom_ = function(container, options) {
       <rect stroke="#888" />
     </pattern>
   */
-    var tmpPara = { 'id': 'blocklyGridPattern' + rnd, 'patternUnits': 'userSpaceOnUse' };
-    if (options.customCfg && options.customCfg.background_path) {
-        tmpPara = {
-            'id': 'blocklyGridPattern' + rnd,
-            'patternUnits': 'userSpaceOnUse',
-            'width': options.customCfg.background_path.spacing,
-            'height': options.customCfg.background_path.spacing
-        };
-    }
-  var gridPattern = Blockly.utils.createSvgElement('pattern', tmpPara, defs);
-    if (options.customCfg) {
-        if (options.customCfg.background_color) {
-            Blockly.utils.createSvgElement('rect', {'fill': options.customCfg.background_color }, gridPattern);
-        } else if (options.customCfg.background_path) {
-            var tmpRef = options.customCfg.background_path;
-            var spacing = tmpRef.spacing;
-            Blockly.utils.createSvgElement('rect', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color }, gridPattern);
-            Blockly.utils.createSvgElement('path', { 'width': spacing, 'height': spacing, 'fill': tmpRef.color, 'stroke-width': 1, 'stroke': tmpRef.path.color, 'd': tmpRef.path.path }, gridPattern);
-        }
-    } else {
+  var gridPattern = Blockly.utils.createSvgElement('pattern',
+      {'id': 'blocklyGridPattern' + rnd,
+       'patternUnits': 'userSpaceOnUse'}, defs);
   if (options.gridOptions['length'] > 0 && options.gridOptions['spacing'] > 0) {
     Blockly.utils.createSvgElement('line',
         {'stroke': options.gridOptions['colour']},
@@ -201,7 +184,6 @@ Blockly.createDom_ = function(container, options) {
     }
     // x1, y1, x1, x2 properties will be set later in updateGridPattern_.
   }
-    }
   options.gridPattern = gridPattern;
   return svg;
 };

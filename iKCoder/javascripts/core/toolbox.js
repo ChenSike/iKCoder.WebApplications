@@ -175,8 +175,7 @@ Blockly.Toolbox.prototype.init = function() {
     RTL: workspace.RTL,
     oneBasedIndex: workspace.options.oneBasedIndex,
     horizontalLayout: workspace.horizontalLayout,
-    toolboxPosition: workspace.options.toolboxPosition,
-        customCfg: workspace.options.customCfg
+    toolboxPosition: workspace.options.toolboxPosition
   };
   /**
    * @type {!Blockly.Flyout}
@@ -510,7 +509,9 @@ Blockly.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
  * @override
  */
 Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
-    return new Blockly.Toolbox.TreeNode(this.toolbox_, opt_html ? goog.html.SafeHtml.htmlEscape(opt_html) : goog.html.SafeHtml.EMPTY, this.getConfig(), this.getDomHelper());
+  return new Blockly.Toolbox.TreeNode(this.toolbox_, opt_html ?
+      goog.html.SafeHtml.htmlEscape(opt_html) : goog.html.SafeHtml.EMPTY,
+      this.getConfig(), this.getDomHelper());
 };
 
 /**

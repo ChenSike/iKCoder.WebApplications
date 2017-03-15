@@ -95,7 +95,7 @@ header {
     width: 15%;
     height: 10px;
     top: 10px;
-    left: 2%;
+    left: 0px;
     background-color: rgb(26,164,216);
     position: absolute;
     display: inline-block;
@@ -552,3 +552,56 @@ textarea {
     color: rgb(50,34,14);
     text-align: left;
 }
+
+.run-scene-fullscreen {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.run-scene-fullscreen-close-button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    left: calc(100% - 40px);
+}
+
+.knowledge-panel {
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    border: 1px solid rgb(00,00,00);
+    background-color: rgb(249,248,228);
+    display: none;
+    z-index: 800;
+}
+
+.knowledge-panel-header {
+    width: 100%;
+    height: 20px;
+    cursor: move;
+}
+
+.knowledge-panel-header-close {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 1px;
+    left: calc(100% - 26px);
+    cursor: pointer;
+    color: black;
+}
+
+.knowledge-panel-content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 30px);
+}
+

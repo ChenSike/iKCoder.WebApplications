@@ -184,7 +184,7 @@ Blockly.Css.CONTENT = [
     'box-shadow: 4px 4px 20px 1px rgba(0,0,0,.15);',
     'color: #000;',
     'display: none;',
-    'font-family: 微软雅黑;',
+    'font-family: sans-serif;',
     'font-size: 9pt;',
     'opacity: 0.9;',
     'padding: 2px;',
@@ -247,14 +247,12 @@ Blockly.Css.CONTENT = [
   '.blocklyDisabled>.blocklyPathDark {',
     'display: none;',
   '}',
-  //ikcoder: block text
+
   '.blocklyText {',
     'cursor: default;',
     'fill: #fff;',
-    //'font-family: sans-serif;',
-    //'font-size: 11pt;',
-    'font-family: 微软雅黑;',
-    'font-size: 14px;',
+    'font-family: sans-serif;',
+    'font-size: 11pt;',
   '}',
 
   '.blocklyNonEditableText>text {',
@@ -364,7 +362,7 @@ Blockly.Css.CONTENT = [
   '.blocklyHtmlInput {',
     'border: none;',
     'border-radius: 4px;',
-    'font-family: 微软雅黑;',
+    'font-family: sans-serif;',
     'height: 100%;',
     'margin: 0;',
     'outline: none;',
@@ -382,10 +380,10 @@ Blockly.Css.CONTENT = [
     'stroke: #ddd;',
     'stroke-width: 1;',
   '}',
-  //ikcoder: toolbox collapser
+
   '.blocklyFlyoutBackground {',
     'fill: #ddd;',
-    'fill-opacity: .6;',
+    'fill-opacity: .8;',
   '}',
 
   '.blocklyScrollbarHorizontal, .blocklyScrollbarVertical {',
@@ -473,12 +471,11 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-    'background-color: rgb(41,49,65);',
+    'background-color: #ddd;',
     'overflow-x: visible;',
     'overflow-y: auto;',
     'position: absolute;',
     'z-index: 70;', /* so blocks go under toolbox when dragging */
-    'border-right: 3px solid rgb(238,176,48);',
   '}',
 
   '.blocklyTreeRoot {',
@@ -490,8 +487,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTreeRow {',
-    'height: 25px;',
-    'line-height: 25px;',
+    'height: 22px;',
+    'line-height: 22px;',
     'margin-bottom: 3px;',
     'padding-right: 8px;',
     'white-space: nowrap;',
@@ -567,7 +564,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyTreeLabel {',
     'cursor: default;',
-    'font-family: 微软雅黑;',
+    'font-family: sans-serif;',
     'font-size: 16px;',
     'padding: 0 3px;',
     'vertical-align: middle;',

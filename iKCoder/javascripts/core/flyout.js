@@ -122,7 +122,6 @@ Blockly.Flyout = function(workspaceOptions) {
    * @private
    */
   this.startDragMouseX_ = 0;
-    this.customCfg = {};
 };
 
 /**
@@ -293,28 +292,8 @@ Blockly.Flyout.prototype.createDom = function(tagName) {
   // hide/show code will set up proper visibility and size later.
   this.svgGroup_ = Blockly.utils.createSvgElement(tagName,
       {'class': 'blocklyFlyout', 'style': 'display: none'}, null);
-    var params = { 'class': 'blocklyFlyoutBackground' };
-    if (this.workspace_.options.customCfg && this.workspace_.options.customCfg.toolbox_collapse) {
-        this.customCfg = this.workspace_.options.customCfg.toolbox_collapse;
-        var tmpStyles = "";
-        if (this.customCfg.fill) {
-            tmpStyles += "fill:" + this.customCfg.fill + ";";
-        }
-
-        if (this.customCfg.opacity) {
-            tmpStyles += "fill-opacity:" + this.customCfg.opacity + ";";
-        }
-
-        params['style'] = tmpStyles;
-    }
-  this.svgBackground_ = Blockly.utils.createSvgElement('path',params, this.svgGroup_);
-    this.svgBackgroundBorder_ = null;
-    params = {};
-    if (this.customCfg.border && this.customCfg.border.stroke && this.customCfg.border.width) {
-        params['stroke'] = this.customCfg.border.stroke;
-        params['stroke-width'] = this.customCfg.border.width;
-        this.svgBackgroundBorder_ = Blockly.utils.createSvgElement('path', params, this.svgGroup_);
-    }
+  this.svgBackground_ = Blockly.utils.createSvgElement('path',
+      {'class': 'blocklyFlyoutBackground'}, this.svgGroup_);
   this.svgGroup_.appendChild(this.workspace_.createDom());
   return this.svgGroup_;
 };
@@ -562,10 +541,6 @@ Blockly.Flyout.prototype.setBackgroundPathVertical_ = function(width, height) {
 
   // Decide whether to start on the left or right.
   var path = ['M ' + (atRight ? totalWidth : 0) + ',0'];
-    var tmpRadius = this.CORNER_RADIUS;
-    if (typeof this.customCfg.radius == 'number') {
-        this.CORNER_RADIUS = this.customCfg.radius;
-    }
   // Top.
   path.push('h', atRight ? -width : width);
   // Rounded corner.
@@ -574,7 +549,7 @@ Blockly.Flyout.prototype.setBackgroundPathVertical_ = function(width, height) {
       atRight ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
       this.CORNER_RADIUS);
   // Side closest to workspace.
-    path.push('v', Math.max(0, height - this.CORNER_RADIUS * 2));
+  path.push('v', Math.max(0, height));
   // Rounded corner.
   path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
       atRight ? 0 : 1,
@@ -584,9 +559,6 @@ Blockly.Flyout.prototype.setBackgroundPathVertical_ = function(width, height) {
   path.push('h',  atRight ? width : -width);
   path.push('z');
   this.svgBackground_.setAttribute('d', path.join(' '));
-    if (this.svgBackgroundBorder_) {
-        this.svgBackgroundBorder_.setAttribute('d', 'M ' + (atRight ? 0 : this.width_) + ',0 l 0,' + height);
-    }
 };
 
 /**

@@ -332,11 +332,8 @@ Blockly.WorkspaceSvg.prototype.createDom = function(opt_backgroundClass) {
         {'height': '100%', 'width': '100%', 'class': opt_backgroundClass},
         this.svgGroup_);
     if (opt_backgroundClass == 'blocklyMainBackground') {
-        if (this.options.customCfg && this.options.customCfg.background_color) {
-            this.svgBackground_.style.fill = this.options.customCfg.background_color;
-        } else {
-            this.svgBackground_.style.fill = 'url(#' + this.options.gridPattern.id + ')';
-        }
+      this.svgBackground_.style.fill =
+          'url(#' + this.options.gridPattern.id + ')';
     }
   }
   /** @type {SVGElement} */

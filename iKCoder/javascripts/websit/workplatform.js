@@ -43,6 +43,8 @@ function initEvents() {
             showCodePanel(e);
         } else if ($(e.currentTarget).attr('id') == 'btn_Footer_WordMode') {
             showWordPanel(e);
+        } else if ($(e.currentTarget).attr('id') == 'btn_Footer_KnowledgeMode') {
+            showKnowledgePanel(e);
         } else {
             $('#panel_CodeMode').css('display', 'none');
         }
@@ -62,18 +64,38 @@ function initEvents() {
     });
 
     $('.code-panel-header-close').on('click', function (e) {
-        $('#panel_CodeMode').css('display', 'none');
+        //$('#panel_CodeMode').css('display', 'none');
+        $('#panel_CodeMode').hide("slow");
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     });
 
     $('.word-panel-header-close').on('click', function (e) {
-        $('#panel_WordMode').css('display', 'none');
+        //$('#panel_WordMode').css('display', 'none');
+        $('#panel_WordMode').hide("slow");
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     });
-    
+
+    $('.knowledge-panel-header-close').on('click', function (e) {
+        //$('#panel_WordMode').css('display', 'none');
+        $('#panel_KnowledgeMode').hide("slow");
+        $('.footer-tool-item').removeClass('selected');
+        $('#btn_Footer_CreateMode').addClass('selected');
+    });
+
+    $('.run-scene-fullscreen-close-button').on('click', function (e) {
+        //$('.run-scene-fullscreen').css('display', 'none');
+        $('.run-scene-fullscreen').hide("slow", function () {
+            $('.siderbar-scene-container').append($('#game_container'));
+        });
+    });
+
     $('#panel_CodeMode').draggable({ containment: "body", scroll: false }).resizable();
+
+    $('#panel_WordMode').draggable({ containment: "body", scroll: false }).resizable();
+
+    $('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $(".link-button-block-example").click(hightlightExampleBlock);
 }
@@ -239,12 +261,16 @@ var _codePanelInit = false;
 function showCodePanel(e) {
     var codePanel = $('#panel_CodeMode');
     if (codePanel.css('display') == 'none') {
-        $('#panel_WordMode').css('display', 'none');
-        codePanel.css('display', 'block');
+        //$('#panel_WordMode').css('display', 'none');
+        $('#panel_WordMode').hide("slow");
+        $('#panel_KnowledgeMode').hide("slow");
+        //codePanel.css('display', 'block');
+        codePanel.show('slow');
         adjustCodePanelSize(codePanel, _codePanelInit);
         adjustCodePanelPosition(codePanel, e, _codePanelInit);
     } else {
-        codePanel.css('display', 'none');
+        //codePanel.css('display', 'none');
+        codePanel.hide("slow");
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }
@@ -254,8 +280,11 @@ var _wordPanelInit = false;
 function showWordPanel(e) {
     var wordPanel = $('#panel_WordMode');
     if (wordPanel.css('display') == 'none') {
-        $('#panel_CodeMode').css('display', 'none');
-        wordPanel.css('display', 'block');
+        //$('#panel_CodeMode').css('display', 'none');
+        $('#panel_CodeMode').hide("slow");
+        $('#panel_KnowledgeMode').hide("slow");
+        //wordPanel.css('display', 'block');
+        wordPanel.show('slow');
         if (!_wordPanelInit) {
             $('.word-panel-content.container').append(buildWordListHTML());
         }
@@ -263,7 +292,31 @@ function showWordPanel(e) {
         adjustCodePanelSize(wordPanel, _wordPanelInit);
         adjustCodePanelPosition(wordPanel, e, _wordPanelInit);
     } else {
-        wordPanel.css('display', 'none');
+        //wordPanel.css('display', 'none');
+        wordPanel.hide("slow");
+        $('.footer-tool-item').removeClass('selected');
+        $('#btn_Footer_CreateMode').addClass('selected');
+    }
+}
+
+var _knowledgePanelInit = false;
+function showKnowledgePanel(e) {
+    var knowledgePanel = $('#panel_KnowledgeMode');
+    if (knowledgePanel.css('display') == 'none') {
+        //$('#panel_CodeMode').css('display', 'none');
+        $('#panel_CodeMode').hide("slow");
+        $('#panel_WordMode').hide("slow");
+        //wordPanel.css('display', 'block');
+        knowledgePanel.show('slow');
+        if (!_wordPanelInit) {
+            $('.word-panel-content.container').append('waiting for create.');
+        }
+
+        adjustCodePanelSize(knowledgePanel, _knowledgePanelInit);
+        adjustCodePanelPosition(knowledgePanel, e, _knowledgePanelInit);
+    } else {
+        //wordPanel.css('display', 'none');
+        knowledgePanel.hide("slow");
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }

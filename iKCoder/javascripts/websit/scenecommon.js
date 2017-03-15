@@ -32,8 +32,10 @@ function _shareScene() {
     alert("'Share' will coming soon!");
 };
 
-function _fullScreen() {
-    alert("'Full Screen' will coming soon!");
+function _fullScreen() {    
+    $('.run-scene-fullscreen').append($('#game_container'));
+    //$('.run-scene-fullscreen').css('display', 'block');
+    $('.run-scene-fullscreen').show("slow");
 };
 
 function _playScene() {
