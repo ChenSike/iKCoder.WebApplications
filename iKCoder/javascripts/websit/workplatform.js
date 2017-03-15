@@ -3,6 +3,10 @@
 var _wordsData = [];
 
 function initEvents() {
+    $('#btn_Footer_Logo').on('click', function (e) {
+        window.location.href = "index.html";
+    });
+
     $('#btn_SiderBar_Expand').on('click', function () {
         siderBarExpand();
     });
@@ -22,6 +26,14 @@ function initEvents() {
             $(".siderbar-drag-proxy").css("display", "none");
             $(".siderbar-drag-proxy").css("visibility", "hidden");
             adjustWorkSpaceTitle();
+        }
+    });
+
+    $(document).keydown(function () {
+        if (arguments[0].keyCode == '27' && $('.run-scene-fullscreen').css('display') != 'none') {
+            $('.run-scene-fullscreen').hide("slow", function () {
+                $('.siderbar-scene-container').append($('#game_container'));
+            });
         }
     });
 
@@ -93,9 +105,9 @@ function initEvents() {
 
     $('#panel_CodeMode').draggable({ containment: "body", scroll: false }).resizable();
 
-    $('#panel_WordMode').draggable({ containment: "body", scroll: false }).resizable();
+    //$('#panel_WordMode').draggable({ containment: "body", scroll: false }).resizable();
 
-    $('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
+    //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $(".link-button-block-example").click(hightlightExampleBlock);
 }

@@ -503,7 +503,7 @@ textarea {
 .word-panel-header {
     width: 100%;
     height: 20px;
-    cursor: move;
+    /*cursor: move;*/
 }
 
 .word-panel-header-close {
@@ -586,7 +586,7 @@ textarea {
 .knowledge-panel-header {
     width: 100%;
     height: 20px;
-    cursor: move;
+    /*cursor: move;*/
 }
 
 .knowledge-panel-header-close {
@@ -605,3 +605,6 @@ textarea {
     height: calc(100% - 30px);
 }
 
+#btn_Footer_Logo {
+    cursor: pointer;
+}

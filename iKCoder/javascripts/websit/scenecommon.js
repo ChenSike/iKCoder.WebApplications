@@ -32,9 +32,8 @@ function _shareScene() {
     alert("'Share' will coming soon!");
 };
 
-function _fullScreen() {    
+function _fullScreen() {
     $('.run-scene-fullscreen').append($('#game_container'));
-    //$('.run-scene-fullscreen').css('display', 'block');
     $('.run-scene-fullscreen').show("slow");
 };
 
@@ -43,7 +42,7 @@ function _playScene() {
 };
 
 function _refereshScene() {
-    alert("'Referash' will coming soon!");
+    WorkScene.workspace.clear();
 };
 
 var _blockExample = null;
