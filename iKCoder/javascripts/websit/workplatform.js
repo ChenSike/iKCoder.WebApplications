@@ -110,6 +110,10 @@ function initEvents() {
     //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $(".link-button-block-example").click(hightlightExampleBlock);
+
+    $(window).resize(function () {
+        onWindowResize();
+    });
 }
 
 function siderBarExpand() {
@@ -484,6 +488,10 @@ function unselectBlockExample() {
     _highlightCount++;
     _blockExample.removeSelect();
     setTimeout('selectBlockExample();', 500);
+}
+
+function onWindowResize() {
+    $('.siderbar-wrap').css('left', ($('body').width() - $('.siderbar-wrap').width()) + 'px');
 }
 
 (function ($) {
