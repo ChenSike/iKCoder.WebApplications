@@ -1,6 +1,6 @@
 <xml id="workspacefactory_toolbox" class="toolbox">
   <category name="控制" colour="80" id="category_Event" iconposition="0px -45px">
-    <block type="TestForSVG" categoryicon="start.svg" eventicon="start.svg" colour="#5B97FF"  stroke="#5C7DEC"/>
+    <block type="TestForSVG" categoryicon="start.svg" eventicon="start.svg" colour="#5B97FF"  stroke="#5C7DEC" id="race_roads_block_example"/>
   </category>
   <category name="动作" colour="210" id="category_Logic" iconposition="0px -90px">
     <block type="controls_if" colour="65" stroke="#ff0000"/>
