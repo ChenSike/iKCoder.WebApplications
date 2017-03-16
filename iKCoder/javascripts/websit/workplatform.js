@@ -491,7 +491,18 @@ function unselectBlockExample() {
 }
 
 function onWindowResize() {
-    $('.siderbar-wrap').css('left', ($('body').width() - $('.siderbar-wrap').width()) + 'px');
+    var siderBarWrap = $('.siderbar-wrap');
+    if (siderBarWrap.hasClass('expanded')) {
+        siderBarWrap.css('left', ($('body').width() - siderBarWrap.width()) + 'px');
+    } else {
+        siderBarWrap.css('left', $('body').width() + 'px');
+    }
+
+    var header = $('header');
+    siderBarWrap.css('top', header.height() + 'px');
+    siderBarWrap.css('height', 'calc(100% - ' + header.height() + 'px - 60px)');
+    siderBarWrap.css('height', '-moz-calc(100% - ' + header.height() + 'px - 60px)');
+    siderBarWrap.css('height', '-webkit-calc(100% - ' + header.height() + 'px - 60px)');
 }
 
 (function ($) {

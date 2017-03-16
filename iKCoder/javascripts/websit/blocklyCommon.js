@@ -53,35 +53,14 @@ WorkScene.importPrettify = function () {
     document.head.appendChild(script);
 };
 
-WorkScene.getBBox_ = function (element) {
-    var height = element.offsetHeight;
-    var width = element.offsetWidth;
-    var x = 0;
-    var y = 0;
-    do {
-        x += element.offsetLeft;
-        y += element.offsetTop;
-        element = element.offsetParent;
-    } while (element);
-    return {
-        height: height,
-        width: width,
-        x: x,
-        y: y
-    };
-};
-
 WorkScene.init = function () {
     var container = document.getElementById('wrap_WorkSpace');
     var onresize = function (e) {
-        var bBox = WorkScene.getBBox_(container);
-        var el = document.getElementById('content_WorkSpace');
-        el.style.top = bBox.y + 'px';
-        el.style.left = bBox.x + 'px';
-        el.style.height = bBox.height + 'px';
-        el.style.height = (2 * bBox.height - el.offsetHeight) + 'px';
-        el.style.width = bBox.width + 'px';
-        el.style.width = (2 * bBox.width - el.offsetWidth) + 'px';
+        var el = $('#content_WorkSpace');
+        var body = $('body');
+        var footer = $('footer');
+        el.height(body.height() - el.offset().top - footer.height() - 20);
+        el.width = (body.width() - 5);
     };
 
     window.addEventListener('resize', onresize, false);

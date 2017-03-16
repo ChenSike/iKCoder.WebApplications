@@ -255,7 +255,7 @@
     </block>
     <block type="lists_sort"/>
   </category>
-  <category name="角色" colour="20"  id="category_Colour" iconposition="0px -323px">
+  <category name="角色" colour="20"  id="category_Colour" iconposition="0px -368px">
     <block type="colour_picker"/>
     <block type="colour_random"/>
     <block type="colour_rgb">
@@ -293,7 +293,7 @@
       </value>
     </block>
   </category>
-  <category name="函数" colour="290" custom="PROCEDURE"  id="category_Functions" iconposition="0px -368px"/>
+  <category name="函数" colour="290" custom="PROCEDURE"  id="category_Functions" iconposition="0px -323px"/>
   <category name="侦测" colour="330" custom="VARIABLE"  id="category_Variables" iconposition="0px -414px"/>
   <category name="物理" colour="50"  id="category_Physics" iconposition="0px -459px"/>
   <category name="声音" colour="140" id="category_Sound" iconposition="0px -504px"/>
