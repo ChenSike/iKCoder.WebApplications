@@ -548,10 +548,20 @@ textarea {
 }
 
 .word-variant-content {
-    font-size: 12px;
+    font-size: 14px;
     color: rgb(50,34,14);
     text-align: left;
 }
+
+.play-soundmark-button {
+    cursor: pointer;
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+    .play-soundmark-button:hover {
+        color: rgb(106,91,71);
+    }
 
 .run-scene-fullscreen {
     width: 100%;

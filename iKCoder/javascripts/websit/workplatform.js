@@ -344,7 +344,7 @@ function buildWordListHTML() {
     htmlStringArr.push('<div class="row">');
     for (var i = 0; i < data.length; i++) {
         htmlStringArr.push('<div class="col-xs-12 workspace-word-list-item">');
-        htmlStringArr.push('    <div class="container padding-bottom50" style="padding: 0px;">');
+        htmlStringArr.push('    <div class="container padding-bottom20" style="padding: 0px;">');
         htmlStringArr.push('        <div class="row">');
         htmlStringArr.push('            <div class="col-xs-12 word-word">');
         htmlStringArr.push(data[i].word);
@@ -352,18 +352,23 @@ function buildWordListHTML() {
         htmlStringArr.push('        </div>');
         htmlStringArr.push('        <div class="row word-soundmark">');
         for (var j = 0; j < data[i].soundmark.length; j++) {
-            htmlStringArr.push('            <div class="col-xs-5" style="padding-right: 0px;">');
+            htmlStringArr.push('            <div class="col-xs-6" style="padding-right: 0px;">');
             htmlStringArr.push(data[i].soundmark[j][0]);
-            htmlStringArr.push('            </div>');
-            htmlStringArr.push('            <div class="col-xs-1">');
-            htmlStringArr.push(data[i].soundmark[j][1]);
+            htmlStringArr.push('                <i class="glyphicon glyphicon-volume-up play-soundmark-button" aria-hidden="true" data-target="' + data[i].soundmark[j][1] + '"></i>');
             htmlStringArr.push('            </div>');
         }
 
         htmlStringArr.push('        </div>');
         htmlStringArr.push('        <div class="row word-soundmark">');
-        htmlStringArr.push('            <div class="col-xs-5">');
-        htmlStringArr.push(data[i].star);
+        htmlStringArr.push('            <div class="col-xs-4" style="color: rgb(254,186,0);">');
+        for (var j = 0; j < 5; j++) {
+            if (j < data[i].star - 1) {
+                htmlStringArr.push('<i class="glyphicon glyphicon-star" aria-hidden="true"></i>');
+            } else {
+                htmlStringArr.push('<i class="glyphicon glyphicon-star-empty" aria-hidden="true"></i>');
+            }
+        }
+
         htmlStringArr.push('            </div>');
         htmlStringArr.push('            <div class="col-xs-7">');
         htmlStringArr.push(data[i].note);
