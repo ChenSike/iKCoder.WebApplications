@@ -4,8 +4,8 @@ var testData = [
         {
             word: 'computer',
             soundmark: [
-                ["英 [kəm'pjuːtə]", ''],
-                ["美 [kəm'pjutɚ]", '']
+                ["英 [kəm'pjuːtə]", 'media/computer_uk.mp3'],
+                ["美 [kəm'pjutɚ]", 'media/computer_us.mp3']
             ],
             star: 4,
             note: '考研 / CET4 / CET6',
@@ -18,8 +18,8 @@ var testData = [
         }, {
             word: 'programming',
             soundmark: [
-                ["英 ['prəʊɡræmɪŋ]", ''],
-                ["美 ['proɡræmɪŋ]", '']
+                ["英 ['prəʊɡræmɪŋ]", 'media/programming_uk.mp3'],
+                ["美 ['proɡræmɪŋ]", 'media/programming_us.mp3']
             ],
             star: 5,
             note: '',
@@ -113,11 +113,13 @@ function initPage() {
         $(element).height(maxHeight);
     });
 
-    $('.play-soundmark-button').on('click', function (e) {
+    $('.play-soundmark-button').on('mouseover', function (e) {
         playSoundMark(e);
     });
 }
 
 function playSoundMark(eventObj) {
     var soundSource = $(eventObj.target).attr('data-target');
+    $("#audio_Soundmark").attr('src', soundSource);
+    $("#audio_Soundmark")[0].play();
 }
