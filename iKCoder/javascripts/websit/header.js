@@ -18,7 +18,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('            </button>');
-    tmpHtmlStrArr.push('            <a href="#"><img src="images/logo-new-gray.png" class="img-responsive"></a>');
+    tmpHtmlStrArr.push('            <a href="#"><img src="images/logo-new-gray.png" class="img-responsive" style="width:150px;"></a>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('        <div class="collapse navbar-collapse" id="example-navbar-collapse">');
     tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
