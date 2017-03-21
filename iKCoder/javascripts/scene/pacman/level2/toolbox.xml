@@ -1,0 +1,7 @@
+﻿<xml id="toolbox" style="display: none">
+    <block type="pacman_map_wall_detail"></block>
+    <block type="pacman_map_goods_detail"></block>
+    <block type="pacman_npc_detail"></block>
+    <block type="pacman_coord_number"></block>
+    <block type="pacman_coord_random"></block>
+</xml>

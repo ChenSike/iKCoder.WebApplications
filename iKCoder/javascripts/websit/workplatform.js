@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 var _wordsData = [];
+var _workspaceCfg = {};
 
 function initEvents() {
     $('#btn_Footer_Logo').on('click', function (e) {
@@ -193,7 +194,8 @@ function initDatas() {
             ]
         },
         blockly: {
-            xml: "http://localhost/iKCoder/WorkStation/Scene/XML/testblocks.xml",
+            toolbox: "javascripts/scene/pacman/level2/toolbox.xml",
+            workspace:"",
             lib: [
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",
@@ -253,6 +255,7 @@ function buildStageHTML(data) {
 function initPage() {
     var data = initDatas();
     _wordsData = data.course.words;
+    _workspaceCfg = data.blockly;
     buildStageHTML(data.course);
     updateUserInfo(data.user);
     initEvents();

@@ -64,7 +64,7 @@ WorkScene.init = function () {
     };
 
     window.addEventListener('resize', onresize, false);
-    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("WorkStation/Scene/xml/testblocks.xml")));
+    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile(_workspaceCfg.toolbox)));
     //var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
     WorkScene.workspace = Blockly.inject('content_WorkSpace',
         {
@@ -108,7 +108,7 @@ WorkScene.init = function () {
     //                        '</xml>';
 
     //WorkScene.loadBlocks(blocksXMLDoc);
-    WorkScene.loadBlocks();
+    WorkScene.loadBlocks(_workspaceCfg.workspace);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
     if ('BlocklyStorage' in window) {
