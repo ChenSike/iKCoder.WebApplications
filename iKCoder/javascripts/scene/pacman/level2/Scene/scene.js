@@ -1,4 +1,4 @@
-Scene = {};
+﻿Scene = {};
 Scene.Game = null;
 
 var _defaultDATA = [
@@ -51,13 +51,16 @@ Scene._NPC = [];
 Scene._LIFE = 3;
 Scene._SCORE = 0;
 Scene._PLAYER = { c: '#FEFE27', x: 12, y: 23 };
-Scene._PLAYERSPEED = 1;
-Scene._NPCSPEED = 1;
+Scene._PLAYERSPEED = 0.5;
+Scene._NPCSPEED = 0.5;
+Scene._MODEL = '1'; //0:static; 1: dynamic
+Scene._MOVEPATHS = [];
 
-Scene.Init = function (containerId, configs) {
-    Scene._LIFE = configs.lifeCount;
-    Scene._PLAYERSPEED = configs.playerSpeed;
-    Scene._NPCSPEED = configs.NPCSpeed;
+Scene.init = function (containerId, model, configs) {
+    Scene._MODEL = model;
+    Scene._LIFE = configs.lifeCount || Scene._LIFE;
+    Scene._PLAYERSPEED = configs.playerSpeed || Scene._PLAYERSPEED;
+    Scene._NPCSPEED = configs.NPCSpeed || Scene._NPCSPEED;
 
     this.container = document.getElementById(containerId);
     //var parentEl = this.container.parentElement;
@@ -73,12 +76,14 @@ Scene.Init = function (containerId, configs) {
         this.container.appendChild(this.canvas);
         var height = this.container.clientHeight;
         var width = this.container.clientWidth;
+        var newSize = Scene.adjustSize(width, height);
         this.canvas.style.backgroundColor = "#000000";
-        this.canvas.style.height = height + "px";
-        this.canvas.style.width = width + "px";
+        this.canvas.style.height = newSize.h + "px";
+        this.canvas.style.width = newSize.w + "px";
         var settings = {
-            width: width,
-            height: height
+            width: newSize.w,
+            height: newSize.h,
+            model: Scene._MODEL
         };
 
         Scene.InitGame(this.canvas.id, settings);
@@ -90,6 +95,13 @@ Scene.InitGame = function (currentId, sizeSetting) {
     Scene.CreateMainStage();
     Scene.CreateOverStage();
     Scene.Game.init();
+};
+
+Scene.adjustSize = function (width, height) {
+    var maxRate = Math.max(400 / width, 480 / height);
+    width = 400 / maxRate;
+    height = 480 / maxRate;
+    return { w: width, h: height };
 };
 
 Scene.CreateMainStage = function () {
@@ -264,12 +276,12 @@ Scene.CreateMainStage = function () {
         x: 20,
         y: 450,
         draw: function (context) {
-            context.font = 'bold 20px ΢���ź�';
+            context.font = 'bold 20px 微软雅黑';
             context.textAlign = 'left';
             context.textBaseline = 'bottom';
             context.fillStyle = '#FFFFFF';
             context.fillText('SCORE', this.x, this.y);
-            context.font = '20px ΢���ź�';
+            context.font = '20px 微软雅黑';
             context.textAlign = 'left';
             context.textBaseline = 'bottom';
             context.fillStyle = '#FEFE27';
@@ -277,26 +289,29 @@ Scene.CreateMainStage = function () {
         }
     });
     //Status Board
-    stage.createItem({
-        x: 160,
-        y: 450,
-        frames: 25,
-        draw: function (context) {
-            if (stage.status == 2 && this.times % 2) {
-                context.font = '20px ΢���ź�';
-                context.textAlign = 'left';
-                context.textBaseline = 'center';
-                context.fillStyle = '#FEFE27';
-                context.fillText('PAUSE', this.x, this.y);
+
+    if (Scene._MODEL != 0) {
+        stage.createItem({
+            x: 160,
+            y: 450,
+            frames: 25,
+            draw: function (context) {
+                if (stage.status == 2 && this.times % 2) {
+                    context.font = '20px 微软雅黑';
+                    context.textAlign = 'left';
+                    context.textBaseline = 'center';
+                    context.fillStyle = '#FEFE27';
+                    context.fillText('PAUSE', this.x, this.y);
+                }
             }
-        }
-    });
+        });
+    }
     //Life Board
     stage.createItem({
         x: 260,
         y: 450,
         draw: function (context) {
-            context.font = 'bold 20 ΢���ź�';
+            context.font = 'bold 20 微软雅黑';
             context.textAlign = 'left';
             context.textBaseline = 'bottom';
             context.fillStyle = '#FFFFFF';
@@ -310,7 +325,7 @@ Scene.CreateMainStage = function () {
                 context.closePath();
                 context.fill();
             }
-            //context.font = '26px ΢���ź�';
+            //context.font = '26px 微软雅黑';
             //context.textAlign = 'left';
             //context.textBaseline = 'bottom';
             //context.fillStyle = 'yellow';
@@ -334,6 +349,7 @@ Scene.CreateMainStage = function () {
         speed: Scene._PLAYERSPEED,
         frames: 10,
         update: function (force) {
+            //Scene.Game._movePaths
             var coord = this.coord;
             if (!coord.offset) {
                 if (typeof this.control.orientation != 'undefined') {
@@ -394,26 +410,30 @@ Scene.CreateMainStage = function () {
         }
     });
 
-    stage.bind('keydown', function (e) {
-        switch (e.keyCode) {
-            case 13:
-            case 32:
-                this.status = this.status == 2 ? 1 : 2;
-                break;
-            case 39:
-                player.control = { orientation: 0 };
-                break;
-            case 40:
-                player.control = { orientation: 1 };
-                break;
-            case 37:
-                player.control = { orientation: 2 };
-                break;
-            case 38:
-                player.control = { orientation: 3 };
-                break;
-        }
-    });
+    Scene._Player = player;
+
+    if (Scene._MODEL != 0) {
+        stage.bind('keydown', function (e) {
+            switch (e.keyCode) {
+                case 13:
+                case 32:
+                    this.status = this.status == 2 ? 1 : 2;
+                    break;
+                case 39:
+                    player.control = { orientation: 0 };
+                    break;
+                case 40:
+                    player.control = { orientation: 1 };
+                    break;
+                case 37:
+                    player.control = { orientation: 2 };
+                    break;
+                case 38:
+                    player.control = { orientation: 3 };
+                    break;
+            }
+        });
+    }
 };
 
 Scene.CreateNPC = function (stage, npcCfg) {
@@ -565,7 +585,7 @@ Scene.CreateOverStage = function () {
         y: game.height * .35,
         draw: function (context) {
             context.fillStyle = '#FFF';
-            context.font = 'bold 18px ΢���ź�';
+            context.font = 'bold 18px 微软雅黑';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillText('GAME OVER', this.x, this.y);
@@ -588,7 +608,8 @@ Scene.CreateOverStage = function () {
     });
 };
 
-Scene.start = function () {
+Scene.startGame = function () {
+    Scene.UpdateConfig();
     Scene.Game.start();
 };
 
@@ -762,3 +783,49 @@ Scene.setPlayer = function (color, x, y) {
         }
     }
 };
+
+Scene.move = function (direction, step) {
+    var pathItem = {
+        orientation: 0,
+        x: 0,
+        y: 0
+    };
+
+    switch (direction) {
+        case 'L':
+            pathItem.orientation = 2;
+            break;
+        case 'U':
+            pathItem.orientation = 3;
+            break;
+        case 'R':
+            pathItem.orientation = 0;
+            break;
+        case 'D':
+            pathItem.orientation = 1;
+            break;
+    }
+
+    switch (pathItem.orientation) {
+        case 0:
+        case 2:
+            pathItem.x = (pathItem.orientation == 0 ? 1 : -1) * step;
+            pathItem.y = 0;
+            break;
+        case 1:
+        case 3:
+            pathItem.x = 0;
+            pathItem.y = (pathItem.orientation == 1 ? 1 : -1) * step;
+            break;
+    }
+
+    Scene._MOVEPATHS.push(pathItem);
+}
+
+Scene.UpdateConfig = function () {
+    Scene.Game.setMovePath(Scene._MOVEPATHS);
+}
+
+Scene.ResetConfig = function () {
+    Scene._MOVEPATHS = [];
+}

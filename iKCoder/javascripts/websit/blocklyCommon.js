@@ -124,7 +124,7 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
     CheckSceneObject();
-    //Scene.init('game_container', 0);
+    Scene.init('game_container', '0', {});
 };
 
 WorkScene.runJS = function () {
@@ -177,8 +177,6 @@ WorkScene.outputCode = function () {
         var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
         content.text(code);
         content.data("autoRowsNumbers").updateLine(code.match(/\n/g).length + 1);
-        eval(code);
-        Scene.UpdateConfig();
     }
     catch (ex) {
 
@@ -194,6 +192,9 @@ WorkScene.pauseScene = function () {
 };
 
 WorkScene.startGame = function () {
+    var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
+    Scene.ResetConfig();
+    eval(code);
     Scene.startGame();
 };
 
@@ -232,5 +233,9 @@ function CheckSceneObject() {
 
     if (!Scene.endGame) {
         Scene.endGame = function () { };
+    }
+
+    if (!Scene.ResetConfig) {
+        Scene.ResetConfig = function () { };
     }
 }

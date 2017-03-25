@@ -243,7 +243,8 @@ Blockly.Blocks['event_start'] = {
 };
 
 Blockly.JavaScript['event_start'] = function (block) {
-    return 'Scene.start();\n';
+    //return 'Scene.start();\n';
+    return '';
 };
 
 Blockly.Blocks['move_onestep_up'] = {

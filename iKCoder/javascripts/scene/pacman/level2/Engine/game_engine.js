@@ -1,11 +1,13 @@
-'use strict';
+﻿'use strict';
 
 function Game(id, params) {
     var _ = this;
+    _._movePaths = [];
     params = params || {};
     var settings = {
         width: 400,
-        height: 480
+        height: 480,
+        model: '1'
     };
     var _extend = function (target, settings, params) {
         for (var i in settings) {
@@ -13,15 +15,15 @@ function Game(id, params) {
         }
         return target;
     };
-    _extend(this, settings, {});
+
+    _extend(this, settings, params);
     var $canvas = document.getElementById(id);
     $canvas.width = _.width;
     $canvas.height = _.height;
     var _context = $canvas.getContext('2d');
     var _stages = [];
     var _events = {};
-    var _index = 0,
-    _hander;
+    var _index = 0, _hander;
     var Item = function (params) {
         this._params = params || {};
         this._settings = {
@@ -50,22 +52,24 @@ function Game(id, params) {
         _extend(this, this._settings, this._params);
     };
     Item.prototype.bind = function (eventType, callback) {
-        if (!_events[eventType]) {
-            _events[eventType] = {};
-            $canvas.addEventListener(eventType, function (e) {
-                var position = _.getPosition(e);
-                _stages[_index].items.forEach(function (item) {
-                    if (Math.abs(position.x - item.x) < item.width / 2 && Math.abs(position.y - item.y) < item.height / 2) {
-                        var key = 's' + _index + 'i' + item.index;
-                        if (_events[eventType][key]) {
-                            _events[eventType][key](e);
+        if (Game.model != 0) {
+            if (!_events[eventType]) {
+                _events[eventType] = {};
+                $canvas.addEventListener(eventType, function (e) {
+                    var position = _.getPosition(e);
+                    _stages[_index].items.forEach(function (item) {
+                        if (Math.abs(position.x - item.x) < item.width / 2 && Math.abs(position.y - item.y) < item.height / 2) {
+                            var key = 's' + _index + 'i' + item.index;
+                            if (_events[eventType][key]) {
+                                _events[eventType][key](e);
+                            }
                         }
-                    }
+                    });
+                    e.preventDefault();
                 });
-                e.preventDefault();
-            });
+            }
+            _events[eventType]['s' + this.stage.index + 'i' + this.index] = callback.bind(this);
         }
-        _events[eventType]['s' + this.stage.index + 'i' + this.index] = callback.bind(this);
     };
 
     var Map = function (params) {
@@ -233,7 +237,7 @@ function Game(id, params) {
             item.index = index;
             item.stage = this;
             if (item.location) {
-                var position = item.location.coord2position(item.coord.x, item.coord.y);
+                var position = item.location.coord2position(item.coord.x + 1, item.coord.y);
                 item.x = position.x;
                 item.y = position.y;
             }
@@ -291,23 +295,34 @@ function Game(id, params) {
     };
 
     Stage.prototype.bind = function (eventType, callback) {
-        if (!_events[eventType]) {
-            _events[eventType] = {};
-            window.addEventListener(eventType, function (e) {
-                if (e.keyCode == 13 || e.keyCode == 32 || (e.keyCode > 36 && e.keyCode < 41)) {
-                    var key = 's' + _index;
-                    if (_events[eventType][key]) {
-                        _events[eventType][key](e);
-                        e.preventDefault();
+        if (Game.model != 0) {
+            if (!_events[eventType]) {
+                _events[eventType] = {};
+                window.addEventListener(eventType, function (e) {
+                    if (e.keyCode == 13 || e.keyCode == 32 || (e.keyCode > 36 && e.keyCode < 41)) {
+                        var key = 's' + _index;
+                        if (_events[eventType][key]) {
+                            _events[eventType][key](e);
+                            e.preventDefault();
+                        }
                     }
-                }
-            });
+                });
+            }
+            _events[eventType]['s' + this.index] = callback.bind(this);
         }
-        _events[eventType]['s' + this.index] = callback.bind(this);
     };
 
     this.start = function () {
         var f = 0;
+        if (_stages[_index].status == 1) {
+            this.stop();
+            _stages[_index].reset();
+            _stages[_index].status = 0;
+            return;
+        } else {
+            _stages[_index].status = 1;
+        }
+
         var fn = function () {
             var stage = _stages[_index];
             _context.clearRect(0, 0, _.width, _.height);
@@ -345,13 +360,27 @@ function Game(id, params) {
                         if (item.timeout) {
                             item.timeout--;
                         }
-                        item.update();
+
+                        if (_._movePaths.length > 0 && item.type == 1) {
+                            item.orientation = _._movePaths[0].orientation;
+                            if (Math.floor(item.x) == _._movePaths[0].x && Math.floor(item.y) == _._movePaths[0].y) {
+                                _._movePaths.shift();
+                            }
+
+                            item.update();
+                        } else if (item.type != 1) {
+                            item.update();
+                        }
                     }
+
                     item.draw(_context);
                 });
             }
+
             _hander = requestAnimationFrame(fn);
         };
+
+        this.calcPaths();
         _hander = requestAnimationFrame(fn);
     };
 
@@ -409,4 +438,33 @@ function Game(id, params) {
     this.getCurentStage = function () {
         return _stages[_index];
     };
+
+    this.setMovePath = function (pathItems) {
+        _._movePaths = [];
+        for (var i = 0; i < pathItems.length; i++) {
+            _._movePaths.push(pathItems[i]);
+        }
+    }
+
+    this.calcPaths = function () {
+        var tmpMovePaths = [];
+        var player = this.getCurentStage().getItemsByType(1)[0];
+        player.coord = player.location.position2coord(player.x, player.y);
+        var x = player.coord.x;
+        var y = player.coord.y;
+        var tmpPos = null;
+        for (var i = 0; i < _._movePaths.length; i++) {
+            x += _._movePaths[i].x;
+            y += _._movePaths[i].y;
+            tmpPos = player.location.coord2position(x, y);
+            var pathItem = {
+                orientation: _._movePaths[i].orientation,
+                x: tmpPos.x,
+                y: tmpPos.y
+            };
+            tmpMovePaths.push(pathItem);
+        }
+
+        _._movePaths = tmpMovePaths;
+    }
 }
