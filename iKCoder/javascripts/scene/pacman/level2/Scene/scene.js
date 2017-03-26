@@ -1,37 +1,55 @@
 ﻿Scene = {};
 Scene.Game = null;
 
+//var _defaultDATA = [
+//        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+//        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//];
+
 var _defaultDATA = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
 var _defaultNPC = [
@@ -50,11 +68,14 @@ Scene._SIN = [0, 1, 0, -1];
 Scene._NPC = [];
 Scene._LIFE = 3;
 Scene._SCORE = 0;
-Scene._PLAYER = { c: '#FEFE27', x: 12, y: 23 };
+Scene._PLAYER = { c: '#FEFE27', x: 6, y: 12 };
 Scene._PLAYERSPEED = 0.5;
 Scene._NPCSPEED = 0.5;
 Scene._MODEL = '1'; //0:static; 1: dynamic
 Scene._MOVEPATHS = [];
+Scene.APPLEIMG = new Image();
+//Scene.APPLEIMG.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
+Scene.APPLEIMG.src = "images/scene/PACApple.svg";
 
 Scene.init = function (containerId, model, configs) {
     Scene._MODEL = model;
@@ -95,6 +116,9 @@ Scene.InitGame = function (currentId, sizeSetting) {
     Scene.CreateMainStage();
     Scene.CreateOverStage();
     Scene.Game.init();
+    Scene.randomPlayerPos();
+    var targetPos = Scene.randomGoodsPos();
+    Scene.calcPathToTarget(targetPos);
 };
 
 Scene.adjustSize = function (width, height) {
@@ -253,18 +277,21 @@ Scene.CreateMainStage = function () {
                         var pos = this.coord2position(i, j);
                         context.fillStyle = "#F5F5DC";
                         if (Scene._Goods[i + ',' + j]) {
-                            context.fillStyle = "#C33";
+                            //context.fillStyle = "#C33";
+                            context.fillStyle = "#FFFF00";
                             context.beginPath();
-                            context.arc(pos.x, pos.y, 4 + this.times % 2, 0, 2 * Math.PI, true);
+                            context.arc(pos.x, pos.y, 8 + this.times % 2, 0, 2 * Math.PI, true);
                             context.fill();
                             context.closePath();
                         } else {
-                            //context.fillRect(pos.x - 2, pos.y - 2, 4, 4);
-                            //context.fillStyle = "#C33";
-                            context.beginPath();
-                            context.arc(pos.x, pos.y, 1, 0, 2 * Math.PI, true);
-                            context.fill();
-                            context.closePath();
+                            ////context.fillRect(pos.x - 2, pos.y - 2, 4, 4);
+                            ////context.fillStyle = "#C33";
+                            //context.beginPath();
+                            //context.arc(pos.x, pos.y, 1, 0, 2 * Math.PI, true);
+                            //context.fill();
+                            //context.closePath();
+                            context.drawImage(Scene.APPLEIMG, 0, 0, 10, 10, pos.x - 7, pos.y - 7, 15, 15);
+
                         }
                     }
                 }
@@ -340,8 +367,8 @@ Scene.CreateMainStage = function () {
     //pac man
     player = stage.createItem({
         id: "pacman_player",
-        width: 21,
-        height: 21,
+        width: 32,
+        height: 32,
         type: 1,
         location: map,
         coord: { x: Scene._PLAYER.x, y: Scene._PLAYER.y },
@@ -664,6 +691,8 @@ Scene.checkPointAvailable = function (type, x, y) {
     } else if (type == "G") {
         if (Scene.checkPointUsedByWall(x, y)) {
             pointFlag = false;
+        } else if (Scene.checkPointUsedByPlayer(x, y)) {
+            pointFlag = false;
         }
     }
 
@@ -723,13 +752,10 @@ Scene.initGoods = function (x, y) {
 };
 
 Scene.setGoods = function (x, y) {
-    if (x > 0 && y > 0 && x < 27 && y < 30) {
-        if (Scene.checkPointAvailable('G', x, y)) {
-            var key = y + "," + x;
-            Scene._Goods[key] = 1;
-            var stage = Scene.Game.getCurentStage();
-            stage.maps[1].draw(document.getElementById('game_canvas').getContext('2d'));
-        }
+    if (Scene.checkPointAvailable('G', x, y)) {
+        Scene._Goods[y + "," + x] = 1;
+        var stage = Scene.Game.getCurentStage();
+        stage.maps[1].draw(document.getElementById('game_canvas').getContext('2d'));
     }
 };
 
@@ -774,7 +800,7 @@ Scene.setPlayer = function (color, x, y) {
                 }
             }
 
-            Scene._PLAYER = { c: color, x: x, y: y };
+            Scene._PLAYER = { c: color || Scene._PLAYER.c, x: x || Scene._PLAYER.x, y: y || Scene._PLAYER.y };
             var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
             player.coord.x = x;
             player.coord.y = y;
@@ -782,6 +808,20 @@ Scene.setPlayer = function (color, x, y) {
             player.draw(document.getElementById('game_canvas').getContext('2d'));
         }
     }
+};
+
+Scene.randomPlayerPos = function () {
+    Scene._PLAYER = { c: Scene._PLAYER.c, x: randomInt(1, 12), y: randomInt(1, 13) };
+    var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
+    player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
+    player.coord.x = Scene._PLAYER.x;
+    player.coord.y = Scene._PLAYER.y;
+    player.update(true);
+    player.draw(document.getElementById('game_canvas').getContext('2d'));
+
+    var beans = Scene.Game.getCurentStage().maps[1];
+    beans.set(Scene._PLAYER.x, Scene._PLAYER.y, 1);
+    beans._params.data[Scene._PLAYER.y][Scene._PLAYER.x] = 1;
 };
 
 Scene.move = function (direction, step) {
@@ -820,12 +860,33 @@ Scene.move = function (direction, step) {
     }
 
     Scene._MOVEPATHS.push(pathItem);
-}
+};
 
-Scene.UpdateConfig = function () {
+Scene.UpdateConfig = function (playerCfg, targetPos, wallCfg) {
     Scene.Game.setMovePath(Scene._MOVEPATHS);
-}
+};
 
 Scene.ResetConfig = function () {
     Scene._MOVEPATHS = [];
-}
+};
+
+Scene.randomGoodsPos = function () {
+    var x = randomInt(1, 13)
+    var y = randomInt(1, 14);
+    while (Math.abs(Scene._PLAYER.x - x) < 5 || Math.abs(Scene._PLAYER.y - y) < 5) {
+        var x = randomInt(1, 13)
+        var y = randomInt(1, 14);
+    }
+
+    Scene.setGoods(x, y);
+    return { x: x, y: y };
+};
+
+Scene.calcPathToTarget = function (targetPos) {
+    var sX = Scene._PLAYER.x;
+    var sY = Scene._PLAYER.y;
+    var eX = targetPos.x;
+    var eY = targetPos.y;
+
+
+};
