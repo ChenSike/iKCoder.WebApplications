@@ -29,8 +29,8 @@ function Game(id, params) {
         this._settings = {
             x: 0,
             y: 0,
-            width: 14,
-            height: 14,
+            width: 28,
+            height: 28,
             type: 0,
             color: '#F00',
             status: 1,
@@ -77,7 +77,7 @@ function Game(id, params) {
         this._settings = {
             x: 0,
             y: 0,
-            size: 14,
+            size: 28,
             data: [],
             stage: null,
             x_length: 0,
@@ -237,7 +237,7 @@ function Game(id, params) {
             item.index = index;
             item.stage = this;
             if (item.location) {
-                var position = item.location.coord2position(item.coord.x + 1, item.coord.y);
+                var position = item.location.coord2position(item.coord.x, item.coord.y);
                 item.x = position.x;
                 item.y = position.y;
             }
@@ -312,13 +312,15 @@ function Game(id, params) {
         }
     };
 
-    this.start = function () {
+    this.start = function (fromInit) {
         var f = 0;
         if (_stages[_index].status == 1) {
-            this.stop();
-            _stages[_index].reset();
-            _stages[_index].status = 0;
-            return;
+            if (!fromInit) {
+                this.stop();
+                _stages[_index].reset();
+                _stages[_index].status = 0;
+                return;
+            }
         } else {
             _stages[_index].status = 1;
         }
@@ -377,6 +379,10 @@ function Game(id, params) {
                 });
             }
 
+            if (fromInit === true) {
+                _stages[_index].status = 0;
+                fromInit = false;
+            }
             _hander = requestAnimationFrame(fn);
         };
 
@@ -431,8 +437,7 @@ function Game(id, params) {
 
     this.init = function () {
         _index = 0;
-        this.start();
-        this.pause();
+        this.start(true);
     };
 
     this.getCurentStage = function () {

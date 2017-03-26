@@ -166,3 +166,8 @@ function testTextWidth(sourceTagId) {
 
     return testDiv.clientWidth;
 };
+
+function randomInt(minVal, maxVal) {    
+    var rand = parseInt(Math.random() * (maxVal - minVal + 1) + minVal);
+    return rand;
+}
