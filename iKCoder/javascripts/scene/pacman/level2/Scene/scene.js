@@ -114,11 +114,12 @@ Scene.init = function (containerId, model, configs) {
 Scene.InitGame = function (currentId, sizeSetting) {
     Scene.randomPlayerPos();
     var targetPos = Scene.randomGoodsPos();
-    //Scene.calcPathToTarget(targetPos);
+    Scene.calcPathToTarget(targetPos);
     Scene.Game = new Game(currentId, sizeSetting);
     Scene.CreateMainStage();
     Scene.CreateOverStage();
     Scene.Game.init();
+    Scene.removeBeansUnderPlayer();
 };
 
 Scene.adjustSize = function (width, height) {
@@ -871,11 +872,11 @@ Scene.ResetConfig = function () {
 };
 
 Scene.randomGoodsPos = function () {
-    var x = randomInt(1, 13)
-    var y = randomInt(1, 14);
+    var x = randomInt(1, 12)
+    var y = randomInt(1, 13);
     while (Math.abs(Scene._PLAYER.x - x) < 5 || Math.abs(Scene._PLAYER.y - y) < 5) {
-        var x = randomInt(1, 13)
-        var y = randomInt(1, 14);
+        x = randomInt(1, 12)
+        y = randomInt(1, 13);
     }
 
     //Scene.setGoods(x, y);
@@ -884,6 +885,14 @@ Scene.randomGoodsPos = function () {
 };
 
 Scene.calcPathToTarget = function (targetPos) {
-    var maze = new Maze(14, 13, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
+    var maze = new Maze(13, 12, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
     Scene._DATA = maze.cellToCooder();
+    console.log('Player', Scene._PLAYER);
+    console.log('Goods', targetPos);
 };
+
+Scene.removeBeansUnderPlayer = function () {
+    var beans = Scene.Game.getCurentStage().maps[1];
+    beans.set(Scene._PLAYER.x, Scene._PLAYER.y, 1);
+    beans._params.data[Scene._PLAYER.y][Scene._PLAYER.x] = 1;
+}
