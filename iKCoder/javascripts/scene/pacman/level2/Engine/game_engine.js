@@ -473,3 +473,206 @@ function Game(id, params) {
         _._movePaths = tmpMovePaths;
     }
 }
+
+function Maze(rowCount, colCount, startPos, endPos) {
+    this.cells = [];
+    this.queue = [];
+    this.rowCount = rowCount;
+    this.colCount = colCount;
+    this.startX = startPos.x;
+    this.startY = startPos.y;
+    this.endX = endPos.x;
+    this.endY = endPos.y;
+    for (var i = 1; i <= this.rowCount; i++) {
+        for (var j = 1; j <= this.colCount; j++) {
+            var cell = { wall: [0, 0, 0, 0], visited: 0, x: j, y: i, index: (i - 1) * this.colCount + j };
+            if (i == 1) {
+                cell.wall[1] = 1;
+            }
+
+            if (i == this.rowCount) {
+                cell.wall[3] = 1;
+            }
+
+            if (j == 1) {
+                cell.wall[0] = 1;
+            }
+
+            if (j == this.colCount) {
+                cell.wall[2] = 1;
+            }
+
+            this.cells.push(cell);
+        }
+    }
+
+    this.createMaze();
+};
+
+Maze.prototype.createMaze = function () {
+    var currCell = this.cells[(this.startY - 1) * this.colCount + this.startX];
+    currCell.visited = 2;
+    this.addQueue(currCell);
+    while (true) {
+        var currCell = this.queue.pop();
+        if (!currCell) {
+            break;
+        } else {
+            this.removeWall(currCell);
+        }
+    }
+};
+
+Maze.prototype.addQueue = function (currCell) {
+    if (currCell) {
+        currCell.visited = 1;
+        this.queue.push(currCell);
+    }
+}
+
+Maze.prototype.removeWall = function (currCell) {
+    var x = currCell.x;
+    var y = currCell.y;
+    currCell.flag = 2;
+    var aflag = new Array();
+    var len = 0;
+    if (currCell.visited == 2) {
+        return;
+    }
+
+    currCell.visited = 2;
+    var tmpCell = null;
+    for (var i = 0; i < 4; i++) {
+        switch (i) {
+            case 0:
+                tmpCell = this.cells[currCell.index - 1 - 1];
+                if (tmpCell && !tmpCell.visited)
+                    tmpCell.wall[2] = 1;
+                break;
+            case 1:
+                tmpCell = this.cells[currCell.index - 1 - this.colCount];
+                if (tmpCell && !tmpCell.visited)
+                    tmpCell.wall[3] = 1;
+                break;
+            case 2:
+                tmpCell = this.cells[currCell.index - 1 + 1];
+                if (tmpCell && !tmpCell.visited)
+                    tmpCell.wall[0] = 1;
+                break;
+            case 3:
+                tmpCell = this.cells[currCell.index - 1 + this.colCount];
+                if (tmpCell && !tmpCell.visited)
+                    tmpCell.wall[1] = 1;
+                break;
+        }
+
+        if (tmpCell && !currCell.wall[i] && !tmpCell.visited) {
+            len = aflag.length;
+            currCell.wall[i] = 1;
+            aflag[len] = tmpCell;
+        }
+    }
+
+    len = aflag.length;
+    var seed = 0;
+    if (len > 0) {
+        seed = Math.floor(Math.random() * 10);
+        for (var i = 0; i < len; i++) {
+            this.addQueue(aflag[seed % len]);
+            seed++;
+        }
+
+        seed = Math.floor(Math.random() * len);
+    }
+}
+
+Maze.prototype.cellToCooder = function () {
+    var coord = [];
+    for (var i = 0; i < this.rowCount + 1; i++) {
+        var row = [];
+        for (var j = 0; j < this.colCount + 1; j++) {
+            if (i == 0 || i == this.rowCount || j == 0 || j == this.colCount) {
+                row.push(1);
+            } else {
+                row.push(0);
+            }
+        }
+
+        coord.push(row);
+    }
+
+    var cell, x, y, wall;
+    for (var i = 0; i < this.cells.length; i++) {
+        cell = this.cells[i];
+        wall = cell.wall;
+        for (var j = 0; j < 4; j++) {
+            wall[j] = wall[j] == 1 ? 0 : 1;
+        }
+
+        if (i / this.colCount < 1) {
+            wall[1] = 1;
+        }
+
+        if (i % this.colCount == 0) {
+            wall[0] = 1;
+        }
+
+        if (i % this.colCount == this.colCount - 1) {
+            wall[2] = 1;
+        }
+
+        if (i / this.colCount > this.rowCount - 1) {
+            wall[3] = 1;
+        }
+    }
+
+    for (var i = 0; i < this.cells.length; i++) {
+        cell = this.cells[i];
+        wall = cell.wall;
+        x = cell.x;
+        y = cell.y;
+
+        if (wall[0] == 1) {
+            coord[y - 1][x - 1] = 1;
+            coord[y][x - 1] = 1;
+        }
+
+        if (wall[1] == 1) {
+            coord[y - 1][x - 1] = 1;
+            coord[y - 1][x] = 1;
+        }
+
+        if (wall[2] == 1) {
+            coord[y - 1][x] = 1;
+            coord[y][x] = 1;
+        }
+
+        if (wall[3] == 1) {
+            coord[y][x - 1] = 1;
+            coord[y][x] = 1;
+        }
+    }
+
+    var str = '';
+    for (var i = 0; i < this.cells.length; i++) {
+        if (this.cells[i]) {
+            var w = this.cells[i].wall;
+            if (i % this.colCount == 0) {
+                str += '\n\r';
+            }
+            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+        }
+    }
+
+    str += '\n\r';
+
+    for (var i = 0; i < coord.length; i++) {
+        str += '\n\r';
+        for (var j = 0; j < coord[i].length; j++) {
+            str += coord[i][j] + ',';
+        }        
+    }
+    alert(str);
+
+    return coord;
+}

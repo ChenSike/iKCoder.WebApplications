@@ -75,7 +75,7 @@ Scene._MODEL = '1'; //0:static; 1: dynamic
 Scene._MOVEPATHS = [];
 Scene.APPLEIMG = new Image();
 //Scene.APPLEIMG.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
-Scene.APPLEIMG.src = "images/scene/PACApple.svg";
+Scene.APPLEIMG.src = "images/scene/PACOrange.svg";
 
 Scene.init = function (containerId, model, configs) {
     Scene._MODEL = model;
@@ -112,13 +112,13 @@ Scene.init = function (containerId, model, configs) {
 };
 
 Scene.InitGame = function (currentId, sizeSetting) {
+    Scene.randomPlayerPos();
+    var targetPos = Scene.randomGoodsPos();
+    //Scene.calcPathToTarget(targetPos);
     Scene.Game = new Game(currentId, sizeSetting);
     Scene.CreateMainStage();
     Scene.CreateOverStage();
     Scene.Game.init();
-    Scene.randomPlayerPos();
-    var targetPos = Scene.randomGoodsPos();
-    Scene.calcPathToTarget(targetPos);
 };
 
 Scene.adjustSize = function (width, height) {
@@ -290,7 +290,7 @@ Scene.CreateMainStage = function () {
                             //context.arc(pos.x, pos.y, 1, 0, 2 * Math.PI, true);
                             //context.fill();
                             //context.closePath();
-                            context.drawImage(Scene.APPLEIMG, 0, 0, 10, 10, pos.x - 7, pos.y - 7, 15, 15);
+                            context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - 7, pos.y - 7, 15, 15);
 
                         }
                     }
@@ -812,16 +812,16 @@ Scene.setPlayer = function (color, x, y) {
 
 Scene.randomPlayerPos = function () {
     Scene._PLAYER = { c: Scene._PLAYER.c, x: randomInt(1, 12), y: randomInt(1, 13) };
-    var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
-    player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
-    player.coord.x = Scene._PLAYER.x;
-    player.coord.y = Scene._PLAYER.y;
-    player.update(true);
-    player.draw(document.getElementById('game_canvas').getContext('2d'));
+    //var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
+    //player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
+    //player.coord.x = Scene._PLAYER.x;
+    //player.coord.y = Scene._PLAYER.y;
+    //player.update(true);
+    //player.draw(document.getElementById('game_canvas').getContext('2d'));
 
-    var beans = Scene.Game.getCurentStage().maps[1];
-    beans.set(Scene._PLAYER.x, Scene._PLAYER.y, 1);
-    beans._params.data[Scene._PLAYER.y][Scene._PLAYER.x] = 1;
+    //var beans = Scene.Game.getCurentStage().maps[1];
+    //beans.set(Scene._PLAYER.x, Scene._PLAYER.y, 1);
+    //beans._params.data[Scene._PLAYER.y][Scene._PLAYER.x] = 1;
 };
 
 Scene.move = function (direction, step) {
@@ -878,15 +878,12 @@ Scene.randomGoodsPos = function () {
         var y = randomInt(1, 14);
     }
 
-    Scene.setGoods(x, y);
+    //Scene.setGoods(x, y);
+    Scene._Goods[y + "," + x] = 1;
     return { x: x, y: y };
 };
 
 Scene.calcPathToTarget = function (targetPos) {
-    var sX = Scene._PLAYER.x;
-    var sY = Scene._PLAYER.y;
-    var eX = targetPos.x;
-    var eY = targetPos.y;
-
-
+    var maze = new Maze(14, 13, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
+    Scene._DATA = maze.cellToCooder();
 };
