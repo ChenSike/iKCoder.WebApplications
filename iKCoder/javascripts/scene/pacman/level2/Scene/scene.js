@@ -880,7 +880,7 @@ Scene.randomGoodsPos = function () {
     }
 
     //Scene.setGoods(x, y);
-    Scene._Goods[y + "," + x] = 1;
+    Scene._Goods[x + "," + y] = 1;
     return { x: x, y: y };
 };
 

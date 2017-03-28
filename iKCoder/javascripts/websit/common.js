@@ -2,7 +2,8 @@
 
 var _gRegisterServer = false;
 var _gLabelMap = {};
-var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
+//var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
+var _gHostName = 'http://10.86.18.67/ikcoder';
 var _gURLMapping = {
     server: {
         reg: '/Sys/SYS_RegServer.aspx'
@@ -10,6 +11,7 @@ var _gURLMapping = {
     account: {
         reg: '/Account/SET_Reg.aspx',
         sign: '/Account/GET_Sign.aspx',
+        signwithcode: '/Account/GET_SignWithCheckCode.aspx',
         signsstatus: '/Account/GET_SignStatus.aspx',
         checkcode: '/data/get_checkcodenua.aspx'
     }
@@ -39,7 +41,7 @@ function _initURLMapping() {
 }
 
 function _registerRemoteServer() {
-    if (!_gRegisterServer) {
+    //if (!_gRegisterServer) {
         $.ajax({
             type: 'GET',
             data: '<root></root>',
@@ -57,7 +59,7 @@ function _registerRemoteServer() {
                 _gRegisterServer = false;
             }
         });
-    }
+    //}
 };
 
 function _loadLabels() {

@@ -85,7 +85,7 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('密码') + '">');
+    tmpHtmlStrArr.push('                                <input type="password" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('密码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
@@ -482,6 +482,7 @@ function checkPwdIntension(txtField, lbField) {
 };
 
 function signUp() {
+    _registerRemoteServer();
     //$('#mWindow_CheckPhoneNumber').modal('show');
     //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
     //return;
@@ -541,6 +542,28 @@ function signUp() {
             if ($(data).find('err').length > 0) {
                 showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', $(data).find('err').attr('msg'));
                 return;
+            } else if ($(data).find('msg').length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: _getRequestURL(_gURLMapping.account.sign),
+                    data: '<root>' +
+                        '<symbol>' + $("#txt_SignUp_PhoneNumber").val() + '</symbol>' +
+                        '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
+                        '</root>',
+                    success: function (data, status) {
+                        $("#signupAlert").alert('close');
+                        $('#mWindow_SignUp').modal('hide');
+                        updateUserInfor(true, data);
+                    },
+                    dataType: 'xml',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    error: function () {
+                        $("#signupAlert").alert('close');
+                        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '无法登录, 请联系客服!');
+                    }
+                });
             }
             $("#signupAlert").alert('close');
             $('#mWindow_SignUp').modal('hide');
@@ -560,6 +583,7 @@ function signUp() {
 };
 
 function signIn() {
+    _registerRemoteServer();
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
         showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
@@ -581,14 +605,20 @@ function signIn() {
 
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.account.sign),
+        url: _getRequestURL(_gURLMapping.account.signwithcode),
         data: '<root>' +
-            '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
+            '<symbol>' + $("#txt_SignIn_UserName").val() + '</symbol>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
             '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
+            '<codevalue>' + $("#txt_SignIn_CheckCode").val() + '</codevalue>' +
             '</root>',
         success: function (data, status) {
+            if ($(data).find('err').length > 0) {
+                showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data).find('err').attr('msg'));
+                return;
+            } else if ($(data).find('msg').length > 0) {
+            }
+
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
             updateUserInfor(true, data);
@@ -758,6 +788,7 @@ function updateUserInfor(signed, data) {
             }
         }
     } else {
+        _registerRemoteServer();
         $.ajax({
             type: 'GET',
             url: _getRequestURL(_gURLMapping.account.signsstatus),
