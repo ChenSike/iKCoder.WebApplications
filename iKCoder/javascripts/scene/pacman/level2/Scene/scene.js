@@ -826,6 +826,11 @@ Scene.randomPlayerPos = function () {
 };
 
 Scene.move = function (direction, step) {
+    Scene.move_1(direction, 0);
+    Scene.move_1(direction, 1);
+};
+
+Scene.move_1 = function (direction, step) {
     var pathItem = {
         orientation: 0,
         x: 0,

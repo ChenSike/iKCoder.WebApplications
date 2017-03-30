@@ -641,9 +641,9 @@ Maze.prototype.cellToCooder = function () {
     for (var i = 0; i < coord.length; i++) {
         var cells = coord[i];
         for (var j = 0; j < cells.length; j++) {
-            if (i == 0 || i == this.rowCount + 1 || j == 0 || j == this.colCount + 1) {
+            if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
                 cells[j] = 1;
-            } else if ((i == this.startY && j == this.startX) || (i == this.endY  && j == this.endX)) {
+            } else if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
                 cells[j] = 0;
             }
 
@@ -655,26 +655,26 @@ Maze.prototype.cellToCooder = function () {
         }
     }
 
-    //var str = '';
-    //for (var i = 0; i < this.cells.length; i++) {
-    //    if (this.cells[i]) {
-    //        var w = this.cells[i].wall;
-    //        if (i % this.colCount == 0) {
-    //            str += '\n\r';
-    //        }
-    //        str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
-    //    }
-    //}
+    var str = '';
+    for (var i = 0; i < this.cells.length; i++) {
+        if (this.cells[i]) {
+            var w = this.cells[i].wall;
+            if (i % this.colCount == 0) {
+                str += '\n\r';
+            }
+            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+        }
+    }
 
-    //str += '\n\r';
+    str += '\n\r';
 
-    //for (var i = 0; i < coord.length; i++) {
-    //    str += '\n\r';
-    //    for (var j = 0; j < coord[i].length; j++) {
-    //        str += coord[i][j] + ',';
-    //    }
-    //}
-    //alert(str);
+    for (var i = 0; i < coord.length; i++) {
+        str += '\n\r';
+        for (var j = 0; j < coord[i].length; j++) {
+            str += coord[i][j] + ',';
+        }
+    }
+    console.log(str);
 
     return coord;
 }
