@@ -193,6 +193,94 @@ Maze.prototype.cellToCooder = function () {
     return coord;
 }
 
+Maze.prototype.cellToCooder = function () {
+    var coord = [];
+    for (var i = 0; i < this.rowCount + 2; i++) {
+        var row = [];
+        for (var j = 0; j < this.colCount + 2; j++) {
+            row.push(0);
+        }
+
+        coord.push(row);
+    }
+
+    var cell, x, y, wall;
+    for (var i = 0; i < this.cells.length; i++) {
+        cell = this.cells[i];
+        wall = cell.wall;
+        x = cell.x;
+        y = cell.y;
+
+        if (wall[0] == 0) {
+            coord[y][x - 1] = 1;
+        } else {
+            coord[y][x - 1] = 0;
+        }
+
+        if (wall[1] == 0) {
+            coord[y - 1][x] = 1;
+        } else {
+            coord[y - 1][x] = 0;
+        }
+
+        if (wall[2] == 0) {
+            coord[y][x + 1] = 1;
+        } else {
+            coord[y][x + 1] = 0;
+        }
+
+        if (wall[3] == 0) {
+            coord[y + 1][x] = 1;
+        } else {
+            coord[y + 1][x] = 0;
+        }
+    }
+
+    for (var i = 0; i < coord.length; i++) {
+        var cells = coord[i];
+        for (var j = 0; j < cells.length; j++) {
+            if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
+                cells[j] = 1;
+            } else if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
+                cells[j] = 0;
+            }
+        }
+    }
+
+    for (var i = 0; i < coord.length; i++) {
+        var cells = coord[i];
+        for (var j = 0; j < cells.length; j++) {
+            if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
+                if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
+                    cells[j] = 0;
+                }
+            }
+        }
+    }
+
+    var str = '';
+    for (var i = 0; i < this.cells.length; i++) {
+        if (this.cells[i]) {
+            var w = this.cells[i].wall;
+            if (i % this.colCount == 0) {
+                str += '\n\r';
+            }
+            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+        }
+    }
+
+    str += '\n\r';
+
+    for (var i = 0; i < coord.length; i++) {
+        str += '\n\r';
+        for (var j = 0; j < coord[i].length; j++) {
+            str += coord[i][j] + ',';
+        }
+    }
+    console.log(str);
+
+    return coord;
+}
 
 
 
@@ -241,7 +329,7 @@ function zuobiao(x, y, f) {
 *     wall: 墙体宽度
 *     psn:  行者宽度 
 */
-function MiGong(r, c, s, e, road, wall, psn) {
+function MiGong(r, c, s, sc, e, ec, road, wall, psn) {
     migongrow = r;
     migongcol = c;
     roadwidth = road;
@@ -291,7 +379,7 @@ function MiGong(r, c, s, e, road, wall, psn) {
             if (j == migongcol)
                 zuobiaoarr[len].wall[2] = 1;
         }
-    CreateMG(s, 1, e, migongcol);
+    CreateMG(s, sc, e, ec);
 
 }
 /*
@@ -522,4 +610,96 @@ function getAbsLoc(obj) {
     }
     return xx;
 
+}
+
+function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
+    var coord = [];
+    for (var i = 0; i < rowCount + 2; i++) {
+        var row = [];
+        for (var j = 0; j < colCount + 2; j++) {
+            row.push(0);
+        }
+
+        coord.push(row);
+    }
+
+    cells = zuobiaoarr;
+    var cell, x, y, wall;
+    for (var i = 1; i < cells.length; i++) {
+        cell = cells[i];
+        wall = cell.wall;
+        x = cell.x;
+        y = cell.y;
+
+        if (wall[0] == 0) {
+            coord[y][x - 1] = 1;
+        } else {
+            coord[y][x - 1] = 0;
+        }
+
+        if (wall[1] == 0) {
+            coord[y - 1][x] = 1;
+        } else {
+            coord[y - 1][x] = 0;
+        }
+
+        if (wall[2] == 0) {
+            coord[y][x + 1] = 1;
+        } else {
+            coord[y][x + 1] = 0;
+        }
+
+        if (wall[3] == 0) {
+            coord[y + 1][x] = 1;
+        } else {
+            coord[y + 1][x] = 0;
+        }
+    }
+
+    for (var i = 0; i < coord.length; i++) {
+        var cells = coord[i];
+        for (var j = 0; j < cells.length; j++) {
+            if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
+                cells[j] = 1;
+            } else if ((i == startY && j == startX) || (i == endY && j == endX)) {
+                cells[j] = 0;
+            }
+        }
+    }
+
+    for (var i = 0; i < coord.length; i++) {
+        var cells = coord[i];
+        for (var j = 0; j < cells.length; j++) {
+            if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
+                if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
+                    cells[j] = 0;
+                }
+            }
+        }
+    }
+
+    var str = '';
+    //for (var i = 0; i < this.cells.length; i++) {
+    //    if (this.cells[i]) {
+    //        var w = this.cells[i].wall;
+    //        if (i % this.colCount == 0) {
+    //            str += '\n\r';
+    //        }
+    //        str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+    //    }
+    //}
+
+    //str += '\n\r';
+
+    for (var i = 0; i < coord.length; i++) {
+        str += '<br>';
+        for (var j = 0; j < coord[i].length; j++) {
+            str += coord[i][j] + ',';
+        }
+    }
+    var dataDiv = document.createElement("div");
+    dataDiv.innerHTML = str;
+    document.body.appendChild(dataDiv);
+
+    return coord;
 }

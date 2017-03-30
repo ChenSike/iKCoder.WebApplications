@@ -646,7 +646,12 @@ Maze.prototype.cellToCooder = function () {
             } else if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
                 cells[j] = 0;
             }
+        }
+    }
 
+    for (var i = 0; i < coord.length; i++) {
+        var cells = coord[i];
+        for (var j = 0; j < cells.length; j++) {
             if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
                 if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
                     cells[j] = 0;

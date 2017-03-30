@@ -6,9 +6,11 @@
 <body>
     <center>
         迷宫行数：<select id="rowselect" onChange="changerow(this)"></select>&nbsp;
-        迷宫列数: <select id="colselect"></select> &nbsp;
+        迷宫列数: <select id="colselect" onChange="changecol(this)"></select> &nbsp;
         入口行：<select id="startrow"></select>&nbsp;
+        入口列：<select id="startcol"></select>&nbsp;
         出口行：<select id="endrow"></select>&nbsp;
+        出口列：<select id="endcol"></select>&nbsp;
         道路宽: <select id="roadwidth"></select>&nbsp;
         墙宽: <select id="wallwidth"></select>&nbsp;
         行者宽: <select id="personwidth"></select>&nbsp;
@@ -53,6 +55,28 @@
         }
         enrow.selectedIndex = obj.value - 1;
     }
+
+    changecol(colsel);
+    function changecol(obj) {
+        var strow = document.getElementById("startcol");
+        var enrow = document.getElementById("endcol");
+        for (var i = strow.options.length - 1; i >= 0 ; i--) {
+            strow.options.remove(i);
+            enrow.options.remove(i);
+        }
+        for (var i = 1; i <= obj.value; i++) {
+            var o = document.createElement("option");
+            o.value = i;
+            o.text = i;
+            o1 = document.createElement("option");
+            o1.value = i;
+            o1.text = i;
+            strow.options.add(o);
+            enrow.options.add(o1);
+        }
+        enrow.selectedIndex = obj.value - 1;
+    }
+
     //初始化道路宽度
     var sroad = document.getElementById("roadwidth");
     for (var i = 10; i <= 20;) {
@@ -88,15 +112,17 @@
 
 
         var strow = document.getElementById("startrow");
+        var stacol = document.getElementById("startcol");
         var enrow = document.getElementById("endrow");
+        var encol = document.getElementById("endcol");
         var rowsel = document.getElementById("rowselect");
         var colsel = document.getElementById("colselect");
         var migong = new MiGong(parseInt(rowsel.value), parseInt(colsel.value),
-        parseInt(strow.value), parseInt(enrow.value), parseInt(document.getElementById("roadwidth").value),
+        parseInt(strow.value), parseInt(stacol.value), parseInt(enrow.value), parseInt(encol.value), parseInt(document.getElementById("roadwidth").value),
         parseInt(document.getElementById("wallwidth").value), parseInt(document.getElementById("personwidth").value));
 
-        var tmp = new Maze(5, 5, { x: 2, y: 2 }, { x: 5, y: 5 });
-
+        //var tmp = new Maze(12, 13, { x: 2, y: 6 }, { x: 9, y: 11 });
+        cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
     }
 
 </script>
