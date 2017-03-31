@@ -23,7 +23,7 @@
 <script>
     var rowsel = document.getElementById("rowselect");
     var colsel = document.getElementById("colselect");
-    for (var i = 5; i <= 50; i++) {
+    for (var i = 12; i <= 50; i++) {
         var o = document.createElement("option");
         o.value = i;
         o.text = i;
@@ -35,6 +35,7 @@
         colsel.options.add(o1);
 
     }
+
     changerow(rowsel);
     function changerow(obj) {
         var strow = document.getElementById("startrow");

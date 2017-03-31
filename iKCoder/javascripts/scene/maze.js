@@ -559,9 +559,13 @@ function CreateMG(startx, starty, endx, endy) {
         }
     }
 
-    var dataDiv = document.createElement("div");
+    var dataDiv = document.getElementById('walls_div');
+    if (!dataDiv) {
+        dataDiv = document.createElement("div");
+        dataDiv.id = 'walls_div';
+        document.body.appendChild(dataDiv);
+    }
     dataDiv.innerHTML = str;
-    document.body.appendChild(dataDiv);
 }
 /*
 * 功能: 按键事件
@@ -632,27 +636,27 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
         y = cell.y;
 
         if (wall[0] == 0) {
-            coord[y][x - 1] = 1;
+            coord[x][y - 1] = 1;
         } else {
-            coord[y][x - 1] = 0;
+            coord[x][y - 1] = 0;
         }
 
         if (wall[1] == 0) {
-            coord[y - 1][x] = 1;
+            coord[x - 1][y] = 1;
         } else {
-            coord[y - 1][x] = 0;
+            coord[x - 1][y] = 0;
         }
 
         if (wall[2] == 0) {
-            coord[y][x + 1] = 1;
+            coord[x][y + 1] = 1;
         } else {
-            coord[y][x + 1] = 0;
+            coord[x][y + 1] = 0;
         }
 
         if (wall[3] == 0) {
-            coord[y + 1][x] = 1;
+            coord[x + 1][y] = 1;
         } else {
-            coord[y + 1][x] = 0;
+            coord[x + 1][y] = 0;
         }
     }
 
@@ -697,9 +701,12 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
             str += coord[i][j] + ',';
         }
     }
-    var dataDiv = document.createElement("div");
+    var dataDiv = document.getElementById('cells_div');
+    if (!dataDiv) {
+        dataDiv = document.createElement("div");
+        dataDiv.id = 'cells_div';
+        document.body.appendChild(dataDiv);
+    }
     dataDiv.innerHTML = str;
-    document.body.appendChild(dataDiv);
-
     return coord;
 }

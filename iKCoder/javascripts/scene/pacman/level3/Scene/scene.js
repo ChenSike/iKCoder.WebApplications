@@ -893,10 +893,10 @@ Scene.randomGoodsPos = function () {
 };
 
 Scene.calcPathToTarget = function (targetPos) {
-    //var maze = new Maze(13, 12, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
-    //Scene._DATA = maze.cellToCooder();
-    //console.log('Player', Scene._PLAYER);
-    //console.log('Goods', targetPos);
+    var maze = new Maze(13, 12, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
+    Scene._DATA = maze.cellToCooder();
+    console.log('Player', Scene._PLAYER);
+    console.log('Goods', targetPos);
 };
 
 Scene.removeBeansUnderPlayer = function () {

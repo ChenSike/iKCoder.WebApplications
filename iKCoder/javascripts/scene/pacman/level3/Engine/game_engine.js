@@ -513,13 +513,13 @@ function Maze(rowCount, colCount, startPos, endPos) {
     this.queue = [];
     this.rowCount = rowCount;
     this.colCount = colCount;
-    this.startX = startPos.x;
-    this.startY = startPos.y;
-    this.endX = endPos.x;
-    this.endY = endPos.y;
+    this.startX = startPos.y;
+    this.startY = startPos.x;
+    this.endX = endPos.y;
+    this.endY = endPos.x;
     for (var i = 1; i <= this.rowCount; i++) {
         for (var j = 1; j <= this.colCount; j++) {
-            var cell = { wall: [0, 0, 0, 0], visited: 0, x: j, y: i, index: (i - 1) * this.colCount + j };
+            var cell = { wall: [0, 0, 0, 0], visited: 0, x: i, y: j, index: (i - 1) * this.colCount + j };
             if (i == 1) {
                 cell.wall[1] = 1;
             }
@@ -536,9 +536,9 @@ function Maze(rowCount, colCount, startPos, endPos) {
                 cell.wall[2] = 1;
             }
 
-            if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
-                cell.wall = [1, 1, 1, 1];
-            }
+            //if ((i == this.startX && j == this.startY) || (i == this.endX && j == this.endY)) {
+            //    cell.wall = [1, 1, 1, 1];
+            //}
 
             this.cells.push(cell);
         }
@@ -548,10 +548,10 @@ function Maze(rowCount, colCount, startPos, endPos) {
 };
 
 Maze.prototype.createMaze = function () {
-    var currCell = this.cells[(this.startY - 1) * this.colCount + this.startX];
+    var currCell = this.cells[(this.startX - 1) * this.colCount + this.startY];
     if (!currCell) {
-        console.log('X', this.startX);
-        console.log('Y', this.startY);
+        console.log('X', this.startY);
+        console.log('Y', this.startX);
     }
 
     currCell.visited = 2;
@@ -648,27 +648,27 @@ Maze.prototype.cellToCooder = function () {
         y = cell.y;
 
         if (wall[0] == 0) {
-            coord[y][x - 1] = 1;
+            coord[x][y - 1] = 1;
         } else {
-            coord[y][x - 1] = 0;
+            coord[x][y - 1] = 0;
         }
 
         if (wall[1] == 0) {
-            coord[y - 1][x] = 1;
+            coord[x - 1][y] = 1;
         } else {
-            coord[y - 1][x] = 0;
+            coord[x - 1][y] = 0;
         }
 
         if (wall[2] == 0) {
-            coord[y][x + 1] = 1;
+            coord[x][y + 1] = 1;
         } else {
-            coord[y][x + 1] = 0;
+            coord[x][y + 1] = 0;
         }
 
         if (wall[3] == 0) {
-            coord[y + 1][x] = 1;
+            coord[x + 1][y] = 1;
         } else {
-            coord[y + 1][x] = 0;
+            coord[x + 1][y] = 0;
         }
     }
 
@@ -677,7 +677,7 @@ Maze.prototype.cellToCooder = function () {
         for (var j = 0; j < cells.length; j++) {
             if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
                 cells[j] = 1;
-            } else if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
+            } else if ((i == this.startX && j == this.startY) || (i == this.endX && j == this.endY)) {
                 cells[j] = 0;
             }
         }
