@@ -33,7 +33,7 @@ function buildCarouselItemHTML(dataItem, index) {
     tmpHtmlStrArr.push('                    </div>');
     tmpHtmlStrArr.push('                    <div class="row padding-bottom20">');
     tmpHtmlStrArr.push('                        <div class="col-xs-12 col-sm-6 col-md-4">');
-    tmpHtmlStrArr.push('                            <button type="button" class="btn btn-default btn-lg btn-block" id="btn_Top_Carousel_Item" style="background-color:rgb(' + dataItem.btnColor + ');">开&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;始</button>');
+    tmpHtmlStrArr.push('                            <button type="button" class="btn btn-default btn-lg btn-block" id="btn_Top_Carousel_Item" data-target="' + dataItem.symbol + '" style="background-color:rgb(' + dataItem.btnColor + ');">开&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;始</button>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                    </div>');
     tmpHtmlStrArr.push('                </div>');
@@ -64,7 +64,7 @@ function buildCourseItemHTML(data, needPlay) {
     var tmpHtmlStrArr = [];
     tmpHtmlStrArr.push('<div class="container learning-course-item bg-white">');
     tmpHtmlStrArr.push('    <div class="row">');
-    tmpHtmlStrArr.push('        <div class="col-sm-12 learning-course-item" style="background-image: url(images/course/course_' + data.img + '.png)">');
+    tmpHtmlStrArr.push('        <div class="col-sm-12 learning-course-item" style="background-image: url(images/course/course_' + data.img + ')">');
     if (needPlay) {
         tmpHtmlStrArr.push('            <img class="learning-course-item-play-btn" src="images/course/play.png"/>');
     }
@@ -85,40 +85,23 @@ function buildCourseItemHTML(data, needPlay) {
     return tmpHtmlStrArr.join('');
 }
 
-function initTopCarousel() {
+function initTopCarousel(_data) {
+    var dataItems = $(_data).find("carousel").find('item');
     var data = [];
-    data.push({
-        bgColor: '27,189,140',
-        title: '1. 吃豆人大冒险',
-        content: '控制黄色小英雄，吃掉所有的豆子，小心邪恶小怪兽哦！',
-        keys: '键盘指令，空间移动',
-        diff: '中等',
-        times: '45分钟',
-        img: 'images/carousel/pacmanbanner.png',
-        btnColor: '25,161,121'
-    });
-
-    data.push({
-        bgColor: '27,189,140',
-        title: '2. 吃豆人大冒险',
-        content: '控制黄色小英雄，吃掉所有的豆子，小心邪恶小怪兽哦！',
-        keys: '键盘指令，空间移动',
-        diff: '中等',
-        times: '45分钟',
-        img: 'images/carousel/pacmanbanner.png',
-        btnColor: '25,161,121'
-    });
-
-    data.push({
-        bgColor: '27,189,140',
-        title: '3. 吃豆人大冒险',
-        content: '控制黄色小英雄，吃掉所有的豆子，小心邪恶小怪兽哦！',
-        keys: '键盘指令，空间移动',
-        diff: '中等',
-        times: '45分钟',
-        img: 'images/carousel/pacmanbanner.png',
-        btnColor: '25,161,121'
-    });
+    for (var i = 0; i < dataItems.length; i++) {
+        var tmpItem = $(dataItems[i]);
+        data.push({
+            bgColor: tmpItem.attr('color'),
+            title: tmpItem.attr('title'),
+            content: tmpItem.attr('content'),
+            keys: tmpItem.attr('keys'),
+            diff: tmpItem.attr('diff'),
+            times: tmpItem.attr('times'),
+            img: 'images/carousel/' + tmpItem.attr('img'),
+            btnColor: tmpItem.attr('btnColor'),
+            symbol: tmpItem.attr('symbol')
+        });
+    }
 
     buildTopCarousel(data);
     $("#myCarousel").carousel('cycle');
@@ -183,22 +166,23 @@ function buildDistributionLegendItemHTML(data) {
     return '<li><div class="user-course-legend" style="background-color:' + data.color + ';"></div>' + data.title + '</li>';
 }
 
-function initHonorWall() {
+function initHonorWall(_data) {
+    var dataItems = $(_data).find("honorwall").find('item');
+    var user = { name: $($(_data).find("userinfo").find('user')[0]).attr('name'), honor: [] };
     var data = [];
-    data.push({ map: 'computerprofessor', title: '计算机小专家', condition: '' });
-    data.push({ map: 'shareexpert', title: '分享达人', condition: '' });
-    data.push({ map: 'mathematician', title: '小小数学家', condition: '' });
-    data.push({ map: 'arithmeticprofessor', title: '算法小达人', condition: '' });
-    data.push({ map: 'languagemaster', title: '语言大师', condition: '' });
-    data.push({ map: 'musician', title: '音乐家', condition: '' });
-    data.push({ map: 'sciencemastermind', title: '科学智多星', condition: '' });
-    data.push({ map: 'littlepinter', title: '小画家', condition: '' });
-    data.push({ map: 'UAVpilot', title: '无人机小飞手', condition: '' });
+    for (var i = 0; i < dataItems.length; i++) {
+        var tmpItem = $(dataItems[i]);
+        data.push({
+            map: tmpItem.attr('map'),
+            title: tmpItem.attr('title'),
+            condition: tmpItem.attr('condition'),
+            isused: tmpItem.attr('isused')
+        });
 
-    var user = {
-        name: '可乐',
-        honor: ['computerprofessor', 'shareexpert']
-    };
+        if (data[data.length - 1].isused == '1') {
+            user.honor.push(data[data.length - 1].map);
+        }
+    }
 
     $('#title_HonorWall').text(user.name + '的荣誉墙');
     $('#container_HonorWall').width((honerItemWidth + honerItemSpace) * data.length);
@@ -219,14 +203,15 @@ function initHonorWall() {
     $('#arrow_HonorWall_List_Right').on('click', funData, listMoveNext);
 };
 
-function initUserInfo() {
+function initUserInfo(_data) {
+    var userItem = $($(_data).find("userinfo").find('user')[0]);
     var user = {
-        name: '可乐',
-        level: '实习工程师',
-        works: 18,
-        course: 25,
-        friend: 30,
-        head: 1,
+        name: userItem.attr('name'),
+        level: userItem.attr('level'),
+        works: userItem.attr('works'),
+        course: userItem.attr('course'),
+        friend: userItem.attr('friend'),
+        head: userItem.attr('head')
     };
 
     $('#icon_UserInfo_Head').attr('src', 'images/head/head_' + user.head + '.png');
@@ -239,52 +224,40 @@ function initUserInfo() {
     $('#btn_UserInfo_Share').on('click', userShare);
 };
 
-function initUserCourse() {
+function initUserCourse(_data) {
+    var courseItem = $($(_data).find("userinfo").find('course')[0]);
     var userCourse = {
-        rank: 1,
-        emp: 2600,
-        works: 18,
-        works_rank: 2,
-        code_time: 175,
-        code_time_exceed: 92,
-        primary_rate: 85,
-        middel_rate: 11,
-        advanced_rate: 5,
-        distribution: [
-            { id: 'science', title: '科学', color: 'rgb(36,90,186)', exp: 250 },
-            { id: 'skill', title: '技术', color: 'rgb(236,15,33)', exp: 400 },
-            { id: 'engineering', title: '工程', color: 'rgb(165,165,165)', exp: 550 },
-            { id: 'math', title: '数学', color: 'rgb(255,191,0)', exp: 700 },
-            { id: 'language', title: '语言', color: 'rgb(71,143,208)', exp: 700 },
-        ],
-        codetimes: [
-            { date: '2017-1-1', time: 3 },
-            { date: '2017-1-2', time: 2 },
-            { date: '2017-1-3', time: 4 },
-            { date: '2017-1-4', time: 1 },
-            { date: '2017-1-5', time: 3 },
-            { date: '2017-1-6', time: 2 },
-            { date: '2017-1-7', time: 4 },
-            { date: '2017-1-8', time: 5 },
-            { date: '2017-1-9', time: 6 },
-            { date: '2017-1-10', time: 7 },
-            { date: '2017-1-11', time: 2 },
-            { date: '2017-1-12', time: 1 },
-            { date: '2017-1-13', time: 3 },
-            { date: '2017-1-14', time: 2 },
-            { date: '2017-1-15', time: 4 },
-            { date: '2017-1-16', time: 1 },
-            { date: '2017-1-17', time: 2 },
-            { date: '2017-1-18', time: 3 },
-            { date: '2017-1-19', time: 5 },
-            { date: '2017-1-20', time: 2 },
-            { date: '2017-1-21', time: 4 },
-            { date: '2017-1-22', time: 1 },
-            { date: '2017-1-23', time: 3 },
-            { date: '2017-1-24', time: 2 },
-            { date: '2017-1-25', time: 1 }
-        ]
+        rank: courseItem.attr('rank'),
+        emp: courseItem.attr('emp'),
+        works: courseItem.attr('works'),
+        works_rank: courseItem.attr('works_rank'),
+        code_time: courseItem.attr('code_time'),
+        code_time_exceed: courseItem.attr('code_time_exceed'),
+        primary_rate: courseItem.attr('primary_rate'),
+        middel_rate: courseItem.attr('middel_rate'),
+        advanced_rate: courseItem.attr('advanced_rate'),
+        distribution: [],
+        codetimes: []
     };
+
+    var distributionItems = $(_data).find("userinfo").find('distribution').find('item');
+    for (var i = 0; i < distributionItems.length; i++) {
+        var tmpItem = $(distributionItems[i]);
+        userCourse.distribution.push(
+            {
+                id: tmpItem.attr('id'),
+                title: tmpItem.attr('title'),
+                color: tmpItem.attr('color'),
+                exp: tmpItem.attr('exp')
+            }
+        );
+    }
+
+    var codetimesItems = $(_data).find("userinfo").find('codetimes').find('item');
+    for (var i = 0; i < codetimesItems.length; i++) {
+        var tmpItem = $(codetimesItems[i]);
+        userCourse.codetimes.push({ date: tmpItem.attr('date'), time: tmpItem.attr('time') });
+    }
 
     for (var i = 0; i < userCourse.distribution.length; i++) {
         $('#ul_User_Course_Distribution_Legend').append($(buildDistributionLegendItemHTML(userCourse.distribution[i])));
@@ -303,33 +276,20 @@ function initUserCourse() {
     drawCodeTime(userCourse.codetimes);
 };
 
-function initLearningCourseList() {
+function initLearningCourseList(_data) {
+    var dataItems = $(_data).find("learning").find('item');
     var data = [];
-    data.push({
-        title: 'Star Wars',
-        content: 'Learn to program droids, and create your own Star Wars game in a galaxy far, far away.',
-        img: '1'
-    });
-    data.push({
-        title: 'Frozen',
-        content: 'Let\'s use code to join Anna and Elsa as they explore the magic and beauty of ice.',
-        img: '2'
-    });
-    data.push({
-        title: 'Flappy Code',
-        content: 'Wanna write your own game in less than 10 minutes? Try our Flappy Code tutorial!',
-        img: '3'
-    });
-    data.push({
-        title: 'Infinity Play Lab',
-        content: 'Use Play Lab to create a story or game starring Disney Infinity characters.',
-        img: '4'
-    });
-    data.push({
-        title: 'Play Lab',
-        content: 'Create a story or game with Play Lab.',
-        img: '5'
-    });
+    for (var i = 0; i < dataItems.length; i++) {
+        var tmpItem = $(dataItems[i]);
+        data.push(
+            {
+                id: tmpItem.attr('id'),
+                title: tmpItem.attr('title'),
+                content: tmpItem.attr('content'),
+                img: tmpItem.attr('img')
+            }
+        );
+    }
 
     for (var i = 0; i < data.length; i++) {
         $('#container_Learning_Course_List').append($(buildCourseItemHTML(data[i], true)));
@@ -342,44 +302,31 @@ function initLearningCourseList() {
     $('#arrow_Learning_Course_List_Right').on('click', funData, listMoveNext);
 }
 
-function initCourseClassifyList() {
-    var tmpData = [];
-    tmpData.push({
-        title: 'Star Wars',
-        content: 'Learn to program droids, and create your own Star Wars game in a galaxy far, far away.',
-        img: '1'
-    });
-    tmpData.push({
-        title: 'Frozen',
-        content: 'Let\'s use code to join Anna and Elsa as they explore the magic and beauty of ice.',
-        img: '2'
-    });
-    tmpData.push({
-        title: 'Flappy Code',
-        content: 'Wanna write your own game in less than 10 minutes? Try our Flappy Code tutorial!',
-        img: '3'
-    });
-    tmpData.push({
-        title: 'Infinity Play Lab',
-        content: 'Use Play Lab to create a story or game starring Disney Infinity characters.',
-        img: '4'
-    });
-    tmpData.push({
-        title: 'Play Lab',
-        content: 'Create a story or game with Play Lab.',
-        img: '5'
-    });
-    var dataCmp = { id: 'Computer', title: '计算机基础', data: tmpData };
-    var dataMath = { id: 'Math', title: '数学', data: tmpData };
-    var dataPhy = { id: 'Physics', title: '物理', data: tmpData };
-    var dataPaint = { id: 'Paint', title: '绘图', data: tmpData };
-    var dataLang = { id: 'Language', title: '语言学', data: tmpData };
+function initCourseClassifyList(_data) {
+    var categoryItems = $(_data).find("classify").find('category');
     var data = [];
-    data.push(dataCmp);
-    data.push(dataMath);
-    data.push(dataPhy);
-    data.push(dataPaint);
-    data.push(dataLang);
+    for (var i = 0; i < categoryItems.length; i++) {
+        var cateItem = $(categoryItems[i]);
+        var tmpItems = cateItem.find('item');
+        var cateData = [];
+        for (var j = 0; j < tmpItems.length; j++) {
+            var tmpItem = $(tmpItems[j]);
+            cateData.push({
+                id: tmpItem.attr('id'),
+                title: tmpItem.attr('title'),
+                content: tmpItem.attr('content'),
+                img: tmpItem.attr('img')
+            });
+        }
+
+        data.push({
+            id: cateItem.attr('id'),
+            symbol: cateItem.attr('symbol'),
+            title: cateItem.attr('title'),
+            data: cateData
+        });
+    }
+
     var isActive = false;
     var tmpItem = null;
     var tmpWidth = 0;
@@ -463,7 +410,7 @@ function drawCodeTime(datas) {
     canvas.height = Math.floor(height - 10)
     var context = canvas.getContext('2d');
     var maxValue = datas[0].time;
-    for (var i = 1; i < datas.length; i++) {
+    for (var i = 0; i < datas.length; i++) {
         maxValue = Math.max(maxValue, datas[i].time);
     }
 
@@ -471,7 +418,7 @@ function drawCodeTime(datas) {
     var startX = barSpace;
     var startY = height - 30;
     var ltX, ltY, rtX, rtY, rbX, rbY, linearGradient, bHeight, bWidth, tmpX, tmpY, tmpArr;
-    for (var i = 1; i < datas.length; i++) {
+    for (var i = 0; i < datas.length; i++) {
         if (datas[i].time <= 0) {
             startX = rtX + barSpace;
             continue;
@@ -526,14 +473,19 @@ function drawCodeTime(datas) {
     $('#arrow_User_Course_CodeTime_Right').on('click', funData, listMoveNext);
 }
 
-function initData() {
+function initPage() {
     _registerRemoteServer();
     $.ajax({
-        type: 'POST',
-        url: _getRequestURL(_gURLMapping.data.studentcenter, {symbol:'config_student_index'}),
+        type: 'GET',
+        url: _getRequestURL(_gURLMapping.data.studentcenter, { symbol: 'config_student_index' }),
         data: '<root></root>',
         success: function (data, status) {
-            alert('success');
+            initTopCarousel(data);
+            initHonorWall(data);
+            initUserInfo(data);
+            initUserCourse(data);
+            initLearningCourseList(data);
+            initCourseClassifyList(data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -542,14 +494,4 @@ function initData() {
         error: function () {
         }
     });
-}
-
-function initPage() {
-    initData();
-    initTopCarousel();
-    initHonorWall();
-    initUserInfo();
-    initUserCourse();
-    initLearningCourseList();
-    initCourseClassifyList();
 };

@@ -2,8 +2,8 @@
 
 var _gRegisterServer = false;
 var _gLabelMap = {};
-var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
-//var _gHostName = 'http://10.86.18.67/ikcoder';
+//var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
+var _gHostName = 'http://10.86.18.67/ikcoder';
 var _gURLMapping = {
     server: {
         reg: '/Sys/SYS_RegServer.aspx'
@@ -13,7 +13,8 @@ var _gURLMapping = {
         sign: '/Account/GET_Sign.aspx',
         signwithcode: '/Account/GET_SignWithCheckCode.aspx',
         checkcode: '/data/get_checkcodenua.aspx',
-        signsstatus: '/Account/GET_SignStatus.aspx'
+        signsstatus: '/Account/GET_SignStatus.aspx',
+        nickname: '/Account/Profile/GET_NickName.aspx'
     },
     data: {
         studentcenter: '/Data/GET_ResourceDataText.aspx',

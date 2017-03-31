@@ -323,7 +323,7 @@ function initHeader() {
     buildSignUpWindowHTML();
     buildCheckPhoneWindowHTML();
     initHeaderEvent();
-    updateUserInfor(false);
+    updateUserInfor();
 };
 
 function initNavBarEvent() {
@@ -345,23 +345,6 @@ function initNavBarEvent() {
     $("#linkBtn_Student").on('click',
         function () {
             window.location.href = "studentcenter.html?cid=" + _gCID;
-            /*
-            $.ajax({
-                type: 'POST',
-                url: _getRequestURL(_gURLMapping.account.signsstatus),
-                data: '<root></root>',
-                success: function (data, status) {                    
-                    window.location.href = "studentcenter.html?cid=" + _gCID;
-                },
-                dataType: 'xml',
-                xhrFields: {
-                    withCredentials: true
-                },
-                error: function () {
-                    updateUserInfor(false);
-                }
-            });
-            */
         });
 
     $("#linkBtn_Product").on('click',
@@ -509,7 +492,7 @@ function signUp() {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入用户名!');
         return;
     }
-    
+
     if ($("#txt_SignUp_Pwd").val().trim() == "") {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
         return;
@@ -525,6 +508,7 @@ function signUp() {
         symbol: $("#txt_SignUp_PhoneNumber").val(),
         password: $("#txt_SignUp_Pwd").val(),
         codename: 'signincode',
+        nickname: $("#txt_SignUp_UserName").val().trim(),
         codevalue: $("#txt_SignUp_CheckCode").val()
     }
 
@@ -536,6 +520,7 @@ function signUp() {
             '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
             '<codename>signincode</codename>' +
             '<codevalue>' + $("#txt_SignUp_CheckCode").val() + '</codevalue>' +
+            '<nickname>' + $("#txt_SignUp_UserName").val().trim() + '</nickname>' +
             '<notecode>' + $("#txt_SignUp_NoteCode").val() + '</notecode>' +
             '</root>',
         success: function (data, status) {
@@ -543,6 +528,8 @@ function signUp() {
                 showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', $(data).find('err').attr('msg'));
                 return;
             } else if ($(data).find('msg').length > 0) {
+                $("#signupAlert").alert('close');
+                $('#mWindow_SignUp').modal('hide');
                 $.ajax({
                     type: 'POST',
                     url: _getRequestURL(_gURLMapping.account.sign),
@@ -552,29 +539,23 @@ function signUp() {
                         '</root>',
                     success: function (data, status) {
                         if ($(data).find('err').length > 0) {
-                            showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', $(data).find('err').attr('msg'));
+                            openSignIn();
+                            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data).find('err').attr('msg'));
                             return;
                         }
 
-                        $("#signupAlert").alert('close');
-                        $('#mWindow_SignUp').modal('hide');
-                        updateUserInfor(true, data);
+                        updateUserInfor(data);
                     },
                     dataType: 'xml',
                     xhrFields: {
                         withCredentials: true
                     },
                     error: function () {
-                        $("#signupAlert").alert('close');
-                        showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '无法登录, 请联系客服!');
+                        openSignIn();
+                        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
                     }
                 });
             }
-            $("#signupAlert").alert('close');
-            $('#mWindow_SignUp').modal('hide');
-            //$('#mWindow_CheckPhoneNumber').modal('show');
-            //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
-            updateUserInfor(true, data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -625,7 +606,7 @@ function signIn() {
 
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
-            updateUserInfor(true, data);
+            updateUserInfor(data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -746,87 +727,83 @@ function updateCountDown(data) {
     }
 };
 
-function passportEnter() {
-    if ($("#txt_CheckPhoneNumber_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '请输入获取到的验证码!');
-        return;
+function updateUserInfor(responseData) {
+    $('#nav_UserInfo_Item').remove();
+    if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+        $('li#nav_SignIn_Item').removeClass('hidden');
     }
 
-    $.ajax({
-        type: 'POST',
-        url: _getRequestURL(_gURLMapping.account.sign),
-        data: '<root>' +
-            '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
-            '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
-            '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
-            '</root>',
-        success: function (data, status) {
-            $("#checkPhoneAlert").alert('close');
-            $('#mWindow_CheckPhoneNumber').modal('hide');
-            updateUserInfor(true, data);
-        },
-        dataType: 'xml',
-        xhrFields: {
-            withCredentials: true
-        },
-        error: function () {
-            $("#checkPhoneAlert").alert('close');
-            showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '无法进入, 请联系客服!');
-        }
-    });
-};
-
-function updateUserInfor(signed, data) {
-    if (typeof signed != 'undefined') {
-        if (signed) {
-            $('li#nav_SignIn_Item').toggleClass('hidden');
-            if ($("li#nav_UserInfo_Item").length <= 0) {
-                createUserInfoItem(data);
-            } else {
-                $('li#nav_UserInfo_Item').toggleClass('hidden');
-            }
-        } else {
-            if ($("li#nav_UserInfo_Item").length > 0) {
-                $('li#nav_UserInfo_Item').toggleClass('hidden');
-            }
-        }
+    if (responseData) {
+        createUserInfoItem(responseData);
     } else {
         _registerRemoteServer();
         $.ajax({
             type: 'GET',
             url: _getRequestURL(_gURLMapping.account.signsstatus),
             data: '<root></root>',
-            success: function (data, status) {
-                updateUserInfor(true);
+            success: function (data_1, status) {
+                if ($(data_1).find('err').length > 0) {
+                    openSignIn(true);
+                    showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data_1).find('err').attr('msg'));
+                    return;
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: _getRequestURL(_gURLMapping.account.nickname),
+                        data: '<root></root>',
+                        success: function (data_2, status) {
+                            createUserInfoItem(data_2);
+                        },
+                        dataType: 'xml',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        error: function () {
+                            $('#nav_UserInfo_Item').remove();
+                            if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+                                $('li#nav_SignIn_Item').removeClass('hidden');
+                            }
+                        }
+                    });
+                }
             },
             dataType: 'xml',
             xhrFields: {
                 withCredentials: true
             },
             error: function () {
-                updateUserInfor(false);
+                $('#nav_UserInfo_Item').remove();
+                if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+                    $('li#nav_SignIn_Item').removeClass('hidden');
+                }
             }
         });
     }
 };
 
 function createUserInfoItem(data) {
-    $('#nav_Search_Item').before(
-        $(
-            '<li class="nav-item" id="nav_UserInfo_Item">' +
-            '   <a href="#">' +
-            '       Welcome back' +
-            '       <span class="glyphicon glyphicon-user"></span>' +
-            '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">' + $(data).find('msg').attr('logined_user_name') + '</span>' +
-            '   </a>' +
-            '</li>'
-        )
-    );
+    if ($(data).find('msg').length > 0) {
+        var nickName = $($(data).find('msg')[$(data).find('msg').length - 1]).attr('msg');
+        $('#navbar_collapse_ul').append(
+            $(
+                '<li class="nav-item" id="nav_UserInfo_Item">' +
+                '   <a href="#">' +
+                '       Welcome back &nbsp;' +
+                '       <span class="glyphicon glyphicon-user"></span>' +
+                '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">' + nickName + '</span>' +
+                '   </a>' +
+                '</li>'
+            )
+        );
 
-    $("#linkBtn_UserInfo").on('click', function () {
-        window.location.href = "studentcenter.html?cid=" + _gCID;
-    });
+        if (!$('li#nav_SignIn_Item').hasClass('hidden')) {
+            $('li#nav_SignIn_Item').addClass('hidden');
+        }
+
+        $("#linkBtn_UserInfo").on('click', function () {
+            window.location.href = "studentcenter.html?cid=" + _gCID;
+        });
+    }
 };
 
 function reinitSignInFileds() {
