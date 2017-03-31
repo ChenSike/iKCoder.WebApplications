@@ -526,7 +526,26 @@ function drawCodeTime(datas) {
     $('#arrow_User_Course_CodeTime_Right').on('click', funData, listMoveNext);
 }
 
+function initData() {
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.data.studentcenter, {symbol:'config_student_index'}),
+        data: '<root></root>',
+        success: function (data, status) {
+            alert('success');
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+}
+
 function initPage() {
+    initData();
     initTopCarousel();
     initHonorWall();
     initUserInfo();

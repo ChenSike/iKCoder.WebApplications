@@ -18,7 +18,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('            </button>');
-    tmpHtmlStrArr.push('            <a href="#"><img src="images/logo-new-gray.png" class="img-responsive" style="width:150px;"></a>');
+    tmpHtmlStrArr.push('            <a href="index.html"><img src="images/logo-new-gray.png" class="img-responsive" style="width:150px;"></a>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('        <div class="collapse navbar-collapse" id="example-navbar-collapse">');
     tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
@@ -39,20 +39,20 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
-    tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
-    tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search" style="border: none;">');
-    tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <div class="input-group">');
-    tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
-    tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
-    tmpHtmlStrArr.push('                                        <span class="fa fa-search"></span>');
-    tmpHtmlStrArr.push('                                    </a>');
-    tmpHtmlStrArr.push('                                </div>');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                    </form>');
-    tmpHtmlStrArr.push('                <li>');
+    //tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
+    //tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search" style="border: none;">');
+    //tmpHtmlStrArr.push('                        <div class="form-group">');
+    //tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    //tmpHtmlStrArr.push('                                <div class="input-group">');
+    //tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
+    //tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
+    //tmpHtmlStrArr.push('                                        <span class="fa fa-search"></span>');
+    //tmpHtmlStrArr.push('                                    </a>');
+    //tmpHtmlStrArr.push('                                </div>');
+    //tmpHtmlStrArr.push('                            </div>');
+    //tmpHtmlStrArr.push('                        </div>');
+    //tmpHtmlStrArr.push('                    </form>');
+    //tmpHtmlStrArr.push('                <li>');
     tmpHtmlStrArr.push('            </ul>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('    </div>');
@@ -373,7 +373,7 @@ function initNavBarEvent() {
             window.location.href = "aboutus.html?cid=" + _gCID;
         });
 
-    $("#linkBtn_Search").on('click', headerSearch);
+    //$("#linkBtn_Search").on('click', headerSearch);
 };
 
 function initSignInWindowEvent() {
@@ -551,6 +551,11 @@ function signUp() {
                         '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
                         '</root>',
                     success: function (data, status) {
+                        if ($(data).find('err').length > 0) {
+                            showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', $(data).find('err').attr('msg'));
+                            return;
+                        }
+
                         $("#signupAlert").alert('close');
                         $('#mWindow_SignUp').modal('hide');
                         updateUserInfor(true, data);
@@ -616,7 +621,6 @@ function signIn() {
             if ($(data).find('err').length > 0) {
                 showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data).find('err').attr('msg'));
                 return;
-            } else if ($(data).find('msg').length > 0) {
             }
 
             $("#signinAlert").alert('close');
@@ -814,7 +818,7 @@ function createUserInfoItem(data) {
             '   <a href="#">' +
             '       Welcome back' +
             '       <span class="glyphicon glyphicon-user"></span>' +
-            '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">Alex</span>' +
+            '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">' + $(data).find('msg').attr('logined_user_name') + '</span>' +
             '   </a>' +
             '</li>'
         )
