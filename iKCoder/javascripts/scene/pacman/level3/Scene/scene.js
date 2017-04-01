@@ -258,6 +258,14 @@ Scene.CreateMainStage = function () {
                                         context.closePath();
                                     }
                             }
+                        } else {
+                            context.lineWidth = 2;
+                            context.strokeStyle = value == 2 ? "#FFF" : "#0834DC";
+                            var pos = this.coord2position(i, j);
+                            context.beginPath();
+                            context.arc(pos.x, pos.y, this.size / 2, 0, 2 * Math.PI, false);
+                            context.stroke();
+                            context.closePath();
                         }
                     }
                 }

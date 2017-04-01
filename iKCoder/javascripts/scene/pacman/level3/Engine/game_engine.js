@@ -650,27 +650,47 @@ Maze.prototype.cellToCooder = function () {
         tmpY = cell.x * 2 - 1;
         coord[tmpY][tmpX] = 0;
         if (wall[0] == 1) {
-            coord[tmpY - 1][tmpX - 1] = 0;
             coord[tmpY][tmpX - 1] = 0;
-            coord[tmpY + 1][tmpX - 1] = 0;
+            if (wall[1] == 1) {
+                coord[tmpY-1][tmpX - 1] = 0;
+            }
+
+            if (wall[3] == 1) {
+                coord[tmpY + 1][tmpX - 1] = 0;
+            }
         }
 
         if (wall[1] == 1) {
-            coord[tmpY - 1][tmpX - 1] = 0;
             coord[tmpY - 1][tmpX] = 0;
-            coord[tmpY - 1][tmpX + 1] = 0;
+            if (wall[0] == 1) {
+                coord[tmpY - 1][tmpX - 1] = 0;
+            }
+
+            if (wall[2] == 1) {
+                coord[tmpY - 1][tmpX + 1] = 0;
+            }
         }
 
         if (wall[2] == 1) {
-            coord[tmpY - 1][tmpX + 1] = 0;
             coord[tmpY][tmpX + 1] = 0;
-            coord[tmpY + 1][tmpX + 1] = 0;
+            if (wall[1] == 1) {
+                coord[tmpY - 1][tmpX + 1] = 0;
+            }
+
+            if (wall[3] == 1) {
+                coord[tmpY + 1][tmpX + 1] = 0;
+            }
         }
 
         if (wall[3] == 1) {
-            coord[tmpY + 1][tmpX - 1] = 0;
             coord[tmpY + 1][tmpX] = 0;
-            coord[tmpY + 1][tmpX + 1] = 0;
+            if (wall[0] == 1) {
+                coord[tmpY + 1][tmpX - 1] = 0;
+            }
+
+            if (wall[2] == 1) {
+                coord[tmpY + 1][tmpX + 1] = 0;
+            }
         }
     }
 
