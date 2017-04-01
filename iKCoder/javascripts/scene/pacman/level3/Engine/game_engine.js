@@ -698,6 +698,16 @@ Maze.prototype.cellToCooder = function () {
         for (var j = 0; j < coord[i].length; j++) {
             if (i == 0 || j == 0 || i == coord.length - 1 || j == coord[i].length - 1) {
                 coord[i][j] = 1;
+            } else {
+                //if (coord[i - 1][j] == 1 && coord[i][j - 1] == 1) {
+                //    coord[i][j] = 1;
+                //}else if (coord[i - 1][j] == 1 && coord[i][j + 1] == 1) {
+                //    coord[i][j] = 1;
+                //}else if (coord[i + 1][j] == 1 && coord[i][j - 1] == 1) {
+                //    coord[i][j] = 1;
+                //}else if (coord[i + 1][j] == 1 && coord[i][j + 1] == 1) {
+                //    coord[i][j] = 1;
+                //}
             }
         }
     }

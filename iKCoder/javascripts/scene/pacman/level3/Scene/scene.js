@@ -286,9 +286,9 @@ Scene.CreateMainStage = function () {
                         var pos = this.coord2position(i, j);
                         context.fillStyle = "#F5F5DC";
                         if (Scene._Goods[i + ',' + j]) {
-                            context.fillStyle = "#FFFF00";
+                            context.fillStyle = "rgb(233,139,58)";//"#FFFF00";
                             context.beginPath();
-                            context.arc(pos.x, pos.y, game.stepUnit / 4 + this.times % 2, 0, 2 * Math.PI, true);
+                            context.arc(pos.x, pos.y, game.stepUnit / 4 + this.times % 4, 0, 2 * Math.PI, true);
                             context.fill();
                             context.closePath();
                         } else {
