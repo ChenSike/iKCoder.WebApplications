@@ -35,21 +35,21 @@ Scene.Game = null;
 //];
 
 var _defaultDATA = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
 var _defaultNPC = [
@@ -62,6 +62,7 @@ var _defaultNPC = [
 var _defaultGoods = { '1,3': 1, '26,3': 1, '1,23': 1, '26,23': 1 };
 
 Scene._DATA = _defaultDATA;
+Scene._ROWCOL = { row: 15, col: 15 };
 Scene._Goods = {};
 Scene._COS = [1, 0, -1, 0];
 Scene._SIN = [0, 1, 0, -1];
@@ -82,14 +83,9 @@ Scene.init = function (containerId, model, configs) {
     Scene._LIFE = configs.lifeCount || Scene._LIFE;
     Scene._PLAYERSPEED = configs.playerSpeed || Scene._PLAYERSPEED;
     Scene._NPCSPEED = configs.NPCSpeed || Scene._NPCSPEED;
+    Scene._ROWCOL = configs.RowCol || Scene._ROWCOL;
 
     this.container = document.getElementById(containerId);
-    //var parentEl = this.container.parentElement;
-    //var height = parentEl.clientHeight;
-    //var width = parentEl.clientWidth;
-    //this.container.style.width = (width - 2) + "px";
-    //this.container.style.height = (height - 2) + "px";
-
     this.canvas;
     if (this.container != null) {
         this.canvas = document.createElement("canvas");
@@ -104,18 +100,20 @@ Scene.init = function (containerId, model, configs) {
         var settings = {
             width: newSize.w,
             height: newSize.h,
-            model: Scene._MODEL
+            model: Scene._MODEL,
+            rowCount: Scene._ROWCOL.row,
+            colCount: Scene._ROWCOL.col
         };
 
         Scene.InitGame(this.canvas.id, settings);
     }
 };
 
-Scene.InitGame = function (currentId, sizeSetting) {
+Scene.InitGame = function (currentId, settings, model) {
     Scene.randomPlayerPos();
     var targetPos = Scene.randomGoodsPos();
-    Scene.calcPathToTarget(targetPos);
-    Scene.Game = new Game(currentId, sizeSetting);
+    Scene.initData(targetPos);
+    Scene.Game = new Game(currentId, settings, model);
     Scene.CreateMainStage();
     Scene.CreateOverStage();
     Scene.Game.init();
@@ -167,9 +165,11 @@ Scene.CreateMainStage = function () {
         }
     });
     //map
+    var tmpX = 3;
+    var tempY = 3;
     map = stage.createMap({
-        x: 3,
-        y: 3,
+        x: tmpX,
+        y: tempY,
         data: Scene._DATA,
         cache: true,
         draw: function (context) {
@@ -267,8 +267,8 @@ Scene.CreateMainStage = function () {
     //Goods
     goods = Scene._Goods
     beans = stage.createMap({
-        x: 3,
-        y: 3,
+        x: tmpX,
+        y: tempY,
         data: Scene._DATA,
         frames: 8,
         draw: function (context) {
@@ -278,21 +278,13 @@ Scene.CreateMainStage = function () {
                         var pos = this.coord2position(i, j);
                         context.fillStyle = "#F5F5DC";
                         if (Scene._Goods[i + ',' + j]) {
-                            //context.fillStyle = "#C33";
                             context.fillStyle = "#FFFF00";
                             context.beginPath();
-                            context.arc(pos.x, pos.y, 8 + this.times % 2, 0, 2 * Math.PI, true);
+                            context.arc(pos.x, pos.y, game.stepUnit / 4 + this.times % 2, 0, 2 * Math.PI, true);
                             context.fill();
                             context.closePath();
                         } else {
-                            ////context.fillRect(pos.x - 2, pos.y - 2, 4, 4);
-                            ////context.fillStyle = "#C33";
-                            //context.beginPath();
-                            //context.arc(pos.x, pos.y, 1, 0, 2 * Math.PI, true);
-                            //context.fill();
-                            //context.closePath();
-                            context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - 7, pos.y - 7, 15, 15);
-
+                            context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
                         }
                     }
                 }
@@ -317,7 +309,6 @@ Scene.CreateMainStage = function () {
         }
     });
     //Status Board
-
     if (Scene._MODEL != 0) {
         stage.createItem({
             x: 160,
@@ -368,8 +359,8 @@ Scene.CreateMainStage = function () {
     //pac man
     player = stage.createItem({
         id: "pacman_player",
-        width: 32,
-        height: 32,
+        width: game.stepUnit,
+        height: game.stepUnit,
         type: 1,
         location: map,
         coord: { x: Scene._PLAYER.x, y: Scene._PLAYER.y },
@@ -638,7 +629,9 @@ Scene.CreateOverStage = function () {
 
 Scene.startGame = function () {
     Scene.UpdateConfig();
-    Scene.Game.start();
+    if (Scene.Game.start() === true) {
+        Scene._SCORE = 0;
+    }
 };
 
 Scene.restart = function () {
@@ -812,7 +805,9 @@ Scene.setPlayer = function (color, x, y) {
 };
 
 Scene.randomPlayerPos = function () {
-    Scene._PLAYER = { c: Scene._PLAYER.c, x: randomInt(1, 12), y: randomInt(1, 13) };
+    var tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
+    var tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
+    Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX * 2 - 1, y: tmpY * 2 - 1 };
     //var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
     //player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
     //player.coord.x = Scene._PLAYER.x;
@@ -880,23 +875,43 @@ Scene.ResetConfig = function () {
 };
 
 Scene.randomGoodsPos = function () {
-    var x = randomInt(1, 12)
-    var y = randomInt(1, 13);
-    while (Math.abs(Scene._PLAYER.x - x) < 5 || Math.abs(Scene._PLAYER.y - y) < 5) {
-        x = randomInt(1, 12)
-        y = randomInt(1, 13);
+    var tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
+    var tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
+    var checkNumberX = Math.floor(Math.floor(Scene._ROWCOL.col / 2) / 2);
+    var checkNumberY = Math.floor(Math.floor(Scene._ROWCOL.row / 2) / 2);
+    var playerX = Math.ceil(Scene._PLAYER.x / 2);
+    var playerY = Math.ceil(Scene._PLAYER.x / 2);
+    while (Math.abs(playerX - tmpX) < checkNumberX || Math.abs(playerY - tmpY) < checkNumberY) {
+        tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
+        tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
     }
 
-    //Scene.setGoods(x, y);
-    Scene._Goods[x + "," + y] = 1;
-    return { x: x, y: y };
+    tmpX = tmpX * 2 - 1;
+    tmpY = tmpY * 2 - 1;
+    Scene._Goods[tmpX + "," + tmpY] = 1;
+    return { x: tmpX, y: tmpY };
 };
 
-Scene.calcPathToTarget = function (targetPos) {
-    var maze = new Maze(13, 12, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
+Scene.initData = function (targetPos) {
+    if (Scene._ROWCOL.row != Scene._DATA.length || Scene._ROWCOL.col != Scene._DATA[0].length) {
+        _defaultDATA = [];
+        for (var i = 0; i < Scene._ROWCOL.row; i++) {
+            var tmpItems = [];
+            for (var j = 0; j < Scene._ROWCOL.col; j++) {
+                if (i == 0 || j == 0 || i == Scene._ROWCOL.row - 1 || j == Scene._ROWCOL.col - 1) {
+                    tmpItems.push(1);
+                } else {
+                    tmpItems.push(0);
+                }
+            }
+
+            _defaultDATA.push(tmpItems);
+            Scene._DATA = _defaultDATA;
+        }
+    }
+
+    var maze = new Maze(15, 15, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
     Scene._DATA = maze.cellToCooder();
-    console.log('Player', Scene._PLAYER);
-    console.log('Goods', targetPos);
 };
 
 Scene.removeBeansUnderPlayer = function () {

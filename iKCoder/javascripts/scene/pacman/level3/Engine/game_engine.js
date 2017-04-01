@@ -2,12 +2,15 @@
 
 function Game(id, params) {
     var _ = this;
-    _._movePaths = [];
     params = params || {};
     var settings = {
         width: 400,
         height: 480,
-        model: '1'
+        movePaths: [],
+        model: '1',
+        rowCount: 15,
+        colCount: 15,
+        stepUnit: 28
     };
     var _extend = function (target, settings, params) {
         for (var i in settings) {
@@ -20,6 +23,9 @@ function Game(id, params) {
     var $canvas = document.getElementById(id);
     $canvas.width = _.width;
     $canvas.height = _.height;
+    var rowUnit = Math.floor(_.height / _.rowCount);
+    var colUnit = Math.floor(_.width / _.colCount);
+    _.stepUnit = Math.min(rowUnit, colUnit);
     var _context = $canvas.getContext('2d');
     var _stages = [];
     var _events = {};
@@ -29,8 +35,8 @@ function Game(id, params) {
         this._settings = {
             x: 0,
             y: 0,
-            width: 28,
-            height: 28,
+            width: _.stepUnit,
+            height: _.stepUnit,
             type: 0,
             color: '#F00',
             status: 1,
@@ -52,7 +58,7 @@ function Game(id, params) {
         _extend(this, this._settings, this._params);
     };
     Item.prototype.bind = function (eventType, callback) {
-        if (Game.model != 0) {
+        if (_.model != '0') {
             if (!_events[eventType]) {
                 _events[eventType] = {};
                 $canvas.addEventListener(eventType, function (e) {
@@ -77,7 +83,7 @@ function Game(id, params) {
         this._settings = {
             x: 0,
             y: 0,
-            size: 28,
+            size: _.stepUnit,
             data: [],
             stage: null,
             x_length: 0,
@@ -295,7 +301,7 @@ function Game(id, params) {
     };
 
     Stage.prototype.bind = function (eventType, callback) {
-        if (Game.model != 0) {
+        if (_.model != 0) {
             if (!_events[eventType]) {
                 _events[eventType] = {};
                 window.addEventListener(eventType, function (e) {
@@ -319,7 +325,7 @@ function Game(id, params) {
                 this.stop();
                 _stages[_index].reset();
                 _stages[_index].status = 0;
-                return;
+                return true;
             }
         } else {
             _stages[_index].status = 1;
@@ -363,10 +369,10 @@ function Game(id, params) {
                             item.timeout--;
                         }
 
-                        if (_._movePaths.length > 0 && item.type == 1) {
-                            item.orientation = _._movePaths[0].orientation;
-                            if (Math.floor(Math.abs(item.x - _._movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _._movePaths[0].y)) == 0) {
-                                _._movePaths.shift();
+                        if (_.movePaths.length > 0 && item.type == 1) {
+                            item.orientation = _.movePaths[0].orientation;
+                            if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) == 0) {
+                                _.movePaths.shift();
                             }
 
                             item.update();
@@ -445,9 +451,9 @@ function Game(id, params) {
     };
 
     this.setMovePath = function (pathItems) {
-        _._movePaths = [];
+        _.movePaths = [];
         for (var i = 0; i < pathItems.length; i++) {
-            _._movePaths.push(pathItems[i]);
+            _.movePaths.push(pathItems[i]);
         }
     }
 
@@ -461,8 +467,8 @@ function Game(id, params) {
         var tmpPos = null;
         var currItem = null;
         var currOrientation = '';
-        for (var i = 0; i < _._movePaths.length; i++) {
-            currItem = _._movePaths[i];
+        for (var i = 0; i < _.movePaths.length; i++) {
+            currItem = _.movePaths[i];
             if (currItem.turn === true || currItem.steps > 0) {
                 if (currItem.turn === true) {
                     currOrientation = prevOrientation + currItem.orientation;
@@ -492,8 +498,8 @@ function Game(id, params) {
                 }
             } else {
                 currOrientation = currItem.orientation;
-                x += _._movePaths[i].x;
-                y += _._movePaths[i].y;
+                x += _.movePaths[i].x;
+                y += _.movePaths[i].y;
             }
 
             tmpPos = player.location.coord2position(x, y);
@@ -505,22 +511,23 @@ function Game(id, params) {
             tmpMovePaths.push(pathItem);
         }
 
-        _._movePaths = tmpMovePaths;
+        _.movePaths = tmpMovePaths;
     }
 }
 
 function Maze(rowCount, colCount, startPos, endPos) {
-    this.cells = [];
+    this.cells = [null];
     this.queue = [];
-    this.rowCount = rowCount;
-    this.colCount = colCount;
-    this.startX = startPos.y;
-    this.startY = startPos.x;
-    this.endX = endPos.y;
-    this.endY = endPos.x;
+    this.rowCount = Math.floor(rowCount / 2);
+    this.colCount = Math.floor(colCount / 2);
+    this.startX = Math.ceil(startPos.y / 2);
+    this.startY = Math.ceil(startPos.x / 2);
+    this.endX = Math.ceil(endPos.y / 2);
+    this.endY = Math.ceil(endPos.x / 2);
+
     for (var i = 1; i <= this.rowCount; i++) {
         for (var j = 1; j <= this.colCount; j++) {
-            var cell = { wall: [0, 0, 0, 0], visited: 0, x: i, y: j, index: (i - 1) * this.colCount + j };
+            var cell = { x: i, y: j, visited: 0, wall: [0, 0, 0, 0], index: (i - 1) * this.colCount + j };
             if (i == 1) {
                 cell.wall[1] = 1;
             }
@@ -537,10 +544,6 @@ function Maze(rowCount, colCount, startPos, endPos) {
                 cell.wall[2] = 1;
             }
 
-            //if ((i == this.startX && j == this.startY) || (i == this.endX && j == this.endY)) {
-            //    cell.wall = [1, 1, 1, 1];
-            //}
-
             this.cells.push(cell);
         }
     }
@@ -549,23 +552,18 @@ function Maze(rowCount, colCount, startPos, endPos) {
 };
 
 Maze.prototype.createMaze = function () {
-    var currCell = this.cells[(this.startX - 1) * this.colCount + this.startY];
-    if (!currCell) {
-        console.log('X', this.startY);
-        console.log('Y', this.startX);
-    }
-
-    currCell.visited = 2;
-    this.addQueue(currCell);
+    var startCell = this.cells[(this.startX - 1) * this.colCount + this.startY];
+    startCell.visited = 2;
+    this.addQueue(startCell);
     while (true) {
-        var currCell = this.queue.pop();
-        if (!currCell) {
+        var tmpCell = this.queue.pop();
+        if (!tmpCell) {
             break;
-        } else {
-            this.removeWall(currCell);
         }
+
+        this.getThrough(tmpCell);
     }
-};
+}
 
 Maze.prototype.addQueue = function (currCell) {
     if (currCell) {
@@ -574,147 +572,115 @@ Maze.prototype.addQueue = function (currCell) {
     }
 }
 
-Maze.prototype.removeWall = function (currCell) {
+Maze.prototype.getThrough = function (currCell) {
     var x = currCell.x;
     var y = currCell.y;
-    currCell.flag = 2;
-    var aflag = new Array();
-    var len = 0;
+    var tmpQueue = new Array();
     if (currCell.visited == 2) {
         return;
+    } else {
+        currCell.visited = 2;
     }
 
-    currCell.visited = 2;
     var tmpCell = null;
     for (var i = 0; i < 4; i++) {
         switch (i) {
             case 0:
-                tmpCell = this.cells[currCell.index - 1 - 1];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index - 1];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[2] = 1;
+                }
                 break;
             case 1:
-                tmpCell = this.cells[currCell.index - 1 - this.colCount];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index - this.colCount];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[3] = 1;
+                }
                 break;
             case 2:
-                tmpCell = this.cells[currCell.index - 1 + 1];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index + 1];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[0] = 1;
+                }
                 break;
             case 3:
-                tmpCell = this.cells[currCell.index - 1 + this.colCount];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index + this.colCount];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[1] = 1;
+                }
                 break;
         }
 
         if (tmpCell && !currCell.wall[i] && !tmpCell.visited) {
-            len = aflag.length;
             currCell.wall[i] = 1;
-            aflag[len] = tmpCell;
+            tmpQueue.push(tmpCell);
         }
     }
 
-    len = aflag.length;
     var seed = 0;
-    if (len > 0) {
+    if (tmpQueue.length > 0) {
         seed = Math.floor(Math.random() * 10);
-        for (var i = 0; i < len; i++) {
-            this.addQueue(aflag[seed % len]);
+        for (var i = 0; i < tmpQueue.length; i++) {
+            this.addQueue(tmpQueue[seed % tmpQueue.length]);
             seed++;
         }
 
-        seed = Math.floor(Math.random() * len);
+        seed = Math.floor(Math.random() * tmpQueue.length);
     }
 }
 
 Maze.prototype.cellToCooder = function () {
+    var tmpRowCount = this.rowCount * 2 + 1;
+    var tmpColCount = this.colCount * 2 + 1;
     var coord = [];
-    for (var i = 0; i < this.rowCount + 2; i++) {
+    for (var i = 0; i < tmpRowCount; i++) {
         var row = [];
-        for (var j = 0; j < this.colCount + 2; j++) {
-            row.push(0);
+        for (var j = 0; j < tmpColCount; j++) {
+            row.push(1);
         }
 
         coord.push(row);
     }
 
-    var cell, x, y, wall;
-    for (var i = 0; i < this.cells.length; i++) {
+    var cell, x, y, wall, tmpX, tmpY;
+    for (var i = 1; i < this.cells.length; i++) {
         cell = this.cells[i];
         wall = cell.wall;
-        x = cell.x;
-        y = cell.y;
-
-        if (wall[0] == 0) {
-            coord[x][y - 1] = 1;
-        } else {
-            coord[x][y - 1] = 0;
+        tmpX = cell.y * 2 - 1;
+        tmpY = cell.x * 2 - 1;
+        coord[tmpY][tmpX] = 0;
+        if (wall[0] == 1) {
+            coord[tmpY - 1][tmpX - 1] = 0;
+            coord[tmpY][tmpX - 1] = 0;
+            coord[tmpY + 1][tmpX - 1] = 0;
         }
 
-        if (wall[1] == 0) {
-            coord[x - 1][y] = 1;
-        } else {
-            coord[x - 1][y] = 0;
+        if (wall[1] == 1) {
+            coord[tmpY - 1][tmpX - 1] = 0;
+            coord[tmpY - 1][tmpX] = 0;
+            coord[tmpY - 1][tmpX + 1] = 0;
         }
 
-        if (wall[2] == 0) {
-            coord[x][y + 1] = 1;
-        } else {
-            coord[x][y + 1] = 0;
+        if (wall[2] == 1) {
+            coord[tmpY - 1][tmpX + 1] = 0;
+            coord[tmpY][tmpX + 1] = 0;
+            coord[tmpY + 1][tmpX + 1] = 0;
         }
 
-        if (wall[3] == 0) {
-            coord[x + 1][y] = 1;
-        } else {
-            coord[x + 1][y] = 0;
-        }
-    }
-
-    for (var i = 0; i < coord.length; i++) {
-        var cells = coord[i];
-        for (var j = 0; j < cells.length; j++) {
-            if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
-                cells[j] = 1;
-            } else if ((i == this.startX && j == this.startY) || (i == this.endX && j == this.endY)) {
-                cells[j] = 0;
-            }
+        if (wall[3] == 1) {
+            coord[tmpY + 1][tmpX - 1] = 0;
+            coord[tmpY + 1][tmpX] = 0;
+            coord[tmpY + 1][tmpX + 1] = 0;
         }
     }
 
     for (var i = 0; i < coord.length; i++) {
-        var cells = coord[i];
-        for (var j = 0; j < cells.length; j++) {
-            if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
-                if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
-                    cells[j] = 0;
-                }
-            }
-        }
-    }
-
-    var str = '';
-    for (var i = 0; i < this.cells.length; i++) {
-        if (this.cells[i]) {
-            var w = this.cells[i].wall;
-            if (i % this.colCount == 0) {
-                str += '\n\r';
-            }
-            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
-        }
-    }
-
-    str += '\n\r';
-
-    for (var i = 0; i < coord.length; i++) {
-        str += '\n\r';
         for (var j = 0; j < coord[i].length; j++) {
-            str += coord[i][j] + ',';
+            if (i == 0 || j == 0 || i == coord.length - 1 || j == coord[i].length - 1) {
+                coord[i][j] = 1;
+            }
         }
     }
-    console.log(str);
 
     return coord;
 }

@@ -26,7 +26,7 @@
                 </td>
                 <td>
                     <div id="canvas_div">
-                        <canvas id="canvas_mg" width="280" height="300"></canvas>
+                        <canvas id="canvas_mg" width="300" height="300"></canvas>
                     </div>
                 </td>
             </tr>
@@ -37,7 +37,7 @@
 <script>
     var rowsel = document.getElementById("rowselect");
     var colsel = document.getElementById("colselect");
-    for (var i = 12; i <= 50; i++) {
+    for (var i = 7; i <= 50; i++) {
         var o = document.createElement("option");
         o.value = i;
         o.text = i;
@@ -138,13 +138,15 @@
         parseInt(document.getElementById("wallwidth").value), parseInt(document.getElementById("personwidth").value));
 
         //var tmp = new Maze(12, 13, { x: 2, y: 6 }, { x: 9, y: 11 });
-        var points = cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
+        //var points = cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
 
+        var tmp = new Maze(15, 15, { x: 3, y: 3 }, { x: 9, y: 9 });
+        var coord = tmp.cellToCooder();
         var ctx = document.getElementById('canvas_mg').getContext('2d');
         ctx.clearRect(0, 0, 280, 300);
-        for (var j = 0; j < points.length; j++) {
-            for (var i = 0; i < points[j].length; i++) {
-                var point = points[j][i];
+        for (var j = 0; j < coord.length; j++) {
+            for (var i = 0; i < coord[j].length; i++) {
+                var point = coord[j][i];
                 ctx.beginPath();
                 if (point == 1) {
                     ctx.fillStyle = "#000000";
@@ -158,16 +160,49 @@
 
         ctx.beginPath();
         ctx.fillStyle = "#FF0000";
-        ctx.arc(parseInt(stacol.value) * 20 + 10, parseInt(strow.value) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.arc(parseInt(3) * 20 + 10, parseInt(3) * 20 + 10, 5, 0, 2 * Math.PI, true);
         ctx.fill();
         ctx.closePath();
 
         ctx.beginPath();
         ctx.fillStyle = "#00FF00";
-        ctx.arc(parseInt(encol.value) * 20 + 10, parseInt(enrow.value) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.arc(parseInt(9) * 20 + 10, parseInt(9) * 20 + 10, 5, 0, 2 * Math.PI, true);
         ctx.fill();
         ctx.closePath();
 
+        var str = '';
+        for (var i = 1; i < tmp.cells.length + 1; i++) {
+            if (tmp.cells[i]) {
+                var w = tmp.cells[i].wall;
+                if (i % migongcol == 1) {
+                    str += '<br>';
+                }
+                str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+            }
+        }
+
+        var dataDiv = document.getElementById('walls_div');
+        if (!dataDiv) {
+            dataDiv = document.createElement("div");
+            dataDiv.id = 'walls_div';
+            document.body.appendChild(dataDiv);
+        }
+        dataDiv.innerHTML = str;
+
+        var str = '';
+        for (var i = 0; i < coord.length; i++) {
+            str += '<br>';
+            for (var j = 0; j < coord[i].length; j++) {
+                str += coord[i][j] + ',';
+            }
+        }
+        var dataDiv = document.getElementById('cells_div');
+        if (!dataDiv) {
+            dataDiv = document.createElement("div");
+            dataDiv.id = 'cells_div';
+            document.body.appendChild(dataDiv);
+        }
+        dataDiv.innerHTML = str;
     }
 
 </script>

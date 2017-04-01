@@ -1,16 +1,33 @@
 ﻿function Maze(rowCount, colCount, startPos, endPos) {
-    this.points = [];
+    this.cells = [null];
     this.queue = [];
-    this.rowCount = rowCount;
-    this.colCount = colCount;
-    this.startX = startPos.x;
-    this.startY = startPos.y;
-    this.endX = endPos.x;
-    this.endY = endPos.y;
-    for (var i = 0; i < this.rowCount; i++) {
-        for (var j = 0 ; j < this.colCount; j++) {
-            var point = { value:1, visited: 0, x: j, y: i, index: i * this.colCount + j };            
-            this.points.push(point);
+    this.rowCount = Math.floor(rowCount / 2);
+    this.colCount = Math.floor(colCount / 2);
+    this.startX = Math.ceil(startPos.y / 2);
+    this.startY = Math.ceil(startPos.x / 2);
+    this.endX = Math.ceil(endPos.y / 2);
+    this.endY = Math.ceil(endPos.x / 2);
+
+    for (var i = 1; i <= this.rowCount; i++) {
+        for (var j = 1; j <= this.colCount; j++) {
+            var cell = { x: i, y: j, visited: 0, wall: [0, 0, 0, 0], index: (i - 1) * this.colCount + j };
+            if (i == 1) {
+                cell.wall[1] = 1;
+            }
+
+            if (i == this.rowCount) {
+                cell.wall[3] = 1;
+            }
+
+            if (j == 1) {
+                cell.wall[0] = 1;
+            }
+
+            if (j == this.colCount) {
+                cell.wall[2] = 1;
+            }
+
+            this.cells.push(cell);
         }
     }
 
@@ -18,16 +35,16 @@
 };
 
 Maze.prototype.createMaze = function () {
-    var currPoint = this.points[this.startY * this.colCount + this.startX];
-    currPoint.visited = 2;
-    this.addQueue(currPoint);
+    var startCell = this.cells[(this.startX - 1) * this.colCount + this.startY];
+    startCell.visited = 2;
+    this.addQueue(startCell);
     while (true) {
-        var tmpPoint = this.queue.pop();
-        if (!tmpPoint) {
+        var tmpCell = this.queue.pop();
+        if (!tmpCell) {
             break;
-        } else {
-            this.removeWall(tmpPoint);
         }
+
+        this.getThrough(tmpCell);
     }
 }
 
@@ -38,235 +55,118 @@ Maze.prototype.addQueue = function (currCell) {
     }
 }
 
-Maze.prototype.removeWall = function (currCell) {
+Maze.prototype.getThrough = function (currCell) {
     var x = currCell.x;
     var y = currCell.y;
-    var aflag = new Array();
-    var len = 0;
+    var tmpQueue = new Array();
     if (currCell.visited == 2) {
         return;
+    } else {
+        currCell.visited = 2;
     }
 
-    currCell.visited = 2;
     var tmpCell = null;
     for (var i = 0; i < 4; i++) {
         switch (i) {
             case 0:
-                tmpCell = this.cells[currCell.index - 1 - 1];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index - 1];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[2] = 1;
+                }
                 break;
             case 1:
-                tmpCell = this.cells[currCell.index - 1 - this.colCount];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index - this.colCount];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[3] = 1;
+                }
                 break;
             case 2:
-                tmpCell = this.cells[currCell.index - 1 + 1];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index + 1];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[0] = 1;
+                }
                 break;
             case 3:
-                tmpCell = this.cells[currCell.index - 1 + this.colCount];
-                if (tmpCell && !tmpCell.visited)
+                tmpCell = this.cells[currCell.index + this.colCount];
+                if (tmpCell && !tmpCell.visited) {
                     tmpCell.wall[1] = 1;
+                }
                 break;
         }
 
         if (tmpCell && !currCell.wall[i] && !tmpCell.visited) {
-            len = aflag.length;
             currCell.wall[i] = 1;
-            aflag[len] = tmpCell;
+            tmpQueue.push(tmpCell);
         }
     }
 
-    len = aflag.length;
     var seed = 0;
-    if (len > 0) {
+    if (tmpQueue.length > 0) {
         seed = Math.floor(Math.random() * 10);
-        for (var i = 0; i < len; i++) {
-            this.addQueue(aflag[seed % len]);
+        for (var i = 0; i < tmpQueue.length; i++) {
+            this.addQueue(tmpQueue[seed % tmpQueue.length]);
             seed++;
         }
 
-        seed = Math.floor(Math.random() * len);
+        seed = Math.floor(Math.random() * tmpQueue.length);
     }
 }
 
 Maze.prototype.cellToCooder = function () {
+    var tmpRowCount = this.rowCount * 2 + 1;
+    var tmpColCount = this.colCount * 2 + 1;
     var coord = [];
-    for (var i = 0; i < this.rowCount; i++) {
+    for (var i = 0; i < tmpRowCount; i++) {
         var row = [];
-        for (var j = 0; j < this.colCount; j++) {
-            if (i == 0 || i == this.rowCount - 1 || j == 0 || j == this.colCount - 1) {
-                row.push(1);
-            } else {
-                row.push(0);
-            }
+        for (var j = 0; j < tmpColCount; j++) {
+            row.push(1);
         }
 
         coord.push(row);
     }
 
-    var cell, x, y, wall;
-    for (var i = 0; i < this.cells.length; i++) {
+    var cell, x, y, wall, tmpX, tempY;
+    for (var i = 1; i < this.cells.length; i++) {
         cell = this.cells[i];
         wall = cell.wall;
-        for (var j = 0; j < 4; j++) {
-            wall[j] = wall[j] == 1 ? 0 : 1;
-        }
-
-        if (i / this.colCount <= 0) {
-            wall[1] = 1;
-        }
-
-        if (i % this.colCount == 0) {
-            wall[0] = 1;
-        }
-
-        if (i % this.colCount == this.colCount - 1) {
-            wall[2] = 1;
-        }
-
-        if (i / this.colCount > this.rowCount - 1) {
-            wall[3] = 1;
-        }
-    }
-
-    for (var i = 0; i < this.cells.length; i++) {
-        cell = this.cells[i];
-        wall = cell.wall;
-        x = cell.x;
-        y = cell.y;
-
+        tmpX = cell.y * 2 - 1;
+        tmpY = cell.x * 2 - 1;
+        coord[tmpY][tmpX] = 0;
         if (wall[0] == 1) {
-            coord[x - 1, y - 1] = 1;
-            coord[x - 1, y] = 1;
+            coord[tmpY - 1][tmpX - 1] = 0;
+            coord[tmpY][tmpX - 1] = 0;
+            coord[tmpY + 1][tmpX - 1] = 0;
         }
 
         if (wall[1] == 1) {
-            coord[x - 1, y - 1] = 1;
-            coord[x, y - 1] = 1;
+            coord[tmpY - 1][tmpX - 1] = 0;
+            coord[tmpY - 1][tmpX] = 0;
+            coord[tmpY - 1][tmpX + 1] = 0;
         }
 
         if (wall[2] == 1) {
-            coord[x, y - 1] = 1;
-            coord[x, y] = 1;
+            coord[tmpY - 1][tmpX + 1] = 0;
+            coord[tmpY][tmpX + 1] = 0;
+            coord[tmpY + 1][tmpX + 1] = 0;
         }
 
         if (wall[3] == 1) {
-            coord[x - 1, y] = 1;
-            coord[x, y] = 1;
-        }
-    }
-
-    return coord;
-}
-
-Maze.prototype.cellToCooder = function () {
-    var coord = [];
-    for (var i = 0; i < this.rowCount + 2; i++) {
-        var row = [];
-        for (var j = 0; j < this.colCount + 2; j++) {
-            row.push(0);
-        }
-
-        coord.push(row);
-    }
-
-    var cell, x, y, wall;
-    for (var i = 0; i < this.cells.length; i++) {
-        cell = this.cells[i];
-        wall = cell.wall;
-        x = cell.x;
-        y = cell.y;
-
-        if (wall[0] == 0) {
-            coord[y][x - 1] = 1;
-        } else {
-            coord[y][x - 1] = 0;
-        }
-
-        if (wall[1] == 0) {
-            coord[y - 1][x] = 1;
-        } else {
-            coord[y - 1][x] = 0;
-        }
-
-        if (wall[2] == 0) {
-            coord[y][x + 1] = 1;
-        } else {
-            coord[y][x + 1] = 0;
-        }
-
-        if (wall[3] == 0) {
-            coord[y + 1][x] = 1;
-        } else {
-            coord[y + 1][x] = 0;
+            coord[tmpY + 1][tmpX - 1] = 0;
+            coord[tmpY + 1][tmpX] = 0;
+            coord[tmpY + 1][tmpX + 1] = 0;
         }
     }
 
     for (var i = 0; i < coord.length; i++) {
-        var cells = coord[i];
-        for (var j = 0; j < cells.length; j++) {
-            if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
-                cells[j] = 1;
-            } else if ((i == this.startY && j == this.startX) || (i == this.endY && j == this.endX)) {
-                cells[j] = 0;
-            }
-        }
-    }
-
-    for (var i = 0; i < coord.length; i++) {
-        var cells = coord[i];
-        for (var j = 0; j < cells.length; j++) {
-            if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
-                if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
-                    cells[j] = 0;
-                }
-            }
-        }
-    }
-
-    var str = '';
-    for (var i = 0; i < this.cells.length; i++) {
-        if (this.cells[i]) {
-            var w = this.cells[i].wall;
-            if (i % this.colCount == 0) {
-                str += '\n\r';
-            }
-            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
-        }
-    }
-
-    str += '\n\r';
-
-    for (var i = 0; i < coord.length; i++) {
-        str += '\n\r';
         for (var j = 0; j < coord[i].length; j++) {
-            str += coord[i][j] + ',';
+            if (i == 0 || j == 0 || i == coord.length - 1 || j == coord[i].length - 1) {
+                coord[i][j] = 1;
+            }
         }
     }
-    console.log(str);
 
     return coord;
 }
-
-
-
-/*
-
-*  把js文件保存为 migong.js
-
-*/
-
-/*
-
-* migong.js
-
-*/
-
-
 
 /**
  * @author Administrator
