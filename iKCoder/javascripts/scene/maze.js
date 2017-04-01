@@ -1,5 +1,5 @@
 ﻿function Maze(rowCount, colCount, startPos, endPos) {
-    this.cells = [];
+    this.points = [];
     this.queue = [];
     this.rowCount = rowCount;
     this.colCount = colCount;
@@ -7,26 +7,10 @@
     this.startY = startPos.y;
     this.endX = endPos.x;
     this.endY = endPos.y;
-    for (var i = 1; i <= this.rowCount; i++) {
-        for (var j = 1; j <= this.colCount; j++) {
-            var cell = { wall: [0, 0, 0, 0], visited: 0, x: j, y: i, index: (i - 1) * this.colCount + j };
-            if (i == 1) {
-                cell.wall[1] = 1;
-            }
-
-            if (i == this.rowCount) {
-                cell.wall[3] = 1;
-            }
-
-            if (j == 1) {
-                cell.wall[0] = 1;
-            }
-
-            if (j == this.colCount) {
-                cell.wall[2] = 1;
-            }
-
-            this.cells.push(cell);
+    for (var i = 0; i < this.rowCount; i++) {
+        for (var j = 0 ; j < this.colCount; j++) {
+            var point = { value:1, visited: 0, x: j, y: i, index: i * this.colCount + j };            
+            this.points.push(point);
         }
     }
 
@@ -34,30 +18,17 @@
 };
 
 Maze.prototype.createMaze = function () {
-    var currCell = this.cells[(this.startY - 1) * this.colCount + this.startX];
-    currCell.visited = 2;
-    this.addQueue(currCell);
+    var currPoint = this.points[this.startY * this.colCount + this.startX];
+    currPoint.visited = 2;
+    this.addQueue(currPoint);
     while (true) {
-        var currCell = this.queue.pop();
-        if (!currCell) {
+        var tmpPoint = this.queue.pop();
+        if (!tmpPoint) {
             break;
         } else {
-            this.removeWall(currCell);
+            this.removeWall(tmpPoint);
         }
     }
-
-    var str = '';
-    for (var i = 0; i < this.cells.length; i++) {
-        if (this.cells[i]) {
-            var w = this.cells[i].wall;
-            if (i % this.colCount == 0) {
-                str += '\n\r';
-            }
-            str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
-        }
-    }
-
-    //alert(str);
 }
 
 Maze.prototype.addQueue = function (currCell) {
@@ -70,7 +41,6 @@ Maze.prototype.addQueue = function (currCell) {
 Maze.prototype.removeWall = function (currCell) {
     var x = currCell.x;
     var y = currCell.y;
-    currCell.flag = 2;
     var aflag = new Array();
     var len = 0;
     if (currCell.visited == 2) {
@@ -336,12 +306,13 @@ function MiGong(r, c, s, sc, e, ec, road, wall, psn) {
     wallwidth = wall;
     personwidth = psn;
     zuobiaoarr = new Array(1);
-    var migong = document.createElement("table");
+    //var migong = document.createElement("table");
+    var migong = document.getElementById("migong");
     migong.setAttribute("border", 0);
     migong.setAttribute("cellPadding", 0);
     migong.setAttribute("cellSpacing", 0);
-    migong.setAttribute("id", "migong");
-    document.getElementsByTagName("center")[0].appendChild(migong);
+    //migong.setAttribute("id", "migong");
+    //document.getElementsByTagName("center")[0].appendChild(migong);
     for (var i = 0; i < migongrow * 2 + 1; i++) {
         var r = migong.insertRow(-1);
         for (var j = 0; j < migongcol * 2 + 1; j++) {
@@ -621,7 +592,7 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
     for (var i = 0; i < rowCount + 2; i++) {
         var row = [];
         for (var j = 0; j < colCount + 2; j++) {
-            row.push(0);
+            row.push(1);
         }
 
         coord.push(row);
@@ -636,25 +607,25 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
         y = cell.y;
 
         if (wall[0] == 0) {
-            coord[x][y - 1] = 1;
+            //coord[x][y - 1] = 1;
         } else {
             coord[x][y - 1] = 0;
         }
 
         if (wall[1] == 0) {
-            coord[x - 1][y] = 1;
+            //coord[x - 1][y] = 1;
         } else {
             coord[x - 1][y] = 0;
         }
 
         if (wall[2] == 0) {
-            coord[x][y + 1] = 1;
+            //coord[x][y + 1] = 1;
         } else {
             coord[x][y + 1] = 0;
         }
 
         if (wall[3] == 0) {
-            coord[x + 1][y] = 1;
+            //coord[x + 1][y] = 1;
         } else {
             coord[x + 1][y] = 0;
         }
@@ -666,7 +637,7 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
             if (i == 0 || i == coord.length - 1 || j == 0 || j == cells.length - 1) {
                 cells[j] = 1;
             } else if ((i == startY && j == startX) || (i == endY && j == endX)) {
-                cells[j] = 0;
+                //cells[j] = 0;
             }
         }
     }
@@ -676,7 +647,7 @@ function cellToCooder(rowCount, colCount, startX, startY, endX, endY) {
         for (var j = 0; j < cells.length; j++) {
             if (i > 0 && j > 0 && i < coord.length - 1 && j < cells.length - 1 && cells[j] == 1) {
                 if (coord[i - 1][j] == 0 && coord[i + 1][j] == 0 && coord[i][j - 1] == 0 && coord[i][j + 1] == 0) {
-                    cells[j] = 0;
+                    //cells[j] = 0;
                 }
             }
         }

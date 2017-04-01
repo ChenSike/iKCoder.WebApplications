@@ -17,6 +17,20 @@
         <input type="button" value="生成迷宫" onClick="createMg()">
         <p></p>
         <div id="datas"></div>
+        <table id="migong"></table>
+        <div id="walls_div"></div>
+        <table>
+            <tr>
+                <td>
+                    <div id="cells_div"></div>
+                </td>
+                <td>
+                    <div id="canvas_div">
+                        <canvas id="canvas_mg" width="280" height="300"></canvas>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </center>
 </body>
 <script src="maze.js"></script>
@@ -107,7 +121,8 @@
     function createMg() {
         var o = document.getElementById("migong");
         var oc = document.getElementsByTagName("center")[0];
-        if (o) oc.removeChild(o);
+        //if (o) oc.removeChild(o);
+        if (o) o.innerHTML = "";
         var o = document.getElementById("migperson");
         if (o) document.body.removeChild(o);
 
@@ -123,7 +138,36 @@
         parseInt(document.getElementById("wallwidth").value), parseInt(document.getElementById("personwidth").value));
 
         //var tmp = new Maze(12, 13, { x: 2, y: 6 }, { x: 9, y: 11 });
-        cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
+        var points = cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
+
+        var ctx = document.getElementById('canvas_mg').getContext('2d');
+        ctx.clearRect(0, 0, 280, 300);
+        for (var j = 0; j < points.length; j++) {
+            for (var i = 0; i < points[j].length; i++) {
+                var point = points[j][i];
+                ctx.beginPath();
+                if (point == 1) {
+                    ctx.fillStyle = "#000000";
+                    ctx.arc(i * 20 + 10, j * 20 + 10, 10, 0, 2 * Math.PI, true);
+                }
+
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FF0000";
+        ctx.arc(parseInt(stacol.value) * 20 + 10, parseInt(strow.value) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "#00FF00";
+        ctx.arc(parseInt(encol.value) * 20 + 10, parseInt(enrow.value) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.fill();
+        ctx.closePath();
+
     }
 
 </script>
