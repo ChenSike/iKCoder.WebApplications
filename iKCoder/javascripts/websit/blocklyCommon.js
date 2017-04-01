@@ -124,7 +124,7 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
     CheckSceneObject();
-    Scene.init('game_container', '0', {});
+    Scene.init('game_container', '0', { RowCol: { row: 9, col: 9 } });
 };
 
 WorkScene.runJS = function () {

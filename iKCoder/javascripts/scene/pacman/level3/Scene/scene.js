@@ -918,7 +918,7 @@ Scene.initData = function (targetPos) {
         }
     }
 
-    var maze = new Maze(15, 15, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
+    var maze = new Maze(Scene._ROWCOL.row, Scene._ROWCOL.col, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
     Scene._DATA = maze.cellToCooder();
 };
 
