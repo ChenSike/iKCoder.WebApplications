@@ -488,6 +488,7 @@ function Game(id, params) {
                             y += (prevOrientation == 1 ? 1 : -1) * currItem.steps;
                             break;
                     }
+                    currOrientation = prevOrientation;//just move steps, orientation not change
                 }
             } else {
                 currOrientation = currItem.orientation;
