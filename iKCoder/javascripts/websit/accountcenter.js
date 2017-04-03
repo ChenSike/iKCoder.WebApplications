@@ -45,6 +45,7 @@ function initEvnets() {
             $("#wrap_Item_Account").toggleClass('hidden');
             $("#wrap_Item_Profile").toggleClass('hidden');
         }
+        adjustFooter();
     });
 
     $("#btn_Item_Account").click(function () {
@@ -53,8 +54,8 @@ function initEvnets() {
             $("#btn_Item_Account").toggleClass('bold');
             $("#wrap_Item_Account").toggleClass('hidden');
             $("#wrap_Item_Profile").toggleClass('hidden');
-
         }
+        adjustFooter();
     });
 
     $("#select_User_Birthday_Year").change(function () {
