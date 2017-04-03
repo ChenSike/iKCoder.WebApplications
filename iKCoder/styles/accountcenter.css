@@ -1,2 +1,114 @@
-﻿body {
+﻿.bg-all237 {
+    background-color: rgb(237,237,237);
+}
+
+.top-title {
+    /*padding:10px 30px;
+    background:url(images/logo-new-gray.png);
+    background-repeat:no-repeat;
+    background-size: 30px 30px;
+    -webkit-background-origin:content-box;
+    background-origin:content-box;*/
+    text-align: center;
+    font-family: 微软雅黑;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
+.padding-top-50 {
+    padding-top: 50px;
+}
+
+.section-panel {
+    border: none;
+    background-color: rgb(255,255,255);
+    box-shadow: 3px 3px 6px 0px #aaaaaa;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.account-header-image {
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.text-user-nick-name {
+    font-family: 微软雅黑;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(56,56,56);
+    padding-top: 20px;
+}
+
+.text-user-name {
+    font-family: 微软雅黑;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(151,151,151);
+    padding-top: 5px;
+}
+
+.split-line-border {
+    border-bottom: solid 1px rgb(243,243,243);
+}
+
+.font-size-24 {
+    font-size: 24px;
+    padding: 10px 30px;
+}
+
+.item-title {
+    font-style: normal;
+    font-family: 微软雅黑;
+    font-size: 18px;
+    color: rgb(139,139,139);
+    line-height: 44px;
+    cursor: pointer;
+}
+
+    .item-title.bold {
+        font-weight: bold;
+        color: rgb(56,56,56);
+    }
+
+    .item-title:hover {
+        font-weight: bold;
+        /*color: rgb(56,56,56);*/
+    }
+
+.wrap-title {
+    font-family: 微软雅黑;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(56,56,56);
+    line-height: 44px;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 微软雅黑;
+    color: rgb(56,56,56);
+}
+
+.profile-header-image {
+    width: 100px;
+    height: 100px;
+    margin-top: -40px;
+    padding: 0px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+#btn_Upload_Header {
+    margin-top: -35px;
+    margin-left: 35px;
 }

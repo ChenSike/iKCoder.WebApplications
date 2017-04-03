@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html style="height:100%;">
 <head>
     <title></title>
     <meta charset="utf-8" />
@@ -18,275 +18,201 @@
     <script src="javascripts/websit/footer.js"></script>
     <script src="javascripts/websit/accountcenter.js"></script>
 </head>
-<body>
+<body class="bg-all237">
     <header></header>
-    <div class="container margin-top-20 bg-white" id="sector_Top_Carousel">
-        <div class="row" style="margin: 0px -30px;">
-            <div class="col-sm-12">
-                <div id="carousel_Top" class="carousel slide">
-                    <!-- 轮播（Carousel）指标 -->
-                    <ol class="carousel-indicators" id="carousel_Top_Indicators"></ol>
-                    <!-- 轮播（Carousel）项目 -->
-                    <div class="carousel-inner" id="carousel_Top_Inner"></div>
-                    <!-- 轮播（Carousel）导航 -->
-                    <a class="carousel-control left" style="width:5%;background-image:none;" href="#carousel_Top" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="carousel-control right" style="width:5%;background-image:none;" href="#carousel_Top" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
+    <div class="container margin-top-20 bg-white" id="sector_Top_Title">
+        <div class="row">
+            <div class="col-sm-12 top-title">
+                艾酷个人账号中心
             </div>
         </div>
-    </div>
-    <div class="container container-distance bg-white" id="sector_HonorWall">
-        <div class="row">
-            <div class="col-sm-12 padding-bottom30">
-                <h3 class="section-title" id="title_HonorWall"></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 padding-bottom30" data-step="1" data-intro="荣誉墙展示了你所获得的各种成就, 每当一个成就达成, 对应的勋章就将发亮哦" data-position='top'>
-                <div class="honor-wall-wrap" id="wrap_HonorWall">
-                    <table class="list-container">
-                        <tr>
-                            <td style="width:30px;">
-                                <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_HonorWall_List_Left" data-target="container_HonorWall">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </div>
-                            </td>
-                            <td style="overflow:hidden;">
-                                <div class="honor-wall-container items-list-container" id="container_HonorWall"></div>
-                            </td>
-                            <td style="width:30px;">
-                                <div class="learning-course-list-arrow honor-wall-arrow" id="arrow_HonorWall_List_Right" style="margin-left:5px;" data-target="container_HonorWall">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container container-distance bg-efefef" id="sector_User_Info">
-        <div class="row">
-            <div class="col-md-5 col-lg-4" style="padding:10px 15px 10px 30px;">
-                <div class="container user-info-container" data-step="2" data-intro="你的等级和基本信息在这里显示" data-position='top'>
-                    <div class="row user-info-content-top">
-                        <div class="col-sm-4 col-xs-4">
-                            <img id="icon_UserInfo_Head" src="" />
-                            <div class="user-info-head-vip-tip"></div>
+        <div class="row bg-all237">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="container padding-top-50">
+                    <div class="row section-panel">
+                        <div class="col-sm-4">
+                            <img src="images/children/child_1.png" class="img-responsive account-header-image">
                         </div>
-                        <div class="col-sm-8 col-xs-8">
-                            <h3 class="text-white" id="lb_UserInfo_UserName"></h3>
-                            <h4 class="text-white" id="lb_UserInfo_UserLevel"></h4>
+                        <div class="col-sm-8">
+                            <div class="text-user-nick-name">Terry</div>
+                            <div class="text-user-name">13111111111</div>
                         </div>
                     </div>
-                    <div class="row bg-edede5">
-                        <div class="col-sm-4 text-center">
-                            <h3 class="user-info-detail-count" id="lb_UserInfo_WorksCount"></h3>
-                            <h4 class="user-info-detail-title">作品</h4>
-                        </div>
-                        <div class="col-sm-4 text-center show-r-l-border">
-                            <h3 class="user-info-detail-count" id="lb_UserInfo_CourseCount"></h3>
-                            <h4 class="user-info-detail-title">课程</h4>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <h3 class="user-info-detail-count" id="lb_UserInfo_FriendCount"></h3>
-                            <h4 class="user-info-detail-title">小伙伴</h4>
+                    <div class="row">
+                        <div class="container margin-top20 section-panel">
+                            <div class="row split-line-border">
+                                <div class="col-sm-3">
+                                    <i class="fa fa-child fa-2x font-size-24"></i>
+                                </div>
+                                <div class="col-sm-8">
+                                    <i class="item-title bold" id="btn_Item_Profile">个人信息</i>
+                                </div>
+                            </div>
+                            <div class="row split-line-border">
+                                <div class="col-sm-3">
+                                    <i class="fa fa-key fa-2x font-size-24"></i>
+                                </div>
+                                <div class="col-sm-8">
+                                    <i class="item-title" id="btn_Item_Account">账户密码</i>
+                                </div>
+                            </div>
+                            <div class="row split-line-border">
+                                <div class="col-sm-12" style="height:100px;">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row padding-top20 padding-bottom10 bg-white">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="container margin-top50 section-panel" id="wrap_Item_Profile">
+                    <div class="row">
+                        <div class="col-sm-12 wrap-title">
+                            个人信息
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12">
-                            <form role="form">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group" style="padding-top:50px;">
+                                    <label for="txt_User_Header" class="col-sm-3 control-label">头像</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <img src="images/children/child_1.png" class="img-responsive form-control profile-header-image">
+                                        <button type="button" class="btn btn-info" id="btn_Upload_Header">上传新头像</button>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <textarea class="form-control" id="txt_UserInfo_SendMsg" rows="4" placeholder="发布一条动态给小伙伴"></textarea>
+                                    <label for="txt_User_Name" class="col-sm-3 control-label">姓名</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txt_User_Name" placeholder="请输入姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">性别</label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="radio_User_Gender" id="radio_User_Gender_Male" value="1" checked>男
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="radio_User_Gender" id="radio_User_Gender_Female" value="0">女
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">生日</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <label class="checkbox-inline" style="margin-left:0px; padding-left: 0px;">
+                                            <select class="form-control" id="select_User_Birthday_Year"></select>
+                                            年
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_Birthday_Month">
+                                                <option selected>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                            </select>
+                                            月
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_Birthday_Day"></select>
+                                            日
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">所在城市</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <label class="checkbox-inline" style="margin-left:0px; padding-left: 0px;">
+                                            <select class="form-control" id="select_User_City_Province"></select>
+                                            省
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_City_City"></select>
+                                            市/区
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_User_School" class="col-sm-3 control-label">就读学校</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txt_User_School" placeholder="请输入就读的学校名称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info" id="btn_Save_Profile" style="width: 80%;margin: 20px 10%;">保存</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="row padding-top20 padding-bottom20 bg-edede5 text-center user-info-content-bottom">
-                        <div class="col-sm-12 col-md-12 col-lg-6 padding-top10">
-                            <div class="container padding-top10 padding-bottom10" id="btn_UserInfo_ChangeHeader">
-                                <div class="row">
-                                    <div class="col-xs-10 col-xs-offset-1" style="padding: 0px;">
-                                        <img class="user-info-bottom-button" src="images/label/changeheadbtn.png" />
-                                        <h4 class="text-white user-info-bottom-button" id="btn_UserInfo_ChangeHead" style="padding: 0px;">更换头像</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-6 padding-top10">
-                            <div class="container padding-top10 padding-bottom10" id="wrap_UserInfo_Share_Btn">
-                                <div class="row">
-                                    <div class="col-xs-10 col-xs-offset-1">
-                                        <img class="user-info-bottom-button" src="images/label/sharebtn.png" />
-                                        <h4 class="text-white user-info-bottom-button" id="btn_UserInfo_Share">分享</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="col-md-7 col-lg-8" style="padding:10px 30px 10px 15px;">
-                <div class="container user-course-container padding-top30" data-step="3" data-intro="学习报告提供了你的各种学习资料和排名信息" data-position='top'>
-                    <div class="row padding-bottom10">
-                        <div class="col-sm-6">
-                            <div class="container user-course-content-top border-right">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p>当前课程总排名: 第&nbsp;<span class="user-course-datapoint" id="lb_User_Course_CourseRank"></span>&nbsp;名</p>
-                                        <p>经验值: <span id="lb_User_Course_Empirical"></span></p>
-                                        <p>共发布作品: &nbsp;<span id="lb_User_Course_Works"></span>&nbsp;个(在小伙伴中排名第&nbsp;<span class="user-course-datapoint" id="lb_User_Course_WorksRank"></span>&nbsp;)</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="canvas-container distribution">
-                                            <canvas id="canvas_User_Course_Distribution"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <ul id="ul_User_Course_Distribution_Legend"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="container user-course-content-top">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p>本月学习时间</p>
-                                    </div>
-                                </div>
-                                <div class="row" style="overflow:hidden;">
-                                    <div class="col-sm-12">
-                                        <div class="canvas-container codetime">
-                                            <div class="user-course-codetime-arrow" id="arrow_User_Course_CodeTime_Left">
-                                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                            </div>
-                                            <canvas id="canvas_User_Course_CodeTime" style="position:relative;"></canvas>
-                                            <div class="user-course-codetime-arrow" id="arrow_User_Course_CodeTime_Right">
-                                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p>累积编程: &nbsp;<span class="user-course-datapoint" id="lb_User_Course_CodeTime"></span>&nbsp;小时</p>
-                                        <p>超过了: &nbsp;<span class="user-course-datapoint" id="lb_User_Course_CodeTime_Exceed"></span>&nbsp;的小伙伴</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row bg-edede3">
-                        <div class="col-sm-4 text-center ">
-                            <div class="user-course-content-liner_1"></div>
-                            <p class="user-course-detail-title padding-top20">初级课程</p>
-                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Primary_Rate"></p>
-                        </div>
-                        <div class="col-sm-4 text-center border-r-l-white">
-                            <div class="user-course-content-liner_2"></div>
-                            <p class="user-course-detail-title padding-top20">中级课程</p>
-                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Middel_Rate"></p>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <div class="user-course-content-liner_3"></div>
-                            <p class="user-course-detail-title padding-top20">高级课程</p>
-                            <p class="user-course-detail-count padding-bottom10" id="lb_User_Course_Advanced_Rate"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container container-distance bg-efefef" id="sector_Learning_Course">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <h3 class="section-title">学习中的课程</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="container learning-course-wrap" data-step="4" data-intro="当前正在进行的课程在这里显示" data-position='top'>
-                    <table class="list-container">
-                        <tr>
-                            <td style="width:30px;">
-                                <div class="learning-course-list-arrow" id="arrow_Learning_Course_List_Left" data-target="container_Learning_Course_List">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </div>
-                            </td>
-                            <td style="overflow:hidden;">
-                                <div class="learning-course-contianer items-list-container" id="container_Learning_Course_List"></div>
-                            </td>
-                            <td style="width:30px;">
-                                <div class="learning-course-list-arrow margin-top-10" id="arrow_Learning_Course_List_Right" style="margin-left:5px;" data-target="container_Learning_Course_List">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container container-distance bg-efefef" id="sector_Course_Classify">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <h3 class="section-title">推荐课程</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 padding-H2020">
-                <div class="border-edede5 bg-white" data-step="5" data-intro="一系列推荐课程也等着你来探索哦" data-position='top'>
-                    <ul class="nav nav-tabs bg-f4f4f4" id="container_Course_Classify_TabHeader"></ul>
-                    <div id="container_Course_Classify_TabContent" class="tab-content">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container container-distance bg-efefef" id="sector_App_Lab">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <h3 class="section-title">信心满满, 想试试自己编写完整的App吗? 试试艾酷App实验室吧!</h3>
-            </div>
-        </div>
-        <div class="row padding-H2020">
-            <div class="col-sm-6 col-lg-7  padding-top20" data-step="6" data-intro="App实验室可以让你编写自己的App与家人分享" data-position='top'>
-                <img src="images/background/applab.png" />
-            </div>
-            <div class="col-sm-6 col-lg-5 padding-top20">
-                <div class="container">
+                <div class="container margin-top50 section-panel hidden" id="wrap_Item_Account">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p class="app-lab-centent">
-                                App实验室提供了完整而有趣的开发环境, 你可以发挥创意、设计界面、用积木或者程序语言编写代码, 运行自己的作品, 还可以与小伙伴和爸爸妈妈分享你的成就,快来试试吧!
-                            </p>
+                        <div class="col-sm-12 wrap-title">
+                            登录密码
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-8 col-md-6 padding-top20">
-                            <button type="button" class="btn btn-default btn-lg btn-block" id="btn_Enter_App_Lab" style="background-color:rgb(33,193,146);">进入App实验室 ></button>
+                        <div class="col-sm-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="txt_Old_Password" class="col-sm-3 control-label">旧密码</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" id="txt_Old_Password" placeholder="请输入旧密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_New_Password" class="col-sm-3 control-label">新密码</label>
+                                    <div class="col-sm-8">
+                                        <!--<input type="password" class="form-control" id="txt_Old_Password" placeholder="请输入新密码">-->
+                                        <div class="input-group">
+                                            <input class="form-control js-password-change-control" id="txt_New_Password" name="pwd_new_pwd" type="password" placeholder="请输入新密码" aria-describedby="basic-addon1">
+                                            <span class="input-group-addon js-password-change-btn">
+                                                <i class="label-pwd-intension" id="lb_New_Pwd_Intension"></i>
+                                                <i class="glyphicon glyphicon-eye-close" id="btn_New_Show_Hide_Pwd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_Confirm_Password" class="col-sm-3 control-label">确认新密码</label>
+                                    <div class="col-sm-8">
+                                        <!--<input type="password" class="form-control" id="txt_Confirm_Password" placeholder="请再次输入新密码">-->
+                                        <div class="input-group">
+                                            <input class="form-control js-password-change-control" id="txt_Confirm_Password" name="pwd_confirm_pwd" type="password" placeholder="请再次输入新密码" aria-describedby="basic-addon1">
+                                            <span class="input-group-addon js-password-change-btn">
+                                                <i class="label-pwd-intension" id="lb_Confirm_Pwd_Intension"></i>
+                                                <i class="glyphicon glyphicon-eye-close" id="btn_Confirm_Show_Hide_Pwd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info" id="btn_Save_Profile" style="width: 80%;margin: 20px 10%;">保存</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row bg-all237">
+            <div class="col-sm-12 space-row-bottom"></div>
+        </div>
     </div>
-    <footer id="footer"></footer>
+    <footer id="footer" style="margin-top:20px;"></footer>
     <script type="text/javascript">
         $(document).ready(function () {
-            //_loadLabels();
-            //initHeader();
-            //initFooter();
-            //initPage();
+            _loadLabels();
+            initHeader();
+            initFooter();
+            initPage();
             //_startIntroJs();
         });
     </script>
