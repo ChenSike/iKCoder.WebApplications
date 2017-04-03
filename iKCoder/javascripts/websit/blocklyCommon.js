@@ -101,14 +101,8 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    //var defaultXml = XMLToString(LoadXMLFile("http://localhost/iKCoder/WorkStation/Scene/xml/testblocks.xml"));
-    //var defaultXml = '<xml>' +
-    //                        '   <block type="race_roads" id="race_roads_block_example" deletable="false" x="20" y="20"/>' +
-    //                        '   <block type="race_cars" id="race_cars_block_example" deletable="false" x="20" y="60"/>' +
-    //                        '</xml>';
-
-    //WorkScene.loadBlocks(blocksXMLDoc);
-    WorkScene.loadBlocks(_workspaceCfg.workspace);
+    var defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
+    WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
     if ('BlocklyStorage' in window) {

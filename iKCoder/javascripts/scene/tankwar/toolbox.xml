@@ -1,0 +1,7 @@
+﻿<xml id="toolbox" style="display: none">
+  <block type="block_max_enemy"></block>
+  <block type="block_tank_game_config"></block>
+  <block type="block_fix_axis_array"></block>
+  <block type="block_draw_line"></block>
+  <block type="block_point_collection"></block>
+</xml>

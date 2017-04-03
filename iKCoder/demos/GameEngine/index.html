@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="Engine/Common.js"></script>
+    <script type="text/javascript" src="Engine/Rectangle.js"></script>
+    <script type="text/javascript" src="Engine/GameObject.js"></script>
+    <script type="text/javascript" src="Engine/Map.js"></script>
+    <script type="text/javascript" src="Engine/Stage.js"></script>
+    <script type="text/javascript" src="Engine/ResourceLoader.js"></script>
+    <script type="text/javascript" src="Engine/Game.js"></script>
+</head>
+<body  style="font-family:微软雅黑; font-size:14px;">
+    <p>
+        1.  Game由多个Stage组成, Canvas的初始化由Game完成, Game还包含开场动画和结束动画, 它们作为Stage或独立的Scene存在；<br/>
+        2.  Game分为多种类型,固定地图, 横版, 纵版, 第一人称视角, 第三人称视角, 3D等, 这影响Map的类型。<br />
+        3.  Stage包含Map和多个GameObject, 资源的加载在Stage中完成, 因为不同Stage可能加载不同资源。<br />
+        4.  Objects包含多种类型和子类型, Player、NPC(Enemy/Allies)、Obstacle、Item(Helpful/Harmful)、Ramification(From Player/From Enemy/From Allies)...<br />
+        5.  Objects中的NPC通常定义为具有主动动作的Object, 而Item定义为不具有主动动作的Object。<br />
+        6.  Map因Game分类而具有多种类型, 相应的绘制和更新不同<br />
+        7.  对于固定地图,通常可以使用二维数组来表述,依据不同的数值对应不同点或区块的绘制, 地图中, 移动的是Object。<br />
+        8.  特例，对于PACMAN这种类型，通常应该有两层Map，一层为基础Map，一层放置items。<br />
+        9.  对于纵版, 相对单一和固定变化的地图,适合使用地图固定, 例如纵版赛车和纵版射击；<br />
+        10.对于横版, 一般都应有一个较大的全局地图,适合使用地图移动, Objects固定, 即地图坐标改变而Player坐标不变, 例如超级玛丽<br />
+        11.对于第一人称视角, 一般有一个较大的全局地图和动态地图截面, 需要两个移动点, 全局地图上的Player位置和可见的地图截面, 如极品飞车和CS<br />
+        12.对于第三人称视角, 一般有一个较大的全局地图和动态地图截面以及Player当前状态, 需要两个移动点, 全局地图上的Player位置和可见的地图截面, 以及一个Player当前状态变换，如极品飞车和CS<br />
+        13.GameObject继承于Rectangle, 此处需完善碰撞机制，包括像素级碰撞取代矩形碰撞和多角度碰撞。<br />
+    </p>
+    <p>
+        Game包含Stage,Stage包含Map和GameObject.
+    </p>
+    <div id="game_cantainer" style="width:600px;height:800px;">
+    </div>
+</body>
+</html>
