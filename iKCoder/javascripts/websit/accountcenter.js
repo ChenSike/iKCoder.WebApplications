@@ -97,6 +97,38 @@ function initEvnets() {
             $("#btn_New_Show_Hide_Pwd").removeClass('glyphicon-eye-close');
         }
     });
+
+    $('#file_HeaderUpload').fileupload({
+        url: "",
+        dataType: 'json',
+        autoUpload: true,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i,
+        maxFileSize: 2097152
+    }).on('fileuploadadd', function (e, data) {
+        $('#progress_HeaderUpload').show();
+        $('#progress_HeaderUpload .progress-bar').css('width', '0%');
+        $('#progress_HeaderUpload .progress-bar').html('Uploading...');
+    }).on('fileuploadprocessalways', function (e, data) {
+        if (data.files.error) {
+            $('#progress_HeaderUpload').show();
+            $('#progress_HeaderUpload .progress-bar').css('width', '100%');
+            if (data.files[0].error == 'File type not allowed') {
+                $('#progress_HeaderUpload .progress-bar').html('图片类型错误');
+            }
+            if (data.files[0].error == 'File is too large') {
+                $('#progress_HeaderUpload .progress-bar').html('图片不能大于2M');
+            }
+        }
+    }).on('fileuploadprogressall', function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress_HeaderUpload .progress-bar').css('width', progress + '%');
+        if (progress == 100) {
+            $('#progress_HeaderUpload').hide();
+        }
+    }).on('fileuploaddone', function (e, data) {
+        $('#progress_HeaderUpload').hide();
+
+    });
 };
 
 function initPage() {

@@ -10,8 +10,15 @@
     <link rel="stylesheet" href="styles/ionicons.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/accountcenter.css">
+    <link rel="stylesheet" href="styles/jquery.fileupload.css">
+    <link rel="stylesheet" href="styles/jquery.fileupload-ui.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/fileupload/jquery.ui.widget.js"></script>
+    <script src="javascripts/common/fileupload/jquery.fileupload.js"></script>
+    <script src="javascripts/common/fileupload/jquery.iframe-transport.js"></script>
+    <script src="javascripts/common/fileupload/jquery.fileupload-process.js"></script>
+    <script src="javascripts/common/fileupload/jquery.fileupload-validate.js"></script>
     <script src="javascripts/common/xmloperator.js"></script>
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/header.js"></script>
@@ -219,12 +226,19 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <canvas id="canvas_CustomHeader" width="320" height="320"></canvas>
+                                            <canvas id="canvas_CustomHeader" width="320" height="320"></canvas>                                            
+                                            <div id="progress_HeaderUpload" class="progress">
+                                                <div class="progress-bar progress-bar-success"></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <a href="#" id="linkBtn_Upload_HeaderFile"><i class="glyphicon glyphicon-picture"></i>选择图片</a>
+                                            <a class="fileinput-button" href="#" id="linkBtn_Upload_HeaderFile" data-holder-rendered="true">
+                                                <i class="glyphicon glyphicon-picture"></i>
+                                                选择图片
+                                                <input id="file_HeaderUpload" type="file" name="files[]" multiple>
+                                            </a>
                                             <span class="color-all-128">(最佳尺寸100×100, 可以上传高质量图片进行裁切)</span>
                                         </div>
                                     </div>
@@ -258,9 +272,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="display:none;">
-                        <input type="file" id="file_Custom_header">
                     </div>
                 </div>
                 <div class="modal-footer">
