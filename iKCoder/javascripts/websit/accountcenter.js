@@ -98,8 +98,12 @@ function initEvnets() {
         }
     });
 
+    $('#customHeaderModal').on('show.bs.modal', adjustFooter);
+    $('#customHeaderModal').on('hide.bs.modal', adjustFooter);
+
+    _registerRemoteServer();
     $('#file_HeaderUpload').fileupload({
-        url: "",
+        url:_getRequestURL( _gURLMapping.data.setbinresource),
         dataType: 'json',
         autoUpload: true,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i,
@@ -127,7 +131,10 @@ function initEvnets() {
         }
     }).on('fileuploaddone', function (e, data) {
         $('#progress_HeaderUpload').hide();
-
+        initCustomHeaderImg(data);
+    }).on('fileuploadfail', function (e, data) {
+        console.log("upload fail:", data._response.errorThrown.message);
+        initCustomHeaderImg();
     });
 };
 
@@ -218,9 +225,40 @@ function adjustFooter() {
     var divHeight = $("#sector_Top_Title").height();
     var headerHeight = $("header").height();
     var footerHeight = $("footer").height();
-    $(".space-row-bottom").height(bodyHeight - divHeight - headerHeight - footerHeight - 20);
+    var tmpHeight = bodyHeight - divHeight - headerHeight - footerHeight - 20;
+    $(".space-row-bottom").height(tmpHeight > 0 ? tmpHeight : 0);
 };
 
-function setCustomHeader() {
+function initCustomHeaderImg(data) {
+    if (data) {
+        var q = 1;
+    } else {
+        var image = new Image();
+        image.src = "images/head/head_1.png";
+        image.onload = function () {
+            var imgHeight = image.height;
+            var imgWidth = image.width;
+            var newWidth = (imgWidth > 320 ? 320 : imgWidth);
+            var newHeight = (imgHeight > 320 ? 320 : imgHeight);
+            //if (imgHeight > imgWidth) {
+            //    newHeight = 320;
+            //    newWidth = 320 / imgHeight * imgWidth;
+            //} else {
+            //    newWidth = 320;
+            //    newHeight = 320 / imgWidth * imgHeight;
+            //}
 
+
+            var canvas = document.getElementById("canvas_CustomHeader");
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0, newWidth, newHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
+
+            ctx = document.getElementById("canvas_Sample_1").getContext('2d');
+            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 100, 100);
+            ctx = document.getElementById("canvas_Sample_2").getContext('2d');
+            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 64, 64);
+            ctx = document.getElementById("canvas_Sample_3").getContext('2d');
+            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 24, 24);
+        };
+    }
 }

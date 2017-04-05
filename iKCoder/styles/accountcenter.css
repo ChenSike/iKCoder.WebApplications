@@ -168,3 +168,14 @@
 #progress_HeaderUpload .progress-bar {
     text-align: center;
 }
+
+#mask_Canvas_Header {
+    position: absolute;
+    display: none;
+    opacity:0.3;
+}
+
+#scope_Canvas_Header {
+    position: absolute;
+    display: block;
+}

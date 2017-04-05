@@ -20,7 +20,8 @@ var _gURLMapping = {
         studentcenter: '/Data/GET_ResourceDataText.aspx',
         parentreport: '/Data/GET_ResourceDataText.aspx',
         updateprofile: '/data/get_checkcodenua.aspx',
-        getwordlist: '/data/get_checkcodenua.aspx'
+        getwordlist: '/data/get_checkcodenua.aspx',
+        setbinresource:'/Data/SET_BinResource.aspx'
     }
 };
 
