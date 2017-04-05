@@ -113,6 +113,39 @@
     margin-left: 35px;
 }
 
-.space-row-bottom{
-    width:100%;
+.space-row-bottom {
+    width: 100%;
+}
+
+.color-all-128{
+    color:rgb(128,128,128);
+}
+
+.canvas-sample {
+    border: solid 1px rgb(175,175,175);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#canvas_Sample_1 {
+    width: 100px;
+    height: 100px;
+}
+
+#canvas_Sample_2 {
+    width: 64px;
+    height: 64px;
+}
+
+#canvas_Sample_3 {
+    width: 24px;
+    height: 24px;
+}
+
+#canvas_CustomHeader {
+    width: 320px;
+    height: 320px;
+    border: solid 1px rgb(175,175,175);
+    background-color: rgb(0,0,0);
 }

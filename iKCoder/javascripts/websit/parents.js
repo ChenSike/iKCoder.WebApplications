@@ -532,11 +532,10 @@ function drawPotentialEvaluate(datas) {
     }
 }
 
-function initTopWall() {
-    var data = { id: 1, name: 'Tom', img: 'child_1.png' };
-    $('#img_Top_Child_Img').attr('src', 'images/children/' + data.img);
-    $('#lb_Top_Child_Name').text(data.name);
-    loadChildReport({ data: { id: data.id } });
+function initTopWall(_data) {
+    $('#img_Top_Child_Img').attr('src', 'images/children/' + $($(_data).find("child")[0]).attr('img'));
+    $('#lb_Top_Child_Name').text($($(_data).find("child")[0]).attr('name'));
+    loadChildReport($($(_data).find("child")[0]).attr('id'), _data);
 
     //var data = [];
     //data.push({
@@ -604,91 +603,124 @@ function openReport() {
 }
 
 function openEnglishWord() {
-    window.open('wordslist.html','blank');
+    window.open('wordslist.html', 'blank');
 }
 
-
-function loadChildReport() {
-    if (!arguments[0] || !arguments[0].data) {
-        return;
-    }
-
-    var userId = arguments[0].data.id;
+function loadChildReport(userId, _data) {
+    var userId = userId;
+    var tmpItem = $($(_data).find("child")[0]);
     var data = {
-        id: 1,
-        date: '2017-1-1',
-        rank: 80,
-        name: 'Tom',
-        title: '实习工程师',
-        img: 'child_1.png',
-        exp: 2600,
-        works: 18,
-        course: 25,
-        friend: 30,
-        achieve: [
-        { id: '01', title: '计算机小专家', content: '顺利完成了计算机原理的所有基础课程, 对现代计算机的系统组成, 运行方式和编程原理有了系统性的认知.' },
-        { id: '02', title: '分享小达人', content: '分享了18个已完成作品, 这些作品已被565人次浏览.' }
-        ],
+        id: userId,
+        date: $($(_data).find("report")[0]).attr('date'),
+        rank: tmpItem.attr('rank'),
+        name: tmpItem.attr('name'),
+        title: tmpItem.attr('title'),
+        img: tmpItem.attr('img'),
+        exp: tmpItem.attr('exp'),
+        works: tmpItem.attr('works'),
+        course: tmpItem.attr('course'),
+        friend: tmpItem.attr('friend'),
+        achieve: [],
         ability: {
-            categoryCount: 5,
-            courseCount: 25,
-            courseTime: 125,
-            wordCount: 88,
-            promoteCategory: ['科学', '技术', '工程', '数学', '语言'],
-            completeCourse: [
-                { id: 1, name: '计算机原理' },
-                { id: 2, name: '空间概念和有序移动' },
-                { id: 3, name: '基础数据结构' },
-                { id: 4, name: '键盘及鼠标控制' },
-                { id: 5, name: '数学输入与输出' },
-                { id: 6, name: '条件循环' },
-                { id: 7, name: '条件判断语句' },
-                { id: 8, name: '音乐播放原理' },
-                { id: 9, name: '基本绘图指令' }
-            ],
-            graph: [
-                { name: '科学', value: 700 },
-                { name: '技术', value: 400 },
-                { name: '工程', value: 550 },
-                { name: '数学', value: 700 },
-                { name: '语言', value: 450 }
-            ]
+            categoryCount: $($(_data).find("ability")[0]).attr('categoryCount'),
+            courseCount: $($(_data).find("ability")[0]).attr('courseCount'),
+            courseTime: $($(_data).find("ability")[0]).attr('courseTime'),
+            wordCount: $($(_data).find("ability")[0]).attr('wordCount'),
+            promoteCategory: [],
+            completeCourse: [],
+            graph: []
         },
         codetime: {
-            total: 195,
-            beyond: 92,
-            month: 1,
-            times: [3, 2, 4, 1, 3, 2, 4, 5, 6, 7, 2, 5, 3, 7, 4, 1],
-            rate: [
-                { name: '初级课程', id: 'Primary', rate: 85 },
-                { name: '中级课程', id: 'Middle', rate: 11 },
-                { name: '高级课程', id: 'Advance', rate: 5 }
-            ]
+            total: $($(_data).find("codetime")[0]).attr('total'),
+            beyond: $($(_data).find("codetime")[0]).attr('beyond'),
+            month: $($(_data).find("codetime")[0]).attr('month'),
+            times: [],
+            rate: []
         },
         potential: {
-            top: ['数学', '科学'],
-            evaluate: [
-                { title: '科学', value: 40 },
-                { title: '技术', value: 30 },
-                { title: '工程', value: 15 },
-                { title: '数学', value: 10 },
-                { title: '语言', value: 5 }
-            ]
+            top: [],
+            evaluate: []
         },
-        worksitems: [
-            { id: 1, hits: 8, img: 'works_1.png', content: 'CREATIVE, ENTERTAINMENT' },
-            { id: 2, hits: 6, img: 'works_2.png', content: 'CORPORATE, CREATIVE, NEW' },
-            { id: 3, hits: 10, img: 'works_3.png', content: 'CREATIVE, ENTERTAINMENT' },
-            { id: 4, hits: 12, img: 'works_4.png', content: 'CORPORATE, ONE-PAGE, TECHNOLOGY' },
-            { id: 5, hits: 5, img: 'works_5.png', content: 'NEW, CORPORATE, TECHNOLOGY' },
-            { id: 6, hits: 7, img: 'works_6.png', content: 'BASE (MAIN DEMO)' }
-        ],
-        recommend: [
-            { id: 1, hits: 8, img: 'works_1.png', content: 'CREATIVE, ENTERTAINMENT' },
-            { id: 2, hits: 6, img: 'works_2.png', content: 'CORPORATE, CREATIVE, NEW' },
-            { id: 3, hits: 10, img: 'works_3.png', content: 'CREATIVE, ENTERTAINMENT' }
-        ]
+        worksitems: [],
+        recommend: []
     };
+
+    var tmpItems = $(_data).find("achieve").find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.achieve.push({
+            id: $(tmpItems[i]).attr('id'),
+            title: $(tmpItems[i]).attr('title'),
+            content: $(tmpItems[i]).attr('content')
+        });
+    }
+
+    tmpItems = $(_data).find("ability").find('promoteCategory').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.ability.promoteCategory.push($(tmpItems[i]).text());
+    }
+
+    tmpItems = $(_data).find("ability").find('completeCourse').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.ability.completeCourse.push({
+            id: $(tmpItems[i]).attr('id'),
+            name: $(tmpItems[i]).attr('name')
+        });
+    }
+
+    tmpItems = $(_data).find("ability").find('graph').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.ability.graph.push({
+            name: $(tmpItems[i]).attr('name'),
+            value: $(tmpItems[i]).attr('value')
+        });
+    }
+
+    tmpItems = $(_data).find("codetime").find('times').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.codetime.times.push($(tmpItems[i]).text());
+    }
+
+    tmpItems = $(_data).find("codetime").find('rate').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.codetime.rate.push({
+            name: $(tmpItems[i]).attr('name'),
+            id: $(tmpItems[i]).attr('id'),
+            rate: $(tmpItems[i]).attr('rate')
+        });
+    }
+
+    tmpItems = $(_data).find("potential").find('top').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.potential.top.push($(tmpItems[i]).text());
+    }
+
+    tmpItems = $(_data).find("potential").find('evaluate').find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.potential.evaluate.push({
+            title: $(tmpItems[i]).attr('title'),
+            value: $(tmpItems[i]).attr('value')
+        });
+    }
+
+    tmpItems = $(_data).find("worksitems").find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.worksitems.push({
+            id: $(tmpItems[i]).attr('id'),
+            hits: $(tmpItems[i]).attr('hits'),
+            img: $(tmpItems[i]).attr('img'),
+            content: $(tmpItems[i]).attr('content')
+        });
+    }
+
+    tmpItems = $(_data).find("recommend").find('item');
+    for (var i = 0; i < tmpItems.length; i++) {
+        data.recommend.push({
+            id: $(tmpItems[i]).attr('id'),
+            hits: $(tmpItems[i]).attr('hits'),
+            img: $(tmpItems[i]).attr('img'),
+            content: $(tmpItems[i]).attr('content')
+        });
+    }
 
     $('#lb_Report_Overview_Date').text('报告生成日期: ' + data.date);
     $('.text-report-overview-beyond-data').text(data.rank + '%');
@@ -722,6 +754,20 @@ function loadChildReport() {
 };
 
 function initPage() {
-    initTopWall();
-    initEvents();
+    _registerRemoteServer();
+    $.ajax({
+        type: 'GET',
+        url: _getRequestURL(_gURLMapping.data.parentreport, { symbol: 'config_owner_report' }),
+        data: '<root></root>',
+        success: function (data, status) {
+            initTopWall(data);
+            initEvents();
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
 };

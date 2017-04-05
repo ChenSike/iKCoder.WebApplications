@@ -67,22 +67,15 @@ function initEvnets() {
     });
 
     $("#select_User_City_Province").change(function () {
-        var currProvince = $("#select_User_City_Province").val();
-        for (var i = 0; i < cityDatas.length; i++) {
-            if (currProvince == cityDatas[i].p) {
-                var currSelect = $("#select_User_City_City");
-                currSelect.empty();
-                for (var j = 0; j < cityDatas[i].c.length; j++) {
-                    currSelect.append($("<option>" + cityDatas[i].c[j] + "</option>"));
-                }
-
-                break;
-            }
-        }
+        resetCitySelect();
     });
 
     $("#btn_Save_Profile").click(function () {
 
+    });
+
+    $("#btn_Upload_Header").click(function () {
+        adjustFooter();
     });
 
     $("#txt_New_Password").on('blur', function () {
@@ -172,10 +165,30 @@ function resetDaysSelect() {
     }
 };
 
+function resetCitySelect() {
+    var currProvince = $("#select_User_City_Province").val();
+    for (var i = 0; i < cityDatas.length; i++) {
+        if (currProvince == cityDatas[i].p) {
+            var currSelect = $("#select_User_City_City");
+            currSelect.empty();
+            for (var j = 0; j < cityDatas[i].c.length; j++) {
+                currSelect.append($("<option>" + cityDatas[i].c[j] + "</option>"));
+            }
+
+            break;
+        }
+    }
+
+};
+
 function adjustFooter() {
     var bodyHeight = $('html').height();
     var divHeight = $("#sector_Top_Title").height();
     var headerHeight = $("header").height();
     var footerHeight = $("footer").height();
     $(".space-row-bottom").height(bodyHeight - divHeight - headerHeight - footerHeight - 20);
+};
+
+function setCustomHeader() {
+
 }
