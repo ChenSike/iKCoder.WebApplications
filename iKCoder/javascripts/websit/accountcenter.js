@@ -98,45 +98,55 @@ function initEvnets() {
         }
     });
 
-    $('#customHeaderModal').on('show.bs.modal', adjustFooter);
-    $('#customHeaderModal').on('hide.bs.modal', adjustFooter);
-
-    _registerRemoteServer();
-    $('#file_HeaderUpload').fileupload({
-        url:_getRequestURL( _gURLMapping.data.setbinresource),
-        dataType: 'json',
-        autoUpload: true,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i,
-        maxFileSize: 2097152
-    }).on('fileuploadadd', function (e, data) {
-        $('#progress_HeaderUpload').show();
-        $('#progress_HeaderUpload .progress-bar').css('width', '0%');
-        $('#progress_HeaderUpload .progress-bar').html('Uploading...');
-    }).on('fileuploadprocessalways', function (e, data) {
-        if (data.files.error) {
-            $('#progress_HeaderUpload').show();
-            $('#progress_HeaderUpload .progress-bar').css('width', '100%');
-            if (data.files[0].error == 'File type not allowed') {
-                $('#progress_HeaderUpload .progress-bar').html('图片类型错误');
-            }
-            if (data.files[0].error == 'File is too large') {
-                $('#progress_HeaderUpload .progress-bar').html('图片不能大于2M');
-            }
-        }
-    }).on('fileuploadprogressall', function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress_HeaderUpload .progress-bar').css('width', progress + '%');
-        if (progress == 100) {
-            $('#progress_HeaderUpload').hide();
-        }
-    }).on('fileuploaddone', function (e, data) {
+    $('#customHeaderModal').on('show.bs.modal', function () {
+        adjustFooter();
         $('#progress_HeaderUpload').hide();
-        initCustomHeaderImg(data);
-    }).on('fileuploadfail', function (e, data) {
-        console.log("upload fail:", data._response.errorThrown.message);
-        initCustomHeaderImg();
+        $('#warnning_HeaderUpload').hide();
+        $('#wrap_CropBox_Header').hide();
+    });
+
+    $('#customHeaderModal').on('hide.bs.modal', function () {
+        adjustFooter();
+        $('#progress_HeaderUpload').hide();
+        $('#warnning_HeaderUpload').hide();
+        $('#wrap_CropBox_Header').hide();
+    });
+
+    $('#linkBtn_Upload_HeaderFile').on('click', function () {
+        $('#progress_HeaderUpload').hide();
+        $('#warnning_HeaderUpload').hide();
+        $('#wrap_CropBox_Header').hide();
+        $('#file_Upload').click();
+    });
+
+    $('#file_Upload').on('change', function () {
+        var regExp = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
+        var fileName = $(this).val();
+        if (!regExp.test(fileName)) {
+            $('#warnning_HeaderUpload').show();
+            $('#warnning_HeaderUpload').text("仅支持.jpg .jpeg .gif .png .bmp格式的图片");
+            return;
+        } else if (this.files[0].size / 1024 > 512) {
+            $('#warnning_HeaderUpload').show();
+            $('#warnning_HeaderUpload').text("图片大小不能超过512K");
+            return;
+        } else {
+            $('#progress_HeaderUpload').show();
+            _registerRemoteServer();
+            var fileType = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+            $('#form_Upload').attr('action', _getRequestURL(_gURLMapping.data.setbinresource, {
+                sumitdata: 1,
+                //callback: encodeURI("parent.uploadCallBack(JSPARAM)"),
+                filetype: fileType,
+                symbol: $.cookie('logined_user_name') + "_temp_header",
+            }));
+            $('#form_Upload').submit();
+            _UploadHeaderHandle = setTimeout('initCustomHeaderImg()', 1000);
+        }
     });
 };
+
+var _UploadHeaderHandle;
 
 function initPage() {
     initDateSelects();
@@ -230,35 +240,147 @@ function adjustFooter() {
 };
 
 function initCustomHeaderImg(data) {
-    if (data) {
-        var q = 1;
+    $('#progress_HeaderUpload').hide();
+    var image = new Image();
+    var canvas = document.getElementById("canvas_CustomHeader");
+    var ctx = canvas.getContext('2d');
+    if (!data) {
+        //image.src = _getRequestURL(_gURLMapping.data.setbinresource, {});
     } else {
-        var image = new Image();
         image.src = "images/head/head_1.png";
-        image.onload = function () {
-            var imgHeight = image.height;
-            var imgWidth = image.width;
-            var newWidth = (imgWidth > 320 ? 320 : imgWidth);
-            var newHeight = (imgHeight > 320 ? 320 : imgHeight);
-            //if (imgHeight > imgWidth) {
-            //    newHeight = 320;
-            //    newWidth = 320 / imgHeight * imgWidth;
-            //} else {
-            //    newWidth = 320;
-            //    newHeight = 320 / imgWidth * imgHeight;
-            //}
-
-
-            var canvas = document.getElementById("canvas_CustomHeader");
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, newWidth, newHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
-
-            ctx = document.getElementById("canvas_Sample_1").getContext('2d');
-            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 100, 100);
-            ctx = document.getElementById("canvas_Sample_2").getContext('2d');
-            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 64, 64);
-            ctx = document.getElementById("canvas_Sample_3").getContext('2d');
-            ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 24, 24);
-        };
     }
+
+    image.src = "images/head/head_11.jpg";
+    image.onload = function () {
+        var imgHeight = image.height;
+        var imgWidth = image.width;
+        var newWidth = (imgWidth > 320 ? 320 : imgWidth);
+        var newHeight = (imgHeight > 320 ? 320 : imgHeight);
+        ctx.drawImage(image, 0, 0, newWidth, newHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
+        ctx = document.getElementById("canvas_Sample_1").getContext('2d');
+        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 100, 100);
+        ctx = document.getElementById("canvas_Sample_2").getContext('2d');
+        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 64, 64);
+        ctx = document.getElementById("canvas_Sample_3").getContext('2d');
+        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 24, 24);
+        fnImageCropRot(image);
+    };
 }
+
+var fnImageCropRot = function (o) {
+    var ID = function (id) {
+        return document.getElementById(id);
+    };
+
+    var oCanvas = ID("canvas_CustomHeader");
+    oCanvas.onselectstart = function () {
+        return false;
+    };
+
+    var oCreateImg = o;
+    var iOrigWidth = (oCreateImg.width > 320 ? 320 : oCreateImg.width);
+    var iOrigHeight = (oCreateImg.height > 320 ? 320 : oCreateImg.height);
+    if ($('#wrap_CropBox_Header').length == 0) {
+        var tmpHTMLArr = [];
+        tmpHTMLArr.push('<div id="wrap_CropBox_Header" style="width:' + iOrigWidth + 'px; height:' + iOrigHeight + 'px;">');
+        tmpHTMLArr.push('   <div id="CropBox_Header">');
+        tmpHTMLArr.push('       <div id="DragBg_Header"></div>');
+        tmpHTMLArr.push('       <div id="dragRightBot" ></div>');
+        tmpHTMLArr.push('   </div>');
+        tmpHTMLArr.push('</div>');
+        $("#canvas_CustomHeader").after(tmpHTMLArr.join(""));
+    }
+
+    $('#wrap_CropBox_Header').show();
+    var cropWidth = (iOrigWidth > 100 ? 100 : iOrigWidth);
+    var cropHeight = (iOrigHeight > 100 ? 100 : iOrigHeight);
+    $("#CropBox_Header").width(cropWidth);
+    $("#CropBox_Header").height(cropHeight);
+    $("#CropBox_Header").css('top', (320 - cropHeight) / 2 + "px");
+    $("#CropBox_Header").css('left', (320 - cropWidth) / 2 + "px");
+
+    var params = {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+        currentX: 0,
+        currentY: 0,
+        flag: false,
+        kind: "drag"
+    };
+
+    var startDrag = function (point, target, kind) {
+        params.width = $(target).width();
+        params.height = $(target).height();
+        params.left = $(target).position().left;
+        params.top = $(target).position().top;
+
+        point.onmousedown = function (event) {
+            params.kind = kind;
+            params.flag = true;
+            if (!event) {
+                event = window.event;
+            }
+
+            var e = event;
+            params.currentX = e.clientX;
+            params.currentY = e.clientY;
+            point.onselectstart = function () {
+                return false;
+            }
+
+            return false;
+        };
+
+        document.onmouseup = function () {
+            params.flag = false;
+            params.left = $(target).position().left;
+            params.top = $(target).position().top;
+            params.width = $(target).width();
+            params.height = $(target).height();
+
+            var tmpLeft = (iOrigWidth < 320 ? params.left - (320 - iOrigWidth) / 2 : params.left);
+            var tmpTop = (iOrigHeight < 320 ? params.top - (320 - iOrigHeight) / 2 : params.top);
+            var ctx = document.getElementById("canvas_Sample_1").getContext('2d');
+            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 100, 100);
+            ctx = document.getElementById("canvas_Sample_2").getContext('2d');
+            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 64, 64);
+            ctx = document.getElementById("canvas_Sample_3").getContext('2d');
+            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 24, 24);
+        };
+
+        document.onmousemove = function (event) {
+            var e = event ? event : window.event;
+            if (params.flag) {
+                var nowX = e.clientX, nowY = e.clientY;
+                var disX = nowX - params.currentX;
+                var disY = nowY - params.currentY;
+                var tmpWidth = parseInt(params.width);
+                var tmpHeighth = parseInt(params.height);
+                var tmpLeft = parseInt(params.left);
+                var tmpTop = parseInt(params.top);
+                if (params.kind === "se") {
+                    var newWidth = tmpWidth + disX;
+                    var newHeight = tmpHeighth + disY;
+                    newWidth = (newWidth + tmpLeft > 317 ? 317 - tmpLeft : newWidth);
+                    newHeight = (newHeight + tmpTop > 317 ? 317 - tmpTop : newHeight);
+                    $(target).width(newWidth);
+                    $(target).height(newHeight);
+                } else {
+                    var newLeft = tmpLeft + disX;
+                    var newTop = tmpTop + disY;
+                    newLeft = (newLeft < 0 ? 0 : newLeft);
+                    newTop = (newTop < 0 ? 0 : newTop);
+                    newLeft = (newLeft + tmpWidth > 317 ? 317 - tmpWidth : newLeft);
+                    newTop = (newTop + tmpHeighth > 317 ? 317 - tmpHeighth : newTop);
+                    $(target).css('left', newLeft + "px");
+                    $(target).css('top', newTop + "px");
+                }
+            }
+        }
+    }
+
+    startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag");
+    startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se");
+};

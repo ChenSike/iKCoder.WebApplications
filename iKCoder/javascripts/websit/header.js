@@ -604,6 +604,7 @@ function signIn() {
                 return;
             }
 
+            $.cookie('logined_user_name', $($(data).find('msg')[0]).attr('logined_user_name'));
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
             updateUserInfor(data);
@@ -783,7 +784,13 @@ function updateUserInfor(responseData) {
 
 function createUserInfoItem(data) {
     if ($(data).find('msg').length > 0) {
-        var nickName = $($(data).find('msg')[$(data).find('msg').length - 1]).attr('msg');
+        var nickName = '';
+        if ($(data).find('msg').length > 1) {
+            nickName = $($(data).find('msg')[$(data).find('msg').length - 1]).attr('msg');
+        } else {
+            nickName = $($(data).find('msg')[0]).attr('logined_nickname');
+        }
+
         $('#navbar_collapse_ul').append(
             $(
                 '<li class="nav-item" id="nav_UserInfo_Item">' +
@@ -801,7 +808,7 @@ function createUserInfoItem(data) {
         }
 
         $("#linkBtn_UserInfo").on('click', function () {
-            window.location.href = "studentcenter.html?cid=" + _gCID;
+            window.location.href = "accountcenter.html?cid=" + _gCID;
         });
     }
 };
