@@ -62,4 +62,3 @@ function initFooterEvent() {
         window.location.href = "product.html";
     });
 }
-
