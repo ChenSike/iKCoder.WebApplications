@@ -1,0 +1,7 @@
+﻿<xml id="toolbox" style="display: none">
+  <block type="event_start"></block>
+  <block type="move_onestep_up"></block>
+  <block type="move_onestep_down"></block>
+  <block type="move_onestep_left"></block>
+  <block type="move_onestep_right"></block>
+</xml>

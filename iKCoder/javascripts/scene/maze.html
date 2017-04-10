@@ -1,0 +1,210 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>迷宫示例</title>
+</head>
+<body>
+    <center>
+        迷宫行数：<select id="rowselect" onChange="changerow(this)"></select>&nbsp;
+        迷宫列数: <select id="colselect" onChange="changecol(this)"></select> &nbsp;
+        入口行：<select id="startrow"></select>&nbsp;
+        入口列：<select id="startcol"></select>&nbsp;
+        出口行：<select id="endrow"></select>&nbsp;
+        出口列：<select id="endcol"></select>&nbsp;
+        道路宽: <select id="roadwidth"></select>&nbsp;
+        墙宽: <select id="wallwidth"></select>&nbsp;
+        行者宽: <select id="personwidth"></select>&nbsp;
+        <input type="button" value="生成迷宫" onClick="createMg()">
+        <p></p>
+        <div id="datas"></div>
+        <table id="migong"></table>
+        <div id="walls_div"></div>
+        <table>
+            <tr>
+                <td>
+                    <div id="cells_div"></div>
+                </td>
+                <td>
+                    <div id="canvas_div">
+                        <canvas id="canvas_mg" width="300" height="300"></canvas>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+<script src="maze.js"></script>
+<script>
+    var rowsel = document.getElementById("rowselect");
+    var colsel = document.getElementById("colselect");
+    for (var i = 7; i <= 50; i++) {
+        var o = document.createElement("option");
+        o.value = i;
+        o.text = i;
+        o1 = document.createElement("option");
+        o1.value = i;
+        o1.text = i;
+
+        rowsel.options.add(o);
+        colsel.options.add(o1);
+
+    }
+
+    changerow(rowsel);
+    function changerow(obj) {
+        var strow = document.getElementById("startrow");
+        var enrow = document.getElementById("endrow");
+        for (var i = strow.options.length - 1; i >= 0 ; i--) {
+            strow.options.remove(i);
+            enrow.options.remove(i);
+        }
+        for (var i = 1; i <= obj.value; i++) {
+            var o = document.createElement("option");
+            o.value = i;
+            o.text = i;
+            o1 = document.createElement("option");
+            o1.value = i;
+            o1.text = i;
+            strow.options.add(o);
+            enrow.options.add(o1);
+        }
+        enrow.selectedIndex = obj.value - 1;
+    }
+
+    changecol(colsel);
+    function changecol(obj) {
+        var strow = document.getElementById("startcol");
+        var enrow = document.getElementById("endcol");
+        for (var i = strow.options.length - 1; i >= 0 ; i--) {
+            strow.options.remove(i);
+            enrow.options.remove(i);
+        }
+        for (var i = 1; i <= obj.value; i++) {
+            var o = document.createElement("option");
+            o.value = i;
+            o.text = i;
+            o1 = document.createElement("option");
+            o1.value = i;
+            o1.text = i;
+            strow.options.add(o);
+            enrow.options.add(o1);
+        }
+        enrow.selectedIndex = obj.value - 1;
+    }
+
+    //初始化道路宽度
+    var sroad = document.getElementById("roadwidth");
+    for (var i = 10; i <= 20;) {
+        var o = document.createElement("option");
+        o.value = i;
+        o.text = i;
+        i += 2;
+        sroad.options.add(o);
+    }
+    //初始化墙壁宽度
+    var swall = document.getElementById("wallwidth");
+    for (var i = 1; i <= 5; i++) {
+        var o = document.createElement("option");
+        o.value = i;
+        o.text = i;
+        swall.options.add(o);
+    }
+    //初始化行者宽度
+    var sperson = document.getElementById("personwidth");
+    for (var i = 5; i <= 10; i++) {
+        var o = document.createElement("option");
+        o.value = i;
+        o.text = i;
+        sperson.options.add(o);
+    }
+
+    function createMg() {
+        var o = document.getElementById("migong");
+        var oc = document.getElementsByTagName("center")[0];
+        //if (o) oc.removeChild(o);
+        if (o) o.innerHTML = "";
+        var o = document.getElementById("migperson");
+        if (o) document.body.removeChild(o);
+
+
+        var strow = document.getElementById("startrow");
+        var stacol = document.getElementById("startcol");
+        var enrow = document.getElementById("endrow");
+        var encol = document.getElementById("endcol");
+        var rowsel = document.getElementById("rowselect");
+        var colsel = document.getElementById("colselect");
+        var migong = new MiGong(parseInt(rowsel.value), parseInt(colsel.value),
+        parseInt(strow.value), parseInt(stacol.value), parseInt(enrow.value), parseInt(encol.value), parseInt(document.getElementById("roadwidth").value),
+        parseInt(document.getElementById("wallwidth").value), parseInt(document.getElementById("personwidth").value));
+
+        //var tmp = new Maze(12, 13, { x: 2, y: 6 }, { x: 9, y: 11 });
+        //var points = cellToCooder(parseInt(rowsel.value), parseInt(colsel.value), parseInt(stacol.value), parseInt(strow.value), parseInt(encol.value), parseInt(enrow.value));
+
+        var tmp = new Maze(15, 15, { x: 3, y: 3 }, { x: 9, y: 9 });
+        var coord = tmp.cellToCooder();
+        var ctx = document.getElementById('canvas_mg').getContext('2d');
+        ctx.clearRect(0, 0, 280, 300);
+        for (var j = 0; j < coord.length; j++) {
+            for (var i = 0; i < coord[j].length; i++) {
+                var point = coord[j][i];
+                ctx.beginPath();
+                if (point == 1) {
+                    ctx.fillStyle = "#000000";
+                    ctx.arc(i * 20 + 10, j * 20 + 10, 10, 0, 2 * Math.PI, true);
+                }
+
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        ctx.beginPath();
+        ctx.fillStyle = "#FF0000";
+        ctx.arc(parseInt(3) * 20 + 10, parseInt(3) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.fillStyle = "#00FF00";
+        ctx.arc(parseInt(9) * 20 + 10, parseInt(9) * 20 + 10, 5, 0, 2 * Math.PI, true);
+        ctx.fill();
+        ctx.closePath();
+
+        var str = '';
+        for (var i = 1; i < tmp.cells.length + 1; i++) {
+            if (tmp.cells[i]) {
+                var w = tmp.cells[i].wall;
+                if (i % migongcol == 1) {
+                    str += '<br>';
+                }
+                str += '[' + w[0] + ',' + w[1] + ',' + w[2] + ',' + w[3] + '], ';
+            }
+        }
+
+        var dataDiv = document.getElementById('walls_div');
+        if (!dataDiv) {
+            dataDiv = document.createElement("div");
+            dataDiv.id = 'walls_div';
+            document.body.appendChild(dataDiv);
+        }
+        dataDiv.innerHTML = str;
+
+        var str = '';
+        for (var i = 0; i < coord.length; i++) {
+            str += '<br>';
+            for (var j = 0; j < coord[i].length; j++) {
+                str += coord[i][j] + ',';
+            }
+        }
+        var dataDiv = document.getElementById('cells_div');
+        if (!dataDiv) {
+            dataDiv = document.createElement("div");
+            dataDiv.id = 'cells_div';
+            document.body.appendChild(dataDiv);
+        }
+        dataDiv.innerHTML = str;
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,115 @@
+<xml>
+  <block type="block_tank_game_config" deletable="false">
+    <statement name="list_of_map_line">
+      <block type="block_draw_line" deletable="false">
+        <field name="block_x_or_y_selector">1</field>
+        <field name="block_wall_type_selector">1</field>
+        <field name="block_draw_from">1</field>
+        <field name="block_draw_to">4</field>
+        <statement name="fix_x_y_point">
+          <block type="block_point_collection">
+            <field name="field_point_collection">3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24</field>
+          </block>
+        </statement>
+        <next>
+          <block type="block_draw_line">
+            <field name="block_x_or_y_selector">1</field>
+            <field name="block_wall_type_selector">1</field>
+            <field name="block_draw_from">21</field>
+            <field name="block_draw_to">24</field>
+            <statement name="fix_x_y_point">
+              <block type="block_point_collection">
+                <field name="field_point_collection">3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24</field>
+              </block>
+            </statement>
+            <next>
+              <block type="block_draw_line">
+                <field name="block_x_or_y_selector">0</field>
+                <field name="block_wall_type_selector">3</field>
+                <field name="block_draw_from">2</field>
+                <field name="block_draw_to">25</field>
+                <statement name="fix_x_y_point">
+                  <block type="block_fix_axis_array">
+                    <field name="input_fixed_point">17</field>
+                    <next>
+                      <block type="block_fix_axis_array">
+                        <field name="input_fixed_point">18</field>
+                        <next>
+                          <block type="block_fix_axis_array">
+                            <field name="input_fixed_point">19</field>
+                            <next>
+                              <block type="block_fix_axis_array">
+                                <field name="input_fixed_point">6</field>
+                                <next>
+                                  <block type="block_fix_axis_array">
+                                    <field name="input_fixed_point">7</field>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="block_draw_line">
+                    <field name="block_x_or_y_selector">1</field>
+                    <field name="block_wall_type_selector">2</field>
+                    <field name="block_draw_from">4</field>
+                    <field name="block_draw_to">5</field>
+                    <statement name="fix_x_y_point">
+                      <block type="block_point_collection">
+                        <field name="field_point_collection">3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24</field>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="block_draw_line">
+                        <field name="block_x_or_y_selector">1</field>
+                        <field name="block_wall_type_selector">2</field>
+                        <field name="block_draw_from">11</field>
+                        <field name="block_draw_to">12</field>
+                        <statement name="fix_x_y_point">
+                          <block type="block_point_collection">
+                            <field name="field_point_collection">1,2,5,6,9,10,13,14,17,18,21,22</field>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="block_draw_line">
+                            <field name="block_x_or_y_selector">1</field>
+                            <field name="block_wall_type_selector">5</field>
+                            <field name="block_draw_from">15</field>
+                            <field name="block_draw_to">18</field>
+                            <statement name="fix_x_y_point">
+                              <block type="block_point_collection">
+                                <field name="field_point_collection">3,4,12,13,14,19,20,21</field>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="block_draw_line">
+                                <field name="block_x_or_y_selector">1</field>
+                                <field name="block_wall_type_selector">1</field>
+                                <field name="block_draw_from">11</field>
+                                <field name="block_draw_to">14</field>
+                                <statement name="fix_x_y_point">
+                                  <block type="block_point_collection">
+                                    <field name="field_point_collection">3, 4, 7, 8, 11, 12, 15, 16, 19, 20, 23, 24</field>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

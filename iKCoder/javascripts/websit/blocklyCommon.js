@@ -64,7 +64,7 @@ WorkScene.init = function () {
     };
 
     window.addEventListener('resize', onresize, false);
-    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile("WorkStation/Scene/xml/testblocks.xml")));
+    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile(_workspaceCfg.toolbox)));
     //var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
     WorkScene.workspace = Blockly.inject('content_WorkSpace',
         {
@@ -101,14 +101,8 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    //var defaultXml = XMLToString(LoadXMLFile("http://localhost/iKCoder/WorkStation/Scene/xml/testblocks.xml"));
-    //var defaultXml = '<xml>' +
-    //                        '   <block type="race_roads" id="race_roads_block_example" deletable="false" x="20" y="20"/>' +
-    //                        '   <block type="race_cars" id="race_cars_block_example" deletable="false" x="20" y="60"/>' +
-    //                        '</xml>';
-
-    //WorkScene.loadBlocks(blocksXMLDoc);
-    WorkScene.loadBlocks();
+    var defaultXml = (_workspaceCfg.workspace == '' ? '' : XMLToString(LoadXMLFile(_workspaceCfg.workspace)));
+    WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
     if ('BlocklyStorage' in window) {
@@ -124,7 +118,7 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
     CheckSceneObject();
-    //Scene.init('game_container', 0);
+    Scene.init('game_container', '0', { RowCol: { row: 9, col: 9 } });
 };
 
 WorkScene.runJS = function () {
@@ -177,8 +171,6 @@ WorkScene.outputCode = function () {
         var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
         content.text(code);
         content.data("autoRowsNumbers").updateLine(code.match(/\n/g).length + 1);
-        eval(code);
-        Scene.UpdateConfig();
     }
     catch (ex) {
 
@@ -194,6 +186,9 @@ WorkScene.pauseScene = function () {
 };
 
 WorkScene.startGame = function () {
+    var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
+    Scene.ResetConfig();
+    eval(code);
     Scene.startGame();
 };
 
@@ -232,5 +227,9 @@ function CheckSceneObject() {
 
     if (!Scene.endGame) {
         Scene.endGame = function () { };
+    }
+
+    if (!Scene.ResetConfig) {
+        Scene.ResetConfig = function () { };
     }
 }

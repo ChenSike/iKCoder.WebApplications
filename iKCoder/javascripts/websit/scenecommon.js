@@ -38,7 +38,8 @@ function _fullScreen() {
 };
 
 function _playScene() {
-    alert("'Play' will coming soon!");
+    //alert("'Play' will coming soon!");
+    WorkScene.startGame();
 };
 
 function _refereshScene() {

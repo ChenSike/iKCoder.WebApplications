@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html style="height:100%;">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles/ionicons.min.css">
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/accountcenter.css">
+    <script src="javascripts/common/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="javascripts/common/xmloperator.js"></script>
+    <script src="javascripts/websit/common.js"></script>
+    <script src="javascripts/websit/header.js"></script>
+    <script src="javascripts/websit/footer.js"></script>
+    <script src="javascripts/websit/accountcenter.js"></script>
+</head>
+<body class="bg-all237">
+    <header></header>
+    <div class="container margin-top-20 bg-white" id="sector_Top_Title">
+        <div class="row">
+            <div class="col-sm-12 top-title">
+                艾酷个人账号中心
+            </div>
+        </div>
+        <div class="row bg-all237">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="container padding-top-50">
+                    <div class="row section-panel">
+                        <div class="col-sm-4">
+                            <img src="images/children/child_1.png" class="img-responsive account-header-image">
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-user-nick-name">Terry</div>
+                            <div class="text-user-name">13111111111</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container margin-top20 section-panel">
+                            <div class="row split-line-border">
+                                <div class="col-sm-3">
+                                    <i class="fa fa-child fa-2x font-size-24"></i>
+                                </div>
+                                <div class="col-sm-8">
+                                    <i class="item-title bold" id="btn_Item_Profile">个人信息</i>
+                                </div>
+                            </div>
+                            <div class="row split-line-border">
+                                <div class="col-sm-3">
+                                    <i class="fa fa-key fa-2x font-size-24"></i>
+                                </div>
+                                <div class="col-sm-8">
+                                    <i class="item-title" id="btn_Item_Account">账户密码</i>
+                                </div>
+                            </div>
+                            <div class="row split-line-border">
+                                <div class="col-sm-12" style="height:100px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="container margin-top50 section-panel" id="wrap_Item_Profile">
+                    <div class="row">
+                        <div class="col-sm-12 wrap-title">
+                            个人信息
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group" style="padding-top:50px;">
+                                    <label for="txt_User_Header" class="col-sm-3 control-label">头像</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <img src="images/children/child_1.png" class="img-responsive form-control profile-header-image">
+                                        <button type="button" class="btn btn-info" id="btn_Upload_Header" data-toggle="modal" data-target="#customHeaderModal">上传新头像</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_User_Name" class="col-sm-3 control-label">姓名</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txt_User_Name" placeholder="请输入姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">性别</label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="radio_User_Gender" id="radio_User_Gender_Male" value="1" checked>男
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="radio_User_Gender" id="radio_User_Gender_Female" value="0">女
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">生日</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <label class="checkbox-inline" style="margin-left:0px; padding-left: 0px;">
+                                            <select class="form-control" id="select_User_Birthday_Year"></select>
+                                            年
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_Birthday_Month">
+                                                <option selected>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                            </select>
+                                            月
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_Birthday_Day"></select>
+                                            日
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">所在城市</label>
+                                    <div class="col-sm-8 form-inline">
+                                        <label class="checkbox-inline" style="margin-left:0px; padding-left: 0px;">
+                                            <select class="form-control" id="select_User_City_Province"></select>
+                                            省
+                                        </label>
+                                        <label class="checkbox-inline" style="margin-left:0px;padding-left: 10px;">
+                                            <select class="form-control" id="select_User_City_City"></select>
+                                            市/区
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_User_School" class="col-sm-3 control-label">就读学校</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="txt_User_School" placeholder="请输入就读的学校名称">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="text-align: center;">
+                                    <button type="button" class="btn btn-info" id="btn_Save_Profile" style="width: 80%;margin: 20px 10%;max-width:400px;">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="container margin-top50 section-panel hidden" id="wrap_Item_Account">
+                    <div class="row">
+                        <div class="col-sm-12 wrap-title">
+                            登录密码
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="txt_Old_Password" class="col-sm-3 control-label">旧密码</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" id="txt_Old_Password" placeholder="请输入旧密码">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_New_Password" class="col-sm-3 control-label">新密码</label>
+                                    <div class="col-sm-8">
+                                        <!--<input type="password" class="form-control" id="txt_Old_Password" placeholder="请输入新密码">-->
+                                        <div class="input-group">
+                                            <input class="form-control js-password-change-control" id="txt_New_Password" name="pwd_new_pwd" type="password" placeholder="请输入新密码" aria-describedby="basic-addon1">
+                                            <span class="input-group-addon js-password-change-btn">
+                                                <i class="label-pwd-intension" id="lb_New_Pwd_Intension"></i>
+                                                <i class="glyphicon glyphicon-eye-close" id="btn_New_Show_Hide_Pwd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt_Confirm_Password" class="col-sm-3 control-label">确认新密码</label>
+                                    <div class="col-sm-8">
+                                        <!--<input type="password" class="form-control" id="txt_Confirm_Password" placeholder="请再次输入新密码">-->
+                                        <div class="input-group">
+                                            <input class="form-control js-password-change-control" id="txt_Confirm_Password" name="pwd_confirm_pwd" type="password" placeholder="请再次输入新密码" aria-describedby="basic-addon1">
+                                            <span class="input-group-addon js-password-change-btn">
+                                                <i class="label-pwd-intension" id="lb_Confirm_Pwd_Intension"></i>
+                                                <i class="glyphicon glyphicon-eye-close" id="btn_Confirm_Show_Hide_Pwd"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info" id="btn_Save_NewPWD" style="width: 80%;margin: 20px 10%;">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="space-row-bottom"></div>
+    <footer id="footer" style="margin-top:20px;"></footer>
+    <div class="modal fade" id="customHeaderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">编辑个人头像</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <canvas id="canvas_CustomHeader" width="320" height="320"></canvas>
+                                            <div id="warnning_HeaderUpload" class="warnning"></div>
+                                            <div id="progress_HeaderUpload" class="progress">
+                                                <div id="loading">
+                                                    <div id="loading-center">
+                                                        <div id="loading-center-absolute">
+                                                            <div class="object" id="object_one"></div>
+                                                            <div class="object" id="object_two"></div>
+                                                            <div class="object" id="object_three"></div>
+                                                            <div class="object" id="object_four"></div>
+                                                            <div class="object" id="object_five"></div>
+                                                            <div class="object" id="object_six"></div>
+                                                            <div class="object" id="object_seven"></div>
+                                                            <div class="object" id="object_eight"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <a class="fileinput-button" href="#" id="linkBtn_Upload_HeaderFile" data-holder-rendered="true">
+                                                <i class="glyphicon glyphicon-picture"></i>
+                                                选择图片
+                                            </a>
+                                            <span class="color-all-128">(最佳尺寸100×100, 可以上传高质量图片进行裁切)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p style="text-align:left;color:rgb(56,56,56); ">图片预览</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-11 col-sm-offset-1" style="text-align: center;">
+                                            <canvas class="canvas-sample" id="canvas_Sample_1" width="100" height="100"></canvas>
+                                            <p class="color-all-128">100×100</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-11 col-sm-offset-1" style="text-align: center;">
+                                            <canvas class="canvas-sample" id="canvas_Sample_2" width="64" height="64"></canvas>
+                                            <p class="color-all-128">64×64</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-11 col-sm-offset-1" style="text-align: center;">
+                                            <canvas class="canvas-sample" id="canvas_Sample_3" width="24" height="24"></canvas>
+                                            <p class="color-all-128">24×24</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary"  id="btn_CustomHeader_Save" data-content="">保存</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <div style="display:none;">
+        <form target="iFrame_Upload" name="uploadForm" id="form_Upload" action="" method="post" enctype="multipart/form-data">
+            <input name="file_Upload" type="file" id="file_Upload" />
+        </form>
+        <iframe name="iFrame_Upload"></iframe>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            _loadLabels();
+            initHeader();
+            initFooter();
+            initPage();
+            //_startIntroJs();
+        });
+    </script>
+</body>
+</html>

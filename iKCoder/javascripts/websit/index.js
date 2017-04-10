@@ -5,7 +5,7 @@
 //var linkBtn_AllCourse = $("#linkBtn_AllCourse");
 function initIndexPageFields(){
     $("#linkBtn_OurPlatform").click(function () {
-        window.location.href = "index.html";
+        window.location.href = "product.html";
     });
     $("#linkBtn_SeeWorks").click(function () {
         window.location.href = "index.html";

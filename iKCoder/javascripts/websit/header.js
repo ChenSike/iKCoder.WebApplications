@@ -18,7 +18,7 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('                <span class="icon-bar"></span>');
     tmpHtmlStrArr.push('            </button>');
-    tmpHtmlStrArr.push('            <a href="#"><img src="images/logo-new-gray.png" class="img-responsive"></a>');
+    tmpHtmlStrArr.push('            <a href="index.html"><img src="images/logo-new-gray.png" class="img-responsive" style="width:150px;"></a>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('        <div class="collapse navbar-collapse" id="example-navbar-collapse">');
     tmpHtmlStrArr.push('            <ul class="nav navbar-nav navbar-right" id="navbar_collapse_ul">');
@@ -39,20 +39,20 @@ function buildHeaderHTML() {
     tmpHtmlStrArr.push(_getLabel('登录'));
     tmpHtmlStrArr.push('                   </a>');
     tmpHtmlStrArr.push('                </li>');
-    tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
-    tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search" style="border: none;">');
-    tmpHtmlStrArr.push('                        <div class="form-group">');
-    tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <div class="input-group">');
-    tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
-    tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
-    tmpHtmlStrArr.push('                                        <span class="fa fa-search"></span>');
-    tmpHtmlStrArr.push('                                    </a>');
-    tmpHtmlStrArr.push('                                </div>');
-    tmpHtmlStrArr.push('                            </div>');
-    tmpHtmlStrArr.push('                        </div>');
-    tmpHtmlStrArr.push('                    </form>');
-    tmpHtmlStrArr.push('                <li>');
+    //tmpHtmlStrArr.push('                <li id="nav_Search_Item">');
+    //tmpHtmlStrArr.push('                    <form class="navbar-form navbar-right" role="search" style="border: none;">');
+    //tmpHtmlStrArr.push('                        <div class="form-group">');
+    //tmpHtmlStrArr.push('                            <div class="col-sm-12">');
+    //tmpHtmlStrArr.push('                                <div class="input-group">');
+    //tmpHtmlStrArr.push('                                    <input class="form-control header-search-field" id="txt_Search" type="text" placeholder="Search">');
+    //tmpHtmlStrArr.push('                                    <a href="#" class="dropdown-toggle input-group-addon" id="linkBtn_Search" data-toggle="dropdown">');
+    //tmpHtmlStrArr.push('                                        <span class="fa fa-search"></span>');
+    //tmpHtmlStrArr.push('                                    </a>');
+    //tmpHtmlStrArr.push('                                </div>');
+    //tmpHtmlStrArr.push('                            </div>');
+    //tmpHtmlStrArr.push('                        </div>');
+    //tmpHtmlStrArr.push('                    </form>');
+    //tmpHtmlStrArr.push('                <li>');
     tmpHtmlStrArr.push('            </ul>');
     tmpHtmlStrArr.push('        </div>');
     tmpHtmlStrArr.push('    </div>');
@@ -85,7 +85,7 @@ function buildSignInWindowHTML() {
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
     tmpHtmlStrArr.push('                            <div class="col-sm-12">');
-    tmpHtmlStrArr.push('                                <input type="text" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('密码') + '">');
+    tmpHtmlStrArr.push('                                <input type="password" class="form-control" id="txt_SignIn_Password" placeholder="' + _getLabel('密码') + '">');
     tmpHtmlStrArr.push('                            </div>');
     tmpHtmlStrArr.push('                        </div>');
     tmpHtmlStrArr.push('                        <div class="form-group">');
@@ -323,7 +323,7 @@ function initHeader() {
     buildSignUpWindowHTML();
     buildCheckPhoneWindowHTML();
     initHeaderEvent();
-    updateUserInfor(false);
+    updateUserInfor();
 };
 
 function initNavBarEvent() {
@@ -345,23 +345,6 @@ function initNavBarEvent() {
     $("#linkBtn_Student").on('click',
         function () {
             window.location.href = "studentcenter.html?cid=" + _gCID;
-            /*
-            $.ajax({
-                type: 'POST',
-                url: _getRequestURL(_gURLMapping.account.signsstatus),
-                data: '<root></root>',
-                success: function (data, status) {                    
-                    window.location.href = "studentcenter.html?cid=" + _gCID;
-                },
-                dataType: 'xml',
-                xhrFields: {
-                    withCredentials: true
-                },
-                error: function () {
-                    updateUserInfor(false);
-                }
-            });
-            */
         });
 
     $("#linkBtn_Product").on('click',
@@ -373,7 +356,7 @@ function initNavBarEvent() {
             window.location.href = "aboutus.html?cid=" + _gCID;
         });
 
-    $("#linkBtn_Search").on('click', headerSearch);
+    //$("#linkBtn_Search").on('click', headerSearch);
 };
 
 function initSignInWindowEvent() {
@@ -482,6 +465,7 @@ function checkPwdIntension(txtField, lbField) {
 };
 
 function signUp() {
+    _registerRemoteServer();
     //$('#mWindow_CheckPhoneNumber').modal('show');
     //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
     //return;
@@ -508,7 +492,7 @@ function signUp() {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入用户名!');
         return;
     }
-    
+
     if ($("#txt_SignUp_Pwd").val().trim() == "") {
         showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', '请输入密码!');
         return;
@@ -524,6 +508,7 @@ function signUp() {
         symbol: $("#txt_SignUp_PhoneNumber").val(),
         password: $("#txt_SignUp_Pwd").val(),
         codename: 'signincode',
+        nickname: $("#txt_SignUp_UserName").val().trim(),
         codevalue: $("#txt_SignUp_CheckCode").val()
     }
 
@@ -535,18 +520,42 @@ function signUp() {
             '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
             '<codename>signincode</codename>' +
             '<codevalue>' + $("#txt_SignUp_CheckCode").val() + '</codevalue>' +
+            '<nickname>' + $("#txt_SignUp_UserName").val().trim() + '</nickname>' +
             '<notecode>' + $("#txt_SignUp_NoteCode").val() + '</notecode>' +
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
                 showAlertMessage('mWindow_SignUp_Dialog', 'signupAlert', $(data).find('err').attr('msg'));
                 return;
+            } else if ($(data).find('msg').length > 0) {
+                $("#signupAlert").alert('close');
+                $('#mWindow_SignUp').modal('hide');
+                $.ajax({
+                    type: 'POST',
+                    url: _getRequestURL(_gURLMapping.account.sign),
+                    data: '<root>' +
+                        '<symbol>' + $("#txt_SignUp_PhoneNumber").val() + '</symbol>' +
+                        '<password>' + $("#txt_SignUp_Pwd").val() + '</password>' +
+                        '</root>',
+                    success: function (data, status) {
+                        if ($(data).find('err').length > 0) {
+                            openSignIn();
+                            showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data).find('err').attr('msg'));
+                            return;
+                        }
+
+                        updateUserInfor(data);
+                    },
+                    dataType: 'xml',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    error: function () {
+                        openSignIn();
+                        showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '无法登录, 请联系客服!');
+                    }
+                });
             }
-            $("#signupAlert").alert('close');
-            $('#mWindow_SignUp').modal('hide');
-            //$('#mWindow_CheckPhoneNumber').modal('show');
-            //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
-            updateUserInfor(true, data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -560,6 +569,7 @@ function signUp() {
 };
 
 function signIn() {
+    _registerRemoteServer();
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
         showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
@@ -581,17 +591,23 @@ function signIn() {
 
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.account.sign),
+        url: _getRequestURL(_gURLMapping.account.signwithcode),
         data: '<root>' +
-            '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
+            '<symbol>' + $("#txt_SignIn_UserName").val() + '</symbol>' +
             '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
             '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
+            '<codevalue>' + $("#txt_SignIn_CheckCode").val() + '</codevalue>' +
             '</root>',
         success: function (data, status) {
+            if ($(data).find('err').length > 0) {
+                showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data).find('err').attr('msg'));
+                return;
+            }
+
+            $.cookie('logined_user_name', $($(data).find('msg')[0]).attr('logined_user_name'));
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
-            updateUserInfor(true, data);
+            updateUserInfor(data);
         },
         dataType: 'xml',
         xhrFields: {
@@ -712,86 +728,89 @@ function updateCountDown(data) {
     }
 };
 
-function passportEnter() {
-    if ($("#txt_CheckPhoneNumber_CheckCode").val().trim() == "") {
-        showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '请输入获取到的验证码!');
-        return;
+function updateUserInfor(responseData) {
+    $('#nav_UserInfo_Item').remove();
+    if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+        $('li#nav_SignIn_Item').removeClass('hidden');
     }
 
-    $.ajax({
-        type: 'POST',
-        url: _getRequestURL(_gURLMapping.account.sign),
-        data: '<root>' +
-            '<username>' + $("#txt_SignIn_UserName").val() + '</username>' +
-            '<password>' + $("#txt_SignIn_Password").val() + '</password>' +
-            '<codename>signincode</codename>' +
-            '<codename>' + $("#txt_SignIn_CheckCode").val() + '</codename>' +
-            '</root>',
-        success: function (data, status) {
-            $("#checkPhoneAlert").alert('close');
-            $('#mWindow_CheckPhoneNumber').modal('hide');
-            updateUserInfor(true, data);
-        },
-        dataType: 'xml',
-        xhrFields: {
-            withCredentials: true
-        },
-        error: function () {
-            $("#checkPhoneAlert").alert('close');
-            showAlertMessage('mWindow_CheckPhone_Dialog', 'checkPhoneAlert', '无法进入, 请联系客服!');
-        }
-    });
-};
-
-function updateUserInfor(signed, data) {
-    if (typeof signed != 'undefined') {
-        if (signed) {
-            $('li#nav_SignIn_Item').toggleClass('hidden');
-            if ($("li#nav_UserInfo_Item").length <= 0) {
-                createUserInfoItem(data);
-            } else {
-                $('li#nav_UserInfo_Item').toggleClass('hidden');
-            }
-        } else {
-            if ($("li#nav_UserInfo_Item").length > 0) {
-                $('li#nav_UserInfo_Item').toggleClass('hidden');
-            }
-        }
+    if (responseData) {
+        createUserInfoItem(responseData);
     } else {
+        _registerRemoteServer();
         $.ajax({
             type: 'GET',
             url: _getRequestURL(_gURLMapping.account.signsstatus),
             data: '<root></root>',
-            success: function (data, status) {
-                updateUserInfor(true);
+            success: function (data_1, status) {
+                if ($(data_1).find('err').length > 0) {
+                    openSignIn(true);
+                    showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data_1).find('err').attr('msg'));
+                    return;
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: _getRequestURL(_gURLMapping.account.nickname),
+                        data: '<root></root>',
+                        success: function (data_2, status) {
+                            createUserInfoItem(data_2);
+                        },
+                        dataType: 'xml',
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        error: function () {
+                            $('#nav_UserInfo_Item').remove();
+                            if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+                                $('li#nav_SignIn_Item').removeClass('hidden');
+                            }
+                        }
+                    });
+                }
             },
             dataType: 'xml',
             xhrFields: {
                 withCredentials: true
             },
             error: function () {
-                updateUserInfor(false);
+                $('#nav_UserInfo_Item').remove();
+                if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+                    $('li#nav_SignIn_Item').removeClass('hidden');
+                }
             }
         });
     }
 };
 
 function createUserInfoItem(data) {
-    $('#nav_Search_Item').before(
-        $(
-            '<li class="nav-item" id="nav_UserInfo_Item">' +
-            '   <a href="#">' +
-            '       Welcome back' +
-            '       <span class="glyphicon glyphicon-user"></span>' +
-            '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">Alex</span>' +
-            '   </a>' +
-            '</li>'
-        )
-    );
+    if ($(data).find('msg').length > 0) {
+        var nickName = '';
+        if ($(data).find('msg').length > 1) {
+            nickName = $($(data).find('msg')[$(data).find('msg').length - 1]).attr('msg');
+        } else {
+            nickName = $($(data).find('msg')[0]).attr('logined_nickname');
+        }
 
-    $("#linkBtn_UserInfo").on('click', function () {
-        window.location.href = "studentcenter.html?cid=" + _gCID;
-    });
+        $('#navbar_collapse_ul').append(
+            $(
+                '<li class="nav-item" id="nav_UserInfo_Item">' +
+                '   <a href="#"  id="linkBtn_UserInfo" >' +
+                '       Welcome back &nbsp;' +
+                '       <span class="glyphicon glyphicon-user"></span>' +
+                '       <span class="text-header-userinfo">' + nickName + '</span>' +
+                '   </a>' +
+                '</li>'
+            )
+        );
+
+        if (!$('li#nav_SignIn_Item').hasClass('hidden')) {
+            $('li#nav_SignIn_Item').addClass('hidden');
+        }
+
+        $("#linkBtn_UserInfo").on('click', function () {
+            window.location.href = "accountcenter.html?cid=" + _gCID;
+        });
+    }
 };
 
 function reinitSignInFileds() {
