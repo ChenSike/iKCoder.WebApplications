@@ -101,7 +101,7 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    var defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
+    var defaultXml = (_workspaceCfg.workspace == '' ? '' : XMLToString(LoadXMLFile(_workspaceCfg.workspace)));
     WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 

@@ -794,10 +794,10 @@ function createUserInfoItem(data) {
         $('#navbar_collapse_ul').append(
             $(
                 '<li class="nav-item" id="nav_UserInfo_Item">' +
-                '   <a href="#">' +
+                '   <a href="#"  id="linkBtn_UserInfo" >' +
                 '       Welcome back &nbsp;' +
                 '       <span class="glyphicon glyphicon-user"></span>' +
-                '       <span  id="linkBtn_UserInfo" class="text-header-userinfo">' + nickName + '</span>' +
+                '       <span class="text-header-userinfo">' + nickName + '</span>' +
                 '   </a>' +
                 '</li>'
             )
