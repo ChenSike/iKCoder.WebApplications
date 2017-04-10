@@ -71,7 +71,11 @@ function initEvnets() {
     });
 
     $("#btn_Save_Profile").click(function () {
+        updateProfile();
+    });
 
+    $("#btn_Save_NewPWD").click(function () {
+        updatePWD();
     });
 
     $("#btn_Upload_Header").click(function () {
@@ -103,6 +107,7 @@ function initEvnets() {
         $('#progress_HeaderUpload').hide();
         $('#warnning_HeaderUpload').hide();
         $('#wrap_CropBox_Header').hide();
+        initCustomHeaderImg();
     });
 
     $('#customHeaderModal').on('hide.bs.modal', function () {
@@ -239,38 +244,36 @@ function adjustFooter() {
     $(".space-row-bottom").height(tmpHeight > 0 ? tmpHeight : 0);
 };
 
+var _currentHeaderImageSrc = '';
 function initCustomHeaderImg(data) {
     $('#progress_HeaderUpload').hide();
     var image = new Image();
-    if (!data) {
+    if (!data && _currentHeaderImageSrc == '') {
+        image.src = "images/head/head_11.jpg";
+    } else if (data) {
         //image.src = _getRequestURL(_gURLMapping.data.setbinresource, {});
+        image.src = "images/head/head_11.jpg";
     } else {
-        image.src = "images/head/head_1.png";
+        image.src = _currentHeaderImageSrc;
     }
 
-    image.src = "images/head/head_11.jpg";
     image.onload = function () {
-        var imgHeight = image.height;
-        var imgWidth = image.width;
-        var newWidth = imgWidth;
-        var newHeight = imgHeight;
-        var scaleX = imgWidth / 320;
-        var scaleY = imgHeight / 320;
-        if (imgHeight > imgWidth) {
-            newHeight = 320;
-            newWidth = imgWidth / imgHeight * newHeight;
-        } else {
-            newWidth = 320;
-            newHeight = imgHeight / imgWidth * newWidth;
-        }
-
+        var tmpSize = calcExhibitionSize(image);
         var canvas = document.getElementById("canvas_CustomHeader");
         var ctx = canvas.getContext('2d');
-        ctx.drawImage(image, 0, 0, imgWidth, imgHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
-        fnImageCropRot(image, { w: newWidth, h: newHeight });
+        ctx.drawImage(image, 0, 0, tmpSize.w, tmpSize.h, (320 - tmpSize.nw) / 2, (320 - tmpSize.nh) / 2, tmpSize.nw, tmpSize.nh);
+        fnImageCropRot(image, { w: tmpSize.nw, h: tmpSize.nh });
     };
+
+    if (_currentHeaderImageSrc != image.src) {
+        _currentHeaderImageSrc = image.src
+    } else {
+        var tmpSize = calcExhibitionSize(image);
+        fnImageCropRot(image, { w: tmpSize.nw, h: tmpSize.nh });
+    }
 }
 
+var _eventBinded = false;
 var fnImageCropRot = function (o, newSize) {
     var ID = function (id) {
         return document.getElementById(id);
@@ -294,17 +297,6 @@ var fnImageCropRot = function (o, newSize) {
         tmpHTMLArr.push('</div>');
         $("#canvas_CustomHeader").after(tmpHTMLArr.join(""));
     }
-
-    $('#wrap_CropBox_Header').show();
-    var cropWidth = (iOrigWidth > 100 ? 100 : iOrigWidth);
-    var cropHeight = (iOrigHeight > 100 ? 100 : iOrigHeight);
-    var orgLeft = (320 - cropWidth) / 2;
-    var orgTop = (320 - cropHeight) / 2;
-    $("#CropBox_Header").width(cropWidth);
-    $("#CropBox_Header").height(cropHeight);
-    $("#CropBox_Header").css('top', orgTop + "px");
-    $("#CropBox_Header").css('left', orgLeft + "px");
-    showSampleImage(o, orgLeft - (320 - newSize.w) / 2, orgTop - (320 - newSize.h) / 2, cropWidth, cropHeight, newSize);
 
     var params = {
         left: 0,
@@ -346,10 +338,7 @@ var fnImageCropRot = function (o, newSize) {
             params.top = $(target).position().top;
             params.width = $(target).width();
             params.height = $(target).height();
-
-            var tmpLeft = (iOrigWidth < 320 ? params.left - (320 - iOrigWidth) / 2 : params.left);
-            var tmpTop = (iOrigHeight < 320 ? params.top - (320 - iOrigHeight) / 2 : params.top);
-            showSampleImage(o, tmpLeft - (320 - newSize.w) / 2, tmpTop - (320 - newSize.h) / 2, params.width, params.height, newSize);
+            showSampleImage(o, params.left, params.top, params.width, params.height, newSize);
         };
 
         document.onmousemove = function (event) {
@@ -383,26 +372,140 @@ var fnImageCropRot = function (o, newSize) {
         }
     }
 
-    startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag");
-    startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se");
+    $('#wrap_CropBox_Header').show();
+    var cropWidth = (iOrigWidth > 100 ? 100 : iOrigWidth);
+    var cropHeight = (iOrigHeight > 100 ? 100 : iOrigHeight);
+    var orgLeft = (320 - cropWidth) / 2;
+    var orgTop = (320 - cropHeight) / 2;
+    $("#CropBox_Header").width(cropWidth);
+    $("#CropBox_Header").height(cropHeight);
+    $("#CropBox_Header").css('top', orgTop + "px");
+    $("#CropBox_Header").css('left', orgLeft + "px");
+    showSampleImage(o, orgLeft, orgTop, cropWidth, cropHeight, newSize);
+    if (!_eventBinded) {
+        startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag");
+        startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se");
+        _eventBinded = true;
+    }
 };
 
-function calcRealSize(image, left, top, width, height, newSize) {
+function calcExhibitionSize(image) {
+    var imgHeight = image.height;
+    var imgWidth = image.width;
+    var newWidth = imgWidth;
+    var newHeight = imgHeight;
+    var scaleX = imgWidth / 320;
+    var scaleY = imgHeight / 320;
+    if (imgHeight > imgWidth) {
+        newHeight = 320;
+        newWidth = imgWidth / imgHeight * newHeight;
+    } else {
+        newWidth = 320;
+        newHeight = imgHeight / imgWidth * newWidth;
+    }
+
+    return { w: imgWidth, h: imgHeight, nw: newWidth, nh: newHeight };
+};
+
+function transCropBoxSizeToRealSize(image, left, top, width, height, newSize) {
+    var tmpLeft = left - (320 - newSize.w) / 2;
+    var tmpTop = top - (320 - newSize.h) / 2;
+    var tmpWidth = width;
+    var tmpHeight = height;
+    if (tmpLeft < 0 && left + width > newSize.w) {
+        tmpWidth = width + tmpLeft - (left + width - (320 + newSize.w) / 2);
+        tmpLeft = 0;
+    } else if (tmpLeft < 0) {
+        tmpWidth = width + tmpLeft;
+        tmpLeft = 0;
+    } else if (left + width > newSize.w) {
+        tmpWidth = (320 + newSize.w) / 2 - left;
+    }
+
+    if (tmpTop < 0 && top + height > newSize.h) {
+        tmpHeight = height + tmpTop - (top + height - (320 + newSize.h) / 2);
+        tmpTop = 0;
+    } else if (tmpTop < 0) {
+        tmpHeight = height + tmpTop;
+        tmpTop = 0;
+    } else if (top + height > newSize.h) {
+        tmpHeight = (320 + newSize.h) / 2 - top;
+    }
+
     var scaleX = image.width / newSize.w;
     var scaleY = image.height / newSize.h;
-    left = left * scaleX;
-    top = top * scaleY;
-    width = width * scaleX;
-    height = height * scaleY;
+    left = tmpLeft * scaleX;
+    top = tmpTop * scaleY;
+    width = tmpWidth * scaleX;
+    height = tmpHeight * scaleY;
     return { l: left, t: top, w: width, h: height };
-}
+};
 
 function showSampleImage(image, left, top, width, height, newSize) {
-    var sizeObj = calcRealSize(image, left, top, width, height, newSize)
+    var sizeObj = transCropBoxSizeToRealSize(image, left, top, width, height, newSize)
     var ctx = document.getElementById("canvas_Sample_1").getContext('2d');
+    ctx.clearRect(0, 0, 100, 100);
     ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 100, 100);
     ctx = document.getElementById("canvas_Sample_2").getContext('2d');
+    ctx.clearRect(0, 0, 64, 64);
     ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 64, 64);
     ctx = document.getElementById("canvas_Sample_3").getContext('2d');
+    ctx.clearRect(0, 0, 24, 24);
     ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 24, 24);
-}
+    $('#btn_CustomHeader_Save').attr('data-content', sizeObj.l + ',' + sizeObj.t + ',' + sizeObj.w + ',' + sizeObj.h)
+};
+
+function updatePWD() {
+    var oldPWD = $("#txt_Old_Password").val().trim();
+    var newPWD = $("#txt_New_Password").val().trim();
+    var confirmPWD = $("#txt_Confirm_Password").val().trim();
+    if (oldPWD == "") {
+        _showGlobalMessage('请输入旧密码!', 'danger');
+        return;
+    } else if (newPWD == "") {
+        _showGlobalMessage('请输入新密码!', 'warning');
+        return;
+    } else if (confirmPWD == "") {
+        _showGlobalMessage('请确认新密码!', 'warning');
+        return;
+    }
+
+
+    if (_checkPassword(newPWD) < 0) {
+        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger');
+        return;
+    } else if (newPWD != confirmPWD) {
+        _showGlobalMessage('请确认新密码!', 'danger');
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.account.updatepwd),
+        data: '<root>' +
+            '<symbol></symbol>' +
+            '<newpassword>' + newPWD + '</password>' +
+            '<oldpassword>' + oldPWD + '</codename>' +
+            '</root>',
+        success: function (data, status) {
+            if ($(data).find('err').length > 0) {
+                _showGlobalMessage($(data).find('err').attr('msg'), 'danger');
+                return;
+            } else if ($(data).find('msg').length > 0) {
+                _showGlobalMessage('修改登录密码成功', 'success');
+                return;
+            }
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+            _showGlobalMessage('修改登录密码失败!', 'danger');
+        }
+    });
+};
+
+function updateProfile() {
+
+};

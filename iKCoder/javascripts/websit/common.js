@@ -3,8 +3,8 @@
 var _gRegisterServer = false;
 var _gLabelMap = {};
 //var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
-//var _gHostName = 'http://10.86.18.67/ikcoder';
-var _gHostName = 'http://api.ikcoder.com/ikcoder';
+var _gHostName = 'http://10.86.18.67/ikcoder';
+//var _gHostName = 'http://api.ikcoder.com/ikcoder';
 var _gURLMapping = {
     server: {
         reg: '/Sys/SYS_RegServer.aspx'
@@ -15,7 +15,8 @@ var _gURLMapping = {
         signwithcode: '/Account/GET_SignWithCheckCode.aspx',
         checkcode: '/data/get_checkcodenua.aspx',
         signsstatus: '/Account/GET_SignStatus.aspx',
-        nickname: '/Account/Profile/GET_NickName.aspx'
+        nickname: '/Account/Profile/GET_NickName.aspx',
+        updatepwd: 'Account/SET_ResetPassword.aspx'
     },
     data: {
         studentcenter: '/Data/GET_ResourceDataText.aspx',
@@ -303,6 +304,10 @@ function _startIntroJs() {
     //        withCredentials: true
     //    }
     //});
+};
+
+function _showGlobalMessage(msg, type) {
+    $('body').append($('<div class="alert alert-' + type + '  alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + msg + '</div>'));
 }
 
 (function initCID() {
@@ -440,5 +445,4 @@ function _startIntroJs() {
         $.cookie(key, '', $.extend({}, options, { expires: -1 }));
         return !$.cookie(key);
     };
-
 }));
