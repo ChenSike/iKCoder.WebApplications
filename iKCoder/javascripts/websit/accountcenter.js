@@ -242,8 +242,6 @@ function adjustFooter() {
 function initCustomHeaderImg(data) {
     $('#progress_HeaderUpload').hide();
     var image = new Image();
-    var canvas = document.getElementById("canvas_CustomHeader");
-    var ctx = canvas.getContext('2d');
     if (!data) {
         //image.src = _getRequestURL(_gURLMapping.data.setbinresource, {});
     } else {
@@ -254,20 +252,26 @@ function initCustomHeaderImg(data) {
     image.onload = function () {
         var imgHeight = image.height;
         var imgWidth = image.width;
-        var newWidth = (imgWidth > 320 ? 320 : imgWidth);
-        var newHeight = (imgHeight > 320 ? 320 : imgHeight);
-        ctx.drawImage(image, 0, 0, newWidth, newHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
-        ctx = document.getElementById("canvas_Sample_1").getContext('2d');
-        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 100, 100);
-        ctx = document.getElementById("canvas_Sample_2").getContext('2d');
-        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 64, 64);
-        ctx = document.getElementById("canvas_Sample_3").getContext('2d');
-        ctx.drawImage(image, 0, 0, newWidth, newHeight, 0, 0, 24, 24);
-        fnImageCropRot(image);
+        var newWidth = imgWidth;
+        var newHeight = imgHeight;
+        var scaleX = imgWidth / 320;
+        var scaleY = imgHeight / 320;
+        if (imgHeight > imgWidth) {
+            newHeight = 320;
+            newWidth = imgWidth / imgHeight * newHeight;
+        } else {
+            newWidth = 320;
+            newHeight = imgHeight / imgWidth * newWidth;
+        }
+
+        var canvas = document.getElementById("canvas_CustomHeader");
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, imgWidth, imgHeight, (320 - newWidth) / 2, (320 - newHeight) / 2, newWidth, newHeight);
+        fnImageCropRot(image, { w: newWidth, h: newHeight });
     };
 }
 
-var fnImageCropRot = function (o) {
+var fnImageCropRot = function (o, newSize) {
     var ID = function (id) {
         return document.getElementById(id);
     };
@@ -294,10 +298,13 @@ var fnImageCropRot = function (o) {
     $('#wrap_CropBox_Header').show();
     var cropWidth = (iOrigWidth > 100 ? 100 : iOrigWidth);
     var cropHeight = (iOrigHeight > 100 ? 100 : iOrigHeight);
+    var orgLeft = (320 - cropWidth) / 2;
+    var orgTop = (320 - cropHeight) / 2;
     $("#CropBox_Header").width(cropWidth);
     $("#CropBox_Header").height(cropHeight);
-    $("#CropBox_Header").css('top', (320 - cropHeight) / 2 + "px");
-    $("#CropBox_Header").css('left', (320 - cropWidth) / 2 + "px");
+    $("#CropBox_Header").css('top', orgTop + "px");
+    $("#CropBox_Header").css('left', orgLeft + "px");
+    showSampleImage(o, orgLeft - (320 - newSize.w) / 2, orgTop - (320 - newSize.h) / 2, cropWidth, cropHeight, newSize);
 
     var params = {
         left: 0,
@@ -342,12 +349,7 @@ var fnImageCropRot = function (o) {
 
             var tmpLeft = (iOrigWidth < 320 ? params.left - (320 - iOrigWidth) / 2 : params.left);
             var tmpTop = (iOrigHeight < 320 ? params.top - (320 - iOrigHeight) / 2 : params.top);
-            var ctx = document.getElementById("canvas_Sample_1").getContext('2d');
-            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 100, 100);
-            ctx = document.getElementById("canvas_Sample_2").getContext('2d');
-            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 64, 64);
-            ctx = document.getElementById("canvas_Sample_3").getContext('2d');
-            ctx.drawImage(o, tmpLeft, tmpTop, params.width, params.height, 0, 0, 24, 24);
+            showSampleImage(o, tmpLeft - (320 - newSize.w) / 2, tmpTop - (320 - newSize.h) / 2, params.width, params.height, newSize);
         };
 
         document.onmousemove = function (event) {
@@ -363,8 +365,8 @@ var fnImageCropRot = function (o) {
                 if (params.kind === "se") {
                     var newWidth = tmpWidth + disX;
                     var newHeight = tmpHeighth + disY;
-                    newWidth = (newWidth + tmpLeft > 317 ? 317 - tmpLeft : newWidth);
-                    newHeight = (newHeight + tmpTop > 317 ? 317 - tmpTop : newHeight);
+                    newWidth = (newWidth + tmpLeft > 320 ? 320 - tmpLeft : newWidth); 320
+                    newHeight = (newHeight + tmpTop > 320 ? 320 - tmpTop : newHeight);
                     $(target).width(newWidth);
                     $(target).height(newHeight);
                 } else {
@@ -372,8 +374,8 @@ var fnImageCropRot = function (o) {
                     var newTop = tmpTop + disY;
                     newLeft = (newLeft < 0 ? 0 : newLeft);
                     newTop = (newTop < 0 ? 0 : newTop);
-                    newLeft = (newLeft + tmpWidth > 317 ? 317 - tmpWidth : newLeft);
-                    newTop = (newTop + tmpHeighth > 317 ? 317 - tmpHeighth : newTop);
+                    newLeft = (newLeft + tmpWidth > 320 ? 320 - tmpWidth : newLeft);
+                    newTop = (newTop + tmpHeighth > 320 ? 320 - tmpHeighth : newTop);
                     $(target).css('left', newLeft + "px");
                     $(target).css('top', newTop + "px");
                 }
@@ -384,3 +386,23 @@ var fnImageCropRot = function (o) {
     startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag");
     startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se");
 };
+
+function calcRealSize(image, left, top, width, height, newSize) {
+    var scaleX = image.width / newSize.w;
+    var scaleY = image.height / newSize.h;
+    left = left * scaleX;
+    top = top * scaleY;
+    width = width * scaleX;
+    height = height * scaleY;
+    return { l: left, t: top, w: width, h: height };
+}
+
+function showSampleImage(image, left, top, width, height, newSize) {
+    var sizeObj = calcRealSize(image, left, top, width, height, newSize)
+    var ctx = document.getElementById("canvas_Sample_1").getContext('2d');
+    ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 100, 100);
+    ctx = document.getElementById("canvas_Sample_2").getContext('2d');
+    ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 64, 64);
+    ctx = document.getElementById("canvas_Sample_3").getContext('2d');
+    ctx.drawImage(image, sizeObj.l, sizeObj.t, sizeObj.w, sizeObj.h, 0, 0, 24, 24);
+}
