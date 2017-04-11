@@ -16,7 +16,7 @@ var _gURLMapping = {
         checkcode: '/data/get_checkcodenua.aspx',
         signsstatus: '/Account/GET_SignStatus.aspx',
         nickname: '/Account/Profile/GET_NickName.aspx',
-        updatepwd: 'Account/SET_ResetPassword.aspx'
+        updatepwd: '/Account/SET_ResetPassword.aspx'
     },
     data: {
         studentcenter: '/Data/GET_ResourceDataText.aspx',

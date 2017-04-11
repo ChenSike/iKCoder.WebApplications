@@ -1132,9 +1132,9 @@ header button .navbar-toggle {
     }
 }
 
-@media screen and (min-width: 1201px) {
+/*@media screen and (min-width: 1201px) {
     .row.container-wrap {
         max-width:1200px;
         margin-left: calc(50% - 600px);
     }
-}
+}*/

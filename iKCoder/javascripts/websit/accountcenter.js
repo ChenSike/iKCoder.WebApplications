@@ -484,8 +484,8 @@ function updatePWD() {
         url: _getRequestURL(_gURLMapping.account.updatepwd),
         data: '<root>' +
             '<symbol></symbol>' +
-            '<newpassword>' + newPWD + '</password>' +
-            '<oldpassword>' + oldPWD + '</codename>' +
+            '<newpassword>' + newPWD + '</newpassword>' +
+            '<oldpassword>' + oldPWD + '</oldpassword>' +
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
