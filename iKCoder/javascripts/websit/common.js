@@ -2,8 +2,8 @@
 
 var _gRegisterServer = false;
 var _gLabelMap = {};
-var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
-//var _gHostName = 'http://10.86.18.67/ikcoder';
+//var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
+var _gHostName = 'http://10.86.18.67/ikcoder';
 //var _gHostName = 'http://api.ikcoder.com/ikcoder';
 var _gURLMapping = {
     server: {
@@ -306,9 +306,16 @@ function _startIntroJs() {
     //});
 };
 
-function _showGlobalMessage(msg, type) {
-    $('body').append($('<div class="alert alert-' + type + '  alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + msg + '</div>'));
-}
+function _showGlobalMessage(msg, type, id) {
+    if ($('.alert-mask').length == 0) {
+        $('body').append($('<div class="alert-mask"></div>'));
+    }
+    $('.alert-mask').show();
+    $('body').append($('<div class="alert alert-' + type + '  alert-dismissable" id="' + id + '"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + msg + '</div>'));
+    $('#' + id).bind('close.bs.alert', function () {
+        $('.alert-mask').hide();
+    });
+};
 
 (function initCID() {
     if (_gCID == null) {

@@ -460,22 +460,22 @@ function updatePWD() {
     var newPWD = $("#txt_New_Password").val().trim();
     var confirmPWD = $("#txt_Confirm_Password").val().trim();
     if (oldPWD == "") {
-        _showGlobalMessage('请输入旧密码!', 'danger');
+        _showGlobalMessage('请输入旧密码!', 'danger', 'aleret_Input_OldPWD');
         return;
     } else if (newPWD == "") {
-        _showGlobalMessage('请输入新密码!', 'warning');
+        _showGlobalMessage('请输入新密码!', 'warning', 'aleret_Input_NewPWD');
         return;
     } else if (confirmPWD == "") {
-        _showGlobalMessage('请确认新密码!', 'warning');
+        _showGlobalMessage('请确认新密码!', 'warning', 'aleret_Confirm_NewPWD');
         return;
     }
 
 
     if (_checkPassword(newPWD) < 0) {
-        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger');
+        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger', 'aleret_Reset_NewPWD');
         return;
     } else if (newPWD != confirmPWD) {
-        _showGlobalMessage('请确认新密码!', 'danger');
+        _showGlobalMessage('请确认新密码!', 'danger', 'aleret_Confirm_NewPWD');
         return;
     }
 
@@ -489,10 +489,10 @@ function updatePWD() {
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
-                _showGlobalMessage($(data).find('err').attr('msg'), 'danger');
+                _showGlobalMessage($(data).find('err').attr('msg'), 'danger', 'aleret_Error_ChangePWD');
                 return;
             } else if ($(data).find('msg').length > 0) {
-                _showGlobalMessage('修改登录密码成功', 'success');
+                _showGlobalMessage('修改登录密码成功', 'success', 'aleret_Success_ChangePWD');
                 return;
             }
         },
@@ -501,7 +501,7 @@ function updatePWD() {
             withCredentials: true
         },
         error: function () {
-            _showGlobalMessage('修改登录密码失败!', 'danger');
+            _showGlobalMessage('修改登录密码失败!', 'danger', 'aleret_Error_ChangePWD');
         }
     });
 };
