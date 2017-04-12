@@ -143,7 +143,7 @@ function initEvnets() {
                 sumitdata: 1,
                 //callback: encodeURI("parent.uploadCallBack(JSPARAM)"),
                 filetype: fileType,
-                symbol: $.cookie('logined_user_name') + "_temp_header",
+                symbol: 'img_temp_header_' + $.cookie('logined_user_name'),
             }));
             $('#form_Upload').submit();
             _UploadHeaderHandle = setTimeout('initCustomHeaderImg()', 1000);
@@ -460,22 +460,22 @@ function updatePWD() {
     var newPWD = $("#txt_New_Password").val().trim();
     var confirmPWD = $("#txt_Confirm_Password").val().trim();
     if (oldPWD == "") {
-        _showGlobalMessage('请输入旧密码!', 'danger', 'aleret_Input_OldPWD');
+        _showGlobalMessage('请输入旧密码!', 'danger', 'alert_Input_OldPWD');
         return;
     } else if (newPWD == "") {
-        _showGlobalMessage('请输入新密码!', 'warning', 'aleret_Input_NewPWD');
+        _showGlobalMessage('请输入新密码!', 'warning', 'alert_Input_NewPWD');
         return;
     } else if (confirmPWD == "") {
-        _showGlobalMessage('请确认新密码!', 'warning', 'aleret_Confirm_NewPWD');
+        _showGlobalMessage('请确认新密码!', 'warning', 'alert_Confirm_NewPWD');
         return;
     }
 
 
     if (_checkPassword(newPWD) < 0) {
-        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger', 'aleret_Reset_NewPWD');
+        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger', 'alert_Reset_NewPWD');
         return;
     } else if (newPWD != confirmPWD) {
-        _showGlobalMessage('请确认新密码!', 'danger', 'aleret_Confirm_NewPWD');
+        _showGlobalMessage('请确认新密码!', 'danger', 'alert_Confirm_NewPWD');
         return;
     }
 
@@ -489,10 +489,10 @@ function updatePWD() {
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
-                _showGlobalMessage($(data).find('err').attr('msg'), 'danger', 'aleret_Error_ChangePWD');
+                _showGlobalMessage($(data).find('err').attr('msg'), 'danger', 'alert_Error_ChangePWD');
                 return;
             } else if ($(data).find('msg').length > 0) {
-                _showGlobalMessage('修改登录密码成功', 'success', 'aleret_Success_ChangePWD');
+                _showGlobalMessage('修改登录密码成功', 'success', 'alert_Success_ChangePWD');
                 return;
             }
         },
@@ -501,7 +501,7 @@ function updatePWD() {
             withCredentials: true
         },
         error: function () {
-            _showGlobalMessage('修改登录密码失败!', 'danger', 'aleret_Error_ChangePWD');
+            _showGlobalMessage('修改登录密码失败!', 'danger', 'alert_Error_ChangePWD');
         }
     });
 };

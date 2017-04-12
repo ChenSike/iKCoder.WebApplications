@@ -544,6 +544,8 @@ function signUp() {
                             return;
                         }
 
+                        $.cookie('logined_user_name', $($(data).find('msg')[0]).attr('logined_user_name'));
+                        $.cookie('logined_nick_name', $($(data).find('msg')[0]).attr('logined_nick_name'));
                         updateUserInfor(data);
                     },
                     dataType: 'xml',
@@ -605,6 +607,7 @@ function signIn() {
             }
 
             $.cookie('logined_user_name', $($(data).find('msg')[0]).attr('logined_user_name'));
+            $.cookie('logined_nick_name', $($(data).find('msg')[0]).attr('logined_nick_name'));
             $("#signinAlert").alert('close');
             $('#mWindow_SignIn').modal('hide');
             updateUserInfor(data);
@@ -729,11 +732,7 @@ function updateCountDown(data) {
 };
 
 function updateUserInfor(responseData) {
-    $('#nav_UserInfo_Item').remove();
-    if ($('li#nav_SignIn_Item').hasClass('hidden')) {
-        $('li#nav_SignIn_Item').removeClass('hidden');
-    }
-
+    removeUserInfoItem();
     if (responseData) {
         createUserInfoItem(responseData);
     } else {
@@ -748,24 +747,29 @@ function updateUserInfor(responseData) {
                     showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', $(data_1).find('err').attr('msg'));
                     return;
                 } else {
-                    $.ajax({
-                        type: 'GET',
-                        url: _getRequestURL(_gURLMapping.account.nickname),
-                        data: '<root></root>',
-                        success: function (data_2, status) {
-                            createUserInfoItem(data_2);
-                        },
-                        dataType: 'xml',
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        error: function () {
-                            $('#nav_UserInfo_Item').remove();
-                            if ($('li#nav_SignIn_Item').hasClass('hidden')) {
-                                $('li#nav_SignIn_Item').removeClass('hidden');
+                    if ($.cookie('logined_user_name') && $.cookie('logined_nick_name') && $.cookie('logined_user_name') != "" && $.cookie('logined_nick_name') != "") {
+                        createUserInfoItem($.cookie('logined_nick_name'));
+                    } else {
+                        $.ajax({
+                            type: 'GET',
+                            url: _getRequestURL(_gURLMapping.account.nickname),
+                            data: '<root></root>',
+                            success: function (data_2, status) {
+                                if ($(data_2).find('err').length > 0) {
+                                    _showGlobalMessage($(data_2).find('err').attr('msg'), 'danger', 'alert_SignStatus_Error');
+                                } else {
+                                    createUserInfoItem(data_2);
+                                }
+                            },
+                            dataType: 'xml',
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            error: function () {
+                                removeUserInfoItem();
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             },
             dataType: 'xml',
@@ -773,24 +777,42 @@ function updateUserInfor(responseData) {
                 withCredentials: true
             },
             error: function () {
-                $('#nav_UserInfo_Item').remove();
-                if ($('li#nav_SignIn_Item').hasClass('hidden')) {
-                    $('li#nav_SignIn_Item').removeClass('hidden');
-                }
+                removeUserInfoItem();
             }
         });
     }
 };
 
-function createUserInfoItem(data) {
-    if ($(data).find('msg').length > 0) {
-        var nickName = '';
-        if ($(data).find('msg').length > 1) {
-            nickName = $($(data).find('msg')[$(data).find('msg').length - 1]).attr('msg');
-        } else {
-            nickName = $($(data).find('msg')[0]).attr('logined_nickname');
-        }
+function removeUserInfoItem() {
+    $('li#nav_UserInfo_Item').remove();
+    if ($('li#nav_SignIn_Item').hasClass('hidden')) {
+        $('li#nav_SignIn_Item').removeClass('hidden');
+    }
+}
 
+function createUserInfoItem(data) {
+    var nickName = '';
+    if (typeof data == 'string') {
+        nickName = data;
+    } else {
+        var tmpObject = $(data).find('msg');
+        if (tmpObject.length > 0) {
+            if (tmpObject.length > 1) {
+                for (var i = 0; i < tmpObject.length; i++) {
+                    if ($(tmpObject[i]).attr('type') != '1') {
+                        nickName = $(tmpObject[i]).attr('msg');
+                    }
+                }
+            } else {
+                nickName = $(tmpObject[0]).attr('logined_nickname');
+            }
+
+            $.cookie('logined_nick_name', nickName);
+        }
+    }
+
+    if (nickName != '') {
+        /*
         $('#navbar_collapse_ul').append(
             $(
                 '<li class="nav-item" id="nav_UserInfo_Item">' +
@@ -802,6 +824,23 @@ function createUserInfoItem(data) {
                 '</li>'
             )
         );
+        */
+        $('#navbar_collapse_ul').append(
+            $(
+                '<li class="nav-item dropdown" id="nav_UserInfo_Item">' +
+                '   <a href="#" class="dropdown-toggle" data-toggle="dropdown">' +
+                '       Welcome back &nbsp;' +
+                '       <span class="glyphicon glyphicon-user"></span>' +
+                '       <span class="text-header-userinfo">' + nickName + '</span>' +
+                '       <b class="caret"></b>' +
+                '   </a>' +
+                '   <ul class="dropdown-menu">' +
+                '       <li class="nav-item"><a href="#" id="linkBtn_SignOut" style="font-weight:100;">退出登录</a></li>' +
+                '       <li class="nav-item"><a href="#" id="linkBtn_UserInfo" style="font-weight:100;">用户信息</a></li>' +
+                '   </ul>' +
+                '</li>'
+            )
+        );
 
         if (!$('li#nav_SignIn_Item').hasClass('hidden')) {
             $('li#nav_SignIn_Item').addClass('hidden');
@@ -809,6 +848,33 @@ function createUserInfoItem(data) {
 
         $("#linkBtn_UserInfo").on('click', function () {
             window.location.href = "accountcenter.html?cid=" + _gCID;
+        });
+
+        $("#linkBtn_SignOut").on('click', function () {
+            _registerRemoteServer();
+            $.ajax({
+                type: 'GET',
+                url: _getRequestURL(_gURLMapping.account.logout),
+                data: '<root></root>',
+                success: function (data_2, status) {
+                    if ($(data_2).find('err').length > 0) {
+                        _showGlobalMessage($(data_2).find('err').attr('msg'), 'danger', 'alert_Logout_Error');
+                    } else {
+                        removeUserInfoItem();
+                        $.removeCookie('logined_user_name');
+                        $.removeCookie('logined_nick_name');
+                    }
+                },
+                dataType: 'xml',
+                xhrFields: {
+                    withCredentials: true
+                },
+                error: function () {
+                    removeUserInfoItem();
+                    $.removeCookie('logined_user_name');
+                    $.removeCookie('logined_nick_name');
+                }
+            });
         });
     }
 };
@@ -821,7 +887,7 @@ function reinitSignInFileds() {
     $("#txt_ForgetPWD_NewPwd").val('');
     $("#txt_ForgetPWD_ConfirmPwd").val('');
     $("#lb_FPwd_Pwd_Intension").text('');
-    $("#img_SignIn_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
+    refereshCheckCode('img_SignIn_CheckCode');
 };
 
 function reinitSignUpFileds() {
@@ -830,8 +896,13 @@ function reinitSignUpFileds() {
     $("#txt_SignUp_Pwd").val('');
     $("#lb_SignUp_Pwd_Intension").text('');
     $("#txt_SignUp_CheckCode").val('');
+    refereshCheckCode('img_SignUp_CheckCode');
     $("#img_SignUp_CheckCode").attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
 };
+
+function refereshCheckCode(checkCodeId) {
+    $("#" + checkCodeId).attr("src", _getRequestURL(_gURLMapping.account.checkcode, _checkCodeParams));
+}
 
 function showAlertMessage(containerId, alertId, message) {
     $('#' + containerId).prepend(
