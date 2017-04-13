@@ -47,7 +47,7 @@
             {
                 cn: "RAM",
                 en: "RAM",
-                path: "svg/ram.svg"
+                path: "svg/ram-memory.svg"
             }
         ],
         "Computing": [{
@@ -105,7 +105,7 @@
         }
     }
 
-    function placeComponents(config, layer, stage) {
+    function placeComponents(config, layer, categoryLayer, stage) {
 
         var ccomponents = [];
         for (var group in config) {
@@ -120,7 +120,7 @@
             rows = Math.floor((stage.getHeight() - verticalMargin) / cellDimension),
             cells = columns * rows;
 
-        var calcCcomponentConfig = function(cellIndex, cellConfig, layer) {
+        var calcCcomponentConfig = function(cellIndex, cellConfig) {
             var cn = cellConfig.cn,
                 en = cellConfig.en,
                 path = cellConfig.path,
@@ -136,7 +136,6 @@
                 y = verticalMargin / 2 + rowIndex * cellDimension + offsetY;
 
             return {
-                layer: layer,
                 x: x,
                 y: y,
                 width: width,
@@ -149,7 +148,7 @@
         };
 
         for (var i = 0; i < Math.min(cells, ccomponents.length); i++) {
-            loadImage(calcCcomponentConfig(i, ccomponents[i], layer));
+            loadImage(calcCcomponentConfig(i, ccomponents[i]), layer, categoryLayer);
         }
     }
 
@@ -190,7 +189,7 @@
                 imageObj.src = !this._isAssigned ? null : this._isAssignedCorrectly ? 'svg/success.svg' : 'svg/error.svg';
                 that.resultImage.image(imageObj);
 
-                layer.draw();
+                this.parent.draw();
                 that.resultImage.draw();
             }
         };
@@ -282,25 +281,52 @@
             if (categoryRect !== undefined) {
                 var nth = this.add(image);
 
+                var x0 = image.x(),
+                    y0 = image.y(),
+                    width0 = image.width(),
+                    height0 = image.height(),
+
+                    slices = 50,
+                    delta = (categoryRect.x() + 5 - x0) / slices,
+                    deltaY = (categoryRect.y() + 5 + calculateOffsetY(nth) - y0) / slices,
+                    deltaWidth = (CATEGORY_THUMB_NAIL_SIZE_X - width0) / slices,
+                    deltaHeight = (CATEGORY_THUMB_NAIL_SIZE_Y -height0) / slices;
+
+                var i = 0;
+                var anim = new Konva.Animation(function(frame){
+                    if(i < slices){
+                        image.height(image.height() + deltaHeight);
+                        image.width(image.width() + deltaWidth);
+                        image.x(image.x() + delta);
+                        image.y(image.y() + deltaY);
+                        i++;
+                    } else {
+                        anim.stop();
+
+                        image._isAssigned = categoryRect === undefined ? false : true;
+                        image._isAssignedCorrectly = isAssignedRight(categoryRect, image);
+
+                        image.resultImage.x(image.x() + image.width() + 10);
+                        image.resultImage.y(image.y() + (image.height() - RESULT_HEIGHT) / 2);
+
+                        image.draw();
+                        image.parent.draw();
+                    }
+                }, image.parent);
+
+                anim.start();
                 // resize image
-                image.height(CATEGORY_THUMB_NAIL_SIZE_X);
-                image.width(CATEGORY_THUMB_NAIL_SIZE_Y);
+                // image.height(CATEGORY_THUMB_NAIL_SIZE_X);
+                // image.width(CATEGORY_THUMB_NAIL_SIZE_Y);
 
-                // calculate image x and y
-                image.x(categoryRect.x() + 5);
-                image.y(categoryRect.y() + calculateOffsetY(nth));
-
-                image._isAssigned = categoryRect === undefined ? false : true;
-                image._isAssignedCorrectly = isAssignedRight(categoryRect, image);
-
-                image.resultImage.x(image.x() + image.width() + 10);
-                image.resultImage.y(image.y() + (image.height() - RESULT_HEIGHT) / 2);
+                // // calculate image x and y
+                // image.x(categoryRect.x() + 5);
+                // image.y(categoryRect.y() + calculateOffsetY(nth));
 
                 image.draggable(false);
                 image.off('mouseover');
             }
 
-            image.draw();
         };
 
         // return a function that return the associated CategoryContainer instance
@@ -314,7 +340,7 @@
 
     })();
 
-    function loadImage(config) {
+    function loadImage(config, layer, categoryLayer) {
         var box = new Konva.Ccomponent({
             x: config.x,
             y: config.y,
@@ -345,8 +371,10 @@
         box.on('dragend', function() {
             // locate the hit category
             var detectedCategoryRect = detectIntersection(this, categoryLayer.children);
-            if (!!detectedCategoryRect)
-                _categorizer(detectedCategoryRect, this, detectedCategoryRect);
+            if (!!detectedCategoryRect){
+                _categorizer(detectedCategoryRect, this, {});
+                // layer.draw();
+            }
             else {
                 this._isAssigned = false;
                 layer.draw();
@@ -401,44 +429,78 @@
         };
     })();
 
-    var width = window.innerWidth,
-        height = window.innerHeight,
-        stage = new Konva.Stage({
-            container: 'container',
-            width: width,
-            height: height
-        });
 
-    var layer = new Konva.Layer(),
-        resultLayer = new Konva.Layer(),
-        categoryLayer = new Konva.Layer(),
-        rectX = stage.getWidth() / 2 - 50,
-        rectY = stage.getHeight() / 2 - 25;
+    var _categorizer;
+    // Used for exposing Scene related API
+    function Scene(config) {
+        this.config = config;
+        this.___init();
+    }
 
-    var s = window.Scene = function() {};
-    s.prototype = {
-        loadImage: loadImage,
-        cleanLayer: layer.destroy
+    Scene.prototype = {
+        constructor: Scene,
+        ___init: function() {
+            this.stage = new Konva.Stage({
+                container: 'container',
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+
+            this.layer = new Konva.Layer();
+            this.resultLayer = new Konva.Layer();
+            this.categoryLayer = new Konva.Layer();
+            this.connectionLayer = new Konva.Layer({
+                clearBeforeDraw: false
+            });
+        },
+
+        start: function() {
+            placeComponents(this.config, this.layer, this.categoryLayer, this.stage);
+            placeComponentGroups(this.config, this.categoryLayer, this.stage);
+
+            _categorizer = categoryManager(this.categoryLayer);
+            this.stage.add(this.categoryLayer);
+            this.stage.add(this.layer);
+            this.stage.add(this.resultLayer);
+            this.stage.add(this.connectionLayer);
+        },
+
+        connect(comp1, comp2) {
+            console.log('connecting ' + comp1 + ' to ' + comp2);
+
+            var arc = new Konva.Arc({
+                x: this.stage.getWidth() / 2,
+                y: this.stage.getHeight() / 2,
+                innerRadius: 2,
+                outerRadius: 5,
+                angle: 270,
+                opacity: 0.3,
+                fill: 'white',
+                stroke: 'black',
+                strokeWidth: 3
+            });
+
+            this.connectionLayer.add(arc);
+
+            var duration = 2000,
+                i = 10,
+                j = 10;
+
+            var anim = new Konva.Animation(function(frame) {
+                if(i < 100){
+                    arc.x(arc.x() + 1);
+                    arc.y(arc.y() + 1);
+                } else {
+                    anim.stop();
+                    console.log('anim done...');
+                }
+            }, this.connectionLayer);
+
+            anim.start();
+        }
     };
 
-    placeComponents(configuration, layer, stage);
-    placeComponentGroups(configuration, categoryLayer, stage);
-
-    var categoryWith = 200,
-        categoryHeight = 200,
-        categoryY = stage.getHeight() - categoryHeight - 10,
-        categoryX = (stage.getWidth() / 2) - 50 - categoryWith;
-
-    // loadCategory(categoryLayer, categoryX, categoryY, categoryWith, categoryHeight, 'category one');
-    // loadCategory(categoryLayer, categoryX - categoryWith - 100, categoryY, categoryWith, categoryHeight, 'recycling-purple.svg');
-    // loadCategory(categoryLayer, categoryX + categoryWith + 100, categoryY, categoryWith, categoryHeight, 'recycling-blue.svg');
-    // loadCategory(categoryLayer, categoryX - 3 * categoryWith, categoryY, categoryWith, categoryHeight, 'recycling-purple.svg');
-
-    var _categorizer = categoryManager(categoryLayer);
-
-    // add layers into stage
-    stage.add(categoryLayer);
-    stage.add(layer);
-    stage.add(resultLayer);
+    window.ComputerScene = new Scene(configuration);
+    ComputerScene.start();
 
 })();
