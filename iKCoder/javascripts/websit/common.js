@@ -24,7 +24,12 @@ var _gURLMapping = {
         parentreport: '/Data/GET_ResourceDataText.aspx',
         updateprofile: '/data/get_checkcodenua.aspx',
         getwordlist: '/data/get_checkcodenua.aspx',
-        setbinresource: '/Data/SET_BinResource.aspx'
+        setbinresource: '/Data/SET_BinResource.aspx',
+        getimage: '/Data/GET_image.aspx',
+        getimageheader: '/Data/GET_ImageHeader.aspx'
+    },
+    util:{
+        setclipimage: '/Util/SET_ClipImage.aspx'
     }
 };
 

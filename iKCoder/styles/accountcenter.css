@@ -156,9 +156,9 @@
     left: 15px;
     background-color: rgb(128,128,128);
     z-index: 1000;
-    width: 320px;
-    height: 320px;
-    display: none;
+    width: 322px;
+    height: 322px;
+    /*display: none;*/
 }
 
 .warnning {
@@ -191,7 +191,6 @@
     z-index: 1;
     margin-top: 0px;
     top: 0px;
-    display: none;
 }
 
 #loading-center {
