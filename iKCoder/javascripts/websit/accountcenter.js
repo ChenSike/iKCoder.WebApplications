@@ -102,7 +102,7 @@ function initEvnets() {
         }
     });
 
-    $('#customHeaderModal').on('show.bs.modal', function () {
+    $('#mWindow_customHeaderModal').on('show.bs.modal', function () {
         adjustFooter();
         $('#progress_HeaderUpload').hide();
         $('#warnning_HeaderUpload').hide();
@@ -110,7 +110,7 @@ function initEvnets() {
         initCustomHeaderImg();
     });
 
-    $('#customHeaderModal').on('hide.bs.modal', function () {
+    $('#mWindow_customHeaderModal').on('hide.bs.modal', function () {
         adjustFooter();
         $('#progress_HeaderUpload').hide();
         $('#warnning_HeaderUpload').hide();
@@ -143,10 +143,48 @@ function initEvnets() {
                 sumitdata: 1,
                 //callback: encodeURI("parent.uploadCallBack(JSPARAM)"),
                 filetype: fileType,
-                symbol: $.cookie('logined_user_name') + "_temp_header",
+                symbol: 'img_temp_header_' + $.cookie('logined_user_name'),
             }));
             $('#form_Upload').submit();
-            _UploadHeaderHandle = setTimeout('initCustomHeaderImg()', 1000);
+            _UploadHeaderHandle = setTimeout('initCustomHeaderImg("' + fileType + '")', 2000);
+        }
+    });
+
+    $('#btn_CustomHeader_Save').on('click', function () {
+        var tmpStr = $('#btn_CustomHeader_Save').attr('data-content');
+        var tmpParams = tmpStr.split(',');
+        if (tmpStr != '' && tmpParams.length == 4) {
+            tmpParams = {
+                tmpsymbol: 'img_temp_header_' + $.cookie('logined_user_name'),
+                symbol: 'img_header_' + $.cookie('logined_user_name'),
+                startx: tmpParams[0],
+                starty: tmpParams[1],
+                width: tmpParams[2],
+                height: tmpParams[3]
+            };
+            _registerRemoteServer();
+            $.ajax({
+                type: 'POST',
+                url: _getRequestURL(_gURLMapping.util.setclipimage, tmpParams),
+                data: '',
+                success: function (data, status) {
+                    if ($(data).find('err').length > 0) {
+                        showAlertMessage('mWindow_CustomHeader_Dialog', 'customHeaderAlert', $(data).find('err').attr('msg'));
+                        return;
+                    } else {
+                        $("#customHeaderAlert").alert('close');
+                        $('#mWindow_customHeaderModal').modal('hide');
+                        loadHeaderImg();
+                    }
+                },
+                dataType: 'xml',
+                xhrFields: {
+                    withCredentials: true
+                },
+                error: function () {
+
+                }
+            });
         }
     });
 };
@@ -154,6 +192,7 @@ function initEvnets() {
 var _UploadHeaderHandle;
 
 function initPage() {
+    loadHeaderImg();
     initDateSelects();
     initCitySelects();
     initEvnets();
@@ -244,33 +283,37 @@ function adjustFooter() {
     $(".space-row-bottom").height(tmpHeight > 0 ? tmpHeight : 0);
 };
 
+function loadHeaderImg() {
+    var tmpSrc = _getRequestURL(_gURLMapping.data.getimageheader);
+    $('#img_Infor_Header').attr('src', tmpSrc);
+    $('#img_Card_Header').attr('src', tmpSrc);
+}
+
 var _currentHeaderImageSrc = '';
-function initCustomHeaderImg(data) {
+function initCustomHeaderImg(uploadType) {
+    var canvas = document.getElementById("canvas_CustomHeader");
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, 320, 320);
     $('#progress_HeaderUpload').hide();
     var image = new Image();
-    if (!data && _currentHeaderImageSrc == '') {
-        image.src = "images/head/head_11.jpg";
-    } else if (data) {
-        //image.src = _getRequestURL(_gURLMapping.data.setbinresource, {});
-        image.src = "images/head/head_11.jpg";
+    if (!uploadType && _currentHeaderImageSrc == '') {
+        image.src = _getRequestURL(_gURLMapping.data.getimageheader);
+    } else if (typeof uploadType == 'string' && uploadType != '') {
+        image.src = _getRequestURL(_gURLMapping.data.getimage, { symbol: 'img_temp_header_' + $.cookie('logined_user_name'), filetype: uploadType });
+        //image.src = "images/head/head_11.jpg";
     } else {
-        image.src = _currentHeaderImageSrc;
+        image.src = _currentHeaderImageSrc + "&rnd=" + Date.now();
     }
 
     image.onload = function () {
         var tmpSize = calcExhibitionSize(image);
-        var canvas = document.getElementById("canvas_CustomHeader");
-        var ctx = canvas.getContext('2d');
         ctx.drawImage(image, 0, 0, tmpSize.w, tmpSize.h, (320 - tmpSize.nw) / 2, (320 - tmpSize.nh) / 2, tmpSize.nw, tmpSize.nh);
         fnImageCropRot(image, { w: tmpSize.nw, h: tmpSize.nh });
     };
 
-    if (_currentHeaderImageSrc != image.src) {
-        _currentHeaderImageSrc = image.src
-    } else {
-        var tmpSize = calcExhibitionSize(image);
-        fnImageCropRot(image, { w: tmpSize.nw, h: tmpSize.nh });
-    }
+    _currentHeaderImageSrc = image.src
+    var tmpSize = calcExhibitionSize(image);
+    fnImageCropRot(image, { w: tmpSize.nw, h: tmpSize.nh });
 }
 
 var _eventBinded = false;
@@ -298,7 +341,7 @@ var fnImageCropRot = function (o, newSize) {
         $("#canvas_CustomHeader").after(tmpHTMLArr.join(""));
     }
 
-    var params = {
+    var tmpParams = {
         left: 0,
         top: 0,
         width: 0,
@@ -308,70 +351,6 @@ var fnImageCropRot = function (o, newSize) {
         flag: false,
         kind: "drag"
     };
-
-    var startDrag = function (point, target, kind) {
-        params.width = $(target).width();
-        params.height = $(target).height();
-        params.left = $(target).position().left;
-        params.top = $(target).position().top;
-
-        point.onmousedown = function (event) {
-            params.kind = kind;
-            params.flag = true;
-            if (!event) {
-                event = window.event;
-            }
-
-            var e = event;
-            params.currentX = e.clientX;
-            params.currentY = e.clientY;
-            point.onselectstart = function () {
-                return false;
-            }
-
-            return false;
-        };
-
-        document.onmouseup = function () {
-            params.flag = false;
-            params.left = $(target).position().left;
-            params.top = $(target).position().top;
-            params.width = $(target).width();
-            params.height = $(target).height();
-            showSampleImage(o, params.left, params.top, params.width, params.height, newSize);
-        };
-
-        document.onmousemove = function (event) {
-            var e = event ? event : window.event;
-            if (params.flag) {
-                var nowX = e.clientX, nowY = e.clientY;
-                var disX = nowX - params.currentX;
-                var disY = nowY - params.currentY;
-                var tmpWidth = parseInt(params.width);
-                var tmpHeighth = parseInt(params.height);
-                var tmpLeft = parseInt(params.left);
-                var tmpTop = parseInt(params.top);
-                if (params.kind === "se") {
-                    var newWidth = tmpWidth + disX;
-                    var newHeight = tmpHeighth + disY;
-                    newWidth = (newWidth + tmpLeft > 320 ? 320 - tmpLeft : newWidth); 320
-                    newHeight = (newHeight + tmpTop > 320 ? 320 - tmpTop : newHeight);
-                    $(target).width(newWidth);
-                    $(target).height(newHeight);
-                } else {
-                    var newLeft = tmpLeft + disX;
-                    var newTop = tmpTop + disY;
-                    newLeft = (newLeft < 0 ? 0 : newLeft);
-                    newTop = (newTop < 0 ? 0 : newTop);
-                    newLeft = (newLeft + tmpWidth > 320 ? 320 - tmpWidth : newLeft);
-                    newTop = (newTop + tmpHeighth > 320 ? 320 - tmpHeighth : newTop);
-                    $(target).css('left', newLeft + "px");
-                    $(target).css('top', newTop + "px");
-                }
-            }
-        }
-    }
-
     $('#wrap_CropBox_Header').show();
     var cropWidth = (iOrigWidth > 100 ? 100 : iOrigWidth);
     var cropHeight = (iOrigHeight > 100 ? 100 : iOrigHeight);
@@ -382,12 +361,80 @@ var fnImageCropRot = function (o, newSize) {
     $("#CropBox_Header").css('top', orgTop + "px");
     $("#CropBox_Header").css('left', orgLeft + "px");
     showSampleImage(o, orgLeft, orgTop, cropWidth, cropHeight, newSize);
+    startDrag.image = o;
+    startDrag.newSize = newSize;
     if (!_eventBinded) {
-        startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag");
-        startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se");
+        startDrag(ID("DragBg_Header"), ID("CropBox_Header"), "drag", tmpParams);
+        startDrag(ID("dragRightBot"), ID("CropBox_Header"), "se", tmpParams);
         _eventBinded = true;
     }
 };
+
+var startDrag = function (point, target, kind, params) {
+    params.width = $(target).width();
+    params.height = $(target).height();
+    params.left = $(target).position().left;
+    params.top = $(target).position().top;
+
+    point.onmousedown = function (event) {
+        params.kind = kind;
+        params.flag = true;
+        if (!event) {
+            event = window.event;
+        }
+
+        var e = event;
+        params.currentX = e.clientX;
+        params.currentY = e.clientY;
+        point.onselectstart = function () {
+            return false;
+        }
+
+        return false;
+    };
+
+    document.onmouseup = function () {
+        params.flag = false;
+        params.left = $(target).position().left;
+        params.top = $(target).position().top;
+        params.width = $(target).width();
+        params.height = $(target).height();
+        showSampleImage(startDrag.image, params.left, params.top, params.width, params.height, startDrag.newSize);
+    };
+
+    document.onmousemove = function (event) {
+        var e = event ? event : window.event;
+        if (params.flag) {
+            var nowX = e.clientX, nowY = e.clientY;
+            var disX = nowX - params.currentX;
+            var disY = nowY - params.currentY;
+            var tmpWidth = parseInt(params.width);
+            var tmpHeighth = parseInt(params.height);
+            var tmpLeft = parseInt(params.left);
+            var tmpTop = parseInt(params.top);
+            if (params.kind === "se") {
+                var newWidth = tmpWidth + disX;
+                var newHeight = tmpHeighth + disY;
+                newWidth = (newWidth + tmpLeft > 320 ? 320 - tmpLeft : newWidth); 320
+                newHeight = (newHeight + tmpTop > 320 ? 320 - tmpTop : newHeight);
+                $(target).width(newWidth);
+                $(target).height(newHeight);
+            } else {
+                var newLeft = tmpLeft + disX;
+                var newTop = tmpTop + disY;
+                newLeft = (newLeft < 0 ? 0 : newLeft);
+                newTop = (newTop < 0 ? 0 : newTop);
+                newLeft = (newLeft + tmpWidth > 320 ? 320 - tmpWidth : newLeft);
+                newTop = (newTop + tmpHeighth > 320 ? 320 - tmpHeighth : newTop);
+                $(target).css('left', newLeft + "px");
+                $(target).css('top', newTop + "px");
+            }
+        }
+    }
+}
+
+startDrag.image = null;
+startDrag.newSize = null;
 
 function calcExhibitionSize(image) {
     var imgHeight = image.height;
@@ -460,22 +507,22 @@ function updatePWD() {
     var newPWD = $("#txt_New_Password").val().trim();
     var confirmPWD = $("#txt_Confirm_Password").val().trim();
     if (oldPWD == "") {
-        _showGlobalMessage('请输入旧密码!', 'danger', 'aleret_Input_OldPWD');
+        _showGlobalMessage('请输入旧密码!', 'danger', 'alert_Input_OldPWD');
         return;
     } else if (newPWD == "") {
-        _showGlobalMessage('请输入新密码!', 'warning', 'aleret_Input_NewPWD');
+        _showGlobalMessage('请输入新密码!', 'warning', 'alert_Input_NewPWD');
         return;
     } else if (confirmPWD == "") {
-        _showGlobalMessage('请确认新密码!', 'warning', 'aleret_Confirm_NewPWD');
+        _showGlobalMessage('请确认新密码!', 'warning', 'alert_Confirm_NewPWD');
         return;
     }
 
 
     if (_checkPassword(newPWD) < 0) {
-        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger', 'aleret_Reset_NewPWD');
+        _showGlobalMessage('密码不符合要求，请重新输入!', 'danger', 'alert_Reset_NewPWD');
         return;
     } else if (newPWD != confirmPWD) {
-        _showGlobalMessage('请确认新密码!', 'danger', 'aleret_Confirm_NewPWD');
+        _showGlobalMessage('请确认新密码!', 'danger', 'alert_Confirm_NewPWD');
         return;
     }
 
@@ -489,10 +536,10 @@ function updatePWD() {
             '</root>',
         success: function (data, status) {
             if ($(data).find('err').length > 0) {
-                _showGlobalMessage($(data).find('err').attr('msg'), 'danger', 'aleret_Error_ChangePWD');
+                _showGlobalMessage($(data).find('err').attr('msg'), 'danger', 'alert_Error_ChangePWD');
                 return;
             } else if ($(data).find('msg').length > 0) {
-                _showGlobalMessage('修改登录密码成功', 'success', 'aleret_Success_ChangePWD');
+                _showGlobalMessage('修改登录密码成功', 'success', 'alert_Success_ChangePWD');
                 return;
             }
         },
@@ -501,7 +548,7 @@ function updatePWD() {
             withCredentials: true
         },
         error: function () {
-            _showGlobalMessage('修改登录密码失败!', 'danger', 'aleret_Error_ChangePWD');
+            _showGlobalMessage('修改登录密码失败!', 'danger', 'alert_Error_ChangePWD');
         }
     });
 };

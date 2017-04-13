@@ -16,14 +16,20 @@ var _gURLMapping = {
         checkcode: '/data/get_checkcodenua.aspx',
         signsstatus: '/Account/GET_SignStatus.aspx',
         nickname: '/Account/Profile/GET_NickName.aspx',
-        updatepwd: '/Account/SET_ResetPassword.aspx'
+        updatepwd: '/Account/SET_ResetPassword.aspx',
+        logout: '/Account/SET_Logout.aspx'
     },
     data: {
         studentcenter: '/Data/GET_ResourceDataText.aspx',
         parentreport: '/Data/GET_ResourceDataText.aspx',
         updateprofile: '/data/get_checkcodenua.aspx',
         getwordlist: '/data/get_checkcodenua.aspx',
-        setbinresource: '/Data/SET_BinResource.aspx'
+        setbinresource: '/Data/SET_BinResource.aspx',
+        getimage: '/Data/GET_image.aspx',
+        getimageheader: '/Data/GET_ImageHeader.aspx'
+    },
+    util:{
+        setclipimage: '/Util/SET_ClipImage.aspx'
     }
 };
 
