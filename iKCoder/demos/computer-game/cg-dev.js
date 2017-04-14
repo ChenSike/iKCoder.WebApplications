@@ -290,11 +290,11 @@
                     delta = (categoryRect.x() + 5 - x0) / slices,
                     deltaY = (categoryRect.y() + 5 + calculateOffsetY(nth) - y0) / slices,
                     deltaWidth = (CATEGORY_THUMB_NAIL_SIZE_X - width0) / slices,
-                    deltaHeight = (CATEGORY_THUMB_NAIL_SIZE_Y -height0) / slices;
+                    deltaHeight = (CATEGORY_THUMB_NAIL_SIZE_Y - height0) / slices;
 
                 var i = 0;
-                var anim = new Konva.Animation(function(frame){
-                    if(i < slices){
+                var anim = new Konva.Animation(function(frame) {
+                    if (i < slices) {
                         image.height(image.height() + deltaHeight);
                         image.width(image.width() + deltaWidth);
                         image.x(image.x() + delta);
@@ -371,11 +371,10 @@
         box.on('dragend', function() {
             // locate the hit category
             var detectedCategoryRect = detectIntersection(this, categoryLayer.children);
-            if (!!detectedCategoryRect){
+            if (!!detectedCategoryRect) {
                 _categorizer(detectedCategoryRect, this, {});
                 // layer.draw();
-            }
-            else {
+            } else {
                 this._isAssigned = false;
                 layer.draw();
             }
@@ -389,7 +388,17 @@
 
     function loadCategory(config, layer) {
         var rect = new Konva.ComponentGroup(config);
+        var groupText = new Konva.Text({
+            x: rect.x(),
+            y: rect.y() - 20,
+            width: rect.width(),
+            text: config.group,
+            fontSize: 18,
+            fontFamily: 'Calibri',
+            align: 'center'
+        });
         layer.add(rect);
+        layer.add(groupText);
     }
 
     var detectIntersection = (function() {
@@ -487,7 +496,7 @@
                 j = 10;
 
             var anim = new Konva.Animation(function(frame) {
-                if(i < 100){
+                if (i < 100) {
                     arc.x(arc.x() + 1);
                     arc.y(arc.y() + 1);
                 } else {
