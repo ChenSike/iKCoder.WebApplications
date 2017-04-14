@@ -30,6 +30,10 @@ var _gURLMapping = {
     },
     util:{
         setclipimage: '/Util/SET_ClipImage.aspx'
+    },
+    bus:{
+        getworkspace: 'Bus/Workspace/GET_Workspace.aspx',
+        saveworkspace: 'Bus/Workspace/GET_Workspace.aspx',
     }
 };
 
