@@ -144,6 +144,25 @@ function siderBarDrag(e) {
 }
 
 function initDatas() {
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'tkwar' }),
+        data: '<root></root>',
+        success: function (data, status) {
+            if ($(data).find('err').length > 0) {
+                return;
+            }
+            alert('success');
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+
     var data = {
         user: {
             id: "1",
@@ -194,8 +213,8 @@ function initDatas() {
             ]
         },
         blockly: {
-            toolbox: "javascripts/scene/tankwar/toolbox.xml",
-            workspace: "javascripts/scene/tankwar/default.xml",
+            toolbox: "javascripts/scene/pacman/level1/toolbox.xml",
+            workspace:"javascripts/scene/pacman/level1/default.xml",
             lib: [
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",

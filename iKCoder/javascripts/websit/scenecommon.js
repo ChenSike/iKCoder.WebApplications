@@ -73,3 +73,12 @@ function unselectBlockExample() {
     _blockExample.removeSelect();
     setTimeout('selectBlockExample();', 500);
 }
+//after running all blockly steps, check the player at end point(eat goods) or not
+function CheckStageCompleted (){
+    if (targetPos.x == Scene._Player.coord.x && targetPos.y == Scene._Player.coord.y) {
+        alert("Congratulations, you are eat the goods successful!");
+
+    } else {
+        alert("Sorry, you may miss some stpes or goto wrong direction!");
+    }
+}
