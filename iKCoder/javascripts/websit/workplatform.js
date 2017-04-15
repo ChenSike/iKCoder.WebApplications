@@ -214,7 +214,7 @@ function initDatas() {
         },
         blockly: {
             toolbox: "javascripts/scene/pacman/level1/toolbox.xml",
-            workspace:"",
+            workspace:"javascripts/scene/pacman/level1/default.xml",
             lib: [
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",

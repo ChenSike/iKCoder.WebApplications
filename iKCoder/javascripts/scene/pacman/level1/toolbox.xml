@@ -4,8 +4,5 @@
   <block type="move_onestep_down"></block>
   <block type="move_onestep_left"></block>
   <block type="move_onestep_right"></block>
-  <block type="turn_left"></block>
-  <block type="turn_right"></block>
-  <block type="move_forward"></block>
-  <block type="forloop"></block>
+ 
 </xml>
