@@ -144,6 +144,25 @@ function siderBarDrag(e) {
 }
 
 function initDatas() {
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'tkwar' }),
+        data: '<root></root>',
+        success: function (data, status) {
+            if ($(data).find('err').length > 0) {
+                return;
+            }
+            alert('success');
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+
     var data = {
         user: {
             id: "1",

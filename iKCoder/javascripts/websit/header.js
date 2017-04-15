@@ -464,8 +464,7 @@ function checkPwdIntension(txtField, lbField) {
     }
 };
 
-function signUp() {
-    _registerRemoteServer();
+function signUp() {    
     //$('#mWindow_CheckPhoneNumber').modal('show');
     //$('#txt_CheckPhoneNumber_Number').attr('placeholder', $("#txt_SignUp_PhoneNumber").val() + '');
     //return;
@@ -512,6 +511,7 @@ function signUp() {
         codevalue: $("#txt_SignUp_CheckCode").val()
     }
 
+    _registerRemoteServer();
     $.ajax({
         type: 'POST',
         url: _getRequestURL(_gURLMapping.account.reg),
@@ -571,7 +571,6 @@ function signUp() {
 };
 
 function signIn() {
-    _registerRemoteServer();
     $("#signinAlert").alert('close');
     if ($("#txt_SignIn_UserName").val().trim() == "") {
         showAlertMessage('mWindow_SignIn_Dialog', 'signinAlert', '请输入手机号码!');
@@ -591,6 +590,7 @@ function signIn() {
         return;
     }
 
+    _registerRemoteServer();
     $.ajax({
         type: 'POST',
         url: _getRequestURL(_gURLMapping.account.signwithcode),
