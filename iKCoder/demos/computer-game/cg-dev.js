@@ -59,7 +59,13 @@
                 cn: "显卡",
                 en: "Grahpics Card",
                 path: "svg/graphics-card.svg"
+            },
+            {
+                cn: "主机",
+                en: "Computer Tower",
+                path: "svg/computer.svg"
             }
+
         ]
     };
 
@@ -158,58 +164,6 @@
         RESULT_WIDTH = 20,
         RESULT_HEIGHT = 20;
 
-    // Extend Image
-    (function() {
-        Konva.Ccomponent = function(config) {
-            this.___init(config);
-            this._isAssigned = false;
-            this._isAssignedCorrectly = false;
-            this.className = 'Ccomponent';
-            this.en = config.en;
-            this.cn = config.en;
-        };
-
-        Konva.Ccomponent.prototype = {
-            ___init: function(config) {
-                Konva.Image.prototype.___init.call(this, config);
-                this.resultImage = new Konva.Image({
-                    x: config.x + 5,
-                    y: config.y,
-                    width: RESULT_WIDTH,
-                    height: RESULT_HEIGHT
-                });
-            },
-
-            draw: function() {
-                Konva.Image.prototype.draw.apply(this);
-
-                var that = this;
-
-                var imageObj = new Image();
-                imageObj.src = !this._isAssigned ? null : this._isAssignedCorrectly ? 'svg/success.svg' : 'svg/error.svg';
-                that.resultImage.image(imageObj);
-
-                this.parent.draw();
-                that.resultImage.draw();
-            }
-        };
-
-        Konva.Util.extend(Konva.Ccomponent, Konva.Image);
-
-        // extend component group
-        Konva.ComponentGroup = function(config) {
-            this.___init(config);
-            this._group = config.group;
-        };
-
-        Konva.ComponentGroup.prototype = {
-            ___init: function(config) {
-                Konva.Rect.prototype.___init.call(this, config);
-            }
-        };
-
-        Konva.Util.extend(Konva.ComponentGroup, Konva.Rect);
-    })();
 
     var categoryManager = (function() {
         var categoryToContainer = new Map();
@@ -315,13 +269,6 @@
                 }, image.parent);
 
                 anim.start();
-                // resize image
-                // image.height(CATEGORY_THUMB_NAIL_SIZE_X);
-                // image.width(CATEGORY_THUMB_NAIL_SIZE_Y);
-
-                // // calculate image x and y
-                // image.x(categoryRect.x() + 5);
-                // image.y(categoryRect.y() + calculateOffsetY(nth));
 
                 image.draggable(false);
                 image.off('mouseover');
@@ -459,7 +406,7 @@
             this.resultLayer = new Konva.Layer();
             this.categoryLayer = new Konva.Layer();
             this.connectionLayer = new Konva.Layer({
-                clearBeforeDraw: false
+                clearBeforeDraw: true
             });
         },
 
@@ -475,30 +422,28 @@
         },
 
         connect(comp1, comp2) {
-            console.log('connecting ' + comp1 + ' to ' + comp2);
+            var that = this;
 
-            var arc = new Konva.Arc({
-                x: this.stage.getWidth() / 2,
-                y: this.stage.getHeight() / 2,
-                innerRadius: 2,
-                outerRadius: 5,
-                angle: 270,
-                opacity: 0.3,
-                fill: 'white',
-                stroke: 'black',
-                strokeWidth: 3
+            var x0 = comp1.x() + comp1.width() / 2,
+                y0 = comp1.y() + comp1.height(),
+
+                arc = new Konva.ConnectionPoint({
+                    tmpX: x0,
+                    tmpY: y0,
+                    componentsLayer: that.layer,
+                    direction: Konva.ConnectionPoint.DOWN,
+                    target: comp2,
+                    inc: 8
+                });
+
+            arc.on('mouseover', function() {
+                console.log(this.getStage().getPointerPosition());
             });
-
             this.connectionLayer.add(arc);
 
-            var duration = 2000,
-                i = 10,
-                j = 10;
-
             var anim = new Konva.Animation(function(frame) {
-                if (i < 100) {
-                    arc.x(arc.x() + 1);
-                    arc.y(arc.y() + 1);
+                if(!arc.isDone()){
+                    arc.moveAction();
                 } else {
                     anim.stop();
                     console.log('anim done...');
@@ -506,6 +451,12 @@
             }, this.connectionLayer);
 
             anim.start();
+        },
+
+        testConnect(x, y) {
+            var comp1 = this.layer.children[x];
+            var comp2 = this.layer.children[y];
+            this.connect(comp1, comp2);
         }
     };
 
@@ -513,3 +464,6 @@
     ComputerScene.start();
 
 })();
+
+
+// ComputerScene.testConnect() ;
