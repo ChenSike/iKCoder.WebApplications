@@ -25,6 +25,7 @@ var _gURLMapping = {
         updateprofile: '/data/get_checkcodenua.aspx',
         getwordlist: '/data/get_checkcodenua.aspx',
         setbinresource: '/Data/SET_BinResource.aspx',
+        getbinresource: '/Data/GET_BinResource.aspx',
         getimage: '/Data/GET_image.aspx',
         getimageheader: '/Data/GET_ImageHeader.aspx'
     },

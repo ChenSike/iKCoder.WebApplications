@@ -136,94 +136,12 @@ function siderBarExpand() {
     //adjustWorkSpaceTitle();
 }
 
+var _workspaceDatas = null;
 function siderBarDrag(e) {
     var _sidebarDragStarX = e.pageX;
     $(document).bind("mousemove", function (ev) {
         $(".siderbar-drag-proxy").css("left", ev.pageX + "px");
     });
-}
-
-function initDatas() {
-    _registerRemoteServer();
-    $.ajax({
-        type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'tkwar' }),
-        data: '<root></root>',
-        success: function (data, status) {
-            if ($(data).find('err').length > 0) {
-                return;
-            }
-            alert('success');
-        },
-        dataType: 'xml',
-        xhrFields: {
-            withCredentials: true
-        },
-        error: function () {
-        }
-    });
-
-    var data = {
-        user: {
-            id: "1",
-            name: "Tom",
-            img: "child_1.png"
-        },
-        course: {
-            id: "1",
-            name: "坦克大战",
-            stage_count: 6,
-            current_stage: 4,
-            note: [
-                {
-                    text: '现在坦克战队已经可以在你的控制下移动了, 接下来为坦克增加"射击"能力吧. 请增加键盘事件, 使"空格"键按下时, 坦克可以发射炮弹',
-                    key: "常量",
-                    id: "race_roads_block_example"
-                }
-            ],
-            words: [
-                {
-                    word: 'computer',
-                    soundmark: [
-                        ["英 [kəm'pjuːtə]", ''],
-                        ["美 [kəm'pjutɚ]", '']
-                    ],
-                    star: 4,
-                    note: '考研 / CET4 / CET6',
-                    paraphrase: [
-                        'n. 计算机；电脑；电子计算机'
-                    ],
-                    variant: {
-                        '复数': 'computers'
-                    }
-                }, {
-                    word: 'programming',
-                    soundmark: [
-                        ["英 ['prəʊɡræmɪŋ]", ''],
-                        ["美 ['proɡræmɪŋ]", '']
-                    ],
-                    star: 5,
-                    note: '',
-                    paraphrase: [
-                        'n. 设计，规划；编制程序，[计] 程序编制',
-                        '训练(programme的现在分词); 培养; 预调;'
-                    ],
-                    variant: null
-                }
-            ]
-        },
-        blockly: {
-            toolbox: "javascripts/scene/pacman/level1/toolbox.xml",
-            workspace:"javascripts/scene/pacman/level1/default.xml",
-            lib: [
-                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
-                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",
-                //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Scene/scene.js",
-            ]
-        }
-    }
-
-    return data;
 }
 
 function buildStageHTML(data) {
@@ -272,15 +190,35 @@ function buildStageHTML(data) {
 }
 
 function initPage() {
-    var data = initDatas();
-    _wordsData = data.course.words;
-    _workspaceCfg = data.blockly;
-    buildStageHTML(data.course);
-    updateUserInfo(data.user);
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_001' }),
+        data: '<root></root>',
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Input_OldPWD');
+                return;
+            }
+
+            var data = initData(response);
+            _wordsData = data.course.words;
+            _workspaceCfg = data.blockly;
+            buildStageHTML(data.course);
+            updateUserInfo(data.user);
+            adjustWorkSpaceTitle();
+            $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,177)", });
+            LaodSceneLib(data.blockly);
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+
     initEvents();
-    adjustWorkSpaceTitle();
-    $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,177)", });
-    LaodSceneLib(data.blockly);
     var playBtn = $('.workspace-tool-item.glyphicon.glyphicon-play');
     var shareBtn = $('.workspace-tool-item.glyphicon.glyphicon-share-alt');
     var fullScreenBtn = $('.workspace-tool-item.glyphicon.glyphicon-fullscreen');
@@ -289,8 +227,81 @@ function initPage() {
     //siderBarExpand();
 }
 
+function initData(response) {
+    var userItem = $($(response).find("basic").find("usr")[0]);
+    var sceneItem = $($(response).find("sence")[0]);
+    var words = [];
+    var wordsItems = $(response).find("words").find('stage').find('word');
+    for (var i = 0; i < wordsItems.length; i++) {
+        var tmpObj = {};
+        tmpObj.word = $(wordsItems[i]).attr('value');
+        tmpObj.star = !$(wordsItems[i]).attr('value') ? '0' : $(wordsItems[i]).attr('value');
+        tmpObj.note = $(wordsItems[i]).attr('note');
+        var tmpItems = $(wordsItems[i]).find('soundmark').find('item');
+        tmpObj.soundmark = [];
+        for (var j = 0; j < tmpItems.length; j++) {
+            tmpObj.soundmark.push([$(tmpItems[j]).attr('value'), _getRequestURL(_gURLMapping.data.getbinresource, { symbol: $(tmpItems[j]).attr('sound') })]);
+        }
+
+        tmpItems = $(wordsItems[i]).find('paraphrase').find('item');
+        tmpObj.paraphrase = [];
+        for (var j = 0; j < tmpItems.length; j++) {
+            tmpObj.paraphrase.push([$(tmpItems[j]).val()]);
+        }
+
+        tmpItems = $(wordsItems[i]).find('variant').find('item');
+        tmpObj.variant = {};
+        for (var j = 0; j < tmpItems.length; j++) {
+            tmpObj.variant[$(tmpItems[j]).attr('name')] = $(tmpItems[j]).attr('value');
+        }
+
+        words.push(tmpObj);
+    }
+
+    var note = [];
+    var notesItems = $(response).find("tips").find('item');
+    for (var i = 0; i < notesItems.length; i++) {
+        var tmpObj = {};
+        tmpObj.text = $(notesItems[i]).attr('index');
+        var tmpItems = $(notesItems[i]).find('content');
+        for (var j = 0; j < tmpItems.length; j++) {
+            tmpObj.text += $(tmpItems[j]).attr('chinese');
+        }
+        tmpObj.key = "常量";
+        tmpObj.id = "race_roads_block_example";
+        note.push(tmpObj);
+    }
+
+    var data = {
+        user: {
+            id: userItem.attr('id'),
+            name: userItem.attr('nickname'),
+            img: _getRequestURL(userItem.attr('header'), {})
+        },
+        course: {
+            id: sceneItem.attr('symbol'),
+            name: sceneItem.attr('name'),
+            stage_count: sceneItem.attr('totalstage'),
+            current_stage: sceneItem.attr('currentstage'),
+            note: note,
+            words: words
+        },
+        blockly: {
+            toolbox: $(response).find("toolbox").html(),
+            workspace: $(response).find("workspacestatus").html(),
+            lib: [
+                'javascripts/scene/' + $($(response).find("toolbox")[0]).attr('src'),
+                'javascripts/scene/' + $($(response).find("game").find('script')[0]).attr('src'),
+                'javascripts/scene/' + $($(response).find("game").find('script')[1]).attr('src')
+            ]
+        }
+    }
+
+    return data;
+}
+
 function updateUserInfo(data) {
-    $('.img-rounded.header-user-image').attr('src', 'images/children/' + data.img);
+    $('.img-rounded.header-user-image').attr('src', data.img);
     $('.header-user-name-text').text(data.name);
     $('.header-user-name-text').text(data.name);
 }
@@ -325,6 +336,9 @@ function showWordPanel(e) {
         wordPanel.show('slow');
         if (!_wordPanelInit) {
             $('.word-panel-content.container').append(buildWordListHTML());
+            $('.play-soundmark-button').on('mouseover', function (e) {
+                playSoundMark(e);
+            });
         }
 
         adjustCodePanelSize(wordPanel, _wordPanelInit);
@@ -335,6 +349,12 @@ function showWordPanel(e) {
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }
+}
+
+function playSoundMark(eventObj) {
+    var soundSource = $(eventObj.target).attr('data-target');
+    $("#audio_Soundmark").attr('src', soundSource);
+    $("#audio_Soundmark")[0].play();
 }
 
 var _knowledgePanelInit = false;

@@ -64,7 +64,7 @@ WorkScene.init = function () {
     };
 
     window.addEventListener('resize', onresize, false);
-    var blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile(_workspaceCfg.toolbox)));
+    var blocksXMLDoc = Blockly.Xml.textToDom(_workspaceCfg.toolbox);
     //var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
     WorkScene.workspace = Blockly.inject('content_WorkSpace',
         {
@@ -101,7 +101,7 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    var defaultXml = (_workspaceCfg.workspace == '' ? '' : XMLToString(LoadXMLFile(_workspaceCfg.workspace)));
+    var defaultXml = (_workspaceCfg.workspace == '' ? '' : _workspaceCfg.workspace);
     WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
