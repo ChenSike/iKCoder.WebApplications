@@ -160,9 +160,7 @@
 
     var CATEGORY_THUMB_NAIL_SIZE_X = 50,
         CATEGORY_THUMB_NAIL_SIZE_Y = 50,
-        CATEGORY_PADDING_BOTTOM = 5,
-        RESULT_WIDTH = 20,
-        RESULT_HEIGHT = 20;
+        CATEGORY_PADDING_BOTTOM = 5;
 
 
     var categoryManager = (function() {
@@ -462,8 +460,4 @@
 
     window.ComputerScene = new Scene(configuration);
     ComputerScene.start();
-
 })();
-
-
-// ComputerScene.testConnect() ;

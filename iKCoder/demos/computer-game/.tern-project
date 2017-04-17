@@ -1,13 +1,15 @@
 {
-	"libs" : [
-		"browser",
-		"knova"
-	],
-	"loadEagerly": [ "*.js" ],
-	"plugins" : {
-		"commonjs" : {},
-		"node" : {},
-		"requirejs" : {},
-		"node_resolve" : {}
-	}
+    "libs": [
+        "browser"
+    ],
+    "loadEagerly": [
+        "Engine/*.js",
+        "javascripts/*.js",
+        "Scene/*.js",
+        "Blocks/*.js",
+        "*.js"
+    ],
+    "plugins": {
+        "commonjs": {}
+    }
 }
