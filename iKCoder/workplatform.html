@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/ionicons.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/workplatform.css">
+    <link rel="stylesheet" href="styles/workspace.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
@@ -238,6 +239,32 @@
             initPage();
         });
     </script>
-    <link rel="stylesheet" href="styles/workspace.css">
+    <div class="modal fade " id="mWindow_StepComplete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="mWindow_StepComplete_Dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border:none;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p style="line-height:10px;margin:0px;">&nbsp;</p>
+                </div>
+                <div class="modal-body">
+                    <div class="container bg-white">
+                        <div class="row padding-bottom30">
+                            <div class="col-sm-2 col-xs-4 col-sm-offset-3">
+                                <img src="images/label/Addicon.png" />
+                            </div>
+                            <div class="col-sm-5 col-xs-7">
+                                <h4 style="line-height:60px;">恭喜你！完成！</h4>
+                            </div>
+                        </div>
+                        <div class="row padding-bottom30">
+                            <div class="col-sm-4 col-xs-6 col-sm-offset-4" style="text-align:center;">
+                                <button type="button" class="btn btn-primary">点击进入下一步</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -101,7 +101,7 @@ WorkScene.init = function () {
     );
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
-    var defaultXml = (_workspaceCfg.workspace == '' ? '' : _workspaceCfg.workspace);
+    var defaultXml = (!_workspaceCfg.workspace ? '<xml></xml>' : _workspaceCfg.workspace);
     WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
@@ -231,5 +231,9 @@ function CheckSceneObject() {
 
     if (!Scene.ResetConfig) {
         Scene.ResetConfig = function () { };
+    }
+
+    Scene.stepComplete = function () {
+        showCompleteAlert();
     }
 }

@@ -27,8 +27,6 @@ var _defaultNPC = [
 ];
 
 var _defaultGoods = { '1,3': 1, '26,3': 1, '1,23': 1, '26,23': 1 };
-var targetPos;
-var blnCheckStatus = false;
 
 Scene._DATA = _defaultDATA;
 Scene._ROWCOL = { row: 15, col: 15 };
@@ -87,6 +85,15 @@ Scene.InitGame = function (currentId, settings, model) {
     Scene.CreateOverStage();
     Scene.Game.init();
     Scene.removeBeansUnderPlayer();
+    var tmpFn = function (stage, item) {
+        if (item.type == '1') {
+            if (targetPos.x == Scene._Player.coord.x && targetPos.y == Scene._Player.coord.y) {
+                Scene.stepComplete();
+            }
+        }
+    }
+
+    Game.completeCheckFn = tmpFn;
 };
 
 Scene.adjustSize = function (width, height) {
@@ -785,9 +792,9 @@ Scene.randomPlayerPos = function () {
     // var tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
     // var tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
     //  Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX * 2 - 1, y: tmpY * 2 - 1 };
-    var tmpX =  Math.floor(Scene._ROWCOL.col / 2);
-    var tmpY =  Math.floor(Scene._ROWCOL.row / 2);
-    Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX, y: tmpY  };
+    var tmpX = Math.floor(Scene._ROWCOL.col / 2);
+    var tmpY = Math.floor(Scene._ROWCOL.row / 2);
+    Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX, y: tmpY };
     //var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
     //player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
     //player.coord.x = Scene._PLAYER.x;

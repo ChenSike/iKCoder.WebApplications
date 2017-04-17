@@ -59,7 +59,7 @@ function initEvents() {
         } else if ($(e.currentTarget).attr('id') == 'btn_Footer_KnowledgeMode') {
             showKnowledgePanel(e);
         } else {
-            $('#panel_CodeMode').css('display', 'none');
+            activeCreativeMode();
         }
     });
 
@@ -111,6 +111,12 @@ function initEvents() {
     //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $(".link-button-block-example").click(hightlightExampleBlock);
+
+    //$('#mWindow_StepComplete').on('show.bs.modal', reinitSignUpFileds);
+    $('#mWindow_StepComplete').on('hide.bs.modal', function () {
+        //$("#signupAlert").alert('close');
+    });
+
 
     $(window).resize(function () {
         onWindowResize();
@@ -304,6 +310,14 @@ function updateUserInfo(data) {
     $('.img-rounded.header-user-image').attr('src', data.img);
     $('.header-user-name-text').text(data.name);
     $('.header-user-name-text').text(data.name);
+}
+
+function activeCreativeMode() {
+    $('#panel_CodeMode').hide("slow");
+    $('#panel_WordMode').hide("slow");
+    $('#panel_KnowledgeMode').hide("slow");
+    $('.footer-tool-item').removeClass('selected');
+    $('#btn_Footer_CreateMode').addClass('selected');
 }
 
 var _codePanelInit = false;
@@ -550,6 +564,12 @@ function onWindowResize() {
     siderBarWrap.css('height', 'calc(100% - ' + header.height() + 'px - 60px)');
     siderBarWrap.css('height', '-moz-calc(100% - ' + header.height() + 'px - 60px)');
     siderBarWrap.css('height', '-webkit-calc(100% - ' + header.height() + 'px - 60px)');
+}
+
+function showCompleteAlert(){
+    $('#mWindow_StepComplete').modal({
+        keyboard: true
+    });
 }
 
 (function ($) {

@@ -320,6 +320,7 @@ function Game(id, params) {
 
     this.start = function (fromInit) {
         var f = 0;
+        var alreadyCheckComplete = false;
         if (_stages[_index].status == 1) {
             if (!fromInit) {
                 this.stop();
@@ -369,19 +370,20 @@ function Game(id, params) {
                             item.timeout--;
                         }
 
-                        if (_.movePaths.length > 0 && item.type == 1) {
-                            item.orientation = _.movePaths[0].orientation;
-                            if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) == 0) {
-                                _.movePaths.shift();
-                                blnCheckStatus = true;
-                            }else{
-                                item.update();
+                        if (item.type == 1) {
+                            if (_.movePaths.length > 0) {
+                                item.orientation = _.movePaths[0].orientation;
+                                if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) == 0) {
+                                    _.movePaths.shift();
+                                }else{
+                                    item.update();
+                                }
+                            } else {
+                                if (!alreadyCheckComplete && Game.completeCheckFn) {
+                                    Game.completeCheckFn(stage, item);
+                                    alreadyCheckComplete = true;
+                                }
                             }
-
-                        }else if(_.movePaths.length == 0 && blnCheckStatus) {
-                            //after running all blockly steps, check the player at end point(eat goods) or not
-                            CheckStageCompleted();                     
-                            blnCheckStatus = false;
                         }else if (item.type != 1) {
                             item.update();
                         }
