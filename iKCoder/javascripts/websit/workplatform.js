@@ -140,7 +140,7 @@ function siderBarExpand() {
     $('#icon_SiderBar_Expand').toggleClass('fa-angle-double-left').toggleClass('fa-angle-double-right');
     $('.siderbar-drag').toggleClass('expanded');
     //adjustWorkSpaceTitle();
-}
+};
 
 var _workspaceDatas = null;
 function siderBarDrag(e) {
@@ -148,7 +148,7 @@ function siderBarDrag(e) {
     $(document).bind("mousemove", function (ev) {
         $(".siderbar-drag-proxy").css("left", ev.pageX + "px");
     });
-}
+};
 
 function buildStageHTML(data) {
     var container = $('#Course_Stage_Container');
@@ -181,15 +181,19 @@ function buildStageHTML(data) {
     $('.head-stage-background').css('width', tmpWidth + "%");
     tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
     $('.head-stage-space').css('width', tmpWidth + "%");
-    for (var i = 0; i < data.note.length; i++) {
+    updateTipsText(data.note);
+};
+
+function updateTipsText(data) {
+    for (var i = 0; i < data.length; i++) {
         var tmpStrArr = [];
         tmpStrArr.push((i + 1) + ". ");
         tmpStrArr.push('<strong>');
-        tmpStrArr.push('   <a href="#" class="link-button-block-example" data-target="' + data.note[i].id + '" title="点击查看对应的块">');
-        tmpStrArr.push(data.note[i].key);
+        tmpStrArr.push('   <a href="#" class="link-button-block-example" data-target="' + data[i].id + '" title="点击查看对应的块">');
+        tmpStrArr.push(data[i].key);
         tmpStrArr.push(': </a>');
         tmpStrArr.push('</strong>');
-        tmpStrArr.push(data.note[i].text);
+        tmpStrArr.push(data[i].text);
         tmpStrArr.push('</br>');
         $('.course-stage-note').html(tmpStrArr.join(''));
     }
@@ -213,8 +217,9 @@ function initPage() {
             buildStageHTML(data.course);
             updateUserInfo(data.user);
             adjustWorkSpaceTitle();
+            adjustWorkSpaceType(data);
             $("#txt_Code_Content").setTextareaCount({ color: "rgb(176,188,177)", });
-            LaodSceneLib(data.blockly);
+            LoadSceneLib(data.blockly);
         },
         dataType: 'xml',
         xhrFields: {
@@ -231,7 +236,7 @@ function initPage() {
     var refereshBtn = $('.workspace-tool-item.glyphicon.glyphicon-repeat');
     bindEventsToScene(playBtn, shareBtn, fullScreenBtn, refereshBtn);
     //siderBarExpand();
-}
+};
 
 function initData(response) {
     var userItem = $($(response).find("basic").find("usr")[0]);
@@ -279,6 +284,7 @@ function initData(response) {
     }
 
     var data = {
+        //isstatic:true,
         user: {
             id: userItem.attr('id'),
             name: userItem.attr('nickname'),
@@ -304,13 +310,13 @@ function initData(response) {
     }
 
     return data;
-}
+};
 
 function updateUserInfo(data) {
     $('.img-rounded.header-user-image').attr('src', data.img);
     $('.header-user-name-text').text(data.name);
     $('.header-user-name-text').text(data.name);
-}
+};
 
 function activeCreativeMode() {
     $('#panel_CodeMode').hide("slow");
@@ -318,7 +324,7 @@ function activeCreativeMode() {
     $('#panel_KnowledgeMode').hide("slow");
     $('.footer-tool-item').removeClass('selected');
     $('#btn_Footer_CreateMode').addClass('selected');
-}
+};
 
 var _codePanelInit = false;
 function showCodePanel(e) {
@@ -337,7 +343,7 @@ function showCodePanel(e) {
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }
-}
+};
 
 var _wordPanelInit = false;
 function showWordPanel(e) {
@@ -363,13 +369,13 @@ function showWordPanel(e) {
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }
-}
+};
 
 function playSoundMark(eventObj) {
     var soundSource = $(eventObj.target).attr('data-target');
     $("#audio_Soundmark").attr('src', soundSource);
     $("#audio_Soundmark")[0].play();
-}
+};
 
 var _knowledgePanelInit = false;
 function showKnowledgePanel(e) {
@@ -392,7 +398,7 @@ function showKnowledgePanel(e) {
         $('.footer-tool-item').removeClass('selected');
         $('#btn_Footer_CreateMode').addClass('selected');
     }
-}
+};
 
 function buildWordListHTML() {
     var data = _wordsData;
@@ -460,7 +466,7 @@ function buildWordListHTML() {
 
     htmlStringArr.push('</div>');
     return htmlStringArr.join('');
-}
+};
 
 function adjustCodePanelSize(codePanel, panelInited) {
     var minLeft = 20;
@@ -485,7 +491,7 @@ function adjustCodePanelSize(codePanel, panelInited) {
             codePanel.width(minWidth);
         }
     }
-}
+};
 
 function adjustCodePanelPosition(codePanel, e, panelInited) {
     var targetOffset = $(e.currentTarget).offset();
@@ -511,7 +517,7 @@ function adjustCodePanelPosition(codePanel, e, panelInited) {
             codePanel.css('left', maxLeft + "px");
         }
     }
-}
+};
 
 function adjustWorkSpaceTitle() {
     var titleWrap = $('.workspace-title-2');
@@ -521,7 +527,7 @@ function adjustWorkSpaceTitle() {
     } else {
         titleWrap.css('width', 'calc(100% - 15px)');
     }
-}
+};
 
 var _blockExample = null;
 var _highlightCount = 0;
@@ -536,20 +542,20 @@ function hightlightExampleBlock() {
             break;
         }
     }
-}
+};
 
 function selectBlockExample() {
     if (_highlightCount < 4) {
         _blockExample.addSelect();
         setTimeout('unselectBlockExample();', 500);
     }
-}
+};
 
 function unselectBlockExample() {
     _highlightCount++;
     _blockExample.removeSelect();
     setTimeout('selectBlockExample();', 500);
-}
+};
 
 function onWindowResize() {
     var siderBarWrap = $('.siderbar-wrap');
@@ -564,13 +570,25 @@ function onWindowResize() {
     siderBarWrap.css('height', 'calc(100% - ' + header.height() + 'px - 60px)');
     siderBarWrap.css('height', '-moz-calc(100% - ' + header.height() + 'px - 60px)');
     siderBarWrap.css('height', '-webkit-calc(100% - ' + header.height() + 'px - 60px)');
-}
+};
 
-function showCompleteAlert(){
+function showCompleteAlert() {
     $('#mWindow_StepComplete').modal({
         keyboard: true
     });
-}
+};
+
+function adjustWorkSpaceType(data) {
+    if (data && data.isstatic && data.isstatic === true) {
+        $('.table-blockly-container').hide();
+        $('.siderbar-wrap').hide();
+        $('.wrap-static-canvas').show();
+    } else {
+        $('.table-blockly-container').show();
+        $('.siderbar-wrap').show();
+        $('.wrap-static-canvas').hide();
+    }
+};
 
 (function ($) {
     var AutoRowsNumbers = function (element, config) {

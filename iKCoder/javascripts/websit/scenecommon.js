@@ -2,7 +2,7 @@
 
 var currSceneSymbol = '';
 
-function LaodSceneLib(data) {
+function LoadSceneLib(data) {
     if (data.lib.length == 1) {
         $.getScript(data.lib[0], function () {
             WorkScene.init();
