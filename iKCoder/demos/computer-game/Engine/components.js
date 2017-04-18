@@ -5,16 +5,16 @@
         this._direction = config.direction;
         this._componentsLayer = config.componentsLayer;
         this._inc = config.inc;
-        // an object that represent the (x, y, width, height) for the target point
-        this._target = config.target;
-        this._targetX = this._target.x() + this._target.width() / 2;
-        this._targetY = this._target.y() + this._target.height();
         this._remainingSteps = 0;
-        this._tmpX = config.tmpX;
-        this._tmpY = config.tmpY;
+        this._turnings = config.turnings;
 
-        // this.points(this.points().concat[this._tmpX, this._tmpY]);
-        console.log('targetX ' + this._targetX + ' targetY ' + this._targetY);
+        var start = this._turnings.splice(0, 1)[0];
+        this._tmpX = start[0];
+        this._tmpY = start[1];
+
+        this.points(start);
+
+        this._end = this._turnings[this._turnings.length - 1];
     };
 
     Konva.ConnectionPoint.DOWN = "DOWN";
@@ -47,12 +47,13 @@
 
         ___doMove(direction, inc) {
             var points = this.points();
-            inc = Math.min(inc, this._remainingSteps);
+            if (inc >= this._remainingSteps) {
+                inc = this._remainingSteps;
+            }
 
             if (direction === Konva.ConnectionPoint.UP) {
                 this._tmpY -= inc;
                 this.points(points.concat([this._tmpX, this._tmpY]));
-                this.moveUp();
             } else if (direction === Konva.ConnectionPoint.DOWN) {
                 this._tmpY += inc;
                 this.points(points.concat([this._tmpX, this._tmpY]));
@@ -72,50 +73,41 @@
         // calculate _direction and _inc
         ___calculateMove(componentsLayer) {
             // finish remaining steps with previous direction
-            if (this._remainingSteps > 0) {
+            if (this._remainingSteps > 0 || this._turnings.length === 0) {
                 return;
             }
 
-            var diffX = this._targetX - this._tmpX;
-            var diffY = this._targetY - this._tmpY;
+            var nextTurning = this._turnings[0],
+                nextX = nextTurning[0],
+                nextY = nextTurning[1],
+                diffX = nextX - this._tmpX,
+                diffY = nextY - this._tmpY,
+                prevDirection = this._direction;
 
-
-            // stop when reached the target point
-            if (this.isDone()) {
-                return;
-            }
-
-            // inital step -- create deviates
-            if (Math.abs(diffY) < 1 && Math.abs(diffX) > 1) {
-                this._remainingSteps = 20;
-                this._direction = Konva.ConnectionPoint.DOWN;
-                return;
-            }
-
-            // draw x axis
-            if (Math.abs(diffY) >= 20 &&
-                (Konva.ConnectionPoint.UP === this._direction || Konva.ConnectionPoint.DOWN === this._direction)) {
-                if (diffX > 0) {
-                    this._direction = Konva.ConnectionPoint.RIGHT;
-                    this._remainingSteps = Math.abs(diffX);
+            if (diffY === 0 && diffX === 0) {
+                this._turnings.splice(0, 1);
+                if (this._turnings) {
+                    nextTurning = this._turnings[0];
+                    nextX = nextTurning[0];
+                    nextY = nextTurning[1];
+                    diffX = nextX - this._tmpX;
+                    diffY = nextY - this._tmpY;
+                    prevDirection = this._direction;
                 } else {
-                    this._direction = Konva.ConnectionPoint.LEFT;
-                    this._remainingSteps = Math.abs(diffX);
+                    return;
                 }
-
-                return;
             }
 
-            // draw y axis
-            if (Math.abs(diffX) >= 0 &&
-                (Konva.ConnectionPoint.LEFT === this._direction || Konva.ConnectionPoint.RIGHT === this._direction)) {
-                if (diffY > 0) {
-                    this.direction = Konva.ConnectionPoint.DOWN;
-                    this._remainingSteps = Math.abs(diffY);
-                } else {
-                    this._direction = Konva.ConnectionPoint.UP;
-                    this._remainingSteps = Math.abs(diffY);
-                }
+            if (diffY === 0) {
+                this._direction = diffX > 0 ?
+                    Konva.ConnectionPoint.RIGHT : Konva.ConnectionPoint.LEFT;
+                this._remainingSteps = Math.abs(diffX);
+            }
+
+            if (diffX === 0) {
+                this._direction = diffY > 0 ?
+                    Konva.ConnectionPoint.DOWN : Konva.ConnectionPoint.UP;
+                this._remainingSteps = Math.abs(diffY);
             }
         },
 
@@ -125,7 +117,7 @@
         },
 
         isDone: function() {
-            return (Math.abs(this._tmpX - this._targetX) <= 1) && (Math.abs(this._tmpY - this._targetY) <= 1);
+            return (Math.abs(this._tmpX - this._end[0]) <= 1) && (Math.abs(this._tmpY - this._end[1]) <= 1);
         }
 
     };
@@ -170,6 +162,13 @@
 
             this.parent.draw();
             that.resultImage.draw();
+        },
+
+        componentPosition() {
+            if (arguments && arguments.length === 2) {
+                this.row = arguments[0];
+                this.column = arguments[1];
+            }
         }
     };
 

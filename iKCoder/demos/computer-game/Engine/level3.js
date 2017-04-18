@@ -149,7 +149,9 @@
                 file: path,
                 en: en,
                 cn: cn,
-                id: en
+                id: en,
+                row: rowIndex,
+                column: columnIndex
             };
         };
 
@@ -237,6 +239,7 @@
                     y0 = image.y(),
                     width0 = image.width(),
                     height0 = image.height(),
+                    RESULT_HEIGHT = 20,
 
                     slices = 50,
                     delta = (categoryRect.x() + 5 - x0) / slices,
@@ -296,6 +299,8 @@
             cn: config.cn,
             id: config.id
         });
+
+        box.componentPosition(config.row, config.column);
 
         var imageObj = new Image();
         imageObj.src = config.file;
@@ -385,17 +390,17 @@
 
 
     var _categorizer;
-    // Used for exposing Scene related API
-    function Scene(config) {
+    // Used for exposing ComputerScene related API
+    function ComputerScene(config) {
         this.config = config;
         this.___init();
     }
 
-    Scene.prototype = {
-        constructor: Scene,
+    ComputerScene.prototype = {
+        constructor: ComputerScene,
         ___init: function() {
             this.stage = new Konva.Stage({
-                container: 'container',
+                container: 'game_container',
                 width: window.innerWidth,
                 height: window.innerHeight
             });
@@ -419,28 +424,101 @@
             this.stage.add(this.connectionLayer);
         },
 
-        connect(comp1, comp2) {
+        __getTurningPoints(comp1, comp2) {
+            var points = [],
+                start,
+                end,
+                diffStart,
+                diffEnd;
+            if (comp1.row === comp2.row) {
+                start = this.__getBottomPoint(comp1);
+                end = this.__getBottomPoint(comp2);
+                points.push(start);
+                points.push([start[0], start[1] + 20]);
+                points.push([end[0], end[1] + 20]);
+                points.push(end);
+            } else if (comp1.column === comp2.column) {
+                start = this.__getLeftSidePoint(comp1);
+                end = this.__getLeftSidePoint(comp2);
+                points.push(start);
+                points.push([start[0] - 20, start[1]]);
+                points.push([end[0] - 20, end[1]]);
+                points.push(end);
+            } else if (comp1.row < comp2.row) {
+                start = this.__getBottomPoint(comp1);
+                end = this.__getTopPoint(comp2);
+                diffStart = Math.floor(Math.abs(start[1] - end[1]) / 2);
+                diffEnd = Math.abs(start[1] - end[1]) - diffStart;
+                points.push(start);
+                points.push([start[0], start[1] + diffStart]);
+                points.push([end[0], end[1] - diffEnd]);
+                points.push(end);
+            } else if (comp1.row > comp2.row) {
+                start = this.__getTopPoint(comp1);
+                end = this.__getBottomPoint(comp2);
+                diffStart = Math.floor(Math.abs(start[1] - end[1]) / 2);
+                diffEnd = Math.abs(start[1] - end[1]) - diffStart;
+                points.push(start);
+                points.push([start[0], start[1] - diffStart]);
+                points.push([end[0], end[1] + diffEnd]);
+                points.push(end);
+            }
+
+            return points;
+        },
+
+        getById: function(id) {
+            var cc = ComputerScene.layer.children,
+                c;
+
+            for (var i in cc) {
+                c = cc[i];
+                if (c._id === id) break;
+            }
+
+            return c;
+        },
+
+        __getBottomPoint(comp) {
+            return [
+                comp.x() + comp.width() / 2,
+                comp.y() + comp.height()
+            ];
+        },
+
+        __getTopPoint(comp) {
+            return [
+                comp.x() + comp.width() / 2,
+                comp.y()
+            ];
+        },
+        __getLeftSidePoint(comp) {
+            return [
+                comp.x(),
+                comp.y() + comp.height() / 2
+            ];
+        },
+
+        connect(comp1Id, comp2Id) {
             var that = this;
 
-            var x0 = comp1.x() + comp1.width() / 2,
-                y0 = comp1.y() + comp1.height(),
-
+            var
+                comp1 = this.getById(comp1Id),
+                comp2 = this.getById(comp2Id),
                 arc = new Konva.ConnectionPoint({
-                    tmpX: x0,
-                    tmpY: y0,
                     componentsLayer: that.layer,
-                    direction: Konva.ConnectionPoint.DOWN,
-                    target: comp2,
-                    inc: 8
+                    inc: 8,
+                    turnings: this.__getTurningPoints(comp1, comp2)
                 });
 
             arc.on('mouseover', function() {
                 console.log(this.getStage().getPointerPosition());
             });
+
             this.connectionLayer.add(arc);
 
             var anim = new Konva.Animation(function(frame) {
-                if(!arc.isDone()){
+                if (!arc.isDone()) {
                     arc.moveAction();
                 } else {
                     anim.stop();
@@ -458,6 +536,11 @@
         }
     };
 
-    window.ComputerScene = new Scene(configuration);
-    ComputerScene.start();
+    window.Scene = new ComputerScene(configuration);
+    Scene.start();
 })();
+
+function test() {
+    ComputerScene.testConnect(1, 17);
+    ComputerScene.testConnect(5, 7);
+}
