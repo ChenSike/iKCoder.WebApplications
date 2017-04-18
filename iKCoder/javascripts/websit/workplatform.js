@@ -284,7 +284,6 @@ function initData(response) {
     }
 
     var data = {
-        //isstatic:true,
         user: {
             id: userItem.attr('id'),
             name: userItem.attr('nickname'),
@@ -579,7 +578,7 @@ function showCompleteAlert() {
 };
 
 function adjustWorkSpaceType(data) {
-    if (data && data.isstatic && data.isstatic === true) {
+    if (data.blockly.toolbox == '') {
         $('.table-blockly-container').hide();
         $('.siderbar-wrap').hide();
         $('.wrap-static-canvas').show();
