@@ -66,7 +66,7 @@ WorkScene.init = function () {
     window.addEventListener('resize', onresize, false);
     var blocksXMLDoc = Blockly.Xml.textToDom(_workspaceCfg.toolbox);
     //var blocksXMLDoc = Blockly.Xml.textToDom('<xml id="toolbox" style="display: none"></xml>');
-    blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile(_workspaceCfg.toolbox)));
+    //blocksXMLDoc = Blockly.Xml.textToDom(XMLToString(LoadXMLFile(_workspaceCfg.toolbox)));
     WorkScene.workspace = Blockly.inject('content_WorkSpace',
         {
             scrollbars: true,
@@ -103,7 +103,7 @@ WorkScene.init = function () {
 
     Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
     var defaultXml = (!_workspaceCfg.workspace ? '<xml></xml>' : _workspaceCfg.workspace);
-    defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
+    //defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
     WorkScene.loadBlocks(defaultXml);
     WorkScene.workspace.addChangeListener(WorkScene.outputCode);
 
@@ -196,6 +196,11 @@ WorkScene.startGame = function () {
 
 WorkScene.endGame = function () {
     Scene.endGame();
+};
+
+WorkScene.reset = function () {
+    WorkScene.workspace.clear();
+    Scene.reset();
 };
 
 function CheckSceneObject() {

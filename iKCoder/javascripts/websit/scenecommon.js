@@ -46,30 +46,39 @@ function _refereshScene() {
     WorkScene.workspace.clear();
 };
 
-var _blockExample = null;
+var _blockExample = [];
 var _highlightCount = 0;
-function selectExampleBlock() {
+function hightlightExampleBlock() {
     var blocks = WorkScene.workspace.topBlocks_;
     var targetBtn = $(arguments[0].target);
+    _highlightCount = 0;
     for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].id == targetBtn.attr("data-target")) {
-            _blockExample = blocks[i];
-            _highlightCount = 0;
-            selectBlockExample();
-            break;
+        if (blocks[i].type == targetBtn.attr("data-target")) {
+            _blockExample.push(blocks[i]);
+            blocks[i].removeSelect();
         }
     }
+
+    selectBlockExample();
 };
 
+
 function selectBlockExample() {
-    if (_highlightCount < 4) {
-        _blockExample.addSelect();
+    if (_highlightCount < 3) {
+        for (var i = 0; i < _blockExample.length; i++) {
+            _blockExample[i].addSelect();
+        }
+
         setTimeout('unselectBlockExample();', 500);
     }
 };
 
 function unselectBlockExample() {
     _highlightCount++;
-    _blockExample.removeSelect();
+    for (var i = 0; i < _blockExample.length; i++) {
+        _blockExample[i].removeSelect();
+    }
+
+
     setTimeout('selectBlockExample();', 500);
 };

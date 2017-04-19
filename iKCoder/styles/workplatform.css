@@ -618,3 +618,53 @@ textarea {
 #btn_Footer_Logo {
     cursor: pointer;
 }
+
+.wrap-complete-alert {
+    width: 100%;
+    height: 40%;
+    position: absolute;
+    top: 25%;
+    background-color: rgba(162,202,92,0.9);
+    z-index: 9999;
+    display: none;
+    padding-top: 8%;
+}
+
+.step-complete-title {
+    text-align: center;
+    color: rgb(255,255,255);
+    font-size: 20px;
+    padding-bottom: 30px;
+}
+
+.step-complete-button {
+    text-align: center;
+    color: rgb(255,255,255);
+    font-size: 14px;
+    border: solid 1px rgb(255,255,255);
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+    .step-complete-button:hover {
+        font-weight: bold;
+        border-width: 2px;
+    }
+
+.step-evaluate-wrap {
+    text-align: center;
+    color: rgb(255,255,255);
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.step-evaluate-button{
+    cursor:pointer;
+}
+
+.step-evaluate-button:hover{
+    font-weight:bold;
+}
+
