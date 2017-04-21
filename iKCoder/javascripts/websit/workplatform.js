@@ -2,6 +2,7 @@
 
 var _wordsData = [];
 var _workspaceCfg = {};
+var _currentStage = 0;
 
 function initEvents() {
     $('#btn_Footer_Logo').on('click', function (e) {
@@ -110,13 +111,18 @@ function initEvents() {
 
     //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
-    $(".link-button-block-example").click(hightlightExampleBlock);
-
-    //$('#mWindow_StepComplete').on('show.bs.modal', reinitSignUpFileds);
-    $('#mWindow_StepComplete').on('hide.bs.modal', function () {
-        //$("#signupAlert").alert('close');
+    $('.step-evaluate-button').on('click', function (e) {
+       
     });
 
+    $('#btn_Step_Restart').on('click', function (e) {
+        WorkScene.reset();
+        $('.wrap-complete-alert').hide();
+    });
+
+    $('#btn_Step_GoNext').on('click', function (e) {
+
+    });
 
     $(window).resize(function () {
         onWindowResize();
@@ -197,6 +203,18 @@ function updateTipsText(data) {
         tmpStrArr.push('</br>');
         $('.course-stage-note').html(tmpStrArr.join(''));
     }
+
+    var tmpStrArr = [];
+    tmpStrArr.push("1. ");
+    tmpStrArr.push('<strong>');
+    tmpStrArr.push('   <a href="#" class="link-button-block-example" data-target="move_onestep_left" title="点击查看对应的块">');
+    tmpStrArr.push('move_onestep_left');
+    tmpStrArr.push(': </a>');
+    tmpStrArr.push('</strong>');
+    tmpStrArr.push('test highlight blocks by block type');
+    tmpStrArr.push('</br>');
+    $('.course-stage-note').html(tmpStrArr.join(''));
+    $(".link-button-block-example").click(hightlightExampleBlock);
 }
 
 function initPage() {
@@ -241,6 +259,7 @@ function initPage() {
 function initData(response) {
     var userItem = $($(response).find("basic").find("usr")[0]);
     var sceneItem = $($(response).find("sence")[0]);
+    _currentStage = sceneItem.attr('currentstage');
     var words = [];
     var wordsItems = $(response).find("words").find('stage').find('word');
     for (var i = 0; i < wordsItems.length; i++) {
@@ -293,7 +312,7 @@ function initData(response) {
             id: sceneItem.attr('symbol'),
             name: sceneItem.attr('name'),
             stage_count: sceneItem.attr('totalstage'),
-            current_stage: sceneItem.attr('currentstage'),
+            current_stage: _currentStage,
             note: note,
             words: words
         },
@@ -528,34 +547,6 @@ function adjustWorkSpaceTitle() {
     }
 };
 
-var _blockExample = null;
-var _highlightCount = 0;
-function hightlightExampleBlock() {
-    var blocks = WorkScene.workspace.topBlocks_;
-    var targetBtn = $(arguments[0].target);
-    for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].id == targetBtn.attr("data-target")) {
-            _blockExample = blocks[i];
-            _highlightCount = 0;
-            selectBlockExample();
-            break;
-        }
-    }
-};
-
-function selectBlockExample() {
-    if (_highlightCount < 4) {
-        _blockExample.addSelect();
-        setTimeout('unselectBlockExample();', 500);
-    }
-};
-
-function unselectBlockExample() {
-    _highlightCount++;
-    _blockExample.removeSelect();
-    setTimeout('selectBlockExample();', 500);
-};
-
 function onWindowResize() {
     var siderBarWrap = $('.siderbar-wrap');
     if (siderBarWrap.hasClass('expanded')) {
@@ -572,9 +563,8 @@ function onWindowResize() {
 };
 
 function showCompleteAlert() {
-    $('#mWindow_StepComplete').modal({
-        keyboard: true
-    });
+    $('.wrap-complete-alert').show();
+    $('#title_StepComplete').html(' 祝贺你！已经成功完成&nbsp;STEP&nbsp;' + _currentStage + '.');
 };
 
 function adjustWorkSpaceType(data) {

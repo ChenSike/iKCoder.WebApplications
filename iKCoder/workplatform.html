@@ -28,10 +28,15 @@
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/scenecommon.js"></script>
     <script src="javascripts/websit/blocklycommon.js"></script>
-    <script src="javascripts/websit/workplatform_tank.js"></script>
+    <script src="javascripts/websit/workplatform.js"></script>
+    <!--<script src="javascripts/websit/workplatform_tank.js"></script>
     <script src="javascripts/scene/tankwar/Blocks/blocks.js"></script>
     <script src="javascripts/scene/tankwar/Engine/game_engine.js"></script>
-    <script src="javascripts/scene/tankwar/Scene/scene.js"></script>
+    <script src="javascripts/scene/tankwar/Scene/scene.js"></script>-->
+    <!--<script src="javascripts/websit/workplatform_pacman_l2.js"></script>
+    <script src="javascripts/scene/pacman/level2/Blocks/blocks.js"></script>
+    <script src="javascripts/scene/pacman/level2/Engine/game_engine.js"></script>
+    <script src="javascripts/scene/pacman/level2/Scene/scene.js"></script>-->
 </head>
 <body>
     <div class="main-container">
@@ -242,28 +247,28 @@
             initPage();
         });
     </script>
-    <div class="modal fade " id="mWindow_StepComplete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" id="mWindow_StepComplete_Dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="border:none;">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <p style="line-height:10px;margin:0px;">&nbsp;</p>
+    <div class="wrap-complete-alert">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 step-complete-title" id="title_StepComplete">                   
                 </div>
-                <div class="modal-body">
-                    <div class="container bg-white">
-                        <div class="row padding-bottom30">
-                            <div class="col-sm-2 col-xs-4 col-sm-offset-3">
-                                <img src="images/label/Addicon.png" />
-                            </div>
-                            <div class="col-sm-5 col-xs-7">
-                                <h4 style="line-height:60px;">恭喜你！完成！</h4>
-                            </div>
-                        </div>
-                        <div class="row padding-bottom30">
-                            <div class="col-sm-4 col-xs-6 col-sm-offset-4" style="text-align:center;">
-                                <button type="button" class="btn btn-primary">点击进入下一步</button>
-                            </div>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center">
+                    <div class="col-xs-6">
+                        <div class="step-complete-button" id="btn_Step_Restart"><span class="glyphicon glyphicon-repeat" style="padding-right:10px;"></span>重新开始</div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="step-complete-button" id="btn_Step_GoNext"><span class="glyphicon glyphicon-hand-right" style="padding-right:10px;"></span>挑战下一步</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center margin-top20" style="border-top:solid 2px rgb(255,255,255)">
+                    <div class="col-xs-12 padding-top10 step-evaluate-wrap">
+                        喜欢这个课程吗?
+                        <span class="glyphicon glyphicon-thumbs-up step-evaluate-button" style="padding-left:20px;" data-target="1"></span>
+                        <span class="glyphicon glyphicon-thumbs-down step-evaluate-button" style="padding-left:20px;" data-target="0"></span>
                     </div>
                 </div>
             </div>
