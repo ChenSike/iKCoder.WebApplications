@@ -33,6 +33,9 @@
 
     Blockly.Blocks[COMPUTER_BLOCK_COMPONENT_SELECTION] = {
         init: function() {
+            var fromDropDown = new Blockly.FieldDropdown(constructComputerCompDropDown());
+            var toDropDown = new Blockly.FieldDropdown(constructComputerCompDropDown());
+
             this.setPreviousStatement(true);
             this.setNextStatement(true);
             this.setColour(230);
@@ -40,9 +43,11 @@
             this.setHelpUrl('');
 
             this.appendDummyInput().appendField("Please choose component");
-            this.appendDummyInput().appendField(new Blockly.FieldDropdown(constructComputerCompDropDown()), COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_FROM);
-            this.appendDummyInput().appendField("to");
-            this.appendDummyInput().appendField(new Blockly.FieldDropdown(constructComputerCompDropDown()), COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_TO);
+            this.appendDummyInput().appendField("from");
+            this.appendDummyInput()
+                .appendField(fromDropDown, COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_FROM)
+                .appendField("to")
+                .appendField(toDropDown, COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_TO);
         }
     };
 
@@ -50,6 +55,6 @@
         var from = block.getFieldValue(COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_FROM);
         var to = block.getFieldValue(COMPUTER_FIELD_COMPONENT_SELECTION_DROPDOWN_TO);
 
-        return "ComputerScene.connect({}, {});\n".format(from, to);
+        return "ComputerScene.buildConnect({}, {});\n".format(from, to);
     };
 })();

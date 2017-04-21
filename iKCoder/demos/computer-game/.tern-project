@@ -1,6 +1,7 @@
 {
     "libs": [
-        "browser"
+        "browser",
+        "jquery"
     ],
     "loadEagerly": [
         "Engine/*.js",
