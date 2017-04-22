@@ -149,10 +149,16 @@ Blockly.Blocks['forloop'] = {
     this.setHelpUrl('');
   }
 };
+
 Blockly.JavaScript['forloop'] = function(block) {
   var number_times = block.getFieldValue('times');
   var statements_do = Blockly.JavaScript.statementToCode(block, 'do');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'for (var count = 0; count < ' + number_times +'; count++)\n {\n' + statements_do + ' }\n';
+  var countNum = "";
+  if(statements_do.match("for") != null){
+    var countNum = statements_do.match(/for/g).length;
+  }  
+  var count = "count" + countNum;
+  var code = 'for (var '+ count +' = 0; '+ count + ' < ' + number_times +'; '+ count + '++)\n {\n' + statements_do + ' }\n';
   return code;
 };
