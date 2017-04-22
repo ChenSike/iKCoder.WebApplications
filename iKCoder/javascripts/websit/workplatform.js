@@ -115,7 +115,7 @@ function initEvents() {
     //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $('.step-evaluate-button').on('click', function (e) {
-       
+
     });
 
     $('#btn_Step_Restart').on('click', function (e) {
@@ -180,7 +180,7 @@ function buildStageHTML(data) {
             }
         }
 
-        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '">' + innerTxt + '</div></div>');
+        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '" data-target="' + (i + 1) + '">' + innerTxt + '</div></div>');
         tmpItem.css('width', itemWidth + "%");
         container.append(tmpItem);
     }
@@ -191,6 +191,10 @@ function buildStageHTML(data) {
     tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
     $('.head-stage-space').css('width', tmpWidth + "%");
     updateTipsText(data.note);
+
+    $('div.head-stage-label .complete-item').on('click', function () {
+        gotoSpecialStep($(arguments[0].target).attr('data-target'));
+    })
 };
 
 function updateTipsText(data) {
@@ -570,6 +574,29 @@ function onWindowResize() {
     siderBarWrap.css('height', '-moz-calc(100% - ' + header.height() + 'px - 60px)');
     siderBarWrap.css('height', '-webkit-calc(100% - ' + header.height() + 'px - 60px)');
 };
+
+function gotoSpecialStep(step) {
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: step }),
+        data: '<root></root>',
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepSymbol');
+                return;
+            }
+
+            window.location.href = "workplatform.html?rnd=" + Date.now();
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+}
 
 function showCompleteAlert() {
     _registerRemoteServer();

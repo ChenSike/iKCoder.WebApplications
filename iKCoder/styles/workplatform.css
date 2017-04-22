@@ -63,6 +63,7 @@ header {
     .head-stage-label .complete-item {
         background: url(../images/label/stepdone.png);
         background-color: rgb(26,164,216);
+        cursor: pointer;
     }
 
     .head-stage-label.show-stage-index {
@@ -660,11 +661,10 @@ textarea {
     line-height: 30px;
 }
 
-.step-evaluate-button{
-    cursor:pointer;
+.step-evaluate-button {
+    cursor: pointer;
 }
 
-.step-evaluate-button:hover{
-    font-weight:bold;
-}
-
+    .step-evaluate-button:hover {
+        font-weight: bold;
+    }

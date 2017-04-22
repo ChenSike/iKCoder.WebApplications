@@ -203,6 +203,28 @@ WorkScene.reset = function () {
     Scene.reset();
 };
 
+WorkScene.reset = function () {
+    var tempXML = XMLToString(Blockly.Xml.workspaceToDom(WorkScene.workspace));
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.saveworkspace, { symbol: _currentStage, stage: _currentStep }),
+        data: tempXML,
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepWorspaceStatus');
+                return;
+            }
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+};
+
 function CheckSceneObject() {
     if (typeof Scene == "undefined" || Scene == null) {
         window.Scene = {};
