@@ -2,7 +2,10 @@
 
 var _wordsData = [];
 var _workspaceCfg = {};
-var _currentStage = 0;
+var _currentStage = '';
+var _currentStep = '';
+var _nextStep = '';
+var _totalSteps = '';
 
 function initEvents() {
     $('#btn_Footer_Logo').on('click', function (e) {
@@ -259,7 +262,13 @@ function initPage() {
 function initData(response) {
     var userItem = $($(response).find("basic").find("usr")[0]);
     var sceneItem = $($(response).find("sence")[0]);
-    _currentStage = sceneItem.attr('currentstage');
+    _currentStage = sceneItem.attr('symbol');
+    _currentStep = sceneItem.attr('currentstage');
+    _totalSteps = sceneItem.attr('totalstage');
+    if (parseInt(_currentStep) < parseInt(_totalSteps)) {
+        _nextStep = parseInt(_currentStep) + 1;
+    }
+
     var words = [];
     var wordsItems = $(response).find("words").find('stage').find('word');
     for (var i = 0; i < wordsItems.length; i++) {
@@ -309,10 +318,10 @@ function initData(response) {
             img: _getRequestURL(userItem.attr('header'), {})
         },
         course: {
-            id: sceneItem.attr('symbol'),
+            id: _currentStage,
             name: sceneItem.attr('name'),
-            stage_count: sceneItem.attr('totalstage'),
-            current_stage: _currentStage,
+            stage_count: _totalSteps,
+            current_stage: _currentStep,
             note: note,
             words: words
         },
@@ -563,8 +572,28 @@ function onWindowResize() {
 };
 
 function showCompleteAlert() {
-    $('.wrap-complete-alert').show();
-    $('#title_StepComplete').html(' 祝贺你！已经成功完成&nbsp;STEP&nbsp;' + _currentStage + '.');
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: _nextStep }),
+        data: '<root></root>',
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepSymbol');
+                return;
+            }
+
+            $('.wrap-complete-alert').show();
+            $('#title_StepComplete').html(' 祝贺你！已经成功完成&nbsp;STEP&nbsp;' + _currentStep + '.');
+            WorkScene.saveStatus();
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
 };
 
 function adjustWorkSpaceType(data) {

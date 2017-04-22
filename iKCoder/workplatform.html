@@ -33,17 +33,17 @@
     <script src="javascripts/scene/tankwar/Blocks/blocks.js"></script>
     <script src="javascripts/scene/tankwar/Engine/game_engine.js"></script>
     <script src="javascripts/scene/tankwar/Scene/scene.js"></script>-->
-    <!--<script src="javascripts/websit/workplatform_pacman_l2.js"></script>
+    <script src="javascripts/websit/workplatform_pacman_l2.js"></script>
     <script src="javascripts/scene/pacman/level2/Blocks/blocks.js"></script>
     <script src="javascripts/scene/pacman/level2/Engine/game_engine.js"></script>
-    <script src="javascripts/scene/pacman/level2/Scene/scene.js"></script>-->
+    <script src="javascripts/scene/pacman/level2/Scene/scene.js"></script>
 </head>
 <body>
     <div class="main-container">
         <table>
             <tr>
                 <td style="height:60px;" colspan="2">
-                    <header>
+                    <header id="workspace_header">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-2" style="text-align:center;padding-top:15px;">
@@ -241,12 +241,6 @@
     <div style="display:none">
         <audio id="audio_Soundmark"></audio>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            _loadLabels();
-            initPage();
-        });
-    </script>
     <div class="wrap-complete-alert">
         <div class="container">
             <div class="row">
@@ -273,6 +267,12 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            _loadLabels();
+            initPage();
+        });
+        </script>
     </div>
 </body>
 </html>
