@@ -6,6 +6,10 @@ var _currentStage = '';
 var _currentStep = '';
 var _nextStep = '';
 var _totalSteps = '';
+var _messages = {
+    success: '',
+    faild: ''
+};
 
 function initEvents() {
     $('#btn_Footer_Logo').on('click', function (e) {
@@ -120,11 +124,15 @@ function initEvents() {
 
     $('#btn_Step_Restart').on('click', function (e) {
         WorkScene.reset();
-        $('.wrap-complete-alert').hide();
+        $('.wrap-workstatus-alert').hide();
     });
 
     $('#btn_Step_GoNext').on('click', function (e) {
+        window.location.href = "workplatform.html?rnd=" + Date.now();
+    });
 
+    $('#btn_Step_FindError').on('click', function (e) {
+        $('.wrap-workstatus-alert').hide();
     });
 
     $(window).resize(function () {
@@ -339,6 +347,9 @@ function initData(response) {
             ]
         }
     }
+
+    _messages.success = $($(response).find("message").find('suc')[0]).attr('msg');
+    _messages.faild = $($(response).find("message").find('faild')[0]).attr('msg');
 
     return data;
 };
@@ -610,8 +621,10 @@ function showCompleteAlert() {
                 return;
             }
 
+            $('.wrap-workstatus-alert').show();
             $('.wrap-complete-alert').show();
-            $('#title_StepComplete').html(' 祝贺你！已经成功完成&nbsp;STEP&nbsp;' + _currentStep + '.');
+            $('.wrap-faild-alert').hide();
+            $('#title_StepComplete').html(_messages.success);
             WorkScene.saveStatus();
         },
         dataType: 'xml',
@@ -622,6 +635,13 @@ function showCompleteAlert() {
         }
     });
 };
+
+function showFaildAlert() {
+    $('.wrap-workstatus-alert').show();
+    $('.wrap-complete-alert').hide();
+    $('.wrap-faild-alert').show();
+    $('#title_StepFaild').html(_messages.faild);
+}
 
 function adjustWorkSpaceType(data) {
     if (data.blockly.toolbox == '') {

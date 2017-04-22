@@ -203,7 +203,7 @@ WorkScene.reset = function () {
     Scene.reset();
 };
 
-WorkScene.reset = function () {
+WorkScene.saveStatus = function () {
     var tempXML = XMLToString(Blockly.Xml.workspaceToDom(WorkScene.workspace));
     _registerRemoteServer();
     $.ajax({
@@ -264,5 +264,9 @@ function CheckSceneObject() {
 
     Scene.stepComplete = function () {
         showCompleteAlert();
+    }
+
+    Scene.stepFaild = function () {
+        showFaildAlert();
     }
 }

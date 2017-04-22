@@ -94,6 +94,8 @@ Scene.InitGame = function (currentId, settings, model) {
         if (item.type == '1') {
             if (targetPos.x == Scene._Player.coord.x && targetPos.y == Scene._Player.coord.y) {
                 Scene.stepComplete();
+            } else {
+                Scene.stepFaild();
             }
         }
     }
