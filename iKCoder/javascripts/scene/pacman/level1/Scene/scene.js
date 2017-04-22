@@ -1,6 +1,8 @@
 ﻿Scene = {};
 Scene.Game = null;
-
+var useDefaultMap = false;
+//true - use defaultDATA map; 
+// false -generate map by blocklyCommon.js ->Scene.init('game_container', '0', { RowCol: { row: 7, col: 7 } }); 
 var _defaultDATA = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -29,7 +31,7 @@ var _defaultNPC = [
 var _defaultGoods = { '1,3': 1, '26,3': 1, '1,23': 1, '26,23': 1 };
 
 Scene._DATA = _defaultDATA;
-Scene._ROWCOL = { row: 15, col: 15 };
+Scene._ROWCOL = { row: _defaultDATA.length, col: _defaultDATA[0].length };
 Scene._Goods = {};
 Scene._COS = [1, 0, -1, 0];
 Scene._SIN = [0, 1, 0, -1];
@@ -50,7 +52,10 @@ Scene.init = function (containerId, model, configs) {
     Scene._LIFE = configs.lifeCount || Scene._LIFE;
     Scene._PLAYERSPEED = configs.playerSpeed || Scene._PLAYERSPEED;
     Scene._NPCSPEED = configs.NPCSpeed || Scene._NPCSPEED;
-    Scene._ROWCOL = configs.RowCol || Scene._ROWCOL;
+    if(!useDefaultMap){//update by Simon, when useDefaultMap=false, create map by configs that pass from blocklyCommon.js ->Scene.init('game_container', '0', { RowCol: { row: 7, col: 7 } });
+        Scene._ROWCOL=configs.RowCol;
+    }
+    // Scene._ROWCOL = configs.RowCol || Scene._ROWCOL;
 
     this.container = document.getElementById(containerId);
     this.canvas;
@@ -356,9 +361,9 @@ Scene.CreateMainStage = function () {
             var coord = this.coord;
             if (!coord.offset) {
                 if (typeof this.control.orientation != 'undefined') {
-                    if (!map.get(coord.x + Scene._COS[this.control.orientation], coord.y + Scene._SIN[this.control.orientation])) {
+                    // if (!map.get(coord.x + Scene._COS[this.control.orientation], coord.y + Scene._SIN[this.control.orientation])) {
                         this.orientation = this.control.orientation;
-                    }
+                    // }
                 }
                 this.control = {};
                 var value = map.get(coord.x + Scene._COS[this.orientation], coord.y + Scene._SIN[this.orientation]);
@@ -862,19 +867,6 @@ Scene.ResetConfig = function () {
 };
 
 Scene.randomGoodsPos = function () {
-    var tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
-    var tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
-    var checkNumberX = Math.floor(Math.floor(Scene._ROWCOL.col / 2) / 2);
-    var checkNumberY = Math.floor(Math.floor(Scene._ROWCOL.row / 2) / 2);
-    var playerX = Math.ceil(Scene._PLAYER.x / 2);
-    var playerY = Math.ceil(Scene._PLAYER.x / 2);
-    while (Math.abs(playerX - tmpX) < checkNumberX || Math.abs(playerY - tmpY) < checkNumberY) {
-        tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
-        tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
-    }
-
-    // tmpX = tmpX * 2 - 1;
-    // tmpY = tmpY * 2 - 1;
     //hardcode the goods postition
     tmpX = 1;
     tmpY = 3;

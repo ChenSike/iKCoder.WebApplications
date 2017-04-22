@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+   <title></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/ionicons.min.css">
     <link rel="stylesheet" href="styles/common.css">
     <link rel="stylesheet" href="styles/workplatform.css">
+    <link rel="stylesheet" href="styles/workspace.css">
     <script src="javascripts/common/jquery-2.1.1.min.js"></script>
     <script src="javascripts/common/jquery-ui.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
@@ -26,8 +27,8 @@
     <script src="javascripts/common/common.js"></script>
     <script src="javascripts/websit/common.js"></script>
     <script src="javascripts/websit/scenecommon.js"></script>
-    <script src="javascripts/websit/blocklycommon.js"></script>
-    <script src="javascripts/websit/workplatform.js"></script>
+    <script src="javascripts/websit/blocklycommon_test.js"></script>
+    <script src="javascripts/websit/workplatform_pacmantest.js"></script>
     <script src="javascripts/scene/pacman/level1/Blocks/blocks.js"></script>
     <script src="javascripts/scene/pacman/level1/Engine/game_engine.js"></script>
     <script src="javascripts/scene/pacman/level1/Scene/scene.js"></script>
@@ -89,7 +90,7 @@
                         <div class="row blockly-wrap">
                             <div class="col-sm-12">
                                 <div class="blockly-content-wrap">
-                                    <table class="height-p100">
+                                    <table class="height-p100 table-blockly-container">
                                         <tr class="workspace-title-tr">
                                             <td class="title-wrap-td wrap-td-1">
                                                 <div class="workspace-toolbox-icon workspace-title-text">工具箱</div>
@@ -118,6 +119,9 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    <div class="wrap-static-canvas">
+                                        <canvas></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -229,12 +233,41 @@
     <div class="run-scene-fullscreen">
         <div class="glyphicon glyphicon-remove-circle run-scene-fullscreen-close-button"></div>
     </div>
+    <div style="display:none">
+        <audio id="audio_Soundmark"></audio>
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
             _loadLabels();
             initPage();
         });
     </script>
-    <link rel="stylesheet" href="styles/workspace.css">
+    <div class="wrap-complete-alert">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 step-complete-title" id="title_StepComplete">                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center">
+                    <div class="col-xs-6">
+                        <div class="step-complete-button" id="btn_Step_Restart"><span class="glyphicon glyphicon-repeat" style="padding-right:10px;"></span>重新开始</div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="step-complete-button" id="btn_Step_GoNext"><span class="glyphicon glyphicon-hand-right" style="padding-right:10px;"></span>挑战下一步</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center margin-top20" style="border-top:solid 2px rgb(255,255,255)">
+                    <div class="col-xs-12 padding-top10 step-evaluate-wrap">
+                        喜欢这个课程吗?
+                        <span class="glyphicon glyphicon-thumbs-up step-evaluate-button" style="padding-left:20px;" data-target="1"></span>
+                        <span class="glyphicon glyphicon-thumbs-down step-evaluate-button" style="padding-left:20px;" data-target="0"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

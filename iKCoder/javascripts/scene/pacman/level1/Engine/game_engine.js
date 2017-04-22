@@ -127,7 +127,7 @@ function Game(id, params) {
         return {
             x: Math.floor((x - this.x) / this.size),
             y: Math.floor((y - this.y) / this.size),
-            offset: Math.sqrt(fx * fx + fy * fy)
+            offset: Math.sqrt(fx * fx + fy * fy) < 2.12 ? 0:Math.sqrt(fx * fx + fy * fy)
         };
     };
 
@@ -373,7 +373,7 @@ function Game(id, params) {
                         if (item.type == 1) {
                             if (_.movePaths.length > 0) {
                                 item.orientation = _.movePaths[0].orientation;
-                                if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) == 0) {
+                                if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) <= 2 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) <= 2) {
                                     _.movePaths.shift();
                                 }else{
                                     item.update();
