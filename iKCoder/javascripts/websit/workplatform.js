@@ -236,7 +236,7 @@ function initPage() {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_001' }),
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_002' }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
@@ -620,7 +620,7 @@ function showCompleteAlert() {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: _nextStep }),
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: _nextStep, symbol: _currentStage }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
