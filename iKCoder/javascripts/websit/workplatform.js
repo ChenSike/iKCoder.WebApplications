@@ -179,7 +179,7 @@ function buildStageHTML(data) {
         itemClass = "future-item";
         innerTxt = "";
         if (!isFuture) {
-            if (i < data.current_stage - 1) {
+            if (i < data.complete_count - 1) {
                 itemClass = "complete-item";
             } else if (i == data.current_stage - 1) {
                 labelClass = "show-stage-index";
@@ -196,7 +196,7 @@ function buildStageHTML(data) {
     $('.head-course-name').text(data.name);
     var tmpWidth = itemWidth * (data.stage_count - 1);
     $('.head-stage-background').css('width', tmpWidth + "%");
-    tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
+    tmpWidth = 100 / (data.stage_count - 1) * (data.complete_count - 1);
     $('.head-stage-space').css('width', tmpWidth + "%");
     updateTipsText(data.note);
 
@@ -281,6 +281,12 @@ function initData(response) {
         _nextStep = parseInt(_currentStep) + 1;
     }
 
+    var completeCount = _currentStep;
+    if (!isNaN(sceneItem.attr('completed')) && sceneItem.attr('completed') != '') {
+        completeCount = parseInt(sceneItem.attr('completed'));
+    }
+
+
     var words = [];
     var wordsItems = $(response).find("words").find('stage').find('word');
     for (var i = 0; i < wordsItems.length; i++) {
@@ -334,6 +340,7 @@ function initData(response) {
             name: sceneItem.attr('name'),
             stage_count: _totalSteps,
             current_stage: _currentStep,
+            complete_count: completeCount,
             note: note,
             words: words
         },
