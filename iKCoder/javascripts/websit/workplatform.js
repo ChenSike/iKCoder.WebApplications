@@ -179,7 +179,7 @@ function buildStageHTML(data) {
         itemClass = "future-item";
         innerTxt = "";
         if (!isFuture) {
-            if (i < data.complete_count - 1) {
+            if (i < data.complete_count) {
                 itemClass = "complete-item";
             } else if (i == data.current_stage - 1) {
                 labelClass = "show-stage-index";
@@ -196,7 +196,7 @@ function buildStageHTML(data) {
     $('.head-course-name').text(data.name);
     var tmpWidth = itemWidth * (data.stage_count - 1);
     $('.head-stage-background').css('width', tmpWidth + "%");
-    tmpWidth = 100 / (data.stage_count - 1) * (data.complete_count - 1);
+    tmpWidth = 100 / (data.stage_count - 1) * (data.complete_count);
     $('.head-stage-space').css('width', tmpWidth + "%");
     updateTipsText(data.note);
 
@@ -282,8 +282,8 @@ function initData(response) {
     }
 
     var completeCount = _currentStep;
-    if (!isNaN(sceneItem.attr('completed')) && sceneItem.attr('completed') != '') {
-        completeCount = parseInt(sceneItem.attr('completed'));
+    if (!isNaN(sceneItem.attr('finishstage')) && sceneItem.attr('finishstage') != '') {
+        completeCount = parseInt(sceneItem.attr('finishstage'));
     }
 
 
