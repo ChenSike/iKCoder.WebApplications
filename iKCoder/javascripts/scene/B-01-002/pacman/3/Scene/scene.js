@@ -797,7 +797,7 @@ Scene.randomPlayerPos = function () {
     //hardcode the player position
     // var tmpX = Math.floor(Scene._ROWCOL.col / 2);
     // var tmpY = Math.floor(Scene._ROWCOL.row / 2);
-    Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 4 };
+    Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 3 };
 
 };
 
@@ -858,7 +858,7 @@ Scene.ResetConfig = function () {
 Scene.randomGoodsPos = function () {
     //hardcode the goods postition
     tmpX = 4;
-    tmpY = 7;
+    tmpY = 6;
     Scene._Goods[tmpX + "," + tmpY] = 1;
     return { x: tmpX, y: tmpY };
 };
