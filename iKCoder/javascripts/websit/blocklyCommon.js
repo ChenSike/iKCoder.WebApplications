@@ -200,7 +200,10 @@ WorkScene.endGame = function () {
 
 WorkScene.reset = function () {
     WorkScene.workspace.clear();
-    Scene.reset();
+    var defaultXml = (!_workspaceCfg.workspace ? '<xml></xml>' : _workspaceCfg.workspace);
+    //defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
+    WorkScene.loadBlocks(defaultXml);
+    WorkScene.startGame();
 };
 
 WorkScene.saveStatus = function () {
