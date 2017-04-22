@@ -34,6 +34,7 @@ var _gURLMapping = {
     },
     bus:{
         getworkspace: '/Bus/Workspace/GET_Workspace.aspx',
+        saveworkspace: '/Bus/Workspace/SET_WorkspaceStatus.aspx',
         setcurrentstep: '/Bus/Workspace/SET_CurrentStep.aspx'
     }
 };
