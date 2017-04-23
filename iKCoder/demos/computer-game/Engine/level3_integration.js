@@ -118,10 +118,10 @@
             ccomponents = Array.prototype.concat.apply(ccomponents, config[group]);
         }
 
-        var cellDimension = 180,
+        var cellDimension = 80,
             numberOfComponents = ccomponents.length || 0,
-            verticalMargin = 200,
-            horizontalMargin = 100,
+            verticalMargin = 50,
+            horizontalMargin = 50,
             columns = Math.floor((stage.getWidth() - horizontalMargin) / cellDimension),
             rows = Math.floor((stage.getHeight() - verticalMargin) / cellDimension),
             cells = columns * rows;
@@ -130,8 +130,8 @@
             var cn = cellConfig.cn,
                 en = cellConfig.en,
                 path = cellConfig.path,
-                height = cellConfig.height || 120,
-                width = cellConfig.width || 120,
+                height = cellConfig.height || 60,
+                width = cellConfig.width || 60,
                 offsetX = (cellDimension - width) / 2,
                 offsetY = (cellDimension - height) / 2,
 
@@ -400,11 +400,11 @@
     ComputerScene.prototype = {
         constructor: ComputerScene,
         init: function() {
-            var containerId = this.containerId || 'game_container';
+            this.containerId = this.containerId || 'game_container';
             this.stage = new Konva.Stage({
-                container: containerId,
-                width: $('#containerId').width(),
-                height: $('#containerId').height()
+                container: this.containerId,
+                width: $('#' + this.containerId).width(),
+                height: $('#' + this.containerId).height()
             });
 
             this.layer = new Konva.Layer();
@@ -416,11 +416,29 @@
 
             this.__paint();
             this.__connectionSet = [];
+            this.registerResize();
+        },
+
+        registerResize: function() {
+            var that = this;
+            $("#" + this.containerId).resize(function() {
+                var width = $('#' + that.containerId).width(),
+                    height = $('#' + that.containerId).height();
+                that.stage.width(width);
+                that.stage.height(height);
+                // clear content in layers
+                [that.layer, this.resultLayer, this.connectionLayer].forEach(function(layer) {
+                    that._clearLayer(layer);
+                });
+                console.log('onresize to width=' + width + ' height= ' + height);
+                that._connectionSet = [];
+                that._paint();
+            });
         },
 
         __paint: function() {
             placeComponents(this.config, this.layer, this.categoryLayer, this.stage);
-            placeComponentGroups(this.config, this.categoryLayer, this.stage);
+            // placeComponentGroups(this.config, this.categoryLayer, this.stage);
 
             _categorizer = categoryManager(this.categoryLayer);
             this.stage.add(this.categoryLayer);
@@ -514,6 +532,15 @@
 
         endGame() {
             this.connectionLayer.getCanvas().getContext().clear();
+        },
+
+        clear() {
+            this.connectionLayer.getCanvas().getContext().clear();
+            this._clearLayer(this.connectionLayer);
+        },
+
+        _clearLayer(layer) {
+            layer && layer.getCanvas().getContext().clear();
         },
 
         buildConnect(name1, name2) {
