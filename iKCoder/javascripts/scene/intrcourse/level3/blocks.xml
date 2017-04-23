@@ -1,0 +1,16 @@
+﻿<xml id="toolbox" style="display: none">
+  <block type="computer-configuration-block"></block>
+  <block type="computer_block_connection"></block>
+  <block type="computer_component_block_mouse"></block>
+  <block type="computer_component_block_printer"></block>
+  <block type="computer_component_block_monitor"></block>
+  <block type="computer_component_block_keyboard"></block>
+  <block type="computer_component_block_earphones"></block>
+  <block type="computer_component_block_pendrive"></block>
+  <block type="computer_component_block_harddrive"></block>
+  <block type="computer_component_block_cd"></block>
+  <block type="computer_component_block_ram"></block>
+  <block type="computer_component_block_cpu"></block>
+  <block type="computer_component_block_graphics card"></block>
+  <block type="computer_component_block_computer tower"></block>
+</xml>
