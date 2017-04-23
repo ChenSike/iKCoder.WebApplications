@@ -1,16 +1,18 @@
 ﻿Scene = {};
 Scene.Game = null;
-
+var useDefaultMap = true;
 var _defaultDATA = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 1, 0, 1, 0, 0, 1],
-        [1, 1, 1, 1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 0, 0, 1, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
 var _defaultNPC = [
@@ -23,7 +25,7 @@ var _defaultNPC = [
 var _defaultGoods = { '1,3': 1, '26,3': 1, '1,23': 1, '26,23': 1 };
 
 Scene._DATA = _defaultDATA;
-Scene._ROWCOL = { row: 15, col: 15 };
+Scene._ROWCOL = { row: _defaultDATA.length, col: _defaultDATA[0].length };
 Scene._Goods = {};
 Scene._IsWall = {x:4, y: 4};
 Scene._COS = [1, 0, -1, 0];
@@ -49,7 +51,10 @@ Scene.init = function (containerId, model, configs) {
     Scene._LIFE = configs.lifeCount || Scene._LIFE;
     Scene._PLAYERSPEED = configs.playerSpeed || Scene._PLAYERSPEED;
     Scene._NPCSPEED = configs.NPCSpeed || Scene._NPCSPEED;
-    Scene._ROWCOL = configs.RowCol || Scene._ROWCOL;
+    //Scene._ROWCOL = configs.RowCol || Scene._ROWCOL;
+	if(!useDefaultMap){//update by Simon, when useDefaultMap=false, create map by configs that pass from blocklyCommon.js ->Scene.init('game_container', '0', { RowCol: { row: 7, col: 7 } });
+        Scene._ROWCOL=configs.RowCol;
+    }
 
     this.container = document.getElementById(containerId);
     this.canvas;
@@ -77,7 +82,7 @@ Scene.init = function (containerId, model, configs) {
 var _blocklyFn={fn:function(){}};
 Scene.InitGame = function (currentId, settings, model) {
     //Scene.randomPlayerPos();
-	Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 7 };
+	Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 9 };
     var targetPos = Scene.randomGoodsPos();
     Scene.initData(targetPos);
     Scene.Game = new Game(currentId, settings, model);
@@ -907,7 +912,7 @@ Scene.randomGoodsPos = function () {
     tmpX = tmpX * 2 - 1;
     tmpY = tmpY * 2 - 1;
 	*/
-	tmpX = 4;
+	tmpX = 1;
 	tmpY = 4;
     Scene._Goods[tmpX + "," + tmpY] = 1;
     return { x: tmpX, y: tmpY };
