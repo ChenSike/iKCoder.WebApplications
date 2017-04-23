@@ -39,9 +39,9 @@ function _fullScreen() {
 
 function _playScene() {
     //alert("'Play' will coming soon!");
-	if(!!_blocklyFn){
+    if (typeof (_blocklyFn) != 'undefined' && _blocklyFn != null) {
         WorkScene.startGame_Fn();
-    }else{
+    } else {
         WorkScene.startGame();
     }
 };
