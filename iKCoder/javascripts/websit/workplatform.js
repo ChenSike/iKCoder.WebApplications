@@ -2,7 +2,14 @@
 
 var _wordsData = [];
 var _workspaceCfg = {};
-var _currentStage = 0;
+var _currentStage = '';
+var _currentStep = '';
+var _nextStep = '';
+var _totalSteps = '';
+var _messages = {
+    success: '',
+    faild: ''
+};
 
 function initEvents() {
     $('#btn_Footer_Logo').on('click', function (e) {
@@ -112,16 +119,20 @@ function initEvents() {
     //$('#panel_KnowledgeMode').draggable({ containment: "body", scroll: false }).resizable();
 
     $('.step-evaluate-button').on('click', function (e) {
-       
+
     });
 
     $('#btn_Step_Restart').on('click', function (e) {
         WorkScene.reset();
-        $('.wrap-complete-alert').hide();
+        $('.wrap-workstatus-alert').hide();
     });
 
     $('#btn_Step_GoNext').on('click', function (e) {
+        window.location.href = "workplatform.html?rnd=" + Date.now();
+    });
 
+    $('#btn_Step_FindError').on('click', function (e) {
+        $('.wrap-workstatus-alert').hide();
     });
 
     $(window).resize(function () {
@@ -168,7 +179,7 @@ function buildStageHTML(data) {
         itemClass = "future-item";
         innerTxt = "";
         if (!isFuture) {
-            if (i < data.current_stage - 1) {
+            if (i < data.complete_count) {
                 itemClass = "complete-item";
             } else if (i == data.current_stage - 1) {
                 labelClass = "show-stage-index";
@@ -177,7 +188,7 @@ function buildStageHTML(data) {
             }
         }
 
-        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '">' + innerTxt + '</div></div>');
+        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '" data-target="' + (i + 1) + '">' + innerTxt + '</div></div>');
         tmpItem.css('width', itemWidth + "%");
         container.append(tmpItem);
     }
@@ -185,9 +196,13 @@ function buildStageHTML(data) {
     $('.head-course-name').text(data.name);
     var tmpWidth = itemWidth * (data.stage_count - 1);
     $('.head-stage-background').css('width', tmpWidth + "%");
-    tmpWidth = 100 / (data.stage_count - 1) * (data.current_stage - 1);
+    tmpWidth = 100 / (data.stage_count - 1) * (data.complete_count);
     $('.head-stage-space').css('width', tmpWidth + "%");
     updateTipsText(data.note);
+
+    $('div.head-stage-label .complete-item').on('click', function () {
+        gotoSpecialStep($(arguments[0].target).attr('data-target'));
+    })
 };
 
 function updateTipsText(data) {
@@ -221,7 +236,7 @@ function initPage() {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_001' }),
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_002' }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
@@ -259,7 +274,19 @@ function initPage() {
 function initData(response) {
     var userItem = $($(response).find("basic").find("usr")[0]);
     var sceneItem = $($(response).find("sence")[0]);
-    _currentStage = sceneItem.attr('currentstage');
+    _currentStage = sceneItem.attr('symbol');
+    _currentStep = sceneItem.attr('currentstage');
+    _totalSteps = sceneItem.attr('totalstage');
+    if (parseInt(_currentStep) < parseInt(_totalSteps)) {
+        _nextStep = parseInt(_currentStep) + 1;
+    }
+
+    var completeCount = _currentStep;
+    if (!isNaN(sceneItem.attr('finishstage')) && sceneItem.attr('finishstage') != '') {
+        completeCount = parseInt(sceneItem.attr('finishstage'));
+    }
+
+
     var words = [];
     var wordsItems = $(response).find("words").find('stage').find('word');
     for (var i = 0; i < wordsItems.length; i++) {
@@ -309,10 +336,11 @@ function initData(response) {
             img: _getRequestURL(userItem.attr('header'), {})
         },
         course: {
-            id: sceneItem.attr('symbol'),
+            id: _currentStage,
             name: sceneItem.attr('name'),
-            stage_count: sceneItem.attr('totalstage'),
-            current_stage: _currentStage,
+            stage_count: _totalSteps,
+            current_stage: _currentStep,
+            complete_count: completeCount,
             note: note,
             words: words
         },
@@ -326,6 +354,9 @@ function initData(response) {
             ]
         }
     }
+
+    _messages.success = $($(response).find("message").find('suc')[0]).attr('msg');
+    _messages.faild = $($(response).find("message").find('faild')[0]).attr('msg');
 
     return data;
 };
@@ -562,10 +593,62 @@ function onWindowResize() {
     siderBarWrap.css('height', '-webkit-calc(100% - ' + header.height() + 'px - 60px)');
 };
 
+function gotoSpecialStep(step) {
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: step }),
+        data: '<root></root>',
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepSymbol');
+                return;
+            }
+
+            window.location.href = "workplatform.html?rnd=" + Date.now();
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
+}
+
 function showCompleteAlert() {
-    $('.wrap-complete-alert').show();
-    $('#title_StepComplete').html(' 祝贺你！已经成功完成&nbsp;STEP&nbsp;' + _currentStage + '.');
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: _nextStep, symbol: _currentStage }),
+        data: '<root></root>',
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepSymbol');
+                return;
+            }
+
+            $('.wrap-workstatus-alert').show();
+            $('.wrap-complete-alert').show();
+            $('.wrap-faild-alert').hide();
+            $('#title_StepComplete').html(_messages.success);
+            WorkScene.saveStatus();
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
 };
+
+function showFaildAlert() {
+    $('.wrap-workstatus-alert').show();
+    $('.wrap-complete-alert').hide();
+    $('.wrap-faild-alert').show();
+    $('#title_StepFaild').html(_messages.faild);
+}
 
 function adjustWorkSpaceType(data) {
     if (data.blockly.toolbox == '') {

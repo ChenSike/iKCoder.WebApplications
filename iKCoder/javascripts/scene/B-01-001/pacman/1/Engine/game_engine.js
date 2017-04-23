@@ -7,6 +7,7 @@ function Game(id, params) {
         width: 400,
         height: 480,
         movePaths: [],
+        movePathsBuild: false,
         model: '1',
         rowCount: 15,
         colCount: 15,
@@ -127,7 +128,7 @@ function Game(id, params) {
         return {
             x: Math.floor((x - this.x) / this.size),
             y: Math.floor((y - this.y) / this.size),
-            offset: Math.sqrt(fx * fx + fy * fy) < 2.12 ? 0:Math.sqrt(fx * fx + fy * fy)
+            offset: Math.sqrt(fx * fx + fy * fy) < 2.12 ? 0 : Math.sqrt(fx * fx + fy * fy)
         };
     };
 
@@ -375,16 +376,16 @@ function Game(id, params) {
                                 item.orientation = _.movePaths[0].orientation;
                                 if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) <= 2 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) <= 2) {
                                     _.movePaths.shift();
-                                }else{
+                                } else {
                                     item.update();
                                 }
                             } else {
-                                if (!alreadyCheckComplete && Game.completeCheckFn) {
+                                if (!alreadyCheckComplete && _.movePathsBuild && Game.completeCheckFn) {
                                     Game.completeCheckFn(stage, item);
                                     alreadyCheckComplete = true;
                                 }
                             }
-                        }else if (item.type != 1) {
+                        } else if (item.type != 1) {
                             item.update();
                         }
                     }
@@ -463,6 +464,8 @@ function Game(id, params) {
         for (var i = 0; i < pathItems.length; i++) {
             _.movePaths.push(pathItems[i]);
         }
+
+        _.movePathsBuild = true;
     }
 
     this.calcPaths = function () {
@@ -660,7 +663,7 @@ Maze.prototype.cellToCooder = function () {
         if (wall[0] == 1) {
             coord[tmpY][tmpX - 1] = 0;
             if (wall[1] == 1) {
-                coord[tmpY-1][tmpX - 1] = 0;
+                coord[tmpY - 1][tmpX - 1] = 0;
             }
 
             if (wall[3] == 1) {

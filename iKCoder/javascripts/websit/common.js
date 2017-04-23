@@ -3,8 +3,8 @@
 var _gRegisterServer = false;
 var _gLabelMap = {};
 //var _gHostName = 'http://ikcoder.iok.la:24525/ikcoder';
-var _gHostName = 'http://10.86.18.67/ikcoder';
-//var _gHostName = 'http://192.168.199.182/ikcoder';
+//var _gHostName = 'http://10.86.18.67/ikcoder';
+var _gHostName = 'http://192.168.199.182/ikcoder';
 var _gURLMapping = {
     server: {
         reg: '/Sys/SYS_RegServer.aspx'
@@ -34,7 +34,8 @@ var _gURLMapping = {
     },
     bus:{
         getworkspace: '/Bus/Workspace/GET_Workspace.aspx',
-        saveworkspace: '/Bus/Workspace/GET_Workspace.aspx'
+        saveworkspace: '/Bus/Workspace/SET_WorkspaceStatus.aspx',
+        setcurrentstep: '/Bus/Workspace/SET_CurrentStep.aspx'
     }
 };
 

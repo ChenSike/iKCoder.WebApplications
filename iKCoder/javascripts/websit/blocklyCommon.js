@@ -120,7 +120,7 @@ WorkScene.init = function () {
     Blockly.svgResize(WorkScene.workspace);
     window.setTimeout(WorkScene.importPrettify, 1);
     CheckSceneObject();
-    Scene.init('game_container', '0', { RowCol: { row: 7, col: 7 } });
+    Scene.init('game_container', '0', { RowCol: { row: 9, col: 9 } });
 };
 
 WorkScene.runJS = function () {
@@ -200,7 +200,32 @@ WorkScene.endGame = function () {
 
 WorkScene.reset = function () {
     WorkScene.workspace.clear();
-    Scene.reset();
+    var defaultXml = (!_workspaceCfg.workspace ? '<xml></xml>' : _workspaceCfg.workspace);
+    //defaultXml = XMLToString(LoadXMLFile(_workspaceCfg.workspace));
+    WorkScene.loadBlocks(defaultXml);
+    WorkScene.startGame();
+};
+
+WorkScene.saveStatus = function () {
+    var tempXML = XMLToString(Blockly.Xml.workspaceToDom(WorkScene.workspace));
+    _registerRemoteServer();
+    $.ajax({
+        type: 'POST',
+        url: _getRequestURL(_gURLMapping.bus.saveworkspace, { symbol: _currentStage, stage: _currentStep }),
+        data: tempXML,
+        success: function (response, status) {
+            if ($(response).find('err').length > 0) {
+                _showGlobalMessage($(response).find('err').attr('msg'), 'danger', 'alert_Save_CurrentStepWorspaceStatus');
+                return;
+            }
+        },
+        dataType: 'xml',
+        xhrFields: {
+            withCredentials: true
+        },
+        error: function () {
+        }
+    });
 };
 
 function CheckSceneObject() {
@@ -242,5 +267,9 @@ function CheckSceneObject() {
 
     Scene.stepComplete = function () {
         showCompleteAlert();
+    }
+
+    Scene.stepFaild = function () {
+        showFaildAlert();
     }
 }

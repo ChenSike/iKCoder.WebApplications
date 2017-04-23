@@ -94,6 +94,8 @@ Scene.InitGame = function (currentId, settings, model) {
         if (item.type == '1') {
             if (targetPos.x == Scene._Player.coord.x && targetPos.y == Scene._Player.coord.y) {
                 Scene.stepComplete();
+            } else {
+                Scene.stepFaild();
             }
         }
     }
@@ -868,8 +870,8 @@ Scene.ResetConfig = function () {
 
 Scene.randomGoodsPos = function () {
     //hardcode the goods postition
-    tmpX = 1;
-    tmpY = 3;
+    tmpX = 2;
+    tmpY = 4;
     Scene._Goods[tmpX + "," + tmpY] = 1;
     return { x: tmpX, y: tmpY };
 };

@@ -868,8 +868,8 @@ Scene.ResetConfig = function () {
 
 Scene.randomGoodsPos = function () {
     //hardcode the goods postition
-    tmpX = 1;
-    tmpY = 3;
+    tmpX = 4;
+    tmpY = 2;
     Scene._Goods[tmpX + "," + tmpY] = 1;
     return { x: tmpX, y: tmpY };
 };

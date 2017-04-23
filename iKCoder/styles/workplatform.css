@@ -63,6 +63,7 @@ header {
     .head-stage-label .complete-item {
         background: url(../images/label/stepdone.png);
         background-color: rgb(26,164,216);
+        cursor: pointer;
     }
 
     .head-stage-label.show-stage-index {
@@ -619,15 +620,26 @@ textarea {
     cursor: pointer;
 }
 
+.wrap-workstatus-alert {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(215,215,215,0.9);
+    z-index: 9999;
+    display: none;
+}
+
 .wrap-complete-alert {
     width: 100%;
     height: 40%;
     position: absolute;
     top: 25%;
     background-color: rgba(162,202,92,0.9);
-    z-index: 9999;
+    z-index: 9909;
     display: none;
-    padding-top: 8%;
+    padding-top: 2%;
 }
 
 .step-complete-title {
@@ -660,11 +672,65 @@ textarea {
     line-height: 30px;
 }
 
-.step-evaluate-button{
-    cursor:pointer;
+.step-evaluate-button {
+    cursor: pointer;
 }
 
-.step-evaluate-button:hover{
-    font-weight:bold;
+    .step-evaluate-button:hover {
+        font-weight: bold;
+    }
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    /*margin: 100px auto;*/
 }
 
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce1{
+    background-color: #ff0000;
+}
+
+.double-bounce2{
+    background-color: #00ff00;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% {
+        -webkit-transform: scale(0.0);
+    }
+
+    50% {
+        -webkit-transform: scale(1.0);
+    }
+}
+
+@keyframes sk-bounce {
+    0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}

@@ -1,24 +1,19 @@
 ﻿Scene = {};
 Scene.Game = null;
-var useDefaultMap = false;
+var useDefaultMap = true;
 //true - use defaultDATA map; 
 // false -generate map by blocklyCommon.js ->Scene.init('game_container', '0', { RowCol: { row: 7, col: 7 } }); 
 var _defaultDATA = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,1,0,0,1],
+        [1,0,0,0,0,1,0,0,1],
+        [1,0,0,1,1,1,1,1,1],
+        [1,0,0,1,0,0,0,0,1],
+        [1,0,0,1,0,1,1,1,1],
+        [1,1,1,1,0,1,0,0,1],
+        [1,0,0,0,0,1,0,0,1],
+        [1,1,1,1,1,1,1,1,1]
+
 ];
 
 var _defaultNPC = [
@@ -353,7 +348,7 @@ Scene.CreateMainStage = function () {
         type: 1,
         location: map,
         coord: { x: Scene._PLAYER.x, y: Scene._PLAYER.y },
-        orientation: 2,
+        orientation: 0,
         speed: Scene._PLAYERSPEED,
         frames: 10,
         update: function (force) {
@@ -794,22 +789,11 @@ Scene.setPlayer = function (color, x, y) {
 };
 
 Scene.randomPlayerPos = function () {
-    // var tmpX = randomInt(1, Math.floor(Scene._ROWCOL.col / 2));
-    // var tmpY = randomInt(1, Math.floor(Scene._ROWCOL.row / 2));
-    //  Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX * 2 - 1, y: tmpY * 2 - 1 };
-    var tmpX = Math.floor(Scene._ROWCOL.col / 2);
-    var tmpY = Math.floor(Scene._ROWCOL.row / 2);
-    Scene._PLAYER = { c: Scene._PLAYER.c, x: tmpX, y: tmpY };
-    //var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
-    //player._params.coord = { x: Scene._PLAYER.x, y: Scene._PLAYER.y };
-    //player.coord.x = Scene._PLAYER.x;
-    //player.coord.y = Scene._PLAYER.y;
-    //player.update(true);
-    //player.draw(document.getElementById('game_canvas').getContext('2d'));
+    //hardcode the player position
+    // var tmpX = Math.floor(Scene._ROWCOL.col / 2);
+    // var tmpY = Math.floor(Scene._ROWCOL.row / 2);
+    Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 7 };
 
-    //var beans = Scene.Game.getCurentStage().maps[1];
-    //beans.set(Scene._PLAYER.x, Scene._PLAYER.y, 1);
-    //beans._params.data[Scene._PLAYER.y][Scene._PLAYER.x] = 1;
 };
 
 Scene.move = function (direction, step) {
@@ -868,8 +852,8 @@ Scene.ResetConfig = function () {
 
 Scene.randomGoodsPos = function () {
     //hardcode the goods postition
-    tmpX = 1;
-    tmpY = 3;
+    tmpX = 6;
+    tmpY = 4;
     Scene._Goods[tmpX + "," + tmpY] = 1;
     return { x: tmpX, y: tmpY };
 };

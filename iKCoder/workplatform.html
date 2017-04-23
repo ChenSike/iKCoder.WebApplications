@@ -33,17 +33,17 @@
     <script src="javascripts/scene/tankwar/Blocks/blocks.js"></script>
     <script src="javascripts/scene/tankwar/Engine/game_engine.js"></script>
     <script src="javascripts/scene/tankwar/Scene/scene.js"></script>-->
-    <!--<script src="javascripts/websit/workplatform_pacman_l2.js"></script>
-    <script src="javascripts/scene/pacman/level2/Blocks/blocks.js"></script>
-    <script src="javascripts/scene/pacman/level2/Engine/game_engine.js"></script>
-    <script src="javascripts/scene/pacman/level2/Scene/scene.js"></script>-->
+    <!--<script src="javascripts/websit/workplatform_pacman_l2.js"></script>-->
+    <!--<script src="javascripts/scene/B-01-001/1/Blocks/blocks.js"></script>
+    <script src="javascripts/scene/B-01-001/1/Engine/game_engine.JS"></script>
+    <script src="javascripts/scene/B-01-001/1/Scene/scene.js"></script>-->
 </head>
 <body>
     <div class="main-container">
         <table>
             <tr>
                 <td style="height:60px;" colspan="2">
-                    <header>
+                    <header id="workspace_header">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-2" style="text-align:center;padding-top:15px;">
@@ -83,7 +83,10 @@
                                 <div class="container height-p100">
                                     <div class="row height-p100">
                                         <div class="col-xs-2 col-sm-1" style="padding: 0px; padding-top: 20px; width:70px;">
-                                            <img src="images/label/topicon.png" />
+                                            <div class="spinner">
+                                                <div class="double-bounce1"></div>
+                                                <div class="double-bounce2"></div>
+                                            </div>
                                         </div>
                                         <div class="col-xs-9 col-sm-9 height-p100" style="text-align:left;padding-left: 0px;">
                                             <p class="course-stage-note"></p>
@@ -241,38 +244,67 @@
     <div style="display:none">
         <audio id="audio_Soundmark"></audio>
     </div>
+
+    <div class="wrap-workstatus-alert">
+        <div class="wrap-complete-alert">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12 text-center" style="padding: 30px 0px; color:rgb(255,255,2555);">
+                            <i class="fa fa-check-circle-o fa-5x" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 step-complete-title" id="title_StepComplete">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center">
+                        <div class="col-xs-6">
+                            <div class="step-complete-button" id="btn_Step_Restart"><span class="glyphicon glyphicon-repeat" style="padding-right:10px;"></span>重新开始</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="step-complete-button" id="btn_Step_GoNext"><span class="glyphicon glyphicon-hand-right" style="padding-right:10px;"></span>挑战下一步</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center margin-top20" style="border-top:solid 2px rgb(255,255,255)">
+                        <div class="col-xs-12 padding-top10 step-evaluate-wrap">
+                            喜欢这个课程吗?
+                            <span class="glyphicon glyphicon-thumbs-up step-evaluate-button" style="padding-left:20px;" data-target="1"></span>
+                            <span class="glyphicon glyphicon-thumbs-down step-evaluate-button" style="padding-left:20px;" data-target="0"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap-complete-alert wrap-faild-alert">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center" style="padding: 30px 0px; color:rgb(255,255,2555);">
+                        <i class="fa fa-exclamation-circle fa-5x" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 step-complete-title" id="title_StepFaild">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-sm-6 col-md-4 col-xs-offset-1 col-sm-offset-3 col-md-offset-4 text-center">
+                        <div class="step-complete-button" id="btn_Step_FindError"><span class="glyphicon glyphicon-hand-right" style="padding-right:10px;"></span>查找问题</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function () {
             _loadLabels();
             initPage();
         });
     </script>
-    <div class="wrap-complete-alert">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 step-complete-title" id="title_StepComplete">                   
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center">
-                    <div class="col-xs-6">
-                        <div class="step-complete-button" id="btn_Step_Restart"><span class="glyphicon glyphicon-repeat" style="padding-right:10px;"></span>重新开始</div>
-                    </div>
-                    <div class="col-xs-6">
-                        <div class="step-complete-button" id="btn_Step_GoNext"><span class="glyphicon glyphicon-hand-right" style="padding-right:10px;"></span>挑战下一步</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4 text-center margin-top20" style="border-top:solid 2px rgb(255,255,255)">
-                    <div class="col-xs-12 padding-top10 step-evaluate-wrap">
-                        喜欢这个课程吗?
-                        <span class="glyphicon glyphicon-thumbs-up step-evaluate-button" style="padding-left:20px;" data-target="1"></span>
-                        <span class="glyphicon glyphicon-thumbs-down step-evaluate-button" style="padding-left:20px;" data-target="0"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
