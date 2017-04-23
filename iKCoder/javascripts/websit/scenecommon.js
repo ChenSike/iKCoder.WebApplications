@@ -39,7 +39,11 @@ function _fullScreen() {
 
 function _playScene() {
     //alert("'Play' will coming soon!");
-    WorkScene.startGame();
+	if(!!_blocklyFn){
+        WorkScene.startGame_Fn();
+    }else{
+        WorkScene.startGame();
+    }
 };
 
 function _refereshScene() {
