@@ -69,7 +69,14 @@ header {
     .head-stage-label.show-stage-index {
         height: 34px;
         top: -45px;
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(255,255,255);
     }
+
+        .head-stage-label.show-stage-index .complete-item {
+            background-image: none;
+        }
 
     .head-stage-label .current-item {
         width: 34px;
@@ -700,11 +707,11 @@ textarea {
     animation: sk-bounce 2.0s infinite ease-in-out;
 }
 
-.double-bounce1{
+.double-bounce1 {
     background-color: #ff0000;
 }
 
-.double-bounce2{
+.double-bounce2 {
     background-color: #00ff00;
 }
 

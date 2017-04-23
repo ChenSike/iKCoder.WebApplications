@@ -174,21 +174,38 @@ function buildStageHTML(data) {
     var itemClass = "";
     var innerTxt = "";
     var itemWidth = Math.floor(100 / data.stage_count);
-    for (var i = 0; i < data.stage_count; i++) {
+    for (var i = 1; i < data.stage_count + 1; i++) {
         labelClass = "";
         itemClass = "future-item";
         innerTxt = "";
-        if (!isFuture) {
-            if (i < data.complete_count) {
-                itemClass = "complete-item";
-            } else if (i == data.current_stage - 1) {
+
+        if (i <= data.complete_count + 1) {
+            itemClass = "complete-item";
+            if (i == data.complete_count + 1) {
                 labelClass = "show-stage-index";
-                itemClass = "current-item";
-                innerTxt = data.current_stage;
+                innerTxt = i;
             }
         }
 
-        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '" data-target="' + (i + 1) + '">' + innerTxt + '</div></div>');
+        if (i == data.current_stage) {
+            labelClass = "show-stage-index";
+            itemClass = "current-item";
+            innerTxt = data.current_stage;
+        }
+
+
+
+        //if (!isFuture) {
+        //    if (i < data.complete_count) {
+        //        itemClass = "complete-item";
+        //    } else if (i == data.current_stage - 1) {
+        //        labelClass = "show-stage-index";
+        //        itemClass = "current-item";
+        //        innerTxt = data.current_stage;
+        //    }
+        //}
+
+        var tmpItem = $('<div class="head-stage-label ' + labelClass + '"><div class="' + itemClass + '" data-target="' + i + '">' + innerTxt + '</div></div>');
         tmpItem.css('width', itemWidth + "%");
         container.append(tmpItem);
     }
@@ -236,7 +253,7 @@ function initPage() {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'b_01_002' }),
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'a_01_003' }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
@@ -597,7 +614,7 @@ function gotoSpecialStep(step) {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: step }),
+        url: _getRequestURL(_gURLMapping.bus.setcurrentstep, { stage: step, symbol: _currentStage }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
