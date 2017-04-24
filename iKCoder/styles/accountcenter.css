@@ -342,7 +342,7 @@
     cursor: move;
 }
 
-div.alert {
+div.custom-global-alert {
     position: absolute;
     top: 0px;
     width: 100%;
@@ -350,7 +350,7 @@ div.alert {
     z-index: 199;
 }
 
-div.alert-mask {
+div.alert-mask-custom {
     position: absolute;
     top: 0px;
     left: 0px;
