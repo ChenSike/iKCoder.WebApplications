@@ -417,6 +417,19 @@
             this.__paint();
             this.__connectionSet = [];
             this.registerResize();
+            this.__correctConnectionArr = [
+                ["Mouse", "Computer Tower"],
+                ["Keyboard", "Computer Tower"],
+                ["Monitor", "Computer Tower"],
+                ["Computer Tower", "Printer"],
+                ["Computer Tower", "Earphones"],
+                ["Harddrive", "Computer Tower"],
+                ["Computer Tower", "Pendrive"],
+                ["RAM", "Computer Tower"],
+                ["CPU", "Computer Tower"],
+                ["Graphics Card", "Computer Tower"],
+                ["Computer Tower"]
+            ];
         },
 
         getImages: function() {
@@ -600,11 +613,29 @@
             var comp1 = this.layer.children[x];
             var comp2 = this.layer.children[y];
             this.connect(comp1, comp2);
+        },
+
+        checkComplete() {
+            var rightConnectionNum = 0;
+
+            this.__correctConnectionArr.forEach(function(fromto) {
+                var from = fromto[0],
+                    to = fromto[1];
+                this.__connectionSet.forEach(function(conntected){
+                    var conntectedFrom = conntected[0],
+                        conntectedTo = conntected[1];
+
+                    if (from === conntectedFrom && to === conntectedTo) {
+                        rightConnectionNum++;
+                    }
+                });
+            });
+
+            return rightConnectionNum >= 3;
         }
     };
 
     window.Scene = new ComputerScene(configuration);
-    // Scene.start();
 })();
 
 function test() {
