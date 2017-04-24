@@ -279,8 +279,8 @@ function initPage() {
             ]
         },
         blockly: {
-            toolbox: "javascripts/scene/intrcourse/level3/blocks.xml",
-            workspace: "javascripts/scene/intrcourse/level3/defaults.xml",
+            toolbox: "javascripts/scene/A-01-003/intrcourse/1/Blocks/blocks.xml",
+            workspace: "javascripts/scene/A-01-003/intrcourse/Blocks/defaults.xml",
             lib: [
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Blocks/blocks.js",
                 //"http://localhost/iKCoder/WorkStation/Scene/scripts/Race_Setting/Engine/game_engine.js",

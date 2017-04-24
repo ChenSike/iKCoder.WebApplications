@@ -319,13 +319,13 @@ function _startIntroJs() {
 };
 
 function _showGlobalMessage(msg, type, id) {
-    if ($('.alert-mask').length == 0) {
-        $('body').append($('<div class="alert-mask"></div>'));
+    if ($('.alert-mask-custom').length == 0) {
+        $('body').append($('<div class="alert-mask-custom"></div>'));
     }
-    $('.alert-mask').show();
-    $('body').append($('<div class="alert alert-' + type + '  alert-dismissable" id="' + id + '"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + msg + '</div>'));
+    $('.alert-mask-custom').show();
+    $('body').append($('<div class="alert alert-' + type + '  alert-dismissable custom-global-alert" id="' + id + '"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + msg + '</div>'));
     $('#' + id).bind('close.bs.alert', function () {
-        $('.alert-mask').hide();
+        $('.alert-mask-custom').hide();
     });
 };
 

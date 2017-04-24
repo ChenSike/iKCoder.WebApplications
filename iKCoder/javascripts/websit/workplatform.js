@@ -253,7 +253,7 @@ function initPage() {
     _registerRemoteServer();
     $.ajax({
         type: 'POST',
-        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol: 'a_01_003' }),
+        url: _getRequestURL(_gURLMapping.bus.getworkspace, { symbol:getQueryString() }),
         data: '<root></root>',
         success: function (response, status) {
             if ($(response).find('err').length > 0) {
@@ -794,3 +794,13 @@ function adjustWorkSpaceType(data) {
         });
     }
 })(jQuery);
+
+function getQueryString() {
+    var tempArr = window.location.search.substr(1).split('&');
+    for (var i = 0; i < tempArr.length; i++) {
+        var strArr = tempArr[i].split('=');
+        if (strArr[0] == 'scene') {
+            return strArr[1];
+        }
+    }
+}
