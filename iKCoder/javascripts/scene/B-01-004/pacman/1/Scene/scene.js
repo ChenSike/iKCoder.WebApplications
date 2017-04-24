@@ -25,23 +25,27 @@ var _defaultGoods = { '1,3': 1, '26,3': 1, '1,23': 1, '26,23': 1 };
 Scene._DATA = _defaultDATA;
 Scene._ROWCOL = { row: 15, col: 15 };
 Scene._Goods = {};
-Scene._IsWall = {x:4, y: 4};
+Scene._IsWall = {x:3, y: 4};
 Scene._COS = [1, 0, -1, 0];
 Scene._SIN = [0, 1, 0, -1];
 Scene._NPC = [];
 Scene._LIFE = 3;
 Scene._SCORE = 0;
 Scene._PLAYER = { c: '#FEFE27', x: 6, y: 12 };
-Scene._PLAYERSPEED = 1;
+Scene._PLAYERSPEED = 1.5;
 Scene._NPCSPEED = 0.5;
 Scene._MODEL = '1'; //0:static; 1: dynamic
 Scene._MOVEPATHS = [];
+Scene.APPLEIMG = new Image();
 Scene.ORANGEIMG = new Image();
+Scene.wallimg = new Image();
 //Scene.APPLEIMG.src = "data:image/svg+xml;base64," + window.btoa(svg_xml);
 Scene.ORANGEIMG.src = "images/scene/PACOrange.svg";
-Scene.initValue = '';
+Scene.APPLEIMG.src = "images/scene/PACApple.svg";
+Scene.wallimg.src = "images/icon/blocklyicons.svg";
+//Scene.initValue = '';
 Scene.timer = '1';
-Scene.startTick = 0;
+Scene.startTick = '0';
 Scene._CALCMOVEPATH = [];
 
 Scene.init = function (containerId, model, configs) {
@@ -74,7 +78,7 @@ Scene.init = function (containerId, model, configs) {
         Scene.InitGame(this.canvas.id, settings);
     }
 };
-var _blocklyFn={fn:function(){}};
+
 Scene.InitGame = function (currentId, settings, model) {
     //Scene.randomPlayerPos();
 	Scene._PLAYER = { c: Scene._PLAYER.c, x: 1, y: 7 };
@@ -86,39 +90,17 @@ Scene.InitGame = function (currentId, settings, model) {
     Scene.Game.init();
 	//Scene.initValue = Scene.setWallsValue();
     Scene.removeBeansUnderPlayer();
-	
 	var tmpFn = function (stage, item) {
         if (item.type == '1') {
             if (targetPos.x == Scene._Player.coord.x && targetPos.y == Scene._Player.coord.y) {
                 Scene.stepComplete();
+            }else {
+                Scene.stepFaild();
             }
         }
     }
 
     Game.completeCheckFn = tmpFn;
-	
-	 var tempFn = function (stage, item) {
-         var NextX,NextY;
-        if (item.type == '1') {	
-            switch (item.orientation) {
-            case 0:
-            case 2:
-                NextX = (item.orientation == 0 ? 1 : -1)  + item.coord.x;
-                NextY = item.coord.y;
-                break;
-            case 1:
-            case 3:
-                NextX = item.coord.x;
-                NextY = (item.orientation == 1 ? 1 : -1) + item.coord.y;
-                break;
-        }
-        itemOffset = item.coord.offset;
-        if (Scene.checkPointUsedByWall(NextX, NextY) && itemOffset == 0){
-            _blocklyFn.fn();
-        }
-        }
-    }
-    Game.checkWall = tempFn;
 };
 
 Scene.adjustSize = function (width, height) {
@@ -292,6 +274,8 @@ Scene.CreateMainStage = function () {
                             context.arc(pos.x, pos.y, game.stepUnit / 4 + this.times % 4, 0, 2 * Math.PI, true);
                             context.fill();
                             context.closePath();
+						//} else if (Scene._IsWall.x == i && Scene._IsWall.y == j){
+						//	context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
 						}else{
                             context.drawImage(Scene.ORANGEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
                         }
@@ -300,6 +284,52 @@ Scene.CreateMainStage = function () {
             }
         }
     });
+	
+	//unknown--wall or not
+	/*
+	iswall = stage.createMap({
+        x: tmpX,
+        y: tempY,
+        data: Scene._DATA,
+        frames: 8,
+        draw: function (context) {
+            for (var j = 0; j < this.y_length; j++) {
+                for (var i = 0; i < this.x_length; i++) {
+                        var pos = this.coord2position(i, j);
+                        context.fillStyle = "#F5F5DC";
+                        if (Scene._IsWall.x == i && Scene._IsWall.y == j){
+							if (Scene.startTick == 1){
+								if (Scene.initValue == 1) {
+									//context.drawImage(Scene.wallimg, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
+									
+                                    context.lineWidth = 3;
+                                    context.strokeStyle = "#0834DC";
+                                    context.beginPath();
+                                    context.moveTo((pos.x - game.stepUnit / 4)+(game.stepUnit / 4),(pos.y - game.stepUnit / 2));
+                                    context.lineTo((pos.x - game.stepUnit / 4)+(game.stepUnit / 4),(pos.y - game.stepUnit / 4)+(game.stepUnit/2)+(game.stepUnit/4));
+                                    context.stroke();
+                                    
+									//------------------------
+                                    context.strokeStyle = "#0834DC";
+									context.lineWidth = 3;
+                                    context.strokeRect((pos.x - game.stepUnit / 4)+(game.stepUnit / 8),(pos.y - game.stepUnit / 2)+(game.stepUnit / 8), game.stepUnit/4,(game.stepUnit/4)*3);
+									//--------------------------------------
+								}else if (Scene.initValue == 0) {
+									context.drawImage(Scene.ORANGEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
+									Scene.startTick++;
+								}
+								
+							}else if (Scene.startTick == 0){
+								context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
+							}
+								
+								
+							}
+                        }
+                }
+            }
+    });
+*/
     //Score Board
     stage.createItem({
         x: 20,
@@ -639,8 +669,8 @@ Scene.CreateOverStage = function () {
 
 Scene.startGame = function () {
 	//Scene.startTick = '1';
-//	var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
-//	Scene.checkBlockly(code);
+	var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
+	Scene.checkBlockly(code);
 //	Scene.initDrawImage();
     Scene.UpdateConfig();
     if (Scene.Game.start() === true) {
@@ -842,10 +872,39 @@ Scene.move = function (direction, step) {
         turn: false,
         steps: 0
     };
-   
+    var pathItemOri = {
+        x : Scene._Player.coord.x,
+        y : Scene._Player.coord.y,
+        orientation : Scene._Player.orientation
+    };
+    if (Scene._CALCMOVEPATH.length == 0){
+    Scene._CALCMOVEPATH.push(pathItemOri);
+}
+    var pathItemNext = {
+        x : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].x,
+        y : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].y,
+        orientation : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].orientation
+    };
+
     if (direction == "") {
         pathItem.orientation = "";
         pathItem.steps = step;
+        pathItemNext.orientation = pathItemNext.orientation;
+
+        switch (pathItemNext.orientation) {
+            case 0:
+            case 2:
+                pathItemNext.x = (pathItemNext.orientation == 0 ? 1 : -1) * step + pathItemNext.x;
+                pathItemNext.y = pathItemNext.y;
+                break;
+            case 1:
+            case 3:
+                pathItemNext.x = pathItemNext.x;
+                pathItemNext.y = (pathItemNext.orientation == 1 ? 1 : -1) * step + pathItemNext.y;
+                break;
+        }
+
+
     } else {
         switch (direction) {
             case 'L':
@@ -867,14 +926,21 @@ Scene.move = function (direction, step) {
             case 2:
                 pathItem.x = (pathItem.orientation == 0 ? 1 : -1) * step;
                 pathItem.y = 0;
+                pathItemNext.x = (pathItem.orientation == 0 ? 1 : -1) * step + pathItemNext.x;
+                pathItemNext.y = pathItemNext.y;
                 break;
             case 1:
             case 3:
                 pathItem.x = 0;
                 pathItem.y = (pathItem.orientation == 1 ? 1 : -1) * step;
+                pathItemNext.x = pathItemNext.x;
+                pathItemNext.y = (pathItem.orientation == 1 ? 1 : -1) * step + pathItemNext.y;
                 break;
         }
+        pathItemNext.orientation = pathItem.orientation;
     }
+
+    Scene._CALCMOVEPATH.push(pathItemNext);
 
     Scene._MOVEPATHS.push(pathItem);
 };
@@ -886,9 +952,6 @@ Scene.UpdateConfig = function (playerCfg, targetPos, wallCfg) {
 Scene.ResetConfig = function () {
     Scene._MOVEPATHS = [];
 	Scene._CALCMOVEPATH = [];
-	Scene.startTick = 0;
-	//Scene.initValue = Scene.setWallsValue();
-	
 };
 
 Scene.randomGoodsPos = function () {
@@ -931,7 +994,7 @@ Scene.initData = function (targetPos) {
     }
 
     //var maze = new Maze(Scene._ROWCOL.row, Scene._ROWCOL.col, { x: Scene._PLAYER.x, y: Scene._PLAYER.y }, { x: targetPos.x, y: targetPos.y });
-    //Scene._DATA = maze.cellToCooder();
+//    Scene._DATA = maze.cellToCooder();
 };
 
 Scene.removeBeansUnderPlayer = function () {
@@ -942,39 +1005,104 @@ Scene.removeBeansUnderPlayer = function () {
 
 Scene.setWallsValue = function () {
     var iswall = Scene.Game.getCurentStage().maps[1];
+	/*
 	var randomNum = Math.floor(Math.random()*2);
     iswall.set(Scene._IsWall.x, Scene._IsWall.y, randomNum);
     iswall._params.data[Scene._IsWall.y][Scene._IsWall.x] = randomNum;
 	return randomNum;
-
+	*/
+	iswall.set(Scene._IsWall.x, Scene._IsWall.y, 1);
+    iswall._params.data[Scene._IsWall.y][Scene._IsWall.x] = 1;
+	return 1;
 };
 
 Scene.TurnLeft = function () {
-    //Scene._MOVEPATHS.push({ orientation: -1, x: 0, y: 0, turn: true, steps: 0 });
-    var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
-    var preOrientation = player.orientation;
+    Scene._MOVEPATHS.push({ orientation: -1, x: 0, y: 0, turn: true, steps: 0 });
+
+    var pathItemOri = {
+        x : Scene._Player.coord.x,
+        y : Scene._Player.coord.y,
+        orientation : Scene._Player.orientation
+    };
+    if (Scene._CALCMOVEPATH.length == 0){
+        Scene._CALCMOVEPATH.push(pathItemOri);
+    }
+    var pathItemNext = {
+        x : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].x,
+        y : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].y,
+        orientation : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].orientation
+    };
+    var prevOrientation = pathItemNext.orientation;
     var currOrientation = '';
-    currOrientation = preOrientation - 1;
+    currOrientation = prevOrientation - 1;
     if (currOrientation == -1){
         currOrientation = 3;
     }
-    player.orientation = currOrientation;
+    pathItemNext.orientation = currOrientation;
+    Scene._CALCMOVEPATH.push(pathItemNext);
 };
 
 Scene.TurnRight = function () {
-    //Scene._MOVEPATHS.push({ orientation: 1, x: 0, y: 0, turn: true, steps: 0 });
-	var player = Scene.Game.getCurentStage().getItemsByType(1)[0];
-    var preOrientation = player.orientation;
+    Scene._MOVEPATHS.push({ orientation: 1, x: 0, y: 0, turn: true, steps: 0 });
+    var pathItemOri = {
+        x : Scene._Player.coord.x,
+        y : Scene._Player.coord.y,
+        orientation : Scene._Player.orientation
+    };
+    if (Scene._CALCMOVEPATH.length == 0){
+        Scene._CALCMOVEPATH.push(pathItemOri);
+    }
+    var pathItemNext = {
+        x : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].x,
+        y : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].y,
+        orientation : Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].orientation
+    };
+    var prevOrientation = pathItemNext.orientation;
     var currOrientation = '';
-    currOrientation = preOrientation + 1;
+    currOrientation = prevOrientation + 1;
     if (currOrientation == 4){
         currOrientation = 0;
     }
-    player.orientation = currOrientation;
+    pathItemNext.orientation = currOrientation;
+    Scene._CALCMOVEPATH.push(pathItemNext);
+};
+Scene.MoveForward = function () {
+	Scene.move("", 3);
 };
 
 Scene.isWall = function () {
-    return true;
+    var nextX, nextY, currentX, currentY, currentOrientation;
+    if (Scene._CALCMOVEPATH.length !=0){
+        currentX = Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].x;
+        currentY = Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].y;
+        currentOrientation = Scene._CALCMOVEPATH[Scene._CALCMOVEPATH.length-1].orientation;
+    }
+    switch (currentOrientation) {
+		case 0:
+			nextX = currentX + 1;
+			nextY = currentY;
+			break;
+		case 2:
+			nextX = currentX - 1;
+			nextY = currentY;
+			break;
+		case 1:
+			nextX = currentX;
+			nextY = currentY + 1;
+			break;
+		case 3:
+			nextX = currentX;
+			nextY = currentY - 1;
+			break;
+	}
+
+	if (Scene.checkPointUsedByWall (nextX, nextY))
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
 };
 
 Scene.eatBeans = function () {
