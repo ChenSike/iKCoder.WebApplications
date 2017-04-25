@@ -94,7 +94,7 @@ function _getLabel(key) {
 
 function _getRequestURL(page, params) {
     var url = _gHostName + page;
-    url += '?cid=' + _gCID;
+    url += '?qid=' + _gCID;
     if (params) {
         for (var key in params) {
             url += '&' + key + '=' + params[key];
