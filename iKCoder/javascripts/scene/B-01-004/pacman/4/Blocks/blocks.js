@@ -414,9 +414,9 @@ Blockly.Blocks['if_condition'] = {
     this.appendStatementInput("DO0")
         .setCheck(null)
         .appendField("执行");
-//    this.appendStatementInput("ELSE")
+ //   this.appendStatementInput("ELSE")
 //        .setCheck(null)
- //       .appendField("否则");
+//        .appendField("否则");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -437,6 +437,6 @@ Blockly.JavaScript['if_condition'] = function (a) {
 		c += (0 < b ? " else " : "") + "if (" + "Scene.isWall()" + ") {\n" + d + "}";
 		//++b;
 	//while (a.getInput("IF" + b));
-//    a.getInput("ELSE") && (d = Blockly.JavaScript.statementToCode(a, "ELSE"), c += " else {\n" + d + "}");
+ //   a.getInput("ELSE") && (d = Blockly.JavaScript.statementToCode(a, "ELSE"), c += " else {\n" + d + "}");
     return c + "\n"
 };

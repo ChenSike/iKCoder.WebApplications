@@ -1133,10 +1133,10 @@ Scene.checkBlockly = function (code) {
 		if (tarStr1 == ""){
 			Scene.ResetConfig();
 			alert("请确保If语句内有要执行的语句!");
-		}else if (tarStr2 == ""){
-			Scene.ResetConfig();
-			alert("请确保else语句内有要执行的语句!");
-		}
+		}//else if (tarStr2 == ""){
+		//	Scene.ResetConfig();
+		//	alert("请确保else语句内有要执行的语句!");
+		//}
 		
 };
 

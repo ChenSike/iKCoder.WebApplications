@@ -1155,10 +1155,11 @@ Scene.checkBlockly = function (code) {
 		//}else if (tarStr3 == ""){
 		//		Scene.ResetConfig();
 			//	alert("请确保If语句内有要执行的语句!");
-		}else if (tarStr2 == "" || tarStr4 == ""){
-			Scene.ResetConfig();
-			alert("请确保else语句内有要执行的语句!");
-			}
+		}
+		//else if (tarStr2 == "" || tarStr4 == ""){
+		//	Scene.ResetConfig();
+		//	alert("请确保else语句内有要执行的语句!");
+		//	}
 };
 
 function findStringPostion (searchString, searchedString, num) {
