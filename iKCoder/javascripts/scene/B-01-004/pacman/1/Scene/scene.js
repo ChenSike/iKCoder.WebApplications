@@ -670,6 +670,7 @@ Scene.CreateOverStage = function () {
 Scene.startGame = function () {
 	//Scene.startTick = '1';
 	var code = Blockly.JavaScript.workspaceToCode(WorkScene.workspace);
+	checkString (code);
 	Scene.checkBlockly(code);
 //	Scene.initDrawImage();
     Scene.UpdateConfig();
@@ -1129,21 +1130,14 @@ Scene.checkBlockly = function (code) {
 	var tarStr1 = sourceStr.substring(x1, y1);
 	var tarStr2 = sourceStr.substring(x2, y2);
 	
-	if (ifx  == -1){
-		Scene.ResetConfig();
-		alert("请使用If语句完成本节!");
-	}else {
 		if (tarStr1 == ""){
 			Scene.ResetConfig();
 			alert("请确保If语句内有要执行的语句!");
+		}else if (tarStr2 == ""){
+			Scene.ResetConfig();
+			alert("请确保else语句内有要执行的语句!");
 		}
-	/*
-		if (tarStr2 == ""){
-		Scene.ResetConfig();
-		alert("请确保else语句内有要执行的语句!");
-		}
-		*/
-	}
+		
 };
 
 function findStringPostion (searchString, searchedString, num) {
@@ -1153,3 +1147,14 @@ function findStringPostion (searchString, searchedString, num) {
     }
 return x;
 }
+
+function checkString (searchString) {
+	var len = searchString.split("if").length-1;
+	if (len == 0) {
+		Scene.ResetConfig();
+		alert("请使用If语句完成本节!");
+	}else if (len == 1 || len == 2){
+		Scene.ResetConfig();
+		alert("请使用3个If语句完成本节!");
+	}
+};

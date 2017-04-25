@@ -377,6 +377,8 @@ function Game(id, params) {
 								item.orientation = _.movePaths[0].orientation;
 								if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) <= 2 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) <= 2) {
 									_.movePaths.shift();
+								}else if ((_.movePaths[0].x > _.width ||_.movePaths[0].y > _.height)) {
+									_.movePaths.shift();
 								}else{
 									item.update();
 								}
