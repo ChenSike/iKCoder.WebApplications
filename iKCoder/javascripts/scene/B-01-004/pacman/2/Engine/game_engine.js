@@ -7,6 +7,7 @@ function Game(id, params) {
         width: 400,
         height: 480,
         movePaths: [],
+		movePathsBuild: false,
         model: '1',
         rowCount: 15,
         colCount: 15,
@@ -128,7 +129,7 @@ function Game(id, params) {
         return {
             x: Math.floor((x - this.x) / this.size),
             y: Math.floor((y - this.y) / this.size),
-            offset: Math.sqrt(fx * fx + fy * fy)
+            offset: Math.sqrt(fx * fx + fy * fy) < 2.12 ? 0 : Math.sqrt(fx * fx + fy * fy)
         };
     };
 
@@ -321,7 +322,7 @@ function Game(id, params) {
 
     this.start = function (fromInit) {
         var f = 0;
-        var alreadyCheckComplete = false;
+		var alreadyCheckComplete = false;
         if (_stages[_index].status == 1) {
             if (!fromInit) {
                 this.stop();
@@ -371,44 +372,28 @@ function Game(id, params) {
                             item.timeout--;
                         }
 
-                       if (item.type == 1) {
-                            
-                           if (Game.checkWall){
-                              Game.checkWall(stage, item);
-                           }
-                          item.update();
-						   if (item.coord.y == 4 && item.coord.x == 1){
-							   if (!alreadyCheckComplete && Game.completeCheckFn) {
-                                    Game.completeCheckFn(stage, item);
-                                    alreadyCheckComplete = true;
-                                }
-                              _.pause();
-                          }
-						  
-                          
-								
-                        
-                          
-                           /*
+                        if (item.type == 1) {
                             if (_.movePaths.length > 0) {
-                                item.orientation = _.movePaths[0].orientation;
-                                if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) == 0 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) == 0) {
-                                    _.movePaths.shift();
-                                }else{
-                                    item.update();
-                                }
+								item.orientation = _.movePaths[0].orientation;
+								if (Math.floor(Math.abs(item.x - _.movePaths[0].x)) <= 2 && Math.floor(Math.abs(item.y - _.movePaths[0].y)) <= 2) {
+									_.movePaths.shift();
+								}else if ((_.movePaths[0].x > _.width ||_.movePaths[0].y > _.height)) {
+									_.movePaths.shift();
+								}else{
+									item.update();
+								}
+								
                             } else {
-                                if (!alreadyCheckComplete && Game.completeCheckFn) {
+                                if (!alreadyCheckComplete && _.movePathsBuild && Game.completeCheckFn) {
                                     Game.completeCheckFn(stage, item);
                                     alreadyCheckComplete = true;
                                 }
                             }
-                            */
-                            
                         }else if (item.type != 1) {
                             item.update();
                         }
                     }
+
                     item.draw(_context);
                 });
             }
@@ -540,6 +525,9 @@ function Game(id, params) {
         }
 
         _.movePaths = tmpMovePaths;
+		if (_.movePaths.length != 0){
+			_.movePathsBuild = true;
+		}
     }
 }
 

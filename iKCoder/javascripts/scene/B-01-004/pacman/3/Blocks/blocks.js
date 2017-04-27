@@ -415,7 +415,7 @@ Blockly.Blocks['if_condition'] = {
         .setCheck(null)
         .appendField("执行");
 //    this.appendStatementInput("ELSE")
-//        .setCheck(null)
+ //       .setCheck(null)
  //       .appendField("否则");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);

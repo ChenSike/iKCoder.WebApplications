@@ -354,7 +354,7 @@ Blockly.Blocks['move_forward'] = {
 Blockly.JavaScript['move_forward'] = function (block) {
     return 'Scene.move("", ' + block.getFieldValue('move_steps') + ');\n';
 };
-Blockly.Blocks['move_onestep_forward'] = {
+Blockly.Blocks['move_nstep_forward'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("向前移动");
@@ -365,22 +365,20 @@ Blockly.Blocks['move_onestep_forward'] = {
     }
 };
 
-Blockly.JavaScript['move_onestep_forward'] = function (block) {
-   // return 'Scene.move("", 1);\n';
-   return '';
+Blockly.JavaScript['move_nstep_forward'] = function (block) {
+    return 'Scene.MoveForward();\n';
 };
 
-Blockly.Blocks['if_condition_else'] = {
+/*
+ Blockly.Blocks['if_condition'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("如果  吃豆人 ")
-        .appendField("前面是墙");
+        .appendField("如果    吃豆人 ")
+        .appendField("前面")
+        .appendField(" 是 墙");
     this.appendStatementInput("DO0")
         .setCheck(null)
         .appendField("执行");
-    this.appendStatementInput("ELSE")
-        .setCheck(null)
-        .appendField("否则");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -391,16 +389,54 @@ Blockly.Blocks['if_condition_else'] = {
   }
 };
 
-Blockly.JavaScript['if_condition_else'] = function (a) {
+Blockly.JavaScript['if_condition'] = function (a) {
+	
+    var b = 0,
+		c = "",
+		d, e;
+    do 
+		e = Blockly.JavaScript.valueToCode(a, "IF" + b, Blockly.JavaScript.ORDER_NONE) || "false", 
+		d = Blockly.JavaScript.statementToCode(a, "DO" + b), 
+		c += (0 < b ? " else " : "") + "if (Scene.isWall()) {\n" + d + "}", 
+		
+		++b;
+    while (a.getInput("IF" + b));
+    a.getInput("ELSE") && (d = Blockly.JavaScript.statementToCode(a, "ELSE"), c += " else {\n" + d + "}");
+    return c + "\n"
+};
+*/
+
+Blockly.Blocks['if_condition'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("如果  吃豆人 ")
+        .appendField("前面是墙");
+    this.appendStatementInput("DO0")
+        .setCheck(null)
+        .appendField("执行");
+//    this.appendStatementInput("ELSE")
+//        .setCheck(null)
+//        .appendField("否则");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip('');
+    this.setHelpUrl('');
+	var a = this;
+  }
+};
+
+Blockly.JavaScript['if_condition'] = function (a) {
     var b = 0,
 		c = "",
 		d, e;
     //do 
-	//	e = Blockly.JavaScript.valueToCode(a, "IF" + b, Blockly.JavaScript.ORDER_NONE) || "false", 
+		//e = Blockly.JavaScript.valueToCode(a, "IF" + b, Blockly.JavaScript.ORDER_NONE) || "false", 
 		d = Blockly.JavaScript.statementToCode(a, "DO" + b), 
 		c += (0 < b ? " else " : "") + "if (" + "Scene.isWall()" + ") {\n" + d + "}";
-	//	++b;
+		//++b;
 	//while (a.getInput("IF" + b));
-    a.getInput("ELSE") && (d = Blockly.JavaScript.statementToCode(a, "ELSE"), c += " else {\n" + d + "}");
+  //  a.getInput("ELSE") && (d = Blockly.JavaScript.statementToCode(a, "ELSE"), c += " else {\n" + d + "}");
     return c + "\n"
 };
