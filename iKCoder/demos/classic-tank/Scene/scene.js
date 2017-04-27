@@ -120,12 +120,14 @@ var Scene = (function() {
             mapUnderConstruct.init();
 
             gameState = GAME_STATE_INIT;
+            map.mapLevel = map1;
+            stage.draw();
             // setInterval(gameLoop, 20);
-            requestAnimationFrame(function(){
-                gameLoop();
-                if (gameState !== GAME_STATE_OVER)
-                    requestAnimationFrame(gameLoop);
-            });
+            // requestAnimationFrame(function() {
+            //     gameLoop();
+            //     if (gameState !== GAME_STATE_OVER)
+            //         requestAnimationFrame(gameLoop);
+            // });
         },
 
         startGame: function() {
@@ -137,8 +139,34 @@ var Scene = (function() {
 
         printMap: function() {
             mapUnderConstruct.print();
+        },
+
+        Amin: function (){
+            Engine.animate();
+        },
+
+        interpreter: function(interpreter, scope) {
+            interpreter.setProperty(scope, 'moveForward', interpreter.createNativeFunction(function(id){
+                Engine.move();
+            }));
+            interpreter.setProperty(scope, 'turnLeft', interpreter.createNativeFunction(function(id){
+                Engine.turnLeft();
+            }));
+            interpreter.setProperty(scope, 'turnRight', interpreter.createNativeFunction(function(id) {
+                Engine.turnRight(id);
+            }));
+            interpreter.setProperty(scope, 'isHitWall', interpreter.createNativeFunction(function(id) {
+                Engine.isHitWall(id);
+            }));
+            interpreter.setProperty(scope, 'isHitIce', interpreter.createNativeFunction(function(id) {
+                Engine.isHitIce(id);
+            }));
+            interpreter.setProperty(scope, 'isHitGrass', interpreter.createNativeFunction(function(id) {
+                Engine.isHitGrass(id);
+            }));
+            interpreter.setProperty(scope, 'shoot', interpreter.createNativeFunction(function(id) {
+                Engine.shoot(id);
+            }));
         }
-
-
     };
 })();

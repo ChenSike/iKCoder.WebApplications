@@ -1105,6 +1105,8 @@ var Tank = function() {
             this.x = this.tempX;
             this.y = this.tempY;
         }
+
+        console.log('move');
     };
 
     /**
@@ -1231,7 +1233,8 @@ var PlayTank = function(context) {
     this.isProtected = true; //是否受保护
     this.protectedTime = 500; //保护时间
     this.offsetX = 0; //坦克2与坦克1的距离
-    this.speed = 2; //坦克的速度
+    this.speed = 3; //坦克的速度
+    this.isRunning = false;
 
     // build a move method
     // it specified the steps to run, each step run per frame
@@ -2198,6 +2201,115 @@ function drawEnemyTanks() {
     }
 }
 
+var stepConfig = {
+    'moveForward': {
+        frames: 8,
+        fn: function() {
+            // switch (this.dir) {
+            //     case UP:
+            //         this.tempY++;
+            //         break;
+            //     case DOWN:
+            //         this.tempY--;
+            //         break;
+            //     case LEFT:
+            //         this.tmpX--;
+            //         break;
+            //     case RIGHT:
+            //         this.tmpX++;
+            //         break;
+            //     default:
+            //         break;
+            // }
+            this.move();
+        }
+    },
+    'turnLeft': {
+        frames: 1,
+        fn: function() {
+            switch (this.dir) {
+                case UP:
+                    this.dir = LEFT;
+                    break;
+                case DOWN:
+                    this.dir = RIGHT;
+                    break;
+                case LEFT:
+                    this.dir = DOWN;
+                    break;
+                case RIGHT:
+                    this.dir = UP;
+                    break;
+                default:
+                    break;
+            }
+        }
+    },
+    'turnRIGHT': {
+        frames: 1,
+        fn: function() {
+            switch (this.dir) {
+                case UP:
+                    this.dir = RIGHT;
+                    break;
+                case DOWN:
+                    this.dir = LEFT;
+                    break;
+                case LEFT:
+                    this.dir = UP;
+                    break;
+                case RIGHT:
+                    this.dir = DOWN;
+                    break;
+                default:
+                    break;
+            }
+        }
+    },
+    'shoot': {
+        frames: 1,
+        fn: function() {
+            this.shoot();
+        }
+    },
+    'isHitWall': {
+        frames: 1,
+        fn: function() {}
+    },
+    'isHitIce': {
+        frames: 1,
+        fn: function() {}
+    },
+    'isHitGrass': {
+        frames: 1,
+        fn: function() {}
+    }
+};
+
+function handleSchedule() {
+    if (player1.stepStatus == null ||
+        (player1.stepStatus && !player1.stepStatus.isRunning())) {
+
+        if(Engine.log.length <= 0) return;
+
+        var stepAction = Engine.log.shift()[0];
+        player1.stepStatus = (function() {
+            var remaing = stepConfig[stepAction].frames;
+            return {
+                isRunning: function() {
+                    return remaing > 0;
+                },
+                fn: function() {
+                    remaing--;
+                    return stepConfig && stepConfig[stepAction].fn.apply(player1);
+                }
+            };
+        })();
+    } else {
+        var stepStatus = player1.stepStatus;
+        stepStatus && stepStatus.fn.apply(player1);
+    }
+}
 // is called with the fixed time interval.
 function drawAll() {
     // clean tank rect
@@ -2211,15 +2323,19 @@ function drawAll() {
     }
     drawLives();
 
-    // add an enemy tank every time 100 is reached
-    if (appearEnemy < maxEnemy) {
-        if (mainframe % 100 == 0) {
-            addEnemyTank();
-            mainframe = 0;
+    if(Engine.allowEnemy) {
+        // add an enemy tank every time 100 is reached
+        if (appearEnemy < maxEnemy) {
+            if (mainframe % 100 == 0) {
+                addEnemyTank();
+                mainframe = 0;
+            }
+            mainframe++;
         }
-        mainframe++;
+        drawEnemyTanks();
     }
-    drawEnemyTanks();
+
+    handleSchedule();
 
     drawBullet();
     drawCrack();
@@ -2340,6 +2456,7 @@ function homeNoProtected() {
 
 // ******************** draft below
 function initForTest() {
+    gameState = GAME_STATE_START;
     ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     wallCtx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     grassCtx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -2348,6 +2465,7 @@ function initForTest() {
     initObject();
     map.mapLevel = map1;
     map.draw();
+    testScenarioOne();
 }
 
 function moveTank(dir) {
@@ -2361,5 +2479,48 @@ function misc() {
 
     // for kicking things off
     requestAnimationFrame(gameLoop);
-    player1.buildMove(8, UP);
+    player1.buildMove(5, UP);
+    console.log(GAME_STATE_START);
 }
+
+function moveMultiple() {
+    player1.buildMove(8, UP);
+    player1.buildMove(8, UP);
+    player1.buildMove(8, UP);
+    player1.shoot();
+    player1.dir = LEFT;
+    player1.dir = DOWN;
+}
+
+Engine = {
+    log: [],
+    allowEnemy: false,
+    move: function(id) {
+        this.log.push(['moveForward']);
+    },
+    turnLeft: function(id) {
+        this.log.push(['turnLeft']);
+    },
+    turnRight: function(id) {
+        this.log.push(['turnRight']);
+    },
+    shoot: function(id) {
+        this.log.push(['shoot']);
+    },
+    isHitWall: function(id) {
+        this.log.push(['isHitWall']);
+    },
+    isHitIce: function(id) {
+        this.log.push(['isHitIce']);
+    },
+    isHitGrass: function(id) {
+        this.log.push(['isHitGrass']);
+    },
+    animate: function() {
+        gameState = GAME_STATE_START;
+        // initObject();
+        // map.mapLevel = map1;
+        map.draw();
+        requestAnimationFrame(gameLoop);
+    }
+};
