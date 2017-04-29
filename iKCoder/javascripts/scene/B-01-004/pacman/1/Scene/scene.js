@@ -285,51 +285,6 @@ Scene.CreateMainStage = function () {
         }
     });
 	
-	//unknown--wall or not
-	/*
-	iswall = stage.createMap({
-        x: tmpX,
-        y: tempY,
-        data: Scene._DATA,
-        frames: 8,
-        draw: function (context) {
-            for (var j = 0; j < this.y_length; j++) {
-                for (var i = 0; i < this.x_length; i++) {
-                        var pos = this.coord2position(i, j);
-                        context.fillStyle = "#F5F5DC";
-                        if (Scene._IsWall.x == i && Scene._IsWall.y == j){
-							if (Scene.startTick == 1){
-								if (Scene.initValue == 1) {
-									//context.drawImage(Scene.wallimg, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
-									
-                                    context.lineWidth = 3;
-                                    context.strokeStyle = "#0834DC";
-                                    context.beginPath();
-                                    context.moveTo((pos.x - game.stepUnit / 4)+(game.stepUnit / 4),(pos.y - game.stepUnit / 2));
-                                    context.lineTo((pos.x - game.stepUnit / 4)+(game.stepUnit / 4),(pos.y - game.stepUnit / 4)+(game.stepUnit/2)+(game.stepUnit/4));
-                                    context.stroke();
-                                    
-									//------------------------
-                                    context.strokeStyle = "#0834DC";
-									context.lineWidth = 3;
-                                    context.strokeRect((pos.x - game.stepUnit / 4)+(game.stepUnit / 8),(pos.y - game.stepUnit / 2)+(game.stepUnit / 8), game.stepUnit/4,(game.stepUnit/4)*3);
-									//--------------------------------------
-								}else if (Scene.initValue == 0) {
-									context.drawImage(Scene.ORANGEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
-									Scene.startTick++;
-								}
-								
-							}else if (Scene.startTick == 0){
-								context.drawImage(Scene.APPLEIMG, 0, 0, 15, 15, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
-							}
-								
-								
-							}
-                        }
-                }
-            }
-    });
-*/
     //Score Board
     stage.createItem({
         x: 20,
@@ -365,6 +320,7 @@ Scene.CreateMainStage = function () {
         });
     }
     //Life Board
+	/*
     stage.createItem({
         x: 260,
         y: 450,
@@ -390,6 +346,7 @@ Scene.CreateMainStage = function () {
             //context.fillText(Scene._LIFE, this.x + 12, this.y);
         }
     });
+	*/
     //NPC
     var npcItems = [];
     for (var i = 0; i < Scene._NPC.length; i++) {
