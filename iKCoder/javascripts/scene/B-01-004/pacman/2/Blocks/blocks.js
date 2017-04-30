@@ -409,7 +409,7 @@ Blockly.JavaScript['if_condition'] = function (a) {
 Blockly.Blocks['if_condition'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("如果  吃豆人 ")
+        .appendField("如果 ")
         .appendField("前面是墙");
     this.appendStatementInput("DO0")
         .setCheck(null)
