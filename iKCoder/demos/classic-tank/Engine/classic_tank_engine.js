@@ -59,6 +59,7 @@ Array.prototype.contain = function(arg) {
 
 var Keyboard = function() {
 
+    this.isEnabled = false;
     this.UP = 38;
     this.DOWN = 40;
     this.RIGHT = 39;
@@ -1050,9 +1051,8 @@ var Bullet = function(context, owner, type, dir) {
             BULLET_DESTROY_AUDIO.play();
         }
     };
-
-
 };
+
 /**
  * 坦克基类
  * @returns
@@ -1100,13 +1100,12 @@ var Tank = function() {
         } else if (this.dir == LEFT) {
             this.tempX -= this.speed;
         }
+
         this.isHit();
         if (!this.hit) {
             this.x = this.tempX;
             this.y = this.tempY;
         }
-
-        console.log('move');
     };
 
     /**
@@ -1205,9 +1204,6 @@ var Tank = function() {
         crackArray.push(new CrackAnimation(CRACK_TYPE_TANK, this.ctx, this));
         TANK_DESTROY_AUDIO.play();
     };
-
-
-
 };
 
 /**
@@ -1231,7 +1227,7 @@ var PlayTank = function(context) {
     this.ctx = context;
     this.lives = 3; //生命值
     this.isProtected = true; //是否受保护
-    this.protectedTime = 500; //保护时间
+    this.protectedTime = 0; //保护时间  originial value -> 500
     this.offsetX = 0; //坦克2与坦克1的距离
     this.speed = 3; //坦克的速度
     this.isRunning = false;
@@ -1327,8 +1323,6 @@ var EnemyOne = function(context) {
                 this.times = 0;
             }
             this.move();
-
-
         }
 
     };
@@ -1928,6 +1922,8 @@ var emenyStopTime = 0;
 var homeProtectedTime = -1;
 var propTime = 300;
 
+// init screen
+// set canvas size
 function initScreen() {
     // stage context
     var canvas = $("#stageCanvas");
@@ -1982,6 +1978,8 @@ function initScreen() {
     });
 }
 
+// init objects
+// 1. menu, 2. stage, 3. map, 4, palyer1, player2 etc...
 function initObject() {
     // menu in the stage context
     menu = new Menu(ctx);
@@ -2014,7 +2012,6 @@ function initObject() {
 function gameLoop() {
     try {
         switch (gameState) {
-
             case GAME_STATE_MENU:
                 menu.draw();
                 break;
@@ -2025,7 +2022,18 @@ function gameLoop() {
                 }
                 break;
             case GAME_STATE_START:
-                drawAll();
+                if (Engine.needRedraw ||
+                    Engine.lastDrawTime == undefined ||
+                    (Date.now() - Engine.lastDrawTime) > (1000 / Engine.FRAME_PER_SEC))
+                    drawAll();
+                if (Engine.needRedraw) {
+                    Engine.lastDrawTime = Date.now();
+                }
+                Engine.needRedraw = false;
+                if (Engine._interpreter.step()) {
+                    Engine.pid = setTimeout(gameLoop, 1000 / Engine.FRAME_PER_SEC);
+                }
+
                 if (isGameOver || (player1.lives <= 0 && player2.lives <= 0)) {
                     gameState = GAME_STATE_OVER;
                     map.homeHit();
@@ -2034,7 +2042,6 @@ function gameLoop() {
                 if (appearEnemy == maxEnemy && enemyArray.length == 0) {
                     gameState = GAME_STATE_WIN;
                 }
-                requestAnimationFrame(gameLoop);
                 break;
             case GAME_STATE_WIN:
                 nextLevel();
@@ -2116,51 +2123,50 @@ function drawBullet() {
     }
 }
 
-function drawInstructedTankMove() {
-    player1.animMove && player1.animMove();
-}
-
 // called in setInterval every 20 mill sec
 function keyEvent() {
+
+    if (!keyboard.isEnabled) return false;
+
     // key event for play1
-    if (keys.contain(keyboard.W)) {
+    if (keys.contain(keyboard.UP)) {
         player1.dir = UP;
         player1.hit = false;
         player1.move();
-    } else if (keys.contain(keyboard.S)) {
+    } else if (keys.contain(keyboard.DOWN)) {
         player1.dir = DOWN;
         player1.hit = false;
         player1.move();
-    } else if (keys.contain(keyboard.A)) {
+    } else if (keys.contain(keyboard.LEFT)) {
         player1.dir = LEFT;
         player1.hit = false;
         player1.move();
-    } else if (keys.contain(keyboard.D)) {
+    } else if (keys.contain(keyboard.RIGHT)) {
         player1.dir = RIGHT;
         player1.hit = false;
         player1.move();
     }
 
     // key event for play2
-    if (keys.contain(keyboard.UP)) {
+    if (keys.contain(keyboard.W)) {
         player2.dir = UP;
         player2.hit = false;
         player2.move();
-    } else if (keys.contain(keyboard.DOWN)) {
+    } else if (keys.contain(keyboard.S)) {
         player2.dir = DOWN;
         player2.hit = false;
         player2.move();
-    } else if (keys.contain(keyboard.LEFT)) {
+    } else if (keys.contain(keyboard.A)) {
         player2.dir = LEFT;
         player2.hit = false;
         player2.move();
-    } else if (keys.contain(keyboard.RIGHT)) {
+    } else if (keys.contain(keyboard.D)) {
         player2.dir = RIGHT;
         player2.hit = false;
         player2.move();
     }
 
-}
+};
 
 function addEnemyTank() {
     if (enemyArray == null || enemyArray.length >= maxAppearEnemy || maxEnemy == 0) {
@@ -2201,96 +2207,11 @@ function drawEnemyTanks() {
     }
 }
 
-var stepConfig = {
-    'moveForward': {
-        frames: 8,
-        fn: function() {
-            // switch (this.dir) {
-            //     case UP:
-            //         this.tempY++;
-            //         break;
-            //     case DOWN:
-            //         this.tempY--;
-            //         break;
-            //     case LEFT:
-            //         this.tmpX--;
-            //         break;
-            //     case RIGHT:
-            //         this.tmpX++;
-            //         break;
-            //     default:
-            //         break;
-            // }
-            this.move();
-        }
-    },
-    'turnLeft': {
-        frames: 1,
-        fn: function() {
-            switch (this.dir) {
-                case UP:
-                    this.dir = LEFT;
-                    break;
-                case DOWN:
-                    this.dir = RIGHT;
-                    break;
-                case LEFT:
-                    this.dir = DOWN;
-                    break;
-                case RIGHT:
-                    this.dir = UP;
-                    break;
-                default:
-                    break;
-            }
-        }
-    },
-    'turnRIGHT': {
-        frames: 1,
-        fn: function() {
-            switch (this.dir) {
-                case UP:
-                    this.dir = RIGHT;
-                    break;
-                case DOWN:
-                    this.dir = LEFT;
-                    break;
-                case LEFT:
-                    this.dir = UP;
-                    break;
-                case RIGHT:
-                    this.dir = DOWN;
-                    break;
-                default:
-                    break;
-            }
-        }
-    },
-    'shoot': {
-        frames: 1,
-        fn: function() {
-            this.shoot();
-        }
-    },
-    'isHitWall': {
-        frames: 1,
-        fn: function() {}
-    },
-    'isHitIce': {
-        frames: 1,
-        fn: function() {}
-    },
-    'isHitGrass': {
-        frames: 1,
-        fn: function() {}
-    }
-};
-
 function handleSchedule() {
     if (player1.stepStatus == null ||
         (player1.stepStatus && !player1.stepStatus.isRunning())) {
 
-        if(Engine.log.length <= 0) return;
+        if (Engine.log.length <= 0) return;
 
         var stepAction = Engine.log.shift()[0];
         player1.stepStatus = (function() {
@@ -2310,36 +2231,28 @@ function handleSchedule() {
         stepStatus && stepStatus.fn.apply(player1);
     }
 }
+
 // is called with the fixed time interval.
 function drawAll() {
+    // if (!Engine.needRedraw) return;
+
+    console.log('draw frame...');
     // clean tank rect
     tankCtx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     // draw players
     if (player1.lives > 0) {
         player1.draw();
     }
-    if (player2.lives > 0) {
-        player2.draw();
-    }
+    // if (player2.lives > 0) {
+    //     player2.draw();
+    // }
     drawLives();
-
-    if(Engine.allowEnemy) {
-        // add an enemy tank every time 100 is reached
-        if (appearEnemy < maxEnemy) {
-            if (mainframe % 100 == 0) {
-                addEnemyTank();
-                mainframe = 0;
-            }
-            mainframe++;
-        }
-        drawEnemyTanks();
-    }
-
-    handleSchedule();
+    drawEnemies();
+    // handleSchedule();
 
     drawBullet();
     drawCrack();
-    drawInstructedTankMove();
+    // drawInstructedTankMove();
 
     // key event
     keyEvent();
@@ -2357,6 +2270,20 @@ function drawAll() {
     } else if (homeProtectedTime == 0) {
         homeProtectedTime = -1;
         homeNoProtected();
+    }
+}
+
+function drawEnemies() {
+    if (Engine.allowEnemy) {
+        // add an enemy tank every time 100 is reached
+        if (appearEnemy < maxEnemy) {
+            if (mainframe % 100 == 0) {
+                addEnemyTank();
+                mainframe = 0;
+            }
+            mainframe++;
+        }
+        drawEnemyTanks();
     }
 }
 
@@ -2495,20 +2422,81 @@ function moveMultiple() {
 Engine = {
     log: [],
     allowEnemy: false,
+    STATEMENTS_PER_FRAME: 100,
+    FRAME_PER_SEC: 50,
+    pid: null,
+    needRedraw: false,
+    lastDrawTime: null,
+    initInterpreter: function(_interpreter) {
+        Engine._interpreter = _interpreter;
+    },
+    animate: function() {
+        gameState = GAME_STATE_START;
+        gameLoop();
+    }
+};
+
+Engine.do = function(actionName, triggerRedraw) {
+    var action = Engine.actions[actionName];
+    Engine.needRedraw = triggerRedraw ? true : false;
+    var actionArguments = Array.prototype.slice.call(arguments, 2);
+    action && action.apply(Engine, actionArguments);
+};
+
+Engine.actions = {
     move: function(id) {
-        this.log.push(['moveForward']);
+        // this.log.push(['moveForward']);
+        player1.move();
+        player1.move();
+        player1.move();
+        console.log('engine.move');
     },
     turnLeft: function(id) {
-        this.log.push(['turnLeft']);
+        // this.log.push(['turnLeft']);
+        console.log('engine.turnleft');
+        switch (this.dir) {
+            case UP:
+                this.dir = LEFT;
+                break;
+            case DOWN:
+                this.dir = RIGHT;
+                break;
+            case LEFT:
+                this.dir = DOWN;
+                break;
+            case RIGHT:
+                this.dir = UP;
+                break;
+            default:
+                break;
+        }
     },
     turnRight: function(id) {
         this.log.push(['turnRight']);
+        switch (player1.dir) {
+            case UP:
+                player1.dir = RIGHT;
+                break;
+            case DOWN:
+                player1.dir = LEFT;
+                break;
+            case LEFT:
+                player1.dir = UP;
+                break;
+            case RIGHT:
+                player1.dir = DOWN;
+                break;
+            default:
+                break;
+        }
     },
     shoot: function(id) {
-        this.log.push(['shoot']);
+        // this.log.push(['shoot']);
+        player1.shoot();
     },
     isHitWall: function(id) {
-        this.log.push(['isHitWall']);
+        // this.log.push(['isHitWall']);
+        return player1.isHit();
     },
     isHitIce: function(id) {
         this.log.push(['isHitIce']);
@@ -2516,11 +2504,10 @@ Engine = {
     isHitGrass: function(id) {
         this.log.push(['isHitGrass']);
     },
-    animate: function() {
-        gameState = GAME_STATE_START;
-        // initObject();
-        // map.mapLevel = map1;
-        map.draw();
-        requestAnimationFrame(gameLoop);
+    enableEnemyAI: function() {
+
+    },
+    enableKeyboardControl: function() {
+        keyboard.isEnabled = true;
     }
 };

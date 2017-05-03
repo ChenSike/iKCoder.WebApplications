@@ -141,18 +141,20 @@ TankGame.runJS = function () {
     };
     var code = Blockly.JavaScript.workspaceToCode(TankGame.workspace);
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var interpreter = new Interpreter(code, Scene.interpreter);
-    try {
-        var ticks = 10000;  // 10k ticks runs Pegman for about 8 minutes.
-        while (interpreter.step()) {
-            if (ticks-- == 0) {
-                throw Infinity;
-            }
-        }
-	    Scene.startGame();
-    } catch (e) {
-        alert('badCode: %1'.replace('%1', e));
-    }
+    Scene.curInterpreter = new Interpreter(code, Scene.interpreter);
+	  Scene.startGame();
+    // var interpreter = new Interpreter(code, Scene.interpreter);
+    // try {
+    //     var ticks = 10000;  // 10k ticks runs Pegman for about 8 minutes.
+    //     while (interpreter.step()) {
+    //         if (ticks-- == 0) {
+    //             throw Infinity;
+    //         }
+    //     }
+	  //   Scene.startGame();
+    // } catch (e) {
+    //     alert('badCode: %1'.replace('%1', e));
+    // }
 };
 
 TankGame.discard = function () {

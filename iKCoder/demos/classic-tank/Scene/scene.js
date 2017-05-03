@@ -10,14 +10,12 @@ var Scene = (function() {
         this.columns = columns || 26;
     };
 
+    // FIXME need to take back the codes
     constructGameWalls.prototype.init = function() {
         // fill with 0
         for (var row = 0; row < this.rows; row++) {
 
             // create current row
-            var curRow = new Array();
-            this.mapArray.push(curRow);
-
             for (var column = 0; column < this.columns; column++) {
                 curRow.push(0);
             }
@@ -112,27 +110,24 @@ var Scene = (function() {
         drawLine: function(_wallType, x, min, max, reverseFlag) {
             mapUnderConstruct.setWall(_wallType, x, min, max, reverseFlag);
         },
-
         init: function() {
+            // clear canvases from engine
+            // FIXME
             initScreen();
+            // clear variables from engine
+            // FIXME
             initObject();
-
-            mapUnderConstruct.init();
 
             gameState = GAME_STATE_INIT;
             map.mapLevel = map1;
             stage.draw();
-            // setInterval(gameLoop, 20);
-            // requestAnimationFrame(function() {
-            //     gameLoop();
-            //     if (gameState !== GAME_STATE_OVER)
-            //         requestAnimationFrame(gameLoop);
-            // });
+            map.draw();
         },
 
         startGame: function() {
             console.log('starting game');
-            mapUnderConstruct.setMapWall();
+            // mapUnderConstruct.setMapWall();
+            Scene.Animate();
         },
 
         endGame: function() {},
@@ -141,31 +136,36 @@ var Scene = (function() {
             mapUnderConstruct.print();
         },
 
-        Amin: function (){
+        Animate: function() {
+            // Scene.init();
             Engine.animate();
         },
 
         interpreter: function(interpreter, scope) {
-            interpreter.setProperty(scope, 'moveForward', interpreter.createNativeFunction(function(id){
-                Engine.move();
+            Engine.initInterpreter(interpreter);
+            interpreter.setProperty(scope, 'moveForward', interpreter.createNativeFunction(function(id) {
+                Engine.do('move', true);
             }));
-            interpreter.setProperty(scope, 'turnLeft', interpreter.createNativeFunction(function(id){
-                Engine.turnLeft();
+            interpreter.setProperty(scope, 'turnLeft', interpreter.createNativeFunction(function(id) {
+                Engine.do('turnLeft', true);
             }));
             interpreter.setProperty(scope, 'turnRight', interpreter.createNativeFunction(function(id) {
-                Engine.turnRight(id);
+                Engine.do('turnRight', true);
             }));
             interpreter.setProperty(scope, 'isHitWall', interpreter.createNativeFunction(function(id) {
-                Engine.isHitWall(id);
+                Engine.do('isHitWall');
             }));
             interpreter.setProperty(scope, 'isHitIce', interpreter.createNativeFunction(function(id) {
-                Engine.isHitIce(id);
+                Engine.do('isHitIce');
             }));
             interpreter.setProperty(scope, 'isHitGrass', interpreter.createNativeFunction(function(id) {
-                Engine.isHitGrass(id);
+                Engine.do('isHitGrass');
             }));
             interpreter.setProperty(scope, 'shoot', interpreter.createNativeFunction(function(id) {
-                Engine.shoot(id);
+                Engine.do('shoot', true);
+            }));
+            interpreter.setProperty(scope, 'enableKeyboardControl', interpreter.createNativeFunction(function(id) {
+                Engine.do('enableKeyboardControl', true);
             }));
         }
     };
