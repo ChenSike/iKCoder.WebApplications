@@ -1,0 +1,7 @@
+﻿<xml id="toolbox" style="display: none">
+  <block type="event_start"></block>
+  <block type="turn_right"></block>
+  <block type="turn_left"></block>
+  <block type="move_forward"></block>
+  <block type="if_condition_else"></block>
+</xml>
