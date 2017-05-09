@@ -1142,9 +1142,6 @@ function checkString (searchString) {
 	if (len == 0) {
 		Scene.ResetConfig();
 		alert("请使用If语句完成本节!");
-	}else if (len == 1 || len == 2){
-		Scene.ResetConfig();
-		alert("请使用3个If语句完成本节!");
 	}
 };
 	
