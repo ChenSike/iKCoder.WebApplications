@@ -2,6 +2,6 @@
   <block type="event_start"></block>
   <block type="turn_left"></block>
   <block type="turn_right"></block>
-  <block type="forloop"></block>
   <block type="move_forward"></block>
+  <block type="forloop"></block>
 </xml>

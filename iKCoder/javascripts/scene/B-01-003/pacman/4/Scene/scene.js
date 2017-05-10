@@ -278,7 +278,7 @@ Scene.CreateMainStage = function () {
                             context.arc(pos.x, pos.y, game.stepUnit / 4 + this.times % 4, 0, 2 * Math.PI, true);
                             context.fill();
                             context.closePath();
-                        }else if(Scene.Apple.x == i && Scene.Apple.y == j && Scene.Apple.count >= 0){
+                        }else if(Scene.Apple.x == i && Scene.Apple.y == j && Scene.Apple.count > 0){
                             // for(var k = 0; k < Scene.Apple.length; k++){
                                context.drawImage(Scene.APPLEIMG, 0, 0, 10, 10, pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4, game.stepUnit / 2, game.stepUnit / 2);
                                 if(Scene._APPLEPATHS.length > 0 && Scene._Player.coord.x ==i && Scene._Player.coord.y == j){
@@ -286,7 +286,7 @@ Scene.CreateMainStage = function () {
                                     Scene.Apple.count = Scene.Apple.count -1;
                                     context.fillText(Scene.Apple.count,pos.x - game.stepUnit / 4, pos.y - game.stepUnit / 4);
                                     Scene._APPLEPATHS.shift();
-									sleep(1000);
+									//sleep(1000);
                                      //Scene.pause();
                                     if(Scene.Apple.count == 0){
                                         beans.set(i, j, 1); //Simon
